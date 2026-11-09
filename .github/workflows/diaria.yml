@@ -1,0 +1,54 @@
+name: palavra-diaria
+on:
+  schedule:
+    - cron: "0 8 * * *"       # 05:00 America/Fortaleza (UTC-3, sem horário de verão)
+  workflow_dispatch:
+    inputs:
+      data:
+        description: "AAAA-MM-DD (opcional)"
+        required: false
+concurrency: fiat-lux
+permissions:
+  contents: write              # commit do estado (branch estado) e de saidas/
+jobs:
+  diaria:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: "1"
+      HF_HOME: .cache/huggingface
+      FIATLUX_ESTADO: estado/estado.sqlite
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: estado
+          path: estado
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - uses: actions/cache@v4
+        with:
+          path: .cache/huggingface
+          key: hf-${{ hashFiles('config/settings.toml') }}
+      - run: uv sync --frozen --extra ml
+      - name: Índice bíblico (asset de Release)
+        run: uv run fiatlux indice baixar-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Palavra do Dia
+        run: uv run fiatlux --json-logs palavra diaria ${{ inputs.data && format('--data {0}', inputs.data) || '' }} --quieto
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
+          TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}
+      - name: Feedback (👍/👎)
+        if: always()
+        run: uv run fiatlux estado feedback || true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
+      - name: Persistir estado e saidas/
+        if: always()
+        run: uv run fiatlux estado commitar --mensagem "diária ${{ inputs.data || 'agendada' }}"
