@@ -1,0 +1,41 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      # Fixe as actions por SHA em produção (plano §13.1); o Dependabot mantém as versões.
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Lint
+        run: |
+          uv run ruff check src tests eval scripts
+          uv run ruff format --check src tests eval scripts
+          uv run mypy
+      - name: Testes unitários, de contrato e de snapshot
+        run: uv run pytest tests/unit tests/contract --cov=fiat_lux --cov-report=term
+      - name: Corpus (baixar + ingerir + validar)
+        run: |
+          uv run fiatlux biblia baixar
+          uv run fiatlux biblia ingerir
+          uv run fiatlux biblia validar
+      - name: Índice lexical (sem modelos neurais no CI rápido)
+        run: uv run fiatlux indice construir --embedder lexical
+      - name: Testes de integração
+        run: uv run pytest tests/integration
+      - name: Avaliação rápida (portão de regressão)
+        run: uv run fiatlux eval rodar --suite rapida

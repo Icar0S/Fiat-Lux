@@ -1,0 +1,125 @@
+[project]
+name = "fiat-lux"
+version = "0.1.0"
+description = "Fiat Lux: assistente diário e semanal da Palavra de Deus (liturgia, medidor de notícias e RAG bíblico com citação verificada)."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Icaro Santos" }]
+requires-python = ">=3.12"
+dependencies = [
+  "typer>=0.12",
+  "rich>=13.7",
+  "pydantic>=2.7",
+  "pydantic-settings>=2.3",
+  "httpx>=0.27",
+  "tenacity>=8.3",
+  "pyyaml>=6.0",
+  "jinja2>=3.1",
+  "structlog>=24.1",
+  "python-dateutil>=2.9",
+  "feedparser>=6.0",
+  "rapidfuzz>=3.9",
+  "scikit-learn>=1.5",
+  "numpy>=1.26",
+  "sqlite-vec>=0.1.6",
+  "anthropic>=0.40",
+  "matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+# Modelos neurais (embeddings e reranker). Pesados: ficam fora do CI rápido.
+# Sem eles, o pipeline usa o embedder lexical (TF-IDF) e o rerank pelo escore híbrido.
+ml = ["sentence-transformers>=3.0"]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.2",
+  "pytest-cov>=5.0",
+  "hypothesis>=6.100",
+  "respx>=0.21",
+  "pytest-recording>=0.13",
+  "time-machine>=2.14",
+  "syrupy>=4.6",
+  "ruff>=0.6",
+  "mypy>=1.11",
+  "pre-commit>=3.8",
+  "types-PyYAML",
+  "types-python-dateutil",
+  "rust-just>=1.30",
+]
+
+[project.scripts]
+fiatlux = "fiat_lux.cli:app"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fiat_lux"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests", "eval", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "C4", "PTH"]
+ignore = [
+  "E501",    # o formatador cuida do comprimento; tabelas de dados podem passar
+  "RUF001",  # texto em português usa – ’ “ ” legitimamente
+  "RUF002",
+  "RUF003",
+  "PTH123",  # open() é aceitável
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["B011", "PTH"]
+"src/fiat_lux/cli/**" = ["B008"]  # padrão do Typer: typer.Option() nos defaults
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "src"
+packages = ["fiat_lux"]
+ignore_missing_imports = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+
+# Núcleo com tipagem estrita (plano §1.2 RNF-08 / §5).
+[[tool.mypy.overrides]]
+module = [
+  "fiat_lux.biblia.*",
+  "fiat_lux.liturgia.*",
+  "fiat_lux.noticias.medidor",
+  "fiat_lux.agente.verificacao",
+]
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_any_generics = true
+warn_return_any = true
+no_implicit_reexport = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers -p no:cacheprovider"
+markers = [
+  "corpus: requer data/processed/biblia.sqlite construído (fiatlux biblia ingerir)",
+  "rede: acessa a internet",
+  "ml: requer o extra [ml] (sentence-transformers)",
+]
+filterwarnings = ["ignore::DeprecationWarning:feedparser.*"]
+
+[tool.coverage.run]
+source = ["fiat_lux"]
+branch = true
+
+[tool.coverage.report]
+show_missing = false
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "\\.\\.\\."]

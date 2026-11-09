@@ -1,0 +1,36 @@
+# Python / ferramentas
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Dados (reconstruíveis; plano §6). Amostras pequenas ficam em tests/fixtures.
+data/raw/
+data/interim/
+data/processed/
+data/markdown/
+data/estado/
+data/cache/
+.cache/
+
+# Relatórios gerados localmente
+eval/relatorios/*.html
+
+# SO / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
