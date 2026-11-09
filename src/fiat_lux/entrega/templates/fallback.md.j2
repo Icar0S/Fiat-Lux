@@ -1,0 +1,23 @@
+# Palavra do Dia — {{ data_extenso }}
+
+**{{ celebracao }}** · {{ tempo }}{% if cor %} · cor {{ cor }}{% endif %}
+
+*{{ motivo }}*
+
+{% if evangelho %}
+## {{ rotulo_evangelho }} — {{ evangelho.referencia }}
+
+{{ evangelho.texto }}
+
+{% elif passagem %}
+## A Palavra para hoje — {{ passagem.ref }} ({{ passagem.traducao }})
+
+> {{ passagem.texto }}
+
+{% endif %}
+## Oração
+
+{{ oracao }}
+
+---
+<sub>{% if atribuicao %}Texto bíblico: {{ atribuicao }} · {% endif %}Leituras: Liturgia Diária · Fiat Lux v{{ versao }} (mensagem de contingência)</sub>

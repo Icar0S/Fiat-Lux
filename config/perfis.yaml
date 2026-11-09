@@ -1,0 +1,22 @@
+# Perfis (plano §8.5.6): cânon, tradução e rótulos.
+catolico:
+  traducao: ms
+  traducao_deutero: ms
+  canon: 73
+  deuterocanonicos: normais
+  rotulo_deutero: null
+  rotulo_evangelho: "Evangelho do dia"
+evangelico:
+  traducao: blivre
+  traducao_deutero: null
+  canon: 66
+  deuterocanonicos: excluidos
+  rotulo_deutero: null
+  rotulo_evangelho: "Leitura do lecionário"
+ecumenico:
+  traducao: blivre
+  traducao_deutero: ms
+  canon: 73
+  deuterocanonicos: rotulados
+  rotulo_deutero: "livro deuterocanônico, aceito pela tradição católica"
+  rotulo_evangelho: "Evangelho do dia"

@@ -1,0 +1,49 @@
+{#- Palavra do Dia (plano Apêndice A). As linhas em branco são significativas no Markdown:
+    sem elas, a reflexão seria absorvida pelo bloco de citação. -#}
+# Palavra do Dia — {{ data_extenso }}
+
+**{{ celebracao }}** · {{ tempo }}{% if semana %} ({{ semana }}ª semana){% endif %} · cor {{ cor }} · Ano {{ ciclo_dominical }} / {{ ciclo_ferial }}
+
+## Como está o mundo hoje
+
+{% if medidor -%}
+{% if medidor.mundial %}Mundo **{{ medidor.mundial.indice }}** ({{ medidor.mundial.faixa }}){% endif %}{% if medidor.nacional %} · Brasil **{{ medidor.nacional.indice }}** ({{ medidor.nacional.faixa }}){% endif %}{% if medidor.regional %} · {{ regiao }} **{{ medidor.regional.indice }}** ({{ medidor.regional.faixa }}){% endif %}{% if calibrando %} · *medidor em calibração*{% endif %}
+{%- else -%}
+*O medidor de notícias não pôde ser concluído hoje.*
+{%- endif %}
+
+{{ olhar_sobre_o_dia }}
+{% if links %}
+
+Fontes: {% for l in links %}[{{ l.dominio }}]({{ l.url }}){% if not loop.last %} · {% endif %}{% endfor %}
+{% endif %}
+{% if evangelho %}
+
+## {{ rotulo_evangelho }} — {{ evangelho.referencia }}
+
+{{ evangelho.texto }}
+{% endif %}
+
+## A Palavra para hoje — {{ p1.ref }} ({{ p1.traducao }})
+
+> {{ p1.texto }}{% if p1.rotulo_deutero %} *({{ p1.rotulo_deutero }})*{% endif %}
+
+{{ reflexao }}
+
+**Ensinamento:** {{ ensinamento }}
+
+**Gesto de hoje:** {{ gesto }}
+
+## Oração
+
+{{ oracao }}
+
+## Para aprofundar
+
+{% for c in complementares -%}
+- **{{ c.ref }}** ({{ c.traducao }}){% if c.rotulo_deutero %} *({{ c.rotulo_deutero }})*{% endif %} — {{ c.texto }}
+{% endfor %}
+
+---
+
+<sub>Texto bíblico: {{ atribuicao }} · Leituras: Liturgia Diária{% if creditos_noticias %} · Notícias: {{ creditos_noticias }}{% endif %} · O índice de tensão é um sinal automático, não uma verdade · Fiat Lux v{{ versao }}</sub>

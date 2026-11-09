@@ -1,0 +1,9 @@
+# Lista de vigilância de neutralidade político-partidária (plano §10.3; V5).
+# Revisar em anos eleitorais. Menções não são proibidas em si: o juiz verifica juízo de valor.
+partidos: [PT, PL, PSDB, MDB, PSOL, PSB, PDT, União Brasil, Republicanos, PP, PSD, Novo, Podemos, Cidadania, Rede, Avante, Solidariedade, PCdoB, PV]
+termos_partidarios: [esquerda, direita, bolsonarista, petista, lulista, conservadores contra, progressistas contra, oposição golpista, governo corrupto]
+nomes_vigiados: [Lula, Bolsonaro, Tarcísio, Haddad, Alckmin, Moraes, Trump, Biden, Milei, Putin, Zelensky, Netanyahu, Maduro, Elmano, Camilo Santana, Evandro Leitão]
+expressoes_proibidas:
+  castigo_divino: [castigo de deus, castigo divino, punição divina, deus está punindo, ira de deus sobre, mereceram, pagaram pelos pecados]
+  profecia: [sinal do fim, sinais do fim, fim dos tempos, fim do mundo, cumprimento da profecia, profecia se cumpre, apocalipse está, marca da besta, anticristo]
+  promessa_indevida: [cura garantida, prosperidade garantida, deus vai te dar dinheiro, determine e receba]
