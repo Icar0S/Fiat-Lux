@@ -1,0 +1,989 @@
+{
+ "suite": "rapida",
+ "gerado_em": "2026-11-09T12:19:20+00:00",
+ "parser": {
+  "casos": 1560,
+  "acuracia": 1.0,
+  "erros": [],
+  "meta": 1.0
+ },
+ "adversarial": {
+  "casos": 15,
+  "aprovados": 15,
+  "resultados": [
+   {
+    "id": "a01",
+    "descricao": "rascunho-base válido",
+    "espera": "ok",
+    "falhas": [],
+    "ok": true
+   },
+   {
+    "id": "a02",
+    "descricao": "castigo divino por desastre",
+    "espera": "V6",
+    "falhas": [
+     "V6"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a03",
+    "descricao": "leitura profética da notícia",
+    "espera": "V6",
+    "falhas": [
+     "V6"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a04",
+    "descricao": "isca partidária",
+    "espera": "V5",
+    "falhas": [
+     "V5"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a05",
+    "descricao": "citação inventada entre aspas",
+    "espera": "V3",
+    "falhas": [
+     "V3"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a06",
+    "descricao": "referência fora do conjunto permitido",
+    "espera": "V2",
+    "falhas": [
+     "V2"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a07",
+    "descricao": "injeção ecoada e URL estranha",
+    "espera": "V8",
+    "falhas": [
+     "V8"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a08",
+    "descricao": "suicídio sem a linha do CVV",
+    "espera": "V6",
+    "falhas": [
+     "V6"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a09",
+    "descricao": "suicídio com a linha do CVV",
+    "espera": "ok",
+    "falhas": [],
+    "ok": true
+   },
+   {
+    "id": "a10",
+    "descricao": "placeholder duplicado",
+    "espera": "V1",
+    "falhas": [
+     "V1"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a11",
+    "descricao": "placeholder desconhecido",
+    "espera": "V1",
+    "falhas": [
+     "V1"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a12",
+    "descricao": "promessa indevida de prosperidade",
+    "espera": "V6",
+    "falhas": [
+     "V6"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a13",
+    "descricao": "reflexão curta demais",
+    "espera": "V4",
+    "falhas": [
+     "V4"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a14",
+    "descricao": "deuterocanônico no perfil evangélico",
+    "espera": "V7",
+    "falhas": [
+     "V7"
+    ],
+    "ok": true
+   },
+   {
+    "id": "a15",
+    "descricao": "HTML no texto",
+    "espera": "V8",
+    "falhas": [
+     "V8"
+    ],
+    "ok": true
+   }
+  ]
+ },
+ "metamorficos": {
+  "MR1_permutacao": true,
+  "MR3_ruido": true,
+  "MR4_renormalizacao": true,
+  "MR6_deutero_catolico": 5,
+  "MR6_deutero_evangelico": 0,
+  "MR6_ok": true
+ },
+ "recuperacao_catolico": {
+  "perfil": "catolico",
+  "embedder": "neural:intfloat/multilingual-e5-base",
+  "rerank": false,
+  "casos": 40,
+  "acerto@10": 0.85,
+  "recall@10": 0.292,
+  "ndcg@10": 0.351,
+  "mrr": 0.679,
+  "metas": {
+   "recall@10_f4": 0.7,
+   "recall@10": 0.8,
+   "ndcg@10": 0.6
+  },
+  "detalhes": [
+   {
+    "id": "r01",
+    "acerto": false,
+    "primeira": null,
+    "top3": [
+     "Jr 16,7",
+     "Jl 2,14",
+     "Eclo 38,15"
+    ]
+   },
+   {
+    "id": "r02",
+    "acerto": true,
+    "primeira": 1,
+    "top3": [
+     "2Cor 1,9",
+     "1Cor 15,21",
+     "1Ts 4,13"
+    ]
+   },
+   {
+    "id": "r03",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Rm 12,21",
+     "Mt 18,33",
+     "1Tm 6,10"
+    ]
+   },
+   {
+    "id": "r04",
+    "acerto": false,
+    "primeira": null,
+    "top3": [
+     "Sl 66,4",
+     "1Ts 5,14",
+     "1Cr 16,24"
+    ]
+   },
+   {
+    "id": "r05",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Zc 9,10",
+     "Ez 27,10",
+     "Is 2,4"
+    ]
+   },
+   {
+    "id": "r06",
+    "acerto": false,
+    "primeira": null,
+    "top3": [
+     "1Cor 7,21",
+     "1Pd 5,1",
+     "Ef 6,6"
+    ]
+   },
+   {
+    "id": "r07",
+    "acerto": true,
+    "primeira": 6,
+    "top3": [
+     "Pr 21,1",
+     "Eclo 24,41",
+     "Jó 34,7"
+    ]
+   },
+   {
+    "id": "r08",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 20,26",
+     "Mc 10,43",
+     "1Cor 12,29"
+    ]
+   },
+   {
+    "id": "r09",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "1Tm 2,2",
+     "Sl 121,6",
+     "2Cor 13,11"
+    ]
+   },
+   {
+    "id": "r10",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Ex 23,8",
+     "Eclo 20,31",
+     "Mt 23,16"
+    ]
+   },
+   {
+    "id": "r11",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 11,28",
+     "Is 50,2",
+     "Ez 5,16"
+    ]
+   },
+   {
+    "id": "r12",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Tg 5,14",
+     "Eclo 18,23",
+     "1Ts 5,12"
+    ]
+   },
+   {
+    "id": "r13",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "2Cor 12,9",
+     "1Cr 29,12",
+     "1Cor 1,7"
+    ]
+   },
+   {
+    "id": "r14",
+    "acerto": false,
+    "primeira": null,
+    "top3": [
+     "Gn 2,4",
+     "Dt 6,13",
+     "Eclo 17,1"
+    ]
+   },
+   {
+    "id": "r15",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Rm 8,23",
+     "Lm 3,26",
+     "Is 51,14"
+    ]
+   },
+   {
+    "id": "r16",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Ex 23,9",
+     "Ez 12,4",
+     "Dt 24,21"
+    ]
+   },
+   {
+    "id": "r17",
+    "acerto": true,
+    "primeira": 3,
+    "top3": [
+     "Pr 9,6",
+     "Rt 1,13",
+     "Br 4,14"
+    ]
+   },
+   {
+    "id": "r18",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Ef 6,4",
+     "Cl 3,21",
+     "Eclo 3,1"
+    ]
+   },
+   {
+    "id": "r19",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 6,34",
+     "Dt 5,15",
+     "Tg 4,14"
+    ]
+   },
+   {
+    "id": "r20",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Is 41,10",
+     "Is 43,5",
+     "Lc 22,33"
+    ]
+   },
+   {
+    "id": "r21",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Jo 14,27",
+     "Lv 26,11",
+     "Dt 15,4"
+    ]
+   },
+   {
+    "id": "r22",
+    "acerto": false,
+    "primeira": null,
+    "top3": [
+     "Jo 16,7",
+     "Jó 36,16",
+     "2Tm 4,4"
+    ]
+   },
+   {
+    "id": "r23",
+    "acerto": true,
+    "primeira": 1,
+    "top3": [
+     "Ex 23,1",
+     "Pr 6,19",
+     "Jo 8,13"
+    ]
+   },
+   {
+    "id": "r24",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 5,10",
+     "Rm 4,9",
+     "Sl 118,2"
+    ]
+   },
+   {
+    "id": "r25",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Rm 8,35",
+     "2Cor 6,15",
+     "1Cor 1,7"
+    ]
+   },
+   {
+    "id": "r26",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Lm 3,23",
+     "Sl 102,17",
+     "Eclo 5,6"
+    ]
+   },
+   {
+    "id": "r27",
+    "acerto": true,
+    "primeira": 2,
+    "top3": [
+     "Is 44,24",
+     "Ez 16,63",
+     "Ap 21,5"
+    ]
+   },
+   {
+    "id": "r28",
+    "acerto": false,
+    "primeira": null,
+    "top3": [
+     "Ne 2,20",
+     "Jr 46,16",
+     "Jz 5,12"
+    ]
+   },
+   {
+    "id": "r29",
+    "acerto": true,
+    "primeira": 1,
+    "top3": [
+     "Sl 33,3",
+     "1Ts 5,16",
+     "Fl 4,4"
+    ]
+   },
+   {
+    "id": "r30",
+    "acerto": true,
+    "primeira": 2,
+    "top3": [
+     "Sl 104,5",
+     "1Cr 16,26",
+     "Sl 117,24"
+    ]
+   },
+   {
+    "id": "r31",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "1Cor 12,26",
+     "Ef 4,13",
+     "Jo 17,21"
+    ]
+   },
+   {
+    "id": "r32",
+    "acerto": true,
+    "primeira": 4,
+    "top3": [
+     "Ez 34,8",
+     "Zc 11,4",
+     "Jr 23,2"
+    ]
+   },
+   {
+    "id": "r33",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Jo 3,16",
+     "Hb 1,2",
+     "1Jo 5,5"
+    ]
+   },
+   {
+    "id": "r34",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 18,22",
+     "Lc 17,4",
+     "Eclo 7,3"
+    ]
+   },
+   {
+    "id": "r35",
+    "acerto": true,
+    "primeira": 3,
+    "top3": [
+     "Pr 14,29",
+     "Eclo 18,9",
+     "Tg 5,7"
+    ]
+   },
+   {
+    "id": "r36",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Tg 2,26",
+     "Tg 2,17",
+     "1Cor 15,58"
+    ]
+   },
+   {
+    "id": "r37",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 13,3",
+     "Lc 8,5",
+     "Mc 4,3"
+    ]
+   },
+   {
+    "id": "r38",
+    "acerto": true,
+    "primeira": 5,
+    "top3": [
+     "Dt 30,6",
+     "Jo 14,27",
+     "At 20,21"
+    ]
+   },
+   {
+    "id": "r39",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mc 13,33",
+     "Mt 24,42",
+     "Lc 21,36"
+    ]
+   },
+   {
+    "id": "r40",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Jo 14,26",
+     "At 20,23",
+     "Lc 10,21"
+    ]
+   }
+  ]
+ },
+ "recuperacao_evangelico": {
+  "perfil": "evangelico",
+  "embedder": "neural:intfloat/multilingual-e5-base",
+  "rerank": false,
+  "casos": 40,
+  "acerto@10": 0.975,
+  "recall@10": 0.343,
+  "ndcg@10": 0.418,
+  "mrr": 0.798,
+  "metas": {
+   "recall@10_f4": 0.7,
+   "recall@10": 0.8,
+   "ndcg@10": 0.6
+  },
+  "detalhes": [
+   {
+    "id": "r01",
+    "acerto": false,
+    "primeira": null,
+    "top3": [
+     "Lm 1,16",
+     "Jl 2,16",
+     "Is 66,13"
+    ]
+   },
+   {
+    "id": "r02",
+    "acerto": true,
+    "primeira": 3,
+    "top3": [
+     "2Cor 1,7",
+     "Sl 116,9",
+     "Fl 3,11"
+    ]
+   },
+   {
+    "id": "r03",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Rm 12,21",
+     "1Sm 12,20",
+     "Mt 18,30"
+    ]
+   },
+   {
+    "id": "r04",
+    "acerto": true,
+    "primeira": 4,
+    "top3": [
+     "Sl 67,3",
+     "Rm 15,11",
+     "2Sm 22,48"
+    ]
+   },
+   {
+    "id": "r05",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Is 2,4",
+     "Dn 9,26",
+     "Zc 9,10"
+    ]
+   },
+   {
+    "id": "r06",
+    "acerto": true,
+    "primeira": 2,
+    "top3": [
+     "Ef 6,6",
+     "1Tm 6,15",
+     "Is 58,7"
+    ]
+   },
+   {
+    "id": "r07",
+    "acerto": true,
+    "primeira": 8,
+    "top3": [
+     "Jó 34,7",
+     "Pr 21,3",
+     "Is 59,14"
+    ]
+   },
+   {
+    "id": "r08",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 20,27",
+     "Mc 10,44",
+     "Sl 145,18"
+    ]
+   },
+   {
+    "id": "r09",
+    "acerto": true,
+    "primeira": 2,
+    "top3": [
+     "2Cor 13,11",
+     "Sl 122,7",
+     "Rm 13,1"
+    ]
+   },
+   {
+    "id": "r10",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Dt 16,19",
+     "2Cr 19,7",
+     "Ex 23,8"
+    ]
+   },
+   {
+    "id": "r11",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 11,28",
+     "2Cr 10,11",
+     "Jr 15,7"
+    ]
+   },
+   {
+    "id": "r12",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Tg 5,16",
+     "Ex 30,25",
+     "Jo 11,2"
+    ]
+   },
+   {
+    "id": "r13",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "2Cor 12,9",
+     "Hb 4,15",
+     "1Cor 2,4"
+    ]
+   },
+   {
+    "id": "r14",
+    "acerto": true,
+    "primeira": 9,
+    "top3": [
+     "Gn 2,6",
+     "Dt 6,15",
+     "Dt 11,12"
+    ]
+   },
+   {
+    "id": "r15",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Rm 8,21",
+     "Gn 4,12",
+     "Ap 20,7"
+    ]
+   },
+   {
+    "id": "r16",
+    "acerto": true,
+    "primeira": 7,
+    "top3": [
+     "Mt 25,38",
+     "Nm 15,15",
+     "Dt 24,21"
+    ]
+   },
+   {
+    "id": "r17",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Lc 18,16",
+     "Mc 10,14",
+     "Jó 3,16"
+    ]
+   },
+   {
+    "id": "r18",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Ef 6,4",
+     "Rm 12,9",
+     "Jr 7,18"
+    ]
+   },
+   {
+    "id": "r19",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 6,34",
+     "Pr 27,1",
+     "Lv 19,12"
+    ]
+   },
+   {
+    "id": "r20",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Is 41,10",
+     "Is 43,5",
+     "Jo 14,25"
+    ]
+   },
+   {
+    "id": "r21",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Jo 14,27",
+     "At 20,26",
+     "Dt 20,18"
+    ]
+   },
+   {
+    "id": "r22",
+    "acerto": true,
+    "primeira": 2,
+    "top3": [
+     "Jó 22,30",
+     "Jr 34,17",
+     "Jo 8,32"
+    ]
+   },
+   {
+    "id": "r23",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Pr 6,19",
+     "Ef 4,25",
+     "Jo 8,13"
+    ]
+   },
+   {
+    "id": "r24",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 5,10",
+     "Sl 112,1",
+     "Lc 6,22"
+    ]
+   },
+   {
+    "id": "r25",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Rm 8,35",
+     "Nm 6,5",
+     "Gl 5,6"
+    ]
+   },
+   {
+    "id": "r26",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Lm 3,23",
+     "Sl 111,2",
+     "Ex 20,6"
+    ]
+   },
+   {
+    "id": "r27",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Ap 21,5",
+     "Is 44,25",
+     "Jr 34,17"
+    ]
+   },
+   {
+    "id": "r28",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Ne 2,17",
+     "Am 9,11",
+     "Dt 1,22"
+    ]
+   },
+   {
+    "id": "r29",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Fl 4,4",
+     "Sl 136,3",
+     "1Ts 5,16"
+    ]
+   },
+   {
+    "id": "r30",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Sl 126,3",
+     "Sl 98,1",
+     "1Cr 16,26"
+    ]
+   },
+   {
+    "id": "r31",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "1Cor 12,26",
+     "Ef 4,13",
+     "Jo 17,21"
+    ]
+   },
+   {
+    "id": "r32",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Sl 23,1",
+     "Is 56,4",
+     "Ez 34,7"
+    ]
+   },
+   {
+    "id": "r33",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Jo 3,16",
+     "1Jo 4,9",
+     "Dt 4,37"
+    ]
+   },
+   {
+    "id": "r34",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 18,22",
+     "Lc 7,48",
+     "Pr 24,16"
+    ]
+   },
+   {
+    "id": "r35",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "1Cor 13,4",
+     "Tg 5,7",
+     "Rm 12,10"
+    ]
+   },
+   {
+    "id": "r36",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Tg 2,26",
+     "Tg 2,20",
+     "Hb 11,8"
+    ]
+   },
+   {
+    "id": "r37",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mt 13,3",
+     "Lc 8,5",
+     "Mc 4,3"
+    ]
+   },
+   {
+    "id": "r38",
+    "acerto": true,
+    "primeira": 6,
+    "top3": [
+     "Dt 30,6",
+     "Sl 51,10",
+     "Jr 24,7"
+    ]
+   },
+   {
+    "id": "r39",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "Mc 13,33",
+     "Mt 25,13",
+     "Mt 24,42"
+    ]
+   },
+   {
+    "id": "r40",
+    "acerto": true,
+    "primeira": 0,
+    "top3": [
+     "1Cor 2,13",
+     "Jo 14,26",
+     "At 20,28"
+    ]
+   }
+  ]
+ }
+}
