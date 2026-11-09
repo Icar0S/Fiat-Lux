@@ -1,0 +1,46 @@
+name: palavra-semanal
+on:
+  schedule:
+    - cron: "0 20 * * 6"      # sábado 17:00 America/Fortaleza
+  workflow_dispatch:
+    inputs:
+      semana:
+        description: "AAAA-Wnn (opcional)"
+        required: false
+concurrency: fiat-lux
+permissions:
+  contents: write
+jobs:
+  semanal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONUTF8: "1"
+      HF_HOME: .cache/huggingface
+      FIATLUX_ESTADO: estado/estado.sqlite
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: estado
+          path: estado
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - uses: actions/cache@v4
+        with:
+          path: .cache/huggingface
+          key: hf-${{ hashFiles('config/settings.toml') }}
+      - run: uv sync --frozen --extra ml
+      - run: uv run fiatlux indice baixar-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Palavra da Semana
+        run: uv run fiatlux --json-logs palavra semanal ${{ inputs.semana && format('--semana {0}', inputs.semana) || '' }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
+          TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}
+      - if: always()
+        run: uv run fiatlux estado commitar --mensagem "semanal ${{ inputs.semana || 'agendada' }}"

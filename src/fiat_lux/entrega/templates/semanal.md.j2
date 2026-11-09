@@ -1,0 +1,65 @@
+# Palavra da Semana — semana {{ semana }}
+
+Preparando **{{ celebracao }}** ({{ data_extenso }}) · {{ tempo }} · Ano {{ ciclo }}
+
+## A semana em uma frase
+
+{{ frase }}
+{% if medidor %}
+
+Medidor ao fim da semana: {% for escopo, m in medidor.items() %}{{ escopo }} **{{ m.indice }}** ({{ m.faixa }}){% if not loop.last %} · {% endif %}{% endfor %}{% if tendencia %} · tendência **{{ tendencia }}**{% endif %}
+{% endif %}
+{% if grafico %}
+
+![Tendência do Índice de Tensão]({{ grafico }})
+{% endif %}
+{% if temas %}
+
+Temas que voltaram ao longo dos dias:
+
+{% for t in temas -%}
+- {{ t.rotulo }} ({{ t.dias }} dia{% if t.dias > 1 %}s{% endif %})
+{% endfor %}
+{% endif %}
+{% if evangelho %}
+
+## Evangelho do domingo — {{ evangelho.referencia }}
+{% if evangelho.resumo %}
+
+{{ evangelho.resumo }}
+{% endif %}
+{% endif %}
+
+## A Palavra da Semana — {{ p1.ref }} ({{ p1.traducao }})
+
+> {{ p1.texto }}
+
+{{ reflexao }}
+
+**Ensinamento:** {{ ensinamento }}
+
+**Gesto da semana:** {{ gesto }}
+{% if plano %}
+
+## Plano de leitura
+
+{% for d in plano -%}
+- **{{ d.dia }}** — {{ d.ref }} ({{ d.traducao }}){% if d.evangelho %} · Evangelho do dia: {{ d.evangelho }}{% endif %}{% if d.tema %} · *{{ d.tema }}*{% endif %}
+{% endfor %}
+{% endif %}
+{% if perguntas %}
+
+## Para partilhar
+
+{% for q in perguntas -%}
+{{ loop.index }}. {{ q }}
+{% endfor %}
+{% endif %}
+
+## Oração da semana
+
+{{ oracao }}
+
+---
+
+<sub>Texto bíblico: {{ atribuicao }} · Leituras: Liturgia Diária · O índice de tensão é um sinal automático (léxico e tradução de máquina), não uma verdade · Fiat Lux v{{ versao }}</sub>
