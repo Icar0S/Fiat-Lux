@@ -1,0 +1,55 @@
+# Fontes de notícias por escopo (plano §8.3.1). Guardamos só metadados (título, link, data,
+# domínio) — nunca o corpo dos artigos (§13.5).
+#
+# GDELT DOC 2.0: operadores validados na Fase 3. Consultas só com operadores podem ser
+# recusadas; por isso cada escopo tem também a união de consultas temáticas.
+# RSS: fallback de todos os escopos e fonte principal do regional.
+
+gdelt:
+  url: https://api.gdeltproject.org/api/v2/doc/doc
+  intervalo_s: 5.5          # a API pede no máximo 1 requisição a cada 5 s
+  timeout_s: 40
+
+escopos:
+  mundial:
+    gdelt:
+      tom: "sourcelang:english (world OR international OR crisis OR war OR disaster)"
+      consultas:
+        - "sourcelang:english (war OR conflict OR attack OR ceasefire)"
+        - "sourcelang:english (earthquake OR flood OR hurricane OR disaster)"
+        - "sourcelang:english (pope OR church OR humanitarian OR refugees)"
+        - "sourcelang:portuguese (guerra OR conflito OR terremoto OR refugiados OR papa)"
+    rss:
+      - {nome: google-news-mundo, url: "https://news.google.com/rss/headlines/section/topic/WORLD?hl=pt-BR&gl=BR&ceid=BR:pt-419"}
+      - {nome: bbc-brasil, url: "https://feeds.bbci.co.uk/portuguese/rss.xml"}
+  nacional:
+    gdelt:
+      tom: "sourcecountry:BR sourcelang:portuguese (brasil OR governo OR economia)"
+      consultas:
+        - "sourcecountry:BR sourcelang:portuguese (brasil OR governo OR economia OR saúde)"
+        - "sourcecountry:BR sourcelang:portuguese (violência OR enchente OR seca OR acidente)"
+    rss:
+      - {nome: google-news-brasil, url: "https://news.google.com/rss/headlines/section/topic/NATION?hl=pt-BR&gl=BR&ceid=BR:pt-419"}
+      - {nome: g1, url: "https://g1.globo.com/rss/g1/"}
+      - {nome: agencia-brasil, url: "https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml"}
+  regional:
+    regiao: Ceará
+    gdelt:
+      tom: "(Ceará OR Fortaleza OR cearense) sourcecountry:BR"
+      consultas:
+        - "(Ceará OR Fortaleza OR cearense) sourcecountry:BR"
+    rss:
+      - {nome: google-news-ceara, url: "https://news.google.com/rss/search?q=(Cear%C3%A1+OR+Fortaleza+OR+cearense)+-futebol+-%22S%C3%A9rie+B%22+-%22S%C3%A9rie+A%22+-escala%C3%A7%C3%A3o+-t%C3%A9cnico+when:1d&hl=pt-BR&gl=BR&ceid=BR:pt-419"}
+
+# Fontes complementares (entram no escopo indicado; úteis para a categoria igreja_fe)
+complementares:
+  - {nome: vatican-news, escopo: mundial, url: "https://www.vaticannews.va/pt.rss.xml", max_itens: 15}
+
+# Sufixos de veículo removidos dos títulos (" - G1", " | O Povo"...)
+sufixos_titulo:
+  - " - G1"
+  - " - g1"
+  - " | O Povo"
+  - " - BBC News Brasil"
+  - " – BBC News Brasil"
+  - " - Agência Brasil"
