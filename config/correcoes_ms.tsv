@@ -1,0 +1,56 @@
+# Correções manuais da Matos Soares (plano §8.1.2, passo 4). Versionado e revisável.
+# Colunas (TAB): traducao	livro(USFM)	capitulo	versiculo	acao	valor	nota
+# Ações:
+#   manter_ocorrencia  N        número repetido: fica só a N-ésima ocorrência (ordem da fonte)
+#   unir_ocorrencias   N,M,...  número repetido: une as ocorrências nessa ordem
+#   substituir         de|para  troca literal no texto bruto
+#   texto              ...      substitui o texto bruto inteiro
+#   dividir            marcador o versículo é dividido antes do marcador; a 2ª parte vira o v+1
+#   aceitar_lacuna     tipo     lacuna conhecida (tipo: fundido | ausente)
+ms	JOS	8	9	manter_ocorrencia	2	1ª ocorrência tem o erro "entro"; a 2ª, "entre"
+ms	EST	1	12	unir_ocorrencias	2,1	recusa de Vasti (2ª) precede a ira do rei (1ª), como em Est 1,12
+ms	JOB	34	20	manter_ocorrencia	1	2ª ocorrência ("Deus não teme os grandes.") é resumo editorial
+ms	PSA	118	126	manter_ocorrencia	2	1ª ocorrência tem "E tempo"; a 2ª, "É tempo"
+ms	DAN	2	28	unir_ocorrencias	2,1	"Mas no céu há um Deus..." precede "O teu sonho e as visões..."
+ms	HOS	11	1	unir_ocorrencias	1,2	na Vulgata, Os 11,1 começa com o fim de 10,15 ("Desde a aurora...")
+ms	LUK	9	41	manter_ocorrencia	1	2ª ocorrência é nota de rodapé ("Ver nota Mt. 18, 19.")
+ms	JER	31	24	substituir	lavrador®|lavradores	artefato de OCR
+# --- versículo no capítulo errado na fonte
+ms	1CH	10	26	mover	11,26	"Os mais valentes do exército eram: Asael..." é 1Cr 11,26 (gerava 11 lacunas falsas em 1Cr 10)
+# --- versículos fundidos (texto do v+1 dentro do v); conferidos com a divisão da Vulgata
+ms	1CH	1	10	dividir	Mesraim gerou	1Cr 1,11 = "Mesraim gerou Ludim..."
+ms	PRO	6	26	dividir	Porventura pode um homem	Pv 6,27
+ms	PRO	11	24	dividir	A alma beneficente	Pv 11,25
+ms	PRO	24	4	dividir	O homem sábio é forte	Pv 24,5
+ms	SNG	4	6	dividir	Toda és formosa	Ct 4,7
+ms	JER	18	4	dividir	Então foi-me dirigida	Jr 18,5
+ms	WIS	12	6	dividir	a fim de que esta terra	Sb 12,7 (Vulg. "ut dignam perciperent...")
+ms	EST	16	6	dividir	Comprova-se	Est 16,7 (Vulg. "Quae res et ex veteribus probatur historiis")
+ms	SIR	1	31	dividir	o pecador, porém	Eclo 1,32 (Vulg. "execratio autem peccatoribus")
+ms	SIR	10	21	dividir	A soberba não foi criada	Eclo 10,22
+ms	SIR	17	1	dividir	E ele o fez de novo	Eclo 17,2 (Vulg. "Et iterum convertit illum")
+ms	SIR	19	6	dividir	Não repitas uma palavra	Eclo 19,7
+ms	SIR	22	1	dividir	Ao preguiçoso é atirado excremento	Eclo 22,2
+ms	SIR	23	21	dividir	A alma ardente	Eclo 23,22
+ms	SIR	23	24	dividir	Todo o homem que desonra	Eclo 23,25
+ms	SIR	28	6	dividir	porque a corrupção	Eclo 28,7 (Vulg. "tabitudo enim et mors")
+ms	SIR	30	21	dividir	Não abandones a tua alma	Eclo 30,22
+ms	SIR	30	22	dividir	O júbilo do coração	Eclo 30,23 (encadeada com a anterior)
+ms	SIR	34	26	dividir	Aquele que derrama sangue	Eclo 34,27
+ms	SIR	39	4	dividir	Percorre a terra	Eclo 39,5
+ms	SIR	45	4	dividir	(Deus) ouviu-o	Eclo 45,5
+ms	SIR	46	4	dividir	Não é assim que	Eclo 46,5
+ms	SIR	50	4	dividir	Conseguiu engrandecer	Eclo 50,5
+ms	SIR	50	6	dividir	e como um Sol brilhante	Eclo 50,7 (Vulg. "Et quasi sol refulgens")
+ms	SIR	51	21	dividir	Encontrei muita sabedoria	Eclo 51,22
+# --- lacunas reais: o texto não está na fonte (perícopes que as atravessam ficam marcadas)
+ms	JOS	24	19	aceitar_lacuna	ausente	"Então Josué disse ao povo: Não podereis servir ao Senhor..." ausente
+ms	RUT	1	19	aceitar_lacuna	ausente	chegada a Belém ausente
+ms	JDT	8	4	aceitar_lacuna	ausente	"Judite ficara viúva..." ausente
+ms	JOB	3	24	aceitar_lacuna	ausente	"antes do meu pão vem o meu suspiro" ausente
+ms	JOB	18	12	aceitar_lacuna	ausente	"Sua força se tornará em fome" ausente
+ms	JER	1	15	aceitar_lacuna	ausente	convocação dos reinos do norte ausente
+ms	3JN	1	3	aceitar_lacuna	ausente	"muito me alegrei quando irmãos chegaram" ausente
+ms	PRO	24	1	dividir	porque o seu espírito	Pv 24,2
+ms	JOB	34	18	aceitar_lacuna	ausente	"Quem diz ao rei: apóstata..." ausente (34,17 está completo, como na Vulgata)
+ms	PHP	2	29	aceitar_lacuna	ausente	"Recebei-o, pois, no Senhor..." ausente

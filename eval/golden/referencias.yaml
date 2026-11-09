@@ -1,0 +1,8031 @@
+# Corpus real de referências da API de liturgia (gerado; não edite à mão).
+# scripts/gerar_golden_referencias.py — plano §11.2 (meta ≥ 1.000 referências).
+versao: 1
+total: 1560
+referencias:
+- ref: Nm 6, 22-27
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-01'
+  livro: NUM
+  normalizada: Nm 6,22-27
+- ref: Gl 4, 4-7
+  tipo: segundaLeitura
+  primeira_data: '2026-01-01'
+  livro: GAL
+  normalizada: Gl 4,4-7
+- ref: Sl 66
+  tipo: salmo
+  primeira_data: '2026-01-01'
+  livro: PSA
+  normalizada: Sl 66
+- ref: Lc 2, 16-21
+  tipo: evangelho
+  primeira_data: '2026-01-01'
+  livro: LUK
+  normalizada: Lc 2,16-21
+- ref: 1Jo 2, 22-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-02'
+  livro: 1JN
+  normalizada: 1Jo 2,22-28
+- ref: Sl 97
+  tipo: salmo
+  primeira_data: '2026-01-02'
+  livro: PSA
+  normalizada: Sl 97
+- ref: Jo 1, 19-28
+  tipo: evangelho
+  primeira_data: '2026-01-02'
+  livro: JHN
+  normalizada: Jo 1,19-28
+- ref: 1Jo 2,29-3,6
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-03'
+  livro: 1JN
+  normalizada: 1Jo 2,29-3,6
+- ref: Sl 97(98)
+  tipo: salmo
+  primeira_data: '2026-01-03'
+  livro: PSA
+  normalizada: Sl 97
+  salmo_hebraico: '98'
+- ref: Jo 1,29-34
+  tipo: evangelho
+  primeira_data: '2026-01-03'
+  livro: JHN
+  normalizada: Jo 1,29-34
+- ref: Is 60, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-04'
+  livro: ISA
+  normalizada: Is 60,1-6
+- ref: Ef 3, 2-3a. 5-6
+  tipo: segundaLeitura
+  primeira_data: '2026-01-04'
+  livro: EPH
+  normalizada: Ef 3,2-3a.5-6
+- ref: Sl 71(72)
+  tipo: salmo
+  primeira_data: '2026-01-04'
+  livro: PSA
+  normalizada: Sl 71
+  salmo_hebraico: '72'
+- ref: Mt 2, 1-12
+  tipo: evangelho
+  primeira_data: '2026-01-04'
+  livro: MAT
+  normalizada: Mt 2,1-12
+- ref: 1Jo 3, 22-4, 6
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-05'
+  livro: 1JN
+  normalizada: 1Jo 3,22-4,6
+- ref: Sl 2, 7-8. 10-11
+  tipo: salmo
+  primeira_data: '2026-01-05'
+  livro: PSA
+  normalizada: Sl 2,7-8.10-11
+- ref: Mt 4, 12-17. 23-25
+  tipo: evangelho
+  primeira_data: '2026-01-05'
+  livro: MAT
+  normalizada: Mt 4,12-17.23-25
+- ref: 1Jo 4, 7-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-06'
+  livro: 1JN
+  normalizada: 1Jo 4,7-10
+- ref: Mc 6, 34-44
+  tipo: evangelho
+  primeira_data: '2026-01-06'
+  livro: MRK
+  normalizada: Mc 6,34-44
+- ref: 1Jo 4, 11-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-07'
+  livro: 1JN
+  normalizada: 1Jo 4,11-18
+- ref: Mc 6, 45-52
+  tipo: evangelho
+  primeira_data: '2026-01-07'
+  livro: MRK
+  normalizada: Mc 6,45-52
+- ref: 1Jo 4, 19–5, 4
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-08'
+  livro: 1JN
+  normalizada: 1Jo 4,19-5,4
+- ref: Lc 4, 14-22a
+  tipo: evangelho
+  primeira_data: '2026-01-08'
+  livro: LUK
+  normalizada: Lc 4,14-22a
+- ref: 1Jo 5, 5-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-09'
+  livro: 1JN
+  normalizada: 1Jo 5,5-13
+- ref: Sl 147(147B)
+  tipo: salmo
+  primeira_data: '2026-01-09'
+  livro: PSA
+  normalizada: Sl 147
+  salmo_hebraico: 147B
+- ref: Lc 5, 12-16
+  tipo: evangelho
+  primeira_data: '2026-01-09'
+  livro: LUK
+  normalizada: Lc 5,12-16
+- ref: 1Jo 5, 14-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-10'
+  livro: 1JN
+  normalizada: 1Jo 5,14-21
+- ref: Sl 149
+  tipo: salmo
+  primeira_data: '2026-01-10'
+  livro: PSA
+  normalizada: Sl 149
+- ref: Jo 3, 22-30
+  tipo: evangelho
+  primeira_data: '2026-01-10'
+  livro: JHN
+  normalizada: Jo 3,22-30
+- ref: Is 42,1-4.6-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-11'
+  livro: ISA
+  normalizada: Is 42,1-4.6-7
+- ref: At 10,34-38
+  tipo: segundaLeitura
+  primeira_data: '2026-01-11'
+  livro: ACT
+  normalizada: At 10,34-38
+- ref: Sl 28(29)
+  tipo: salmo
+  primeira_data: '2026-01-11'
+  livro: PSA
+  normalizada: Sl 28
+  salmo_hebraico: '29'
+- ref: Mt 3,13-17
+  tipo: evangelho
+  primeira_data: '2026-01-11'
+  livro: MAT
+  normalizada: Mt 3,13-17
+- ref: 1Sm 1,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-12'
+  livro: 1SA
+  normalizada: 1Sm 1,1-8
+- ref: Sl 115(116)
+  tipo: salmo
+  primeira_data: '2026-01-12'
+  livro: PSA
+  normalizada: Sl 115
+  salmo_hebraico: '116'
+- ref: Mc 1,14-20
+  tipo: evangelho
+  primeira_data: '2026-01-12'
+  livro: MRK
+  normalizada: Mc 1,14-20
+- ref: 1Sm 1,9-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-13'
+  livro: 1SA
+  normalizada: 1Sm 1,9-20
+- ref: Sl 1Sm 2
+  tipo: salmo
+  primeira_data: '2026-01-13'
+  livro: 1SA
+  normalizada: 1Sm 2
+  cantico: true
+- ref: Mc 1,21-28
+  tipo: evangelho
+  primeira_data: '2026-01-13'
+  livro: MRK
+  normalizada: Mc 1,21-28
+- ref: 1Sm 3,1-10.19-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-14'
+  livro: 1SA
+  normalizada: 1Sm 3,1-10.19-20
+- ref: Sl 39(40)
+  tipo: salmo
+  primeira_data: '2026-01-14'
+  livro: PSA
+  normalizada: Sl 39
+  salmo_hebraico: '40'
+- ref: Mc 1,29-39
+  tipo: evangelho
+  primeira_data: '2026-01-14'
+  livro: MRK
+  normalizada: Mc 1,29-39
+- ref: 1Sm 4,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-15'
+  livro: 1SA
+  normalizada: 1Sm 4,1-11
+- ref: Sl 43(44)
+  tipo: salmo
+  primeira_data: '2026-01-15'
+  livro: PSA
+  normalizada: Sl 43
+  salmo_hebraico: '44'
+- ref: Mc 1,40-45
+  tipo: evangelho
+  primeira_data: '2026-01-15'
+  livro: MRK
+  normalizada: Mc 1,40-45
+- ref: 1Sm 8,4-7.10-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-16'
+  livro: 1SA
+  normalizada: 1Sm 8,4-7.10-22
+- ref: Sl 88(89)
+  tipo: salmo
+  primeira_data: '2026-01-16'
+  livro: PSA
+  normalizada: Sl 88
+  salmo_hebraico: '89'
+- ref: Mc 2,1-12
+  tipo: evangelho
+  primeira_data: '2026-01-16'
+  livro: MRK
+  normalizada: Mc 2,1-12
+- ref: 1Sm 9,1-4.17-19; 10,1
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-17'
+  livro: 1SA
+  normalizada: 1Sm 9,1-4.17-19; 10,1
+- ref: Sl 20(21)
+  tipo: salmo
+  primeira_data: '2026-01-17'
+  livro: PSA
+  normalizada: Sl 20
+  salmo_hebraico: '21'
+- ref: Mc 2,13-17
+  tipo: evangelho
+  primeira_data: '2026-01-17'
+  livro: MRK
+  normalizada: Mc 2,13-17
+- ref: Is 49,3.5-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-18'
+  livro: ISA
+  normalizada: Is 49,3.5-6
+- ref: 1Cor 1,1-3
+  tipo: segundaLeitura
+  primeira_data: '2026-01-18'
+  livro: 1CO
+  normalizada: 1Cor 1,1-3
+- ref: 1Sm 15, 16-23
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-19'
+  livro: 1SA
+  normalizada: 1Sm 15,16-23
+- ref: Sl 49
+  tipo: salmo
+  primeira_data: '2026-01-19'
+  livro: PSA
+  normalizada: Sl 49
+- ref: Mc 2, 18-22
+  tipo: evangelho
+  primeira_data: '2026-01-19'
+  livro: MRK
+  normalizada: Mc 2,18-22
+- ref: 1Sm 16, 1-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-20'
+  livro: 1SA
+  normalizada: 1Sm 16,1-13
+- ref: Sl 88
+  tipo: salmo
+  primeira_data: '2026-01-20'
+  livro: PSA
+  normalizada: Sl 88
+- ref: Mc 2, 23-28
+  tipo: evangelho
+  primeira_data: '2026-01-20'
+  livro: MRK
+  normalizada: Mc 2,23-28
+- ref: 1Sm 17,32-33.37.40-51
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-21'
+  livro: 1SA
+  normalizada: 1Sm 17,32-33.37.40-51
+- ref: Sl 143(144)
+  tipo: salmo
+  primeira_data: '2026-01-21'
+  livro: PSA
+  normalizada: Sl 143
+  salmo_hebraico: '144'
+- ref: Mc 3,1-6
+  tipo: evangelho
+  primeira_data: '2026-01-21'
+  livro: MRK
+  normalizada: Mc 3,1-6
+- ref: 1Sm 18,6-9; 19,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-22'
+  livro: 1SA
+  normalizada: 1Sm 18,6-9; 19,1-7
+- ref: Sl 55(56)
+  tipo: salmo
+  primeira_data: '2026-01-22'
+  livro: PSA
+  normalizada: Sl 55
+  salmo_hebraico: '56'
+- ref: Mc 3,7-12
+  tipo: evangelho
+  primeira_data: '2026-01-22'
+  livro: MRK
+  normalizada: Mc 3,7-12
+- ref: 1Sm 24, 3-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-23'
+  livro: 1SA
+  normalizada: 1Sm 24,3-21
+- ref: Sl 56
+  tipo: salmo
+  primeira_data: '2026-01-23'
+  livro: PSA
+  normalizada: Sl 56
+- ref: Mc 3, 13-19
+  tipo: evangelho
+  primeira_data: '2026-01-23'
+  livro: MRK
+  normalizada: Mc 3,13-19
+- ref: 2Sm 1,1-4.11-12.19.23-27
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-24'
+  livro: 2SA
+  normalizada: 2Sm 1,1-4.11-12.19.23-27
+- ref: Sl 79(80)
+  tipo: salmo
+  primeira_data: '2026-01-24'
+  livro: PSA
+  normalizada: Sl 79
+  salmo_hebraico: '80'
+- ref: Mc 3,20-21
+  tipo: evangelho
+  primeira_data: '2026-01-24'
+  livro: MRK
+  normalizada: Mc 3,20-21
+- ref: Is 8,23-9,3
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-25'
+  livro: ISA
+  normalizada: Is 8,23-9,3
+- ref: 1Cor 1,10-13.17
+  tipo: segundaLeitura
+  primeira_data: '2026-01-25'
+  livro: 1CO
+  normalizada: 1Cor 1,10-13.17
+- ref: Sl 26(27)
+  tipo: salmo
+  primeira_data: '2026-01-25'
+  livro: PSA
+  normalizada: Sl 26
+  salmo_hebraico: '27'
+- ref: Mt 4,12-23 ou 12-17
+  tipo: evangelho
+  primeira_data: '2026-01-25'
+  livro: MAT
+  normalizada: Mt 4,12-23 ou 4,12-17
+- ref: 2Tm 1, 1-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-26'
+  livro: 2TI
+  normalizada: 2Tm 1,1-8
+- ref: Sl 95
+  tipo: salmo
+  primeira_data: '2026-01-26'
+  livro: PSA
+  normalizada: Sl 95
+- ref: Lc 10, 1-9
+  tipo: evangelho
+  primeira_data: '2026-01-26'
+  livro: LUK
+  normalizada: Lc 10,1-9
+- ref: 2Sm 6, 12b-15. 17-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-27'
+  livro: 2SA
+  normalizada: 2Sm 6,12b-15.17-19
+- ref: Sl 23
+  tipo: salmo
+  primeira_data: '2026-01-27'
+  livro: PSA
+  normalizada: Sl 23
+- ref: Mc 3, 31-35
+  tipo: evangelho
+  primeira_data: '2026-01-27'
+  livro: MRK
+  normalizada: Mc 3,31-35
+- ref: 2Sm 7,4-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-28'
+  livro: 2SA
+  normalizada: 2Sm 7,4-17
+- ref: Mc 4,1-20
+  tipo: evangelho
+  primeira_data: '2026-01-28'
+  livro: MRK
+  normalizada: Mc 4,1-20
+- ref: 2Sm 7,18-19.24-29
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-29'
+  livro: 2SA
+  normalizada: 2Sm 7,18-19.24-29
+- ref: Sl 131(132)
+  tipo: salmo
+  primeira_data: '2026-01-29'
+  livro: PSA
+  normalizada: Sl 131
+  salmo_hebraico: '132'
+- ref: Mc 4,21-25
+  tipo: evangelho
+  primeira_data: '2026-01-29'
+  livro: MRK
+  normalizada: Mc 4,21-25
+- ref: 2Sm 11,1-10.13-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-30'
+  livro: 2SA
+  normalizada: 2Sm 11,1-10.13-17
+- ref: Sl 50(51)
+  tipo: salmo
+  primeira_data: '2026-01-30'
+  livro: PSA
+  normalizada: Sl 50
+  salmo_hebraico: '51'
+- ref: Mc 4,26-34
+  tipo: evangelho
+  primeira_data: '2026-01-30'
+  livro: MRK
+  normalizada: Mc 4,26-34
+- ref: 2Samuel 12,1-7.10-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-01-31'
+  livro: 2SA
+  normalizada: 2Sm 12,1-7.10-17
+- ref: Mc 4,35-41
+  tipo: evangelho
+  primeira_data: '2026-01-31'
+  livro: MRK
+  normalizada: Mc 4,35-41
+- ref: Sf 2,3; 3,12-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-01'
+  livro: ZEP
+  normalizada: Sf 2,3; 3,12-13
+- ref: 1Cor 1,26-31
+  tipo: segundaLeitura
+  primeira_data: '2026-02-01'
+  livro: 1CO
+  normalizada: 1Cor 1,26-31
+- ref: Sl 145(146)
+  tipo: salmo
+  primeira_data: '2026-02-01'
+  livro: PSA
+  normalizada: Sl 145
+  salmo_hebraico: '146'
+- ref: Mt 5,1-12
+  tipo: evangelho
+  primeira_data: '2026-02-01'
+  livro: MAT
+  normalizada: Mt 5,1-12
+- ref: Ml 3, 1-4
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-02'
+  livro: MAL
+  normalizada: Ml 3,1-4
+- ref: Hb 2,14-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-02'
+  livro: HEB
+  normalizada: Hb 2,14-18
+- ref: Lc 2, 22-40
+  tipo: evangelho
+  primeira_data: '2026-02-02'
+  livro: LUK
+  normalizada: Lc 2,22-40
+- ref: 2Sm 18,9-10.14.24-25.30-19,3
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-03'
+  livro: 2SA
+  normalizada: 2Sm 18,9-10.14.24-25.30-19,3
+- ref: Sl 85(86)
+  tipo: salmo
+  primeira_data: '2026-02-03'
+  livro: PSA
+  normalizada: Sl 85
+  salmo_hebraico: '86'
+- ref: Mc 5,21-43
+  tipo: evangelho
+  primeira_data: '2026-02-03'
+  livro: MRK
+  normalizada: Mc 5,21-43
+- ref: 2Sm 24,2.9-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-04'
+  livro: 2SA
+  normalizada: 2Sm 24,2.9-17
+- ref: Sl 31(32)
+  tipo: salmo
+  primeira_data: '2026-02-04'
+  livro: PSA
+  normalizada: Sl 31
+  salmo_hebraico: '32'
+- ref: Mc 6,1-6
+  tipo: evangelho
+  primeira_data: '2026-02-04'
+  livro: MRK
+  normalizada: Mc 6,1-6
+- ref: 1Rs 2,1-4.10-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-05'
+  livro: 1KI
+  normalizada: 1Rs 2,1-4.10-12
+- ref: Sl 1Cr 29
+  tipo: salmo
+  primeira_data: '2026-02-05'
+  livro: 1CH
+  normalizada: 1Cr 29
+  cantico: true
+- ref: Mc 6,7-13
+  tipo: evangelho
+  primeira_data: '2026-02-05'
+  livro: MRK
+  normalizada: Mc 6,7-13
+- ref: Eclo 47,2-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-06'
+  livro: SIR
+  normalizada: Eclo 47,2-13
+- ref: Sl 17(18)
+  tipo: salmo
+  primeira_data: '2026-02-06'
+  livro: PSA
+  normalizada: Sl 17
+  salmo_hebraico: '18'
+- ref: Mc 6,14-29
+  tipo: evangelho
+  primeira_data: '2026-02-06'
+  livro: MRK
+  normalizada: Mc 6,14-29
+- ref: 1Rs 3,4-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-07'
+  livro: 1KI
+  normalizada: 1Rs 3,4-13
+- ref: Sl 118(119)
+  tipo: salmo
+  primeira_data: '2026-02-07'
+  livro: PSA
+  normalizada: Sl 118
+  salmo_hebraico: '119'
+- ref: Mc 6,30-34
+  tipo: evangelho
+  primeira_data: '2026-02-07'
+  livro: MRK
+  normalizada: Mc 6,30-34
+- ref: Is 58,7-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-08'
+  livro: ISA
+  normalizada: Is 58,7-10
+- ref: 1Cor 2,1-5
+  tipo: segundaLeitura
+  primeira_data: '2026-02-08'
+  livro: 1CO
+  normalizada: 1Cor 2,1-5
+- ref: Sl 111(112)
+  tipo: salmo
+  primeira_data: '2026-02-08'
+  livro: PSA
+  normalizada: Sl 111
+  salmo_hebraico: '112'
+- ref: Mt 5,13-16
+  tipo: evangelho
+  primeira_data: '2026-02-08'
+  livro: MAT
+  normalizada: Mt 5,13-16
+- ref: 1Rs 8,1-7.9-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-09'
+  livro: 1KI
+  normalizada: 1Rs 8,1-7.9-13
+- ref: Mc 6,53-56
+  tipo: evangelho
+  primeira_data: '2026-02-09'
+  livro: MRK
+  normalizada: Mc 6,53-56
+- ref: 1Rs 8,22-23.27-30
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-10'
+  livro: 1KI
+  normalizada: 1Rs 8,22-23.27-30
+- ref: Sl 83(84)
+  tipo: salmo
+  primeira_data: '2026-02-10'
+  livro: PSA
+  normalizada: Sl 83
+  salmo_hebraico: '84'
+- ref: Mc 7,1-13
+  tipo: evangelho
+  primeira_data: '2026-02-10'
+  livro: MRK
+  normalizada: Mc 7,1-13
+- ref: 1Rs 10,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-11'
+  livro: 1KI
+  normalizada: 1Rs 10,1-10
+- ref: Sl 36(37)
+  tipo: salmo
+  primeira_data: '2026-02-11'
+  livro: PSA
+  normalizada: Sl 36
+  salmo_hebraico: '37'
+- ref: Mc 7,14-23
+  tipo: evangelho
+  primeira_data: '2026-02-11'
+  livro: MRK
+  normalizada: Mc 7,14-23
+- ref: 1Rs 11,4-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-12'
+  livro: 1KI
+  normalizada: 1Rs 11,4-13
+- ref: Sl 105(106)
+  tipo: salmo
+  primeira_data: '2026-02-12'
+  livro: PSA
+  normalizada: Sl 105
+  salmo_hebraico: '106'
+- ref: Mc 7,24-30
+  tipo: evangelho
+  primeira_data: '2026-02-12'
+  livro: MRK
+  normalizada: Mc 7,24-30
+- ref: 1Rs 11, 29-32; 12, 19
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-13'
+  livro: 1KI
+  normalizada: 1Rs 11,29-32; 12,19
+- ref: Sl 80
+  tipo: salmo
+  primeira_data: '2026-02-13'
+  livro: PSA
+  normalizada: Sl 80
+- ref: Mc 7, 31-37
+  tipo: evangelho
+  primeira_data: '2026-02-13'
+  livro: MRK
+  normalizada: Mc 7,31-37
+- ref: 1Rs 12,26-32; 13,33-34
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-14'
+  livro: 1KI
+  normalizada: 1Rs 12,26-32; 13,33-34
+- ref: Mc 8,1-10
+  tipo: evangelho
+  primeira_data: '2026-02-14'
+  livro: MRK
+  normalizada: Mc 8,1-10
+- ref: Eclo 15,16-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-15'
+  livro: SIR
+  normalizada: Eclo 15,16-21
+- ref: 1Cor 2,6-10
+  tipo: segundaLeitura
+  primeira_data: '2026-02-15'
+  livro: 1CO
+  normalizada: 1Cor 2,6-10
+- ref: Mt 5,17-37
+  tipo: evangelho
+  primeira_data: '2026-02-15'
+  livro: MAT
+  normalizada: Mt 5,17-37
+- ref: Mt 5,20-22a.27-28.33-34a.37
+  tipo: evangelho
+  primeira_data: '2026-02-15'
+  livro: MAT
+  normalizada: Mt 5,20-22a.27-28.33-34a.37
+- ref: Tg 1,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-16'
+  livro: JAS
+  normalizada: Tg 1,1-11
+- ref: Mc 8,11-13
+  tipo: evangelho
+  primeira_data: '2026-02-16'
+  livro: MRK
+  normalizada: Mc 8,11-13
+- ref: Tg 1,12-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-17'
+  livro: JAS
+  normalizada: Tg 1,12-18
+- ref: Sl 93(94)
+  tipo: salmo
+  primeira_data: '2026-02-17'
+  livro: PSA
+  normalizada: Sl 93
+  salmo_hebraico: '94'
+- ref: Mc 8,14-21
+  tipo: evangelho
+  primeira_data: '2026-02-17'
+  livro: MRK
+  normalizada: Mc 8,14-21
+- ref: Jl 2, 12-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-18'
+  livro: JOL
+  normalizada: Jl 2,12-18
+- ref: 2Cor 5, 20-6, 2
+  tipo: segundaLeitura
+  primeira_data: '2026-02-18'
+  livro: 2CO
+  normalizada: 2Cor 5,20-6,2
+- ref: Mt 6, 1-6. 16-18
+  tipo: evangelho
+  primeira_data: '2026-02-18'
+  livro: MAT
+  normalizada: Mt 6,1-6.16-18
+- ref: Dt 30, 15-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-19'
+  livro: DEU
+  normalizada: Dt 30,15-20
+- ref: Sl 1
+  tipo: salmo
+  primeira_data: '2026-02-19'
+  livro: PSA
+  normalizada: Sl 1
+- ref: Lc 9, 22-25
+  tipo: evangelho
+  primeira_data: '2026-02-19'
+  livro: LUK
+  normalizada: Lc 9,22-25
+- ref: Is 58, 1-9a
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-20'
+  livro: ISA
+  normalizada: Is 58,1-9a
+- ref: Mt 9, 14-15
+  tipo: evangelho
+  primeira_data: '2026-02-20'
+  livro: MAT
+  normalizada: Mt 9,14-15
+- ref: Is 58, 9b-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-21'
+  livro: ISA
+  normalizada: Is 58,9b-14
+- ref: Sl 85
+  tipo: salmo
+  primeira_data: '2026-02-21'
+  livro: PSA
+  normalizada: Sl 85
+- ref: Lc 5, 27-32
+  tipo: evangelho
+  primeira_data: '2026-02-21'
+  livro: LUK
+  normalizada: Lc 5,27-32
+- ref: Gn 2,7-9; 3,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-22'
+  livro: GEN
+  normalizada: Gn 2,7-9; 3,1-7
+- ref: Rm 5,12-19
+  tipo: segundaLeitura
+  primeira_data: '2026-02-22'
+  livro: ROM
+  normalizada: Rm 5,12-19
+- ref: Mt 4,1-11
+  tipo: evangelho
+  primeira_data: '2026-02-22'
+  livro: MAT
+  normalizada: Mt 4,1-11
+- ref: Lv 19, 1-2. 11-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-23'
+  livro: LEV
+  normalizada: Lv 19,1-2.11-18
+- ref: Sl 18
+  tipo: salmo
+  primeira_data: '2026-02-23'
+  livro: PSA
+  normalizada: Sl 18
+- ref: Mt 25, 31-46
+  tipo: evangelho
+  primeira_data: '2026-02-23'
+  livro: MAT
+  normalizada: Mt 25,31-46
+- ref: Is 55, 10-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-24'
+  livro: ISA
+  normalizada: Is 55,10-11
+- ref: Sl 33
+  tipo: salmo
+  primeira_data: '2026-02-24'
+  livro: PSA
+  normalizada: Sl 33
+- ref: Mt 6, 7-15
+  tipo: evangelho
+  primeira_data: '2026-02-24'
+  livro: MAT
+  normalizada: Mt 6,7-15
+- ref: Jn 3, 1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-25'
+  livro: JON
+  normalizada: Jn 3,1-10
+- ref: Sl 50
+  tipo: salmo
+  primeira_data: '2026-02-25'
+  livro: PSA
+  normalizada: Sl 50
+- ref: Lc 11, 29-32
+  tipo: evangelho
+  primeira_data: '2026-02-25'
+  livro: LUK
+  normalizada: Lc 11,29-32
+- ref: Est 4,17
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-26'
+  livro: EST
+  normalizada: Est 4,17
+- ref: Sl 137(138)
+  tipo: salmo
+  primeira_data: '2026-02-26'
+  livro: PSA
+  normalizada: Sl 137
+  salmo_hebraico: '138'
+- ref: Mt 7,7-12
+  tipo: evangelho
+  primeira_data: '2026-02-26'
+  livro: MAT
+  normalizada: Mt 7,7-12
+- ref: Ez 18, 21-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-27'
+  livro: EZK
+  normalizada: Ez 18,21-28
+- ref: Sl 129
+  tipo: salmo
+  primeira_data: '2026-02-27'
+  livro: PSA
+  normalizada: Sl 129
+- ref: Mt 5, 20-26
+  tipo: evangelho
+  primeira_data: '2026-02-27'
+  livro: MAT
+  normalizada: Mt 5,20-26
+- ref: Dt 26, 16-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-02-28'
+  livro: DEU
+  normalizada: Dt 26,16-19
+- ref: Sl 118
+  tipo: salmo
+  primeira_data: '2026-02-28'
+  livro: PSA
+  normalizada: Sl 118
+- ref: Mt 5, 43-48
+  tipo: evangelho
+  primeira_data: '2026-02-28'
+  livro: MAT
+  normalizada: Mt 5,43-48
+- ref: Gn 12,1-4
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-01'
+  livro: GEN
+  normalizada: Gn 12,1-4
+- ref: 2Tm 1,8-10
+  tipo: segundaLeitura
+  primeira_data: '2026-03-01'
+  livro: 2TI
+  normalizada: 2Tm 1,8-10
+- ref: Sl 32(33)
+  tipo: salmo
+  primeira_data: '2026-03-01'
+  livro: PSA
+  normalizada: Sl 32
+  salmo_hebraico: '33'
+- ref: Mt 17,1-9
+  tipo: evangelho
+  primeira_data: '2026-03-01'
+  livro: MAT
+  normalizada: Mt 17,1-9
+- ref: Dn 9, 4b-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-02'
+  livro: DAN
+  normalizada: Dn 9,4b-10
+- ref: Sl 78
+  tipo: salmo
+  primeira_data: '2026-03-02'
+  livro: PSA
+  normalizada: Sl 78
+- ref: Lc 6, 36-38
+  tipo: evangelho
+  primeira_data: '2026-03-02'
+  livro: LUK
+  normalizada: Lc 6,36-38
+- ref: Is 1, 10. 16-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-03'
+  livro: ISA
+  normalizada: Is 1,10.16-20
+- ref: Mt 23, 1-12
+  tipo: evangelho
+  primeira_data: '2026-03-03'
+  livro: MAT
+  normalizada: Mt 23,1-12
+- ref: Jr 18, 18-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-04'
+  livro: JER
+  normalizada: Jr 18,18-20
+- ref: Sl 30
+  tipo: salmo
+  primeira_data: '2026-03-04'
+  livro: PSA
+  normalizada: Sl 30
+- ref: Mt 20, 17-28
+  tipo: evangelho
+  primeira_data: '2026-03-04'
+  livro: MAT
+  normalizada: Mt 20,17-28
+- ref: Jr 17, 5-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-05'
+  livro: JER
+  normalizada: Jr 17,5-10
+- ref: Lc 16, 19-31
+  tipo: evangelho
+  primeira_data: '2026-03-05'
+  livro: LUK
+  normalizada: Lc 16,19-31
+- ref: Gn 37, 3-4. 12-13a. 17b-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-06'
+  livro: GEN
+  normalizada: Gn 37,3-4.12-13a.17b-28
+- ref: Sl 104
+  tipo: salmo
+  primeira_data: '2026-03-06'
+  livro: PSA
+  normalizada: Sl 104
+- ref: Mt 21, 33-43. 45-46
+  tipo: evangelho
+  primeira_data: '2026-03-06'
+  livro: MAT
+  normalizada: Mt 21,33-43.45-46
+- ref: Mq 7, 14-15. 18-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-07'
+  livro: MIC
+  normalizada: Mq 7,14-15.18-20
+- ref: Sl 102
+  tipo: salmo
+  primeira_data: '2026-03-07'
+  livro: PSA
+  normalizada: Sl 102
+- ref: Lc 15, 1-3. 11-32
+  tipo: evangelho
+  primeira_data: '2026-03-07'
+  livro: LUK
+  normalizada: Lc 15,1-3.11-32
+- ref: Ex 17,3-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-08'
+  livro: EXO
+  normalizada: Ex 17,3-7
+- ref: Rm 5,1-2.5-8
+  tipo: segundaLeitura
+  primeira_data: '2026-03-08'
+  livro: ROM
+  normalizada: Rm 5,1-2.5-8
+- ref: Sl 94(95)
+  tipo: salmo
+  primeira_data: '2026-03-08'
+  livro: PSA
+  normalizada: Sl 94
+  salmo_hebraico: '95'
+- ref: Jo 4,5-42 (forma breve em colchetes)
+  tipo: evangelho
+  primeira_data: '2026-03-08'
+  livro: JHN
+  normalizada: Jo 4,5-42
+  nota: forma breve em colchetes
+- ref: 2Rs 5, 1-15a
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-09'
+  livro: 2KI
+  normalizada: 2Rs 5,1-15a
+- ref: Sl 41
+  tipo: salmo
+  primeira_data: '2026-03-09'
+  livro: PSA
+  normalizada: Sl 41
+- ref: Lc 4, 24-30
+  tipo: evangelho
+  primeira_data: '2026-03-09'
+  livro: LUK
+  normalizada: Lc 4,24-30
+- ref: Dn 3, 25. 34-43
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-10'
+  livro: DAN
+  normalizada: Dn 3,25.34-43
+- ref: Sl 24
+  tipo: salmo
+  primeira_data: '2026-03-10'
+  livro: PSA
+  normalizada: Sl 24
+- ref: Mt 18, 21-35
+  tipo: evangelho
+  primeira_data: '2026-03-10'
+  livro: MAT
+  normalizada: Mt 18,21-35
+- ref: Dt 4, 1. 5-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-11'
+  livro: DEU
+  normalizada: Dt 4,1.5-9
+- ref: Sl 147
+  tipo: salmo
+  primeira_data: '2026-03-11'
+  livro: PSA
+  normalizada: Sl 147
+- ref: Mt 5, 17-19
+  tipo: evangelho
+  primeira_data: '2026-03-11'
+  livro: MAT
+  normalizada: Mt 5,17-19
+- ref: Jr 7, 23-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-12'
+  livro: JER
+  normalizada: Jr 7,23-28
+- ref: Sl 94
+  tipo: salmo
+  primeira_data: '2026-03-12'
+  livro: PSA
+  normalizada: Sl 94
+- ref: Lc 11, 14-23
+  tipo: evangelho
+  primeira_data: '2026-03-12'
+  livro: LUK
+  normalizada: Lc 11,14-23
+- ref: Os 14, 2-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-13'
+  livro: HOS
+  normalizada: Os 14,2-10
+- ref: Mc 12, 28b-34
+  tipo: evangelho
+  primeira_data: '2026-03-13'
+  livro: MRK
+  normalizada: Mc 12,28b-34
+- ref: Os 6, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-14'
+  livro: HOS
+  normalizada: Os 6,1-6
+- ref: Lc 18, 9-14
+  tipo: evangelho
+  primeira_data: '2026-03-14'
+  livro: LUK
+  normalizada: Lc 18,9-14
+- ref: 1Sm 16,1.6-7.10-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-15'
+  livro: 1SA
+  normalizada: 1Sm 16,1.6-7.10-13
+- ref: Ef 5,8-14
+  tipo: segundaLeitura
+  primeira_data: '2026-03-15'
+  livro: EPH
+  normalizada: Ef 5,8-14
+- ref: Sl 22(23)
+  tipo: salmo
+  primeira_data: '2026-03-15'
+  livro: PSA
+  normalizada: Sl 22
+  salmo_hebraico: '23'
+- ref: Jo 9,1-41 ou 1.6-9.13-17.34-38
+  tipo: evangelho
+  primeira_data: '2026-03-15'
+  livro: JHN
+  normalizada: Jo 9,1-41 ou 9,1.6-9.13-17.34-38
+- ref: Is 65, 17-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-16'
+  livro: ISA
+  normalizada: Is 65,17-21
+- ref: Sl 29
+  tipo: salmo
+  primeira_data: '2026-03-16'
+  livro: PSA
+  normalizada: Sl 29
+- ref: Jo 4, 43-54
+  tipo: evangelho
+  primeira_data: '2026-03-16'
+  livro: JHN
+  normalizada: Jo 4,43-54
+- ref: Ez 47, 1-9. 12
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-17'
+  livro: EZK
+  normalizada: Ez 47,1-9.12
+- ref: Sl 45
+  tipo: salmo
+  primeira_data: '2026-03-17'
+  livro: PSA
+  normalizada: Sl 45
+- ref: Jo 5, 1-16
+  tipo: evangelho
+  primeira_data: '2026-03-17'
+  livro: JHN
+  normalizada: Jo 5,1-16
+- ref: Is 49, 8-15
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-18'
+  livro: ISA
+  normalizada: Is 49,8-15
+- ref: Sl 144
+  tipo: salmo
+  primeira_data: '2026-03-18'
+  livro: PSA
+  normalizada: Sl 144
+- ref: Jo 5, 17-30
+  tipo: evangelho
+  primeira_data: '2026-03-18'
+  livro: JHN
+  normalizada: Jo 5,17-30
+- ref: 2Sm 7, 4-5a. 12-14a. 16
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-19'
+  livro: 2SA
+  normalizada: 2Sm 7,4-5a.12-14a.16
+- ref: Rm 4, 13. 16-18. 22
+  tipo: segundaLeitura
+  primeira_data: '2026-03-19'
+  livro: ROM
+  normalizada: Rm 4,13.16-18.22
+- ref: Mt 1, 16. 18-21. 24a
+  tipo: evangelho
+  primeira_data: '2026-03-19'
+  livro: MAT
+  normalizada: Mt 1,16.18-21.24a
+- ref: Lc 2, 41-51a
+  tipo: evangelho
+  primeira_data: '2026-03-19'
+  livro: LUK
+  normalizada: Lc 2,41-51a
+- ref: Sb 2, 1a. 12-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-20'
+  livro: WIS
+  normalizada: Sb 2,1a.12-22
+- ref: Jo 7, 1-2. 10. 25-30
+  tipo: evangelho
+  primeira_data: '2026-03-20'
+  livro: JHN
+  normalizada: Jo 7,1-2.10.25-30
+- ref: Jr 11, 18-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-21'
+  livro: JER
+  normalizada: Jr 11,18-20
+- ref: Sl 7
+  tipo: salmo
+  primeira_data: '2026-03-21'
+  livro: PSA
+  normalizada: Sl 7
+- ref: Jo 7, 40-53
+  tipo: evangelho
+  primeira_data: '2026-03-21'
+  livro: JHN
+  normalizada: Jo 7,40-53
+- ref: Ez 37,12-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-22'
+  livro: EZK
+  normalizada: Ez 37,12-14
+- ref: Rm 8,8-11
+  tipo: segundaLeitura
+  primeira_data: '2026-03-22'
+  livro: ROM
+  normalizada: Rm 8,8-11
+- ref: Sl 129(130)
+  tipo: salmo
+  primeira_data: '2026-03-22'
+  livro: PSA
+  normalizada: Sl 129
+  salmo_hebraico: '130'
+- ref: Jo 11,1-45 ou 3-7.17.20-27.33-45
+  tipo: evangelho
+  primeira_data: '2026-03-22'
+  livro: JHN
+  normalizada: Jo 11,1-45 ou 11,3-7.17.20-27.33-45
+- ref: Dn 13, 1-9. 15-17. 19-30. 33-62
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-23'
+  livro: DAN
+  normalizada: Dn 13,1-9.15-17.19-30.33-62
+- ref: Dn 13,61c-62 (mais breve)
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-23'
+  livro: DAN
+  normalizada: Dn 13,61c-62
+  nota: mais breve
+- ref: Sl 22
+  tipo: salmo
+  primeira_data: '2026-03-23'
+  livro: PSA
+  normalizada: Sl 22
+- ref: Jo 8, 12-20
+  tipo: evangelho
+  primeira_data: '2026-03-23'
+  livro: JHN
+  normalizada: Jo 8,12-20
+- ref: Nm 21,4-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-24'
+  livro: NUM
+  normalizada: Nm 21,4-9
+- ref: Sl 101(102)
+  tipo: salmo
+  primeira_data: '2026-03-24'
+  livro: PSA
+  normalizada: Sl 101
+  salmo_hebraico: '102'
+- ref: Jo 8,21-30
+  tipo: evangelho
+  primeira_data: '2026-03-24'
+  livro: JHN
+  normalizada: Jo 8,21-30
+- ref: Is 7,10-14; 8,10
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-25'
+  livro: ISA
+  normalizada: Is 7,10-14; 8,10
+- ref: Hb 10,4-10
+  tipo: segundaLeitura
+  primeira_data: '2026-03-25'
+  livro: HEB
+  normalizada: Hb 10,4-10
+- ref: Lc 1, 26-38
+  tipo: evangelho
+  primeira_data: '2026-03-25'
+  livro: LUK
+  normalizada: Lc 1,26-38
+- ref: Gn 17, 3-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-26'
+  livro: GEN
+  normalizada: Gn 17,3-9
+- ref: Jo 8, 51-59
+  tipo: evangelho
+  primeira_data: '2026-03-26'
+  livro: JHN
+  normalizada: Jo 8,51-59
+- ref: Jr 20,10-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-27'
+  livro: JER
+  normalizada: Jr 20,10-13
+- ref: Jo 10,31-42
+  tipo: evangelho
+  primeira_data: '2026-03-27'
+  livro: JHN
+  normalizada: Jo 10,31-42
+- ref: Ez 37, 21-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-28'
+  livro: EZK
+  normalizada: Ez 37,21-28
+- ref: Jr 31, 10-13
+  tipo: salmo
+  primeira_data: '2026-03-28'
+  livro: JER
+  normalizada: Jr 31,10-13
+- ref: Jo 11, 45-56
+  tipo: evangelho
+  primeira_data: '2026-03-28'
+  livro: JHN
+  normalizada: Jo 11,45-56
+- ref: Is 50, 4-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-29'
+  livro: ISA
+  normalizada: Is 50,4-7
+- ref: Sl 21
+  tipo: salmo
+  primeira_data: '2026-03-29'
+  livro: PSA
+  normalizada: Sl 21
+- ref: Fl 2, 6-11
+  tipo: segundaLeitura
+  primeira_data: '2026-03-29'
+  livro: PHP
+  normalizada: Fl 2,6-11
+- ref: Mt 21,1-11 (Entrada em Jerusalem)
+  tipo: evangelho
+  primeira_data: '2026-03-29'
+  livro: MAT
+  normalizada: Mt 21,1-11
+  nota: Entrada em Jerusalem
+- ref: Mt 26,14-27,66 (mais longo)
+  tipo: evangelho
+  primeira_data: '2026-03-29'
+  livro: MAT
+  normalizada: Mt 26,14-27,66
+  nota: mais longo
+- ref: Mt 27,11-54 (mais breve)
+  tipo: evangelho
+  primeira_data: '2026-03-29'
+  livro: MAT
+  normalizada: Mt 27,11-54
+  nota: mais breve
+- ref: Is 42, 1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-30'
+  livro: ISA
+  normalizada: Is 42,1-7
+- ref: Sl 26
+  tipo: salmo
+  primeira_data: '2026-03-30'
+  livro: PSA
+  normalizada: Sl 26
+- ref: Jo 12, 1-11
+  tipo: evangelho
+  primeira_data: '2026-03-30'
+  livro: JHN
+  normalizada: Jo 12,1-11
+- ref: Is 49, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-03-31'
+  livro: ISA
+  normalizada: Is 49,1-6
+- ref: Sl 70
+  tipo: salmo
+  primeira_data: '2026-03-31'
+  livro: PSA
+  normalizada: Sl 70
+- ref: Jo 13, 21-33. 36-38
+  tipo: evangelho
+  primeira_data: '2026-03-31'
+  livro: JHN
+  normalizada: Jo 13,21-33.36-38
+- ref: Is 50, 4-9a
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-01'
+  livro: ISA
+  normalizada: Is 50,4-9a
+- ref: Sl 68
+  tipo: salmo
+  primeira_data: '2026-04-01'
+  livro: PSA
+  normalizada: Sl 68
+- ref: Mt 26, 14-25
+  tipo: evangelho
+  primeira_data: '2026-04-01'
+  livro: MAT
+  normalizada: Mt 26,14-25
+- ref: Ex 12, 1-8. 11-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-02'
+  livro: EXO
+  normalizada: Ex 12,1-8.11-14
+- ref: Sl 115
+  tipo: salmo
+  primeira_data: '2026-04-02'
+  livro: PSA
+  normalizada: Sl 115
+- ref: 1Cor 11, 23-26
+  tipo: segundaLeitura
+  primeira_data: '2026-04-02'
+  livro: 1CO
+  normalizada: 1Cor 11,23-26
+- ref: Jo 13, 1-15
+  tipo: evangelho
+  primeira_data: '2026-04-02'
+  livro: JHN
+  normalizada: Jo 13,1-15
+- ref: Is 52, 13-53, 12
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-03'
+  livro: ISA
+  normalizada: Is 52,13-53,12
+- ref: Hb 4, 14-16; 5, 7-9
+  tipo: segundaLeitura
+  primeira_data: '2026-04-03'
+  livro: HEB
+  normalizada: Hb 4,14-16; 5,7-9
+- ref: Jo 18, 1–19, 42
+  tipo: evangelho
+  primeira_data: '2026-04-03'
+  livro: JHN
+  normalizada: Jo 18,1-19,42
+- ref: Gn 1, 1-2, 2 (Forma Longa)
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-04'
+  livro: GEN
+  normalizada: Gn 1,1-2,2
+  nota: Forma Longa
+- ref: Gn 1, 1. 26-31a (Forma Breve)
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-04'
+  livro: GEN
+  normalizada: Gn 1,1.26-31a
+  nota: Forma Breve
+- ref: Sl 103
+  tipo: salmo
+  primeira_data: '2026-04-04'
+  livro: PSA
+  normalizada: Sl 103
+- ref: Sl 15(16)
+  tipo: salmo
+  primeira_data: '2026-04-04'
+  livro: PSA
+  normalizada: Sl 15
+  salmo_hebraico: '16'
+- ref: Ex 15, 1-6. 17-18
+  tipo: salmo
+  primeira_data: '2026-04-04'
+  livro: EXO
+  normalizada: Ex 15,1-6.17-18
+- ref: Is 12, 2-6
+  tipo: salmo
+  primeira_data: '2026-04-04'
+  livro: ISA
+  normalizada: Is 12,2-6
+- ref: Sl 18B
+  tipo: salmo
+  primeira_data: '2026-04-04'
+  livro: PSA
+  normalizada: Sl 18,8-15
+- ref: Sl 117
+  tipo: salmo
+  primeira_data: '2026-04-04'
+  livro: PSA
+  normalizada: Sl 117
+- ref: Gn 22, 1-2. 9a. 10-13. 15-18 (Forma Longa)
+  tipo: segundaLeitura
+  primeira_data: '2026-04-04'
+  livro: GEN
+  normalizada: Gn 22,1-2.9a.10-13.15-18
+  nota: Forma Longa
+- ref: Mt 28,1-10
+  tipo: evangelho
+  primeira_data: '2026-04-04'
+  livro: MAT
+  normalizada: Mt 28,1-10
+- ref: Ex 14, 15–15, 1
+  tipo: extras
+  primeira_data: '2026-04-04'
+  livro: EXO
+  normalizada: Ex 14,15-15,1
+- ref: Is 54, 5-14
+  tipo: extras
+  primeira_data: '2026-04-04'
+  livro: ISA
+  normalizada: Is 54,5-14
+- ref: Is 55, 1-11
+  tipo: extras
+  primeira_data: '2026-04-04'
+  livro: ISA
+  normalizada: Is 55,1-11
+- ref: Br 3, 9-15. 32–4, 4
+  tipo: extras
+  primeira_data: '2026-04-04'
+  livro: BAR
+  normalizada: Br 3,9-15.32-4,4
+- ref: Ez 36, 16-17a. 18-28
+  tipo: extras
+  primeira_data: '2026-04-04'
+  livro: EZK
+  normalizada: Ez 36,16-17a.18-28
+- ref: Rm 6, 3-11
+  tipo: extras
+  primeira_data: '2026-04-04'
+  livro: ROM
+  normalizada: Rm 6,3-11
+- ref: At 10,34.37-43
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-05'
+  livro: ACT
+  normalizada: At 10,34.37-43
+- ref: Sl 117(118)
+  tipo: salmo
+  primeira_data: '2026-04-05'
+  livro: PSA
+  normalizada: Sl 117
+  salmo_hebraico: '118'
+- ref: Cl 3,1-4
+  tipo: segundaLeitura
+  primeira_data: '2026-04-05'
+  livro: COL
+  normalizada: Cl 3,1-4
+- ref: 1Cor 5,6b-8
+  tipo: segundaLeitura
+  primeira_data: '2026-04-05'
+  livro: 1CO
+  normalizada: 1Cor 5,6b-8
+- ref: Jo 20,1-9
+  tipo: evangelho
+  primeira_data: '2026-04-05'
+  livro: JHN
+  normalizada: Jo 20,1-9
+- ref: Lc 24,13-35
+  tipo: evangelho
+  primeira_data: '2026-04-05'
+  livro: LUK
+  normalizada: Lc 24,13-35
+- ref: At 2, 14. 22-32
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-06'
+  livro: ACT
+  normalizada: At 2,14.22-32
+- ref: Sl 15
+  tipo: salmo
+  primeira_data: '2026-04-06'
+  livro: PSA
+  normalizada: Sl 15
+- ref: Mt 28, 8-15
+  tipo: evangelho
+  primeira_data: '2026-04-06'
+  livro: MAT
+  normalizada: Mt 28,8-15
+- ref: At 2, 36-41
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-07'
+  livro: ACT
+  normalizada: At 2,36-41
+- ref: Sl 32
+  tipo: salmo
+  primeira_data: '2026-04-07'
+  livro: PSA
+  normalizada: Sl 32
+- ref: Jo 20, 11-18
+  tipo: evangelho
+  primeira_data: '2026-04-07'
+  livro: JHN
+  normalizada: Jo 20,11-18
+- ref: At 3, 1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-08'
+  livro: ACT
+  normalizada: At 3,1-10
+- ref: Lc 24, 13-35
+  tipo: evangelho
+  primeira_data: '2026-04-08'
+  livro: LUK
+  normalizada: Lc 24,13-35
+- ref: At 3, 11-26
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-09'
+  livro: ACT
+  normalizada: At 3,11-26
+- ref: Sl 8
+  tipo: salmo
+  primeira_data: '2026-04-09'
+  livro: PSA
+  normalizada: Sl 8
+- ref: Lc 24, 35-48
+  tipo: evangelho
+  primeira_data: '2026-04-09'
+  livro: LUK
+  normalizada: Lc 24,35-48
+- ref: At 4, 1-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-10'
+  livro: ACT
+  normalizada: At 4,1-12
+- ref: Jo 21, 1-14
+  tipo: evangelho
+  primeira_data: '2026-04-10'
+  livro: JHN
+  normalizada: Jo 21,1-14
+- ref: At 4, 13-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-11'
+  livro: ACT
+  normalizada: At 4,13-21
+- ref: Mc 16, 9-15
+  tipo: evangelho
+  primeira_data: '2026-04-11'
+  livro: MRK
+  normalizada: Mc 16,9-15
+- ref: At 2,42-47
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-12'
+  livro: ACT
+  normalizada: At 2,42-47
+- ref: 1Pd 1,3-9
+  tipo: segundaLeitura
+  primeira_data: '2026-04-12'
+  livro: 1PE
+  normalizada: 1Pd 1,3-9
+- ref: Jo 20,19-31
+  tipo: evangelho
+  primeira_data: '2026-04-12'
+  livro: JHN
+  normalizada: Jo 20,19-31
+- ref: At 4,23-31
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-13'
+  livro: ACT
+  normalizada: At 4,23-31
+- ref: Sl 2
+  tipo: salmo
+  primeira_data: '2026-04-13'
+  livro: PSA
+  normalizada: Sl 2
+- ref: Jo 3,1-8
+  tipo: evangelho
+  primeira_data: '2026-04-13'
+  livro: JHN
+  normalizada: Jo 3,1-8
+- ref: At 4, 32-37
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-14'
+  livro: ACT
+  normalizada: At 4,32-37
+- ref: Sl 92
+  tipo: salmo
+  primeira_data: '2026-04-14'
+  livro: PSA
+  normalizada: Sl 92
+- ref: Jo 3, 7b-15
+  tipo: evangelho
+  primeira_data: '2026-04-14'
+  livro: JHN
+  normalizada: Jo 3,7b-15
+- ref: At 5, 17-26
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-15'
+  livro: ACT
+  normalizada: At 5,17-26
+- ref: Jo 3, 16-21
+  tipo: evangelho
+  primeira_data: '2026-04-15'
+  livro: JHN
+  normalizada: Jo 3,16-21
+- ref: At 5, 27-33
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-16'
+  livro: ACT
+  normalizada: At 5,27-33
+- ref: Jo 3, 31-36
+  tipo: evangelho
+  primeira_data: '2026-04-16'
+  livro: JHN
+  normalizada: Jo 3,31-36
+- ref: At 5, 34-42
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-17'
+  livro: ACT
+  normalizada: At 5,34-42
+- ref: Jo 6, 1-15
+  tipo: evangelho
+  primeira_data: '2026-04-17'
+  livro: JHN
+  normalizada: Jo 6,1-15
+- ref: At 6, 1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-18'
+  livro: ACT
+  normalizada: At 6,1-7
+- ref: Jo 6, 16-21
+  tipo: evangelho
+  primeira_data: '2026-04-18'
+  livro: JHN
+  normalizada: Jo 6,16-21
+- ref: At 2,14.22-33
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-19'
+  livro: ACT
+  normalizada: At 2,14.22-33
+- ref: 1Pd 1,17-21
+  tipo: segundaLeitura
+  primeira_data: '2026-04-19'
+  livro: 1PE
+  normalizada: 1Pd 1,17-21
+- ref: At 6, 8-15
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-20'
+  livro: ACT
+  normalizada: At 6,8-15
+- ref: Jo 6, 22-29
+  tipo: evangelho
+  primeira_data: '2026-04-20'
+  livro: JHN
+  normalizada: Jo 6,22-29
+- ref: At 7, 51-8, 1a
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-21'
+  livro: ACT
+  normalizada: At 7,51-8,1a
+- ref: Jo 6, 30-35
+  tipo: evangelho
+  primeira_data: '2026-04-21'
+  livro: JHN
+  normalizada: Jo 6,30-35
+- ref: At 8, 1b-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-22'
+  livro: ACT
+  normalizada: At 8,1b-8
+- ref: Sl 65
+  tipo: salmo
+  primeira_data: '2026-04-22'
+  livro: PSA
+  normalizada: Sl 65
+- ref: Jo 6, 35-40
+  tipo: evangelho
+  primeira_data: '2026-04-22'
+  livro: JHN
+  normalizada: Jo 6,35-40
+- ref: At 8, 26-40
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-23'
+  livro: ACT
+  normalizada: At 8,26-40
+- ref: Jo 6, 44-51
+  tipo: evangelho
+  primeira_data: '2026-04-23'
+  livro: JHN
+  normalizada: Jo 6,44-51
+- ref: At 9, 1-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-24'
+  livro: ACT
+  normalizada: At 9,1-20
+- ref: Sl 116
+  tipo: salmo
+  primeira_data: '2026-04-24'
+  livro: PSA
+  normalizada: Sl 116
+- ref: Jo 6, 52-59
+  tipo: evangelho
+  primeira_data: '2026-04-24'
+  livro: JHN
+  normalizada: Jo 6,52-59
+- ref: 1Pd 5, 5b-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-25'
+  livro: 1PE
+  normalizada: 1Pd 5,5b-14
+- ref: Mc 16, 15-20
+  tipo: evangelho
+  primeira_data: '2026-04-25'
+  livro: MRK
+  normalizada: Mc 16,15-20
+- ref: At 2,14.36-41
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-26'
+  livro: ACT
+  normalizada: At 2,14.36-41
+- ref: 1Pd 2,20-25
+  tipo: segundaLeitura
+  primeira_data: '2026-04-26'
+  livro: 1PE
+  normalizada: 1Pd 2,20-25
+- ref: Jo 10,1-10
+  tipo: evangelho
+  primeira_data: '2026-04-26'
+  livro: JHN
+  normalizada: Jo 10,1-10
+- ref: At 11,1-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-27'
+  livro: ACT
+  normalizada: At 11,1-18
+- ref: Sl 41(42)
+  tipo: salmo
+  primeira_data: '2026-04-27'
+  livro: PSA
+  normalizada: Sl 41
+  salmo_hebraico: '42'
+- ref: Jo 10,11-18
+  tipo: evangelho
+  primeira_data: '2026-04-27'
+  livro: JHN
+  normalizada: Jo 10,11-18
+- ref: At 11, 19-26
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-28'
+  livro: ACT
+  normalizada: At 11,19-26
+- ref: Sl 86
+  tipo: salmo
+  primeira_data: '2026-04-28'
+  livro: PSA
+  normalizada: Sl 86
+- ref: Jo 10, 22-30
+  tipo: evangelho
+  primeira_data: '2026-04-28'
+  livro: JHN
+  normalizada: Jo 10,22-30
+- ref: At 12,24-13,5
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-29'
+  livro: ACT
+  normalizada: At 12,24-13,5
+- ref: Sl 66(67)
+  tipo: salmo
+  primeira_data: '2026-04-29'
+  livro: PSA
+  normalizada: Sl 66
+  salmo_hebraico: '67'
+- ref: Jo 12,44-50
+  tipo: evangelho
+  primeira_data: '2026-04-29'
+  livro: JHN
+  normalizada: Jo 12,44-50
+- ref: At 13,13-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-04-30'
+  livro: ACT
+  normalizada: At 13,13-25
+- ref: Jo 13,16-20
+  tipo: evangelho
+  primeira_data: '2026-04-30'
+  livro: JHN
+  normalizada: Jo 13,16-20
+- ref: At 13, 26-33
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-01'
+  livro: ACT
+  normalizada: At 13,26-33
+- ref: Jo 14, 1-6
+  tipo: evangelho
+  primeira_data: '2026-05-01'
+  livro: JHN
+  normalizada: Jo 14,1-6
+- ref: At 13,44-52
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-02'
+  livro: ACT
+  normalizada: At 13,44-52
+- ref: Jo 14,7-14
+  tipo: evangelho
+  primeira_data: '2026-05-02'
+  livro: JHN
+  normalizada: Jo 14,7-14
+- ref: At 6,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-03'
+  livro: ACT
+  normalizada: At 6,1-7
+- ref: 1Pd 2,4-9
+  tipo: segundaLeitura
+  primeira_data: '2026-05-03'
+  livro: 1PE
+  normalizada: 1Pd 2,4-9
+- ref: Jo 14,1-12
+  tipo: evangelho
+  primeira_data: '2026-05-03'
+  livro: JHN
+  normalizada: Jo 14,1-12
+- ref: At 14, 5-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-04'
+  livro: ACT
+  normalizada: At 14,5-18
+- ref: Sl 113b
+  tipo: salmo
+  primeira_data: '2026-05-04'
+  livro: PSA
+  normalizada: Sl 113,9-26
+- ref: Jo 14, 21-26
+  tipo: evangelho
+  primeira_data: '2026-05-04'
+  livro: JHN
+  normalizada: Jo 14,21-26
+- ref: At 14, 19-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-05'
+  livro: ACT
+  normalizada: At 14,19-28
+- ref: Jo 14, 27-31a
+  tipo: evangelho
+  primeira_data: '2026-05-05'
+  livro: JHN
+  normalizada: Jo 14,27-31a
+- ref: At 15, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-06'
+  livro: ACT
+  normalizada: At 15,1-6
+- ref: Sl 121
+  tipo: salmo
+  primeira_data: '2026-05-06'
+  livro: PSA
+  normalizada: Sl 121
+- ref: Jo 15, 1-8
+  tipo: evangelho
+  primeira_data: '2026-05-06'
+  livro: JHN
+  normalizada: Jo 15,1-8
+- ref: At 15, 7-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-07'
+  livro: ACT
+  normalizada: At 15,7-21
+- ref: Jo 15, 9-11
+  tipo: evangelho
+  primeira_data: '2026-05-07'
+  livro: JHN
+  normalizada: Jo 15,9-11
+- ref: At 15,22-31
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-08'
+  livro: ACT
+  normalizada: At 15,22-31
+- ref: Sl 56(57)
+  tipo: salmo
+  primeira_data: '2026-05-08'
+  livro: PSA
+  normalizada: Sl 56
+  salmo_hebraico: '57'
+- ref: Jo 15,12-17
+  tipo: evangelho
+  primeira_data: '2026-05-08'
+  livro: JHN
+  normalizada: Jo 15,12-17
+- ref: At 16, 1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-09'
+  livro: ACT
+  normalizada: At 16,1-10
+- ref: Sl 99
+  tipo: salmo
+  primeira_data: '2026-05-09'
+  livro: PSA
+  normalizada: Sl 99
+- ref: Jo 15, 18-21
+  tipo: evangelho
+  primeira_data: '2026-05-09'
+  livro: JHN
+  normalizada: Jo 15,18-21
+- ref: At 8,5-8.14-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-10'
+  livro: ACT
+  normalizada: At 8,5-8.14-17
+- ref: 1Pd 3,15-18
+  tipo: segundaLeitura
+  primeira_data: '2026-05-10'
+  livro: 1PE
+  normalizada: 1Pd 3,15-18
+- ref: Sl 65(66)
+  tipo: salmo
+  primeira_data: '2026-05-10'
+  livro: PSA
+  normalizada: Sl 65
+  salmo_hebraico: '66'
+- ref: Jo 14,15-21
+  tipo: evangelho
+  primeira_data: '2026-05-10'
+  livro: JHN
+  normalizada: Jo 14,15-21
+- ref: At 16, 11-15
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-11'
+  livro: ACT
+  normalizada: At 16,11-15
+- ref: Jo 15, 26–16, 4a
+  tipo: evangelho
+  primeira_data: '2026-05-11'
+  livro: JHN
+  normalizada: Jo 15,26-16,4a
+- ref: At 16, 22-34
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-12'
+  livro: ACT
+  normalizada: At 16,22-34
+- ref: Sl 137
+  tipo: salmo
+  primeira_data: '2026-05-12'
+  livro: PSA
+  normalizada: Sl 137
+- ref: Jo 16, 5-11
+  tipo: evangelho
+  primeira_data: '2026-05-12'
+  livro: JHN
+  normalizada: Jo 16,5-11
+- ref: At 17, 15. 22–18, 1
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-13'
+  livro: ACT
+  normalizada: At 17,15.22-18,1
+- ref: Sl 148
+  tipo: salmo
+  primeira_data: '2026-05-13'
+  livro: PSA
+  normalizada: Sl 148
+- ref: Jo 16, 12-15
+  tipo: evangelho
+  primeira_data: '2026-05-13'
+  livro: JHN
+  normalizada: Jo 16,12-15
+- ref: At 1, 15-17. 20-26
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-14'
+  livro: ACT
+  normalizada: At 1,15-17.20-26
+- ref: Sl 112
+  tipo: salmo
+  primeira_data: '2026-05-14'
+  livro: PSA
+  normalizada: Sl 112
+- ref: Jo 15, 9-17
+  tipo: evangelho
+  primeira_data: '2026-05-14'
+  livro: JHN
+  normalizada: Jo 15,9-17
+- ref: At 18, 9-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-15'
+  livro: ACT
+  normalizada: At 18,9-18
+- ref: Sl 46
+  tipo: salmo
+  primeira_data: '2026-05-15'
+  livro: PSA
+  normalizada: Sl 46
+- ref: Jo 16, 20-23a
+  tipo: evangelho
+  primeira_data: '2026-05-15'
+  livro: JHN
+  normalizada: Jo 16,20-23a
+- ref: At 18, 23-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-16'
+  livro: ACT
+  normalizada: At 18,23-28
+- ref: Jo 16, 23b-28
+  tipo: evangelho
+  primeira_data: '2026-05-16'
+  livro: JHN
+  normalizada: Jo 16,23b-28
+- ref: At 1,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-17'
+  livro: ACT
+  normalizada: At 1,1-11
+- ref: Ef 1,17-23
+  tipo: segundaLeitura
+  primeira_data: '2026-05-17'
+  livro: EPH
+  normalizada: Ef 1,17-23
+- ref: Sl 46(47)
+  tipo: salmo
+  primeira_data: '2026-05-17'
+  livro: PSA
+  normalizada: Sl 46
+  salmo_hebraico: '47'
+- ref: Mt 28,16-20
+  tipo: evangelho
+  primeira_data: '2026-05-17'
+  livro: MAT
+  normalizada: Mt 28,16-20
+- ref: At 19, 1-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-18'
+  livro: ACT
+  normalizada: At 19,1-8
+- ref: Sl 67
+  tipo: salmo
+  primeira_data: '2026-05-18'
+  livro: PSA
+  normalizada: Sl 67
+- ref: Jo 16, 29-33
+  tipo: evangelho
+  primeira_data: '2026-05-18'
+  livro: JHN
+  normalizada: Jo 16,29-33
+- ref: At 20,17-27
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-19'
+  livro: ACT
+  normalizada: At 20,17-27
+- ref: Sl 67(68)
+  tipo: salmo
+  primeira_data: '2026-05-19'
+  livro: PSA
+  normalizada: Sl 67
+  salmo_hebraico: '68'
+- ref: Jo 17,1-11
+  tipo: evangelho
+  primeira_data: '2026-05-19'
+  livro: JHN
+  normalizada: Jo 17,1-11
+- ref: At 20, 28-38
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-20'
+  livro: ACT
+  normalizada: At 20,28-38
+- ref: Jo 17, 11b-19
+  tipo: evangelho
+  primeira_data: '2026-05-20'
+  livro: JHN
+  normalizada: Jo 17,11b-19
+- ref: At 22, 30; 23, 6-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-21'
+  livro: ACT
+  normalizada: At 22,30; 23,6-11
+- ref: Jo 17, 20-26
+  tipo: evangelho
+  primeira_data: '2026-05-21'
+  livro: JHN
+  normalizada: Jo 17,20-26
+- ref: At 25, 13b-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-22'
+  livro: ACT
+  normalizada: At 25,13b-21
+- ref: Jo 21, 15-19
+  tipo: evangelho
+  primeira_data: '2026-05-22'
+  livro: JHN
+  normalizada: Jo 21,15-19
+- ref: At 28, 16-20. 30-31
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-23'
+  livro: ACT
+  normalizada: At 28,16-20.30-31
+- ref: Sl 10
+  tipo: salmo
+  primeira_data: '2026-05-23'
+  livro: PSA
+  normalizada: Sl 10
+- ref: Jo 21, 20-25
+  tipo: evangelho
+  primeira_data: '2026-05-23'
+  livro: JHN
+  normalizada: Jo 21,20-25
+- ref: At 2, 1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-24'
+  livro: ACT
+  normalizada: At 2,1-11
+- ref: 1Cor 12, 3b-7. 12-13
+  tipo: segundaLeitura
+  primeira_data: '2026-05-24'
+  livro: 1CO
+  normalizada: 1Cor 12,3b-7.12-13
+- ref: Jo 20, 19-23
+  tipo: evangelho
+  primeira_data: '2026-05-24'
+  livro: JHN
+  normalizada: Jo 20,19-23
+- ref: Gn 3, 9-15. 20
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-25'
+  livro: GEN
+  normalizada: Gn 3,9-15.20
+- ref: Jo 19, 25-34
+  tipo: evangelho
+  primeira_data: '2026-05-25'
+  livro: JHN
+  normalizada: Jo 19,25-34
+- ref: 1Pd 1,10-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-26'
+  livro: 1PE
+  normalizada: 1Pd 1,10-16
+- ref: Mc 10,28-31
+  tipo: evangelho
+  primeira_data: '2026-05-26'
+  livro: MRK
+  normalizada: Mc 10,28-31
+- ref: 1Pd 1, 18-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-27'
+  livro: 1PE
+  normalizada: 1Pd 1,18-25
+- ref: Mc 10, 32-45
+  tipo: evangelho
+  primeira_data: '2026-05-27'
+  livro: MRK
+  normalizada: Mc 10,32-45
+- ref: 1Pd 2,2-5.9-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-28'
+  livro: 1PE
+  normalizada: 1Pd 2,2-5.9-12
+- ref: Sl 99(100)
+  tipo: salmo
+  primeira_data: '2026-05-28'
+  livro: PSA
+  normalizada: Sl 99
+  salmo_hebraico: '100'
+- ref: Mc 10, 46-52
+  tipo: evangelho
+  primeira_data: '2026-05-28'
+  livro: MRK
+  normalizada: Mc 10,46-52
+- ref: 1Pd 4,7-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-29'
+  livro: 1PE
+  normalizada: 1Pd 4,7-13
+- ref: Sl 95(96)
+  tipo: salmo
+  primeira_data: '2026-05-29'
+  livro: PSA
+  normalizada: Sl 95
+  salmo_hebraico: '96'
+- ref: Mc 11,11-26
+  tipo: evangelho
+  primeira_data: '2026-05-29'
+  livro: MRK
+  normalizada: Mc 11,11-26
+- ref: Jd 17.20-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-30'
+  livro: JUD
+  normalizada: Jd 17.20-25
+- ref: Sl 62(63)
+  tipo: salmo
+  primeira_data: '2026-05-30'
+  livro: PSA
+  normalizada: Sl 62
+  salmo_hebraico: '63'
+- ref: Mc 11,27-33
+  tipo: evangelho
+  primeira_data: '2026-05-30'
+  livro: MRK
+  normalizada: Mc 11,27-33
+- ref: Ex 34,4-6.8-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-05-31'
+  livro: EXO
+  normalizada: Ex 34,4-6.8-9
+- ref: 2Cor 13,11-13
+  tipo: segundaLeitura
+  primeira_data: '2026-05-31'
+  livro: 2CO
+  normalizada: 2Cor 13,11-13
+- ref: Dn 3
+  tipo: salmo
+  primeira_data: '2026-05-31'
+  livro: DAN
+  normalizada: Dn 3
+- ref: Jo 3,16-18
+  tipo: evangelho
+  primeira_data: '2026-05-31'
+  livro: JHN
+  normalizada: Jo 3,16-18
+- ref: 2Pd 1,2-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-01'
+  livro: 2PE
+  normalizada: 2Pd 1,2-7
+- ref: Sl 90(91)
+  tipo: salmo
+  primeira_data: '2026-06-01'
+  livro: PSA
+  normalizada: Sl 90
+  salmo_hebraico: '91'
+- ref: Mc 12,1-12
+  tipo: evangelho
+  primeira_data: '2026-06-01'
+  livro: MRK
+  normalizada: Mc 12,1-12
+- ref: 2Pd 3,12-15.17-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-02'
+  livro: 2PE
+  normalizada: 2Pd 3,12-15.17-18
+- ref: Sl 89(90)
+  tipo: salmo
+  primeira_data: '2026-06-02'
+  livro: PSA
+  normalizada: Sl 89
+  salmo_hebraico: '90'
+- ref: Mc 12,13-17
+  tipo: evangelho
+  primeira_data: '2026-06-02'
+  livro: MRK
+  normalizada: Mc 12,13-17
+- ref: 2Tm 1,1-3.6-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-03'
+  livro: 2TI
+  normalizada: 2Tm 1,1-3.6-12
+- ref: Sl 122(123)
+  tipo: salmo
+  primeira_data: '2026-06-03'
+  livro: PSA
+  normalizada: Sl 122
+  salmo_hebraico: '123'
+- ref: Mc 12,18-27
+  tipo: evangelho
+  primeira_data: '2026-06-03'
+  livro: MRK
+  normalizada: Mc 12,18-27
+- ref: Dt 8,2-3.14-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-04'
+  livro: DEU
+  normalizada: Dt 8,2-3.14-16
+- ref: 1Cor 10,16-17
+  tipo: segundaLeitura
+  primeira_data: '2026-06-04'
+  livro: 1CO
+  normalizada: 1Cor 10,16-17
+- ref: Jo 6,51-58
+  tipo: evangelho
+  primeira_data: '2026-06-04'
+  livro: JHN
+  normalizada: Jo 6,51-58
+- ref: 2Tm 3,10-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-05'
+  livro: 2TI
+  normalizada: 2Tm 3,10-17
+- ref: Sl 118(119
+  tipo: salmo
+  primeira_data: '2026-06-05'
+  livro: PSA
+  normalizada: Sl 118
+  salmo_hebraico: '119'
+- ref: Mc 12,35-37
+  tipo: evangelho
+  primeira_data: '2026-06-05'
+  livro: MRK
+  normalizada: Mc 12,35-37
+- ref: 2Tm 4,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-06'
+  livro: 2TI
+  normalizada: 2Tm 4,1-8
+- ref: Sl (71/70)
+  tipo: salmo
+  primeira_data: '2026-06-06'
+  livro: PSA
+  normalizada: Sl 70
+  salmo_hebraico: '71'
+- ref: Mc 12,38-44
+  tipo: evangelho
+  primeira_data: '2026-06-06'
+  livro: MRK
+  normalizada: Mc 12,38-44
+- ref: Os 6,3-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-07'
+  livro: HOS
+  normalizada: Os 6,3-6
+- ref: Rm 4,18-25
+  tipo: segundaLeitura
+  primeira_data: '2026-06-07'
+  livro: ROM
+  normalizada: Rm 4,18-25
+- ref: Sl 49(50)
+  tipo: salmo
+  primeira_data: '2026-06-07'
+  livro: PSA
+  normalizada: Sl 49
+  salmo_hebraico: '50'
+- ref: Mt 9,9-13
+  tipo: evangelho
+  primeira_data: '2026-06-07'
+  livro: MAT
+  normalizada: Mt 9,9-13
+- ref: 1Rs 17, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-08'
+  livro: 1KI
+  normalizada: 1Rs 17,1-6
+- ref: Sl 120
+  tipo: salmo
+  primeira_data: '2026-06-08'
+  livro: PSA
+  normalizada: Sl 120
+- ref: Mt 5, 1-12
+  tipo: evangelho
+  primeira_data: '2026-06-08'
+  livro: MAT
+  normalizada: Mt 5,1-12
+- ref: 1Rs 17,7-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-09'
+  livro: 1KI
+  normalizada: 1Rs 17,7-16
+- ref: Sl 4
+  tipo: salmo
+  primeira_data: '2026-06-09'
+  livro: PSA
+  normalizada: Sl 4
+- ref: 1Rs 18, 20-39
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-10'
+  livro: 1KI
+  normalizada: 1Rs 18,20-39
+- ref: At 11, 21b-26; 13, 1-3
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-11'
+  livro: ACT
+  normalizada: At 11,21b-26; 13,1-3
+- ref: Mt 10, 7-13
+  tipo: evangelho
+  primeira_data: '2026-06-11'
+  livro: MAT
+  normalizada: Mt 10,7-13
+- ref: Dt 7,6-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-12'
+  livro: DEU
+  normalizada: Dt 7,6-11
+- ref: 1Jo 4,7-16
+  tipo: segundaLeitura
+  primeira_data: '2026-06-12'
+  livro: 1JN
+  normalizada: 1Jo 4,7-16
+- ref: Sl 102(103)
+  tipo: salmo
+  primeira_data: '2026-06-12'
+  livro: PSA
+  normalizada: Sl 102
+  salmo_hebraico: '103'
+- ref: Mt 11,25-30
+  tipo: evangelho
+  primeira_data: '2026-06-12'
+  livro: MAT
+  normalizada: Mt 11,25-30
+- ref: Is 61, 9-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-13'
+  livro: ISA
+  normalizada: Is 61,9-11
+- ref: 1Sm 2, 1. 4-8
+  tipo: salmo
+  primeira_data: '2026-06-13'
+  livro: 1SA
+  normalizada: 1Sm 2,1.4-8
+- ref: Lc 2, 41-51
+  tipo: evangelho
+  primeira_data: '2026-06-13'
+  livro: LUK
+  normalizada: Lc 2,41-51
+- ref: Ex 19,2-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-14'
+  livro: EXO
+  normalizada: Ex 19,2-6
+- ref: Rm 5,6-11
+  tipo: segundaLeitura
+  primeira_data: '2026-06-14'
+  livro: ROM
+  normalizada: Rm 5,6-11
+- ref: Mt 9,36-10,8
+  tipo: evangelho
+  primeira_data: '2026-06-14'
+  livro: MAT
+  normalizada: Mt 9,36-10,8
+- ref: 1Rs 21,1-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-15'
+  livro: 1KI
+  normalizada: 1Rs 21,1-16
+- ref: Sl 5
+  tipo: salmo
+  primeira_data: '2026-06-15'
+  livro: PSA
+  normalizada: Sl 5
+- ref: Mt 5,38-42
+  tipo: evangelho
+  primeira_data: '2026-06-15'
+  livro: MAT
+  normalizada: Mt 5,38-42
+- ref: 1Rs 21,17-29
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-16'
+  livro: 1KI
+  normalizada: 1Rs 21,17-29
+- ref: Mt 5,43-48
+  tipo: evangelho
+  primeira_data: '2026-06-16'
+  livro: MAT
+  normalizada: Mt 5,43-48
+- ref: 2Rs 2, 1. 6-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-17'
+  livro: 2KI
+  normalizada: 2Rs 2,1.6-14
+- ref: Sl 30(31)
+  tipo: salmo
+  primeira_data: '2026-06-17'
+  livro: PSA
+  normalizada: Sl 30
+  salmo_hebraico: '31'
+- ref: Mt 6,1-6.16-18
+  tipo: evangelho
+  primeira_data: '2026-06-17'
+  livro: MAT
+  normalizada: Mt 6,1-6.16-18
+- ref: Eclo 48, 1-15
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-18'
+  livro: SIR
+  normalizada: Eclo 48,1-15
+- ref: Sl 96
+  tipo: salmo
+  primeira_data: '2026-06-18'
+  livro: PSA
+  normalizada: Sl 96
+- ref: 2Rs 11, 1-4. 9-18. 20
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-19'
+  livro: 2KI
+  normalizada: 2Rs 11,1-4.9-18.20
+- ref: Mt 6,19-23
+  tipo: evangelho
+  primeira_data: '2026-06-19'
+  livro: MAT
+  normalizada: Mt 6,19-23
+- ref: 2Cr 24, 17-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-20'
+  livro: 2CH
+  normalizada: 2Cr 24,17-25
+- ref: Mt 6, 24-34
+  tipo: evangelho
+  primeira_data: '2026-06-20'
+  livro: MAT
+  normalizada: Mt 6,24-34
+- ref: Sl 68(69)
+  tipo: salmo
+  primeira_data: '2026-06-21'
+  livro: PSA
+  normalizada: Sl 68
+  salmo_hebraico: '69'
+- ref: Rm 5,12-15
+  tipo: segundaLeitura
+  primeira_data: '2026-06-21'
+  livro: ROM
+  normalizada: Rm 5,12-15
+- ref: Mt 10,26-33
+  tipo: evangelho
+  primeira_data: '2026-06-21'
+  livro: MAT
+  normalizada: Mt 10,26-33
+- ref: 2Rs 17,5-8.13-15.18
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-22'
+  livro: 2KI
+  normalizada: 2Rs 17,5-8.13-15.18
+- ref: Sl 59(60)
+  tipo: salmo
+  primeira_data: '2026-06-22'
+  livro: PSA
+  normalizada: Sl 59
+  salmo_hebraico: '60'
+- ref: Mt 7,1-5
+  tipo: evangelho
+  primeira_data: '2026-06-22'
+  livro: MAT
+  normalizada: Mt 7,1-5
+- ref: 2Rs 19, 9b-11. 14-21. 31-35a. 36
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-23'
+  livro: 2KI
+  normalizada: 2Rs 19,9b-11.14-21.31-35a.36
+- ref: Sl 47
+  tipo: salmo
+  primeira_data: '2026-06-23'
+  livro: PSA
+  normalizada: Sl 47
+- ref: Mt 7, 6. 12-14
+  tipo: evangelho
+  primeira_data: '2026-06-23'
+  livro: MAT
+  normalizada: Mt 7,6.12-14
+- ref: Sl 138
+  tipo: salmo
+  primeira_data: '2026-06-24'
+  livro: PSA
+  normalizada: Sl 138
+- ref: At 13, 22-26
+  tipo: segundaLeitura
+  primeira_data: '2026-06-24'
+  livro: ACT
+  normalizada: At 13,22-26
+- ref: Lc 1, 57-66. 80
+  tipo: evangelho
+  primeira_data: '2026-06-24'
+  livro: LUK
+  normalizada: Lc 1,57-66.80
+- ref: 2Rs 24, 8-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-25'
+  livro: 2KI
+  normalizada: 2Rs 24,8-17
+- ref: Sl 78(79)
+  tipo: salmo
+  primeira_data: '2026-06-25'
+  livro: PSA
+  normalizada: Sl 78
+  salmo_hebraico: '79'
+- ref: Mt 7,21-29
+  tipo: evangelho
+  primeira_data: '2026-06-25'
+  livro: MAT
+  normalizada: Mt 7,21-29
+- ref: 2Rs 25, 1-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-26'
+  livro: 2KI
+  normalizada: 2Rs 25,1-12
+- ref: Sl 136(137)
+  tipo: salmo
+  primeira_data: '2026-06-26'
+  livro: PSA
+  normalizada: Sl 136
+  salmo_hebraico: '137'
+- ref: Mt 8, 1-4
+  tipo: evangelho
+  primeira_data: '2026-06-26'
+  livro: MAT
+  normalizada: Mt 8,1-4
+- ref: Lm 2, 2. 10-14. 18-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-27'
+  livro: LAM
+  normalizada: Lm 2,2.10-14.18-19
+- ref: Sl 73
+  tipo: salmo
+  primeira_data: '2026-06-27'
+  livro: PSA
+  normalizada: Sl 73
+- ref: Mt 8, 5-17
+  tipo: evangelho
+  primeira_data: '2026-06-27'
+  livro: MAT
+  normalizada: Mt 8,5-17
+- ref: At 12, 1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-28'
+  livro: ACT
+  normalizada: At 12,1-11
+- ref: 2Tm 4, 6-8. 17-18
+  tipo: segundaLeitura
+  primeira_data: '2026-06-28'
+  livro: 2TI
+  normalizada: 2Tm 4,6-8.17-18
+- ref: Mt 16, 13-19
+  tipo: evangelho
+  primeira_data: '2026-06-28'
+  livro: MAT
+  normalizada: Mt 16,13-19
+- ref: Am 2, 6-10. 13-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-29'
+  livro: AMO
+  normalizada: Am 2,6-10.13-16
+- ref: Mt 8, 18-22
+  tipo: evangelho
+  primeira_data: '2026-06-29'
+  livro: MAT
+  normalizada: Mt 8,18-22
+- ref: Am 3, 1-8; 4, 11-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-06-30'
+  livro: AMO
+  normalizada: Am 3,1-8; 4,11-12
+- ref: Sl 5,5-6.7.8
+  tipo: salmo
+  primeira_data: '2026-06-30'
+  livro: PSA
+  normalizada: Sl 5,5-6.7.8
+- ref: Mt 8,23-27
+  tipo: evangelho
+  primeira_data: '2026-06-30'
+  livro: MAT
+  normalizada: Mt 8,23-27
+- ref: Am 5,14-15.21-24
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-01'
+  livro: AMO
+  normalizada: Am 5,14-15.21-24
+- ref: Mt 8,28-34
+  tipo: evangelho
+  primeira_data: '2026-07-01'
+  livro: MAT
+  normalizada: Mt 8,28-34
+- ref: Am 7, 10-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-02'
+  livro: AMO
+  normalizada: Am 7,10-17
+- ref: Mt 9, 1-8
+  tipo: evangelho
+  primeira_data: '2026-07-02'
+  livro: MAT
+  normalizada: Mt 9,1-8
+- ref: Ef 2, 19-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-03'
+  livro: EPH
+  normalizada: Ef 2,19-22
+- ref: Jo 20, 24-29
+  tipo: evangelho
+  primeira_data: '2026-07-03'
+  livro: JHN
+  normalizada: Jo 20,24-29
+- ref: Am 9, 11-15
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-04'
+  livro: AMO
+  normalizada: Am 9,11-15
+- ref: Sl 84
+  tipo: salmo
+  primeira_data: '2026-07-04'
+  livro: PSA
+  normalizada: Sl 84
+- ref: Mt 9,14-17
+  tipo: evangelho
+  primeira_data: '2026-07-04'
+  livro: MAT
+  normalizada: Mt 9,14-17
+- ref: Zc 9,9-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-05'
+  livro: ZEC
+  normalizada: Zc 9,9-10
+- ref: Sl 144(145)
+  tipo: salmo
+  primeira_data: '2026-07-05'
+  livro: PSA
+  normalizada: Sl 144
+  salmo_hebraico: '145'
+- ref: Rm 8,9.11-13
+  tipo: segundaLeitura
+  primeira_data: '2026-07-05'
+  livro: ROM
+  normalizada: Rm 8,9.11-13
+- ref: Os 2, 16. 17b-18. 21-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-06'
+  livro: HOS
+  normalizada: Os 2,16.17b-18.21-22
+- ref: Mt 9,18-26
+  tipo: evangelho
+  primeira_data: '2026-07-06'
+  livro: MAT
+  normalizada: Mt 9,18-26
+- ref: Os 8, 4-7. 11-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-07'
+  livro: HOS
+  normalizada: Os 8,4-7.11-13
+- ref: Sl 113B
+  tipo: salmo
+  primeira_data: '2026-07-07'
+  livro: PSA
+  normalizada: Sl 113,9-26
+- ref: Mt 9,32-38
+  tipo: evangelho
+  primeira_data: '2026-07-07'
+  livro: MAT
+  normalizada: Mt 9,32-38
+- ref: Os 10, 1-3. 7-8. 12
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-08'
+  livro: HOS
+  normalizada: Os 10,1-3.7-8.12
+- ref: Mt 10, 1-7
+  tipo: evangelho
+  primeira_data: '2026-07-08'
+  livro: MAT
+  normalizada: Mt 10,1-7
+- ref: Os 11, 1-4. 8c-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-09'
+  livro: HOS
+  normalizada: Os 11,1-4.8c-9
+- ref: Mt 10,7-15
+  tipo: evangelho
+  primeira_data: '2026-07-09'
+  livro: MAT
+  normalizada: Mt 10,7-15
+- ref: Mt 10, 16-23
+  tipo: evangelho
+  primeira_data: '2026-07-10'
+  livro: MAT
+  normalizada: Mt 10,16-23
+- ref: Is 6, 1-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-11'
+  livro: ISA
+  normalizada: Is 6,1-8
+- ref: Mt 10,24-33
+  tipo: evangelho
+  primeira_data: '2026-07-11'
+  livro: MAT
+  normalizada: Mt 10,24-33
+- ref: Sl 64(65)
+  tipo: salmo
+  primeira_data: '2026-07-12'
+  livro: PSA
+  normalizada: Sl 64
+  salmo_hebraico: '65'
+- ref: Rm 8,18-23
+  tipo: segundaLeitura
+  primeira_data: '2026-07-12'
+  livro: ROM
+  normalizada: Rm 8,18-23
+- ref: Mt 13,1-23
+  tipo: evangelho
+  primeira_data: '2026-07-12'
+  livro: MAT
+  normalizada: Mt 13,1-23
+- ref: Mt 13, 1-9
+  tipo: evangelho
+  primeira_data: '2026-07-12'
+  livro: MAT
+  normalizada: Mt 13,1-9
+- ref: Is 1, 10-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-13'
+  livro: ISA
+  normalizada: Is 1,10-17
+- ref: Mt 10,34-11,1
+  tipo: evangelho
+  primeira_data: '2026-07-13'
+  livro: MAT
+  normalizada: Mt 10,34-11,1
+- ref: Is 7,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-14'
+  livro: ISA
+  normalizada: Is 7,1-9
+- ref: Sl 47(48)
+  tipo: salmo
+  primeira_data: '2026-07-14'
+  livro: PSA
+  normalizada: Sl 47
+  salmo_hebraico: '48'
+- ref: Mt 11,20-24
+  tipo: evangelho
+  primeira_data: '2026-07-14'
+  livro: MAT
+  normalizada: Mt 11,20-24
+- ref: Is 10, 5-7. 13-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-15'
+  livro: ISA
+  normalizada: Is 10,5-7.13-16
+- ref: Mt 11, 25-27
+  tipo: evangelho
+  primeira_data: '2026-07-15'
+  livro: MAT
+  normalizada: Mt 11,25-27
+- ref: Zc 2, 14-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-16'
+  livro: ZEC
+  normalizada: Zc 2,14-17
+- ref: Lc 1, 46-55
+  tipo: salmo
+  primeira_data: '2026-07-16'
+  livro: LUK
+  normalizada: Lc 1,46-55
+- ref: Mt 12, 46-50
+  tipo: evangelho
+  primeira_data: '2026-07-16'
+  livro: MAT
+  normalizada: Mt 12,46-50
+- ref: Is 38, 1-6. 21-22. 7-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-17'
+  livro: ISA
+  normalizada: Is 38,1-6.21-22.7-8
+- ref: Is 38, 10-12. 16
+  tipo: salmo
+  primeira_data: '2026-07-17'
+  livro: ISA
+  normalizada: Is 38,10-12.16
+- ref: Mt 12,1-8
+  tipo: evangelho
+  primeira_data: '2026-07-17'
+  livro: MAT
+  normalizada: Mt 12,1-8
+- ref: Mq 2, 1-5
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-18'
+  livro: MIC
+  normalizada: Mq 2,1-5
+- ref: Sl 9B
+  tipo: salmo
+  primeira_data: '2026-07-18'
+  livro: PSA
+  normalizada: Sl 9,22-39
+- ref: Mt 12,14-21
+  tipo: evangelho
+  primeira_data: '2026-07-18'
+  livro: MAT
+  normalizada: Mt 12,14-21
+- ref: Sb 12,13.16-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-19'
+  livro: WIS
+  normalizada: Sb 12,13.16-19
+- ref: Rm 8,26-27
+  tipo: segundaLeitura
+  primeira_data: '2026-07-19'
+  livro: ROM
+  normalizada: Rm 8,26-27
+- ref: Mt 13,24-43
+  tipo: evangelho
+  primeira_data: '2026-07-19'
+  livro: MAT
+  normalizada: Mt 13,24-43
+- ref: Mq 6,1-4.6-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-20'
+  livro: MIC
+  normalizada: Mq 6,1-4.6-8
+- ref: Mt 12,38-42
+  tipo: evangelho
+  primeira_data: '2026-07-20'
+  livro: MAT
+  normalizada: Mt 12,38-42
+- ref: Ct 3, 1-4a
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-22'
+  livro: SNG
+  normalizada: Ct 3,1-4a
+- ref: 2 Co 5, 14-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-22'
+  livro: 2CO
+  normalizada: 2Cor 5,14-17
+- ref: Sl 62
+  tipo: salmo
+  primeira_data: '2026-07-22'
+  livro: PSA
+  normalizada: Sl 62
+- ref: Jo 20, 1-2. 11-18
+  tipo: evangelho
+  primeira_data: '2026-07-22'
+  livro: JHN
+  normalizada: Jo 20,1-2.11-18
+- ref: Jr 2,1-3.7-8.12-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-23'
+  livro: JER
+  normalizada: Jr 2,1-3.7-8.12-13
+- ref: Sl 35(36)
+  tipo: salmo
+  primeira_data: '2026-07-23'
+  livro: PSA
+  normalizada: Sl 35
+  salmo_hebraico: '36'
+- ref: Mt 13,10-17
+  tipo: evangelho
+  primeira_data: '2026-07-23'
+  livro: MAT
+  normalizada: Mt 13,10-17
+- ref: Jr 3,14-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-24'
+  livro: JER
+  normalizada: Jr 3,14-17
+- ref: Mt 13,18-23
+  tipo: evangelho
+  primeira_data: '2026-07-24'
+  livro: MAT
+  normalizada: Mt 13,18-23
+- ref: 2Cor 4, 7-15
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-25'
+  livro: 2CO
+  normalizada: 2Cor 4,7-15
+- ref: Sl 125
+  tipo: salmo
+  primeira_data: '2026-07-25'
+  livro: PSA
+  normalizada: Sl 125
+- ref: Mt 20, 20-28
+  tipo: evangelho
+  primeira_data: '2026-07-25'
+  livro: MAT
+  normalizada: Mt 20,20-28
+- ref: 1Rs 3,5.7-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-26'
+  livro: 1KI
+  normalizada: 1Rs 3,5.7-12
+- ref: Rm 8,28-30
+  tipo: segundaLeitura
+  primeira_data: '2026-07-26'
+  livro: ROM
+  normalizada: Rm 8,28-30
+- ref: Mt 13,44-52
+  tipo: evangelho
+  primeira_data: '2026-07-26'
+  livro: MAT
+  normalizada: Mt 13,44-52
+- ref: Jr 13,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-27'
+  livro: JER
+  normalizada: Jr 13,1-11
+- ref: Dt 32, 18-21
+  tipo: salmo
+  primeira_data: '2026-07-27'
+  livro: DEU
+  normalizada: Dt 32,18-21
+- ref: Mt 13,31-35
+  tipo: evangelho
+  primeira_data: '2026-07-27'
+  livro: MAT
+  normalizada: Mt 13,31-35
+- ref: Jr 14, 17-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-28'
+  livro: JER
+  normalizada: Jr 14,17-22
+- ref: Mt 13, 36-43
+  tipo: evangelho
+  primeira_data: '2026-07-28'
+  livro: MAT
+  normalizada: Mt 13,36-43
+- ref: 1Jo 4, 7-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-29'
+  livro: 1JN
+  normalizada: 1Jo 4,7-16
+- ref: Jo 11, 19-27
+  tipo: evangelho
+  primeira_data: '2026-07-29'
+  livro: JHN
+  normalizada: Jo 11,19-27
+- ref: Lc 10, 38-42
+  tipo: evangelho
+  primeira_data: '2026-07-29'
+  livro: LUK
+  normalizada: Lc 10,38-42
+- ref: Jr 18, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-30'
+  livro: JER
+  normalizada: Jr 18,1-6
+- ref: Sl 145
+  tipo: salmo
+  primeira_data: '2026-07-30'
+  livro: PSA
+  normalizada: Sl 145
+- ref: Mt 13,47-53
+  tipo: evangelho
+  primeira_data: '2026-07-30'
+  livro: MAT
+  normalizada: Mt 13,47-53
+- ref: Jr 26, 1-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-07-31'
+  livro: JER
+  normalizada: Jr 26,1-9
+- ref: Mt 13,54-58
+  tipo: evangelho
+  primeira_data: '2026-07-31'
+  livro: MAT
+  normalizada: Mt 13,54-58
+- ref: Jr 26, 11-16. 24
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-01'
+  livro: JER
+  normalizada: Jr 26,11-16.24
+- ref: Mt 14,1-12
+  tipo: evangelho
+  primeira_data: '2026-08-01'
+  livro: MAT
+  normalizada: Mt 14,1-12
+- ref: Is 55,1-3
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-02'
+  livro: ISA
+  normalizada: Is 55,1-3
+- ref: Rm 8,35.37-39
+  tipo: segundaLeitura
+  primeira_data: '2026-08-02'
+  livro: ROM
+  normalizada: Rm 8,35.37-39
+- ref: Mt 14,13-21
+  tipo: evangelho
+  primeira_data: '2026-08-02'
+  livro: MAT
+  normalizada: Mt 14,13-21
+- ref: Jr 28, 1-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-03'
+  livro: JER
+  normalizada: Jr 28,1-17
+- ref: Mt 14,22-36
+  tipo: evangelho
+  primeira_data: '2026-08-03'
+  livro: MAT
+  normalizada: Mt 14,22-36
+- ref: Jr 30,1-2.12-15.18-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-04'
+  livro: JER
+  normalizada: Jr 30,1-2.12-15.18-22
+- ref: Mt 15,1-2.10-14
+  tipo: evangelho
+  primeira_data: '2026-08-04'
+  livro: MAT
+  normalizada: Mt 15,1-2.10-14
+- ref: Jr 31, 1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-05'
+  livro: JER
+  normalizada: Jr 31,1-7
+- ref: Mt 15, 21-28
+  tipo: evangelho
+  primeira_data: '2026-08-05'
+  livro: MAT
+  normalizada: Mt 15,21-28
+- ref: Dn 7, 9-10. 13-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-06'
+  livro: DAN
+  normalizada: Dn 7,9-10.13-14
+- ref: 2Pd 1,16-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-06'
+  livro: 2PE
+  normalizada: 2Pd 1,16-19
+- ref: Na 2, 1. 3; 3, 1-3. 6-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-07'
+  livro: NAM
+  normalizada: Na 2,1.3; 3,1-3.6-7
+- ref: Dt 32, 35-41
+  tipo: salmo
+  primeira_data: '2026-08-07'
+  livro: DEU
+  normalizada: Dt 32,35-41
+- ref: Mt 16, 24-28
+  tipo: evangelho
+  primeira_data: '2026-08-07'
+  livro: MAT
+  normalizada: Mt 16,24-28
+- ref: Hab 1,12-2,4
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-08'
+  livro: HAB
+  normalizada: Hab 1,12-2,4
+- ref: Sl 9A(9)
+  tipo: salmo
+  primeira_data: '2026-08-08'
+  livro: PSA
+  normalizada: Sl 9,1-21
+  salmo_hebraico: '9'
+- ref: Mt 17,14-20
+  tipo: evangelho
+  primeira_data: '2026-08-08'
+  livro: MAT
+  normalizada: Mt 17,14-20
+- ref: 1Rs 19,9.11-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-09'
+  livro: 1KI
+  normalizada: 1Rs 19,9.11-13
+- ref: Sl 84(85)
+  tipo: salmo
+  primeira_data: '2026-08-09'
+  livro: PSA
+  normalizada: Sl 84
+  salmo_hebraico: '85'
+- ref: Rm 9,1-5
+  tipo: segundaLeitura
+  primeira_data: '2026-08-09'
+  livro: ROM
+  normalizada: Rm 9,1-5
+- ref: Mt 14,22-33
+  tipo: evangelho
+  primeira_data: '2026-08-09'
+  livro: MAT
+  normalizada: Mt 14,22-33
+- ref: 2Cor 9, 6-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-10'
+  livro: 2CO
+  normalizada: 2Cor 9,6-10
+- ref: Sl 111
+  tipo: salmo
+  primeira_data: '2026-08-10'
+  livro: PSA
+  normalizada: Sl 111
+- ref: Jo 12, 24-26
+  tipo: evangelho
+  primeira_data: '2026-08-10'
+  livro: JHN
+  normalizada: Jo 12,24-26
+- ref: Ez 2, 8-3, 4
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-11'
+  livro: EZK
+  normalizada: Ez 2,8-3,4
+- ref: Mt 18, 1-5. 10. 12-14
+  tipo: evangelho
+  primeira_data: '2026-08-11'
+  livro: MAT
+  normalizada: Mt 18,1-5.10.12-14
+- ref: Ez 9,1-7; 10,18-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-12'
+  livro: EZK
+  normalizada: Ez 9,1-7; 10,18-22
+- ref: Sl 112(113)
+  tipo: salmo
+  primeira_data: '2026-08-12'
+  livro: PSA
+  normalizada: Sl 112
+  salmo_hebraico: '113'
+- ref: Mt 18, 15-20
+  tipo: evangelho
+  primeira_data: '2026-08-12'
+  livro: MAT
+  normalizada: Mt 18,15-20
+- ref: Ez 12, 1-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-13'
+  livro: EZK
+  normalizada: Ez 12,1-12
+- ref: Sl 77(78)
+  tipo: salmo
+  primeira_data: '2026-08-13'
+  livro: PSA
+  normalizada: Sl 77
+  salmo_hebraico: '78'
+- ref: Mt 18, 21-19, 1
+  tipo: evangelho
+  primeira_data: '2026-08-13'
+  livro: MAT
+  normalizada: Mt 18,21-19,1
+- ref: Ez 16, 1-15. 60. 63
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-14'
+  livro: EZK
+  normalizada: Ez 16,1-15.60.63
+- ref: Ez 16,59-63
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-14'
+  livro: EZK
+  normalizada: Ez 16,59-63
+- ref: Is 12, 2-4.5-6
+  tipo: salmo
+  primeira_data: '2026-08-14'
+  livro: ISA
+  normalizada: Is 12,2-4.5-6
+- ref: Mt 19,3-12
+  tipo: evangelho
+  primeira_data: '2026-08-14'
+  livro: MAT
+  normalizada: Mt 19,3-12
+- ref: Ez 18, 1-10. 13b. 30-32
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-15'
+  livro: EZK
+  normalizada: Ez 18,1-10.13b.30-32
+- ref: Mt 19,13-15
+  tipo: evangelho
+  primeira_data: '2026-08-15'
+  livro: MAT
+  normalizada: Mt 19,13-15
+- ref: Ap 11, 19a; 12, 1. 3-6a. 10ab
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-16'
+  livro: REV
+  normalizada: Ap 11,19a; 12,1.3-6a.10ab
+- ref: Sl 44
+  tipo: salmo
+  primeira_data: '2026-08-16'
+  livro: PSA
+  normalizada: Sl 44
+- ref: 1Cor 15, 20-27a
+  tipo: segundaLeitura
+  primeira_data: '2026-08-16'
+  livro: 1CO
+  normalizada: 1Cor 15,20-27a
+- ref: Lc 1, 39-56
+  tipo: evangelho
+  primeira_data: '2026-08-16'
+  livro: LUK
+  normalizada: Lc 1,39-56
+- ref: Ez 24, 15-24
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-17'
+  livro: EZK
+  normalizada: Ez 24,15-24
+- ref: Mt 19,16-22
+  tipo: evangelho
+  primeira_data: '2026-08-17'
+  livro: MAT
+  normalizada: Mt 19,16-22
+- ref: Ez 28, 1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-18'
+  livro: EZK
+  normalizada: Ez 28,1-10
+- ref: Dt 32, 26-36
+  tipo: salmo
+  primeira_data: '2026-08-18'
+  livro: DEU
+  normalizada: Dt 32,26-36
+- ref: Mt 19,23-30
+  tipo: evangelho
+  primeira_data: '2026-08-18'
+  livro: MAT
+  normalizada: Mt 19,23-30
+- ref: Ez 34, 1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-19'
+  livro: EZK
+  normalizada: Ez 34,1-11
+- ref: Mt 20, 1-16a
+  tipo: evangelho
+  primeira_data: '2026-08-19'
+  livro: MAT
+  normalizada: Mt 20,1-16a
+- ref: Ez 36,23-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-20'
+  livro: EZK
+  normalizada: Ez 36,23-28
+- ref: Mt 22,1-14
+  tipo: evangelho
+  primeira_data: '2026-08-20'
+  livro: MAT
+  normalizada: Mt 22,1-14
+- ref: Ez 37,1-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-21'
+  livro: EZK
+  normalizada: Ez 37,1-14
+- ref: Sl 106(10)7
+  tipo: salmo
+  primeira_data: '2026-08-21'
+  livro: PSA
+  normalizada: Sl 106
+  salmo_hebraico: '107'
+- ref: Mt 22,34-40
+  tipo: evangelho
+  primeira_data: '2026-08-21'
+  livro: MAT
+  normalizada: Mt 22,34-40
+- ref: Is 9, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-22'
+  livro: ISA
+  normalizada: Is 9,1-6
+- ref: Is 22,19-23
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-23'
+  livro: ISA
+  normalizada: Is 22,19-23
+- ref: Rm 11,33-36
+  tipo: segundaLeitura
+  primeira_data: '2026-08-23'
+  livro: ROM
+  normalizada: Rm 11,33-36
+- ref: Mt 16,13-20
+  tipo: evangelho
+  primeira_data: '2026-08-23'
+  livro: MAT
+  normalizada: Mt 16,13-20
+- ref: Ap 21, 9b-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-24'
+  livro: REV
+  normalizada: Ap 21,9b-14
+- ref: Jo 1, 45-51
+  tipo: evangelho
+  primeira_data: '2026-08-24'
+  livro: JHN
+  normalizada: Jo 1,45-51
+- ref: 2Ts 2,1-3.14-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-25'
+  livro: 2TH
+  normalizada: 2Ts 2,1-3.14-17
+- ref: Mt 23,23-26
+  tipo: evangelho
+  primeira_data: '2026-08-25'
+  livro: MAT
+  normalizada: Mt 23,23-26
+- ref: 2Ts 3,6-10.16-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-26'
+  livro: 2TH
+  normalizada: 2Ts 3,6-10.16-18
+- ref: Sl 127(128)
+  tipo: salmo
+  primeira_data: '2026-08-26'
+  livro: PSA
+  normalizada: Sl 127
+  salmo_hebraico: '128'
+- ref: Mt 23,27-32
+  tipo: evangelho
+  primeira_data: '2026-08-26'
+  livro: MAT
+  normalizada: Mt 23,27-32
+- ref: 1Cor 1,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-27'
+  livro: 1CO
+  normalizada: 1Cor 1,1-9
+- ref: Mt 24,42-51
+  tipo: evangelho
+  primeira_data: '2026-08-27'
+  livro: MAT
+  normalizada: Mt 24,42-51
+- ref: 1Cor 1,17-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-28'
+  livro: 1CO
+  normalizada: 1Cor 1,17-25
+- ref: Mt 25,1-13
+  tipo: evangelho
+  primeira_data: '2026-08-28'
+  livro: MAT
+  normalizada: Mt 25,1-13
+- ref: Jr 1, 17-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-29'
+  livro: JER
+  normalizada: Jr 1,17-19
+- ref: Mc 6, 17-29
+  tipo: evangelho
+  primeira_data: '2026-08-29'
+  livro: MRK
+  normalizada: Mc 6,17-29
+- ref: Jr 20,7-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-08-30'
+  livro: JER
+  normalizada: Jr 20,7-9
+- ref: Rm 12,1-2
+  tipo: segundaLeitura
+  primeira_data: '2026-08-30'
+  livro: ROM
+  normalizada: Rm 12,1-2
+- ref: Mt 16,21-27
+  tipo: evangelho
+  primeira_data: '2026-08-30'
+  livro: MAT
+  normalizada: Mt 16,21-27
+- ref: Lc 4,16-30
+  tipo: evangelho
+  primeira_data: '2026-08-31'
+  livro: LUK
+  normalizada: Lc 4,16-30
+- ref: 1Cor 2,10-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-01'
+  livro: 1CO
+  normalizada: 1Cor 2,10-16
+- ref: Lc 4,31-37
+  tipo: evangelho
+  primeira_data: '2026-09-01'
+  livro: LUK
+  normalizada: Lc 4,31-37
+- ref: 1Cor 3,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-02'
+  livro: 1CO
+  normalizada: 1Cor 3,1-9
+- ref: Lc 4,38-44
+  tipo: evangelho
+  primeira_data: '2026-09-02'
+  livro: LUK
+  normalizada: Lc 4,38-44
+- ref: 1Cor 3,18-23
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-03'
+  livro: 1CO
+  normalizada: 1Cor 3,18-23
+- ref: Sl 23(24)
+  tipo: salmo
+  primeira_data: '2026-09-03'
+  livro: PSA
+  normalizada: Sl 23
+  salmo_hebraico: '24'
+- ref: Lc 5,1-11
+  tipo: evangelho
+  primeira_data: '2026-09-03'
+  livro: LUK
+  normalizada: Lc 5,1-11
+- ref: 1Cor 4,1-5
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-04'
+  livro: 1CO
+  normalizada: 1Cor 4,1-5
+- ref: Lc 5,33-39
+  tipo: evangelho
+  primeira_data: '2026-09-04'
+  livro: LUK
+  normalizada: Lc 5,33-39
+- ref: 1Cor 4,6-15
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-05'
+  livro: 1CO
+  normalizada: 1Cor 4,6-15
+- ref: Lc 6,1-5
+  tipo: evangelho
+  primeira_data: '2026-09-05'
+  livro: LUK
+  normalizada: Lc 6,1-5
+- ref: Ez 33,7-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-06'
+  livro: EZK
+  normalizada: Ez 33,7-9
+- ref: Rm 13,8-10
+  tipo: segundaLeitura
+  primeira_data: '2026-09-06'
+  livro: ROM
+  normalizada: Rm 13,8-10
+- ref: Mt 18,15-20
+  tipo: evangelho
+  primeira_data: '2026-09-06'
+  livro: MAT
+  normalizada: Mt 18,15-20
+- ref: 1Cor 5, 1-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-07'
+  livro: 1CO
+  normalizada: 1Cor 5,1-8
+- ref: Lc 6, 6-11
+  tipo: evangelho
+  primeira_data: '2026-09-07'
+  livro: LUK
+  normalizada: Lc 6,6-11
+- ref: Miqueias 5,1-4
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-08'
+  livro: MIC
+  normalizada: Mq 5,1-4
+- ref: Sl 70(71); 12(13)
+  tipo: salmo
+  primeira_data: '2026-09-08'
+  livro: PSA
+  normalizada: Sl 70; 12
+  salmo_hebraico: '71'
+- ref: Mt 1,1-16.18-23 ou 18-23
+  tipo: evangelho
+  primeira_data: '2026-09-08'
+  livro: MAT
+  normalizada: Mt 1,1-16.18-23 ou 1,18-23
+- ref: Mt 1, 18-23
+  tipo: evangelho
+  primeira_data: '2026-09-08'
+  livro: MAT
+  normalizada: Mt 1,18-23
+- ref: 1Cor 7,25-31
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-09'
+  livro: 1CO
+  normalizada: 1Cor 7,25-31
+- ref: Sl 44(45)
+  tipo: salmo
+  primeira_data: '2026-09-09'
+  livro: PSA
+  normalizada: Sl 44
+  salmo_hebraico: '45'
+- ref: Lc 6,20-26
+  tipo: evangelho
+  primeira_data: '2026-09-09'
+  livro: LUK
+  normalizada: Lc 6,20-26
+- ref: 1Cor 8,1-7.11-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-10'
+  livro: 1CO
+  normalizada: 1Cor 8,1-7.11-13
+- ref: Sl 138(139)
+  tipo: salmo
+  primeira_data: '2026-09-10'
+  livro: PSA
+  normalizada: Sl 138
+  salmo_hebraico: '139'
+- ref: Lc 6,27-38
+  tipo: evangelho
+  primeira_data: '2026-09-10'
+  livro: LUK
+  normalizada: Lc 6,27-38
+- ref: 1Cor 9,16-19.22-27
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-11'
+  livro: 1CO
+  normalizada: 1Cor 9,16-19.22-27
+- ref: Lc 6,39-42
+  tipo: evangelho
+  primeira_data: '2026-09-11'
+  livro: LUK
+  normalizada: Lc 6,39-42
+- ref: 1Cor 10,14-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-12'
+  livro: 1CO
+  normalizada: 1Cor 10,14-22
+- ref: Lc 6,43-49
+  tipo: evangelho
+  primeira_data: '2026-09-12'
+  livro: LUK
+  normalizada: Lc 6,43-49
+- ref: Eclo 27,33-28,9
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-13'
+  livro: SIR
+  normalizada: Eclo 27,33-28,9
+- ref: Rm 14,7-9
+  tipo: segundaLeitura
+  primeira_data: '2026-09-13'
+  livro: ROM
+  normalizada: Rm 14,7-9
+- ref: Mt 18,21-35
+  tipo: evangelho
+  primeira_data: '2026-09-13'
+  livro: MAT
+  normalizada: Mt 18,21-35
+- ref: Nm 21, 4b-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-14'
+  livro: NUM
+  normalizada: Nm 21,4b-9
+- ref: Sl 77
+  tipo: salmo
+  primeira_data: '2026-09-14'
+  livro: PSA
+  normalizada: Sl 77
+- ref: Jo 3, 13-17
+  tipo: evangelho
+  primeira_data: '2026-09-14'
+  livro: JHN
+  normalizada: Jo 3,13-17
+- ref: Hb 5,7-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-15'
+  livro: HEB
+  normalizada: Hb 5,7-9
+- ref: Jo 19,25-27
+  tipo: evangelho
+  primeira_data: '2026-09-15'
+  livro: JHN
+  normalizada: Jo 19,25-27
+- ref: 1Cor 12,31-13,13
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-16'
+  livro: 1CO
+  normalizada: 1Cor 12,31-13,13
+- ref: Lc 7,31-35
+  tipo: evangelho
+  primeira_data: '2026-09-16'
+  livro: LUK
+  normalizada: Lc 7,31-35
+- ref: 1Cor 15,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-17'
+  livro: 1CO
+  normalizada: 1Cor 15,1-11
+- ref: Lc 7,36-50
+  tipo: evangelho
+  primeira_data: '2026-09-17'
+  livro: LUK
+  normalizada: Lc 7,36-50
+- ref: 1Cor 15,12-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-18'
+  livro: 1CO
+  normalizada: 1Cor 15,12-20
+- ref: Sl 16(17)
+  tipo: salmo
+  primeira_data: '2026-09-18'
+  livro: PSA
+  normalizada: Sl 16
+  salmo_hebraico: '17'
+- ref: Lc 8,1-3
+  tipo: evangelho
+  primeira_data: '2026-09-18'
+  livro: LUK
+  normalizada: Lc 8,1-3
+- ref: 1Cor 15,35-37.42-49
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-19'
+  livro: 1CO
+  normalizada: 1Cor 15,35-37.42-49
+- ref: Lc 8,4-15
+  tipo: evangelho
+  primeira_data: '2026-09-19'
+  livro: LUK
+  normalizada: Lc 8,4-15
+- ref: Is 55,6-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-20'
+  livro: ISA
+  normalizada: Is 55,6-9
+- ref: Fl 1,20-24.27
+  tipo: segundaLeitura
+  primeira_data: '2026-09-20'
+  livro: PHP
+  normalizada: Fl 1,20-24.27
+- ref: Mt 20,1-16
+  tipo: evangelho
+  primeira_data: '2026-09-20'
+  livro: MAT
+  normalizada: Mt 20,1-16
+- ref: Ef 4, 1-7. 11-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-21'
+  livro: EPH
+  normalizada: Ef 4,1-7.11-13
+- ref: Mt 9, 9-13
+  tipo: evangelho
+  primeira_data: '2026-09-21'
+  livro: MAT
+  normalizada: Mt 9,9-13
+- ref: Pr 21, 1-6. 10-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-22'
+  livro: PRO
+  normalizada: Pr 21,1-6.10-13
+- ref: Lc 8, 19-21
+  tipo: evangelho
+  primeira_data: '2026-09-22'
+  livro: LUK
+  normalizada: Lc 8,19-21
+- ref: Pr 30,5-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-23'
+  livro: PRO
+  normalizada: Pr 30,5-9
+- ref: Lc 9,1-6
+  tipo: evangelho
+  primeira_data: '2026-09-23'
+  livro: LUK
+  normalizada: Lc 9,1-6
+- ref: Ecl 1,2-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-24'
+  livro: ECC
+  normalizada: Ecl 1,2-11
+- ref: Lc 9,7-9
+  tipo: evangelho
+  primeira_data: '2026-09-24'
+  livro: LUK
+  normalizada: Lc 9,7-9
+- ref: Ecl, 3,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-25'
+  livro: ECC
+  normalizada: Ecl 3,1-11
+- ref: Lc 9,18-22
+  tipo: evangelho
+  primeira_data: '2026-09-25'
+  livro: LUK
+  normalizada: Lc 9,18-22
+- ref: Ecl 11, 9-12, 8
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-26'
+  livro: ECC
+  normalizada: Ecl 11,9-12,8
+- ref: Sl 89
+  tipo: salmo
+  primeira_data: '2026-09-26'
+  livro: PSA
+  normalizada: Sl 89
+- ref: Lc 9, 43b-45
+  tipo: evangelho
+  primeira_data: '2026-09-26'
+  livro: LUK
+  normalizada: Lc 9,43b-45
+- ref: Ez 18,25-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-27'
+  livro: EZK
+  normalizada: Ez 18,25-28
+- ref: Sl 24(25)
+  tipo: salmo
+  primeira_data: '2026-09-27'
+  livro: PSA
+  normalizada: Sl 24
+  salmo_hebraico: '25'
+- ref: Fl 2,1-11 ou 1-5
+  tipo: segundaLeitura
+  primeira_data: '2026-09-27'
+  livro: PHP
+  normalizada: Fl 2,1-11 ou 2,1-5
+- ref: Mt 21,28-32
+  tipo: evangelho
+  primeira_data: '2026-09-27'
+  livro: MAT
+  normalizada: Mt 21,28-32
+- ref: Jó 1,6-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-28'
+  livro: JOB
+  normalizada: Jó 1,6-22
+- ref: Lc 9,46-50
+  tipo: evangelho
+  primeira_data: '2026-09-28'
+  livro: LUK
+  normalizada: Lc 9,46-50
+- ref: Dn 7,9-10.13-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-29'
+  livro: DAN
+  normalizada: Dn 7,9-10.13-14
+- ref: Jo 1,47-51
+  tipo: evangelho
+  primeira_data: '2026-09-29'
+  livro: JHN
+  normalizada: Jo 1,47-51
+- ref: Jó 9,1-12.14-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-09-30'
+  livro: JOB
+  normalizada: Jó 9,1-12.14-16
+- ref: Sl 87(88)
+  tipo: salmo
+  primeira_data: '2026-09-30'
+  livro: PSA
+  normalizada: Sl 87
+  salmo_hebraico: '88'
+- ref: Lc 9,57-62
+  tipo: evangelho
+  primeira_data: '2026-09-30'
+  livro: LUK
+  normalizada: Lc 9,57-62
+- ref: Jó 19,21-27
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-01'
+  livro: JOB
+  normalizada: Jó 19,21-27
+- ref: Lc 10,1-12
+  tipo: evangelho
+  primeira_data: '2026-10-01'
+  livro: LUK
+  normalizada: Lc 10,1-12
+- ref: Ex 23, 20-23
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-02'
+  livro: EXO
+  normalizada: Ex 23,20-23
+- ref: Sl 90
+  tipo: salmo
+  primeira_data: '2026-10-02'
+  livro: PSA
+  normalizada: Sl 90
+- ref: Mt 18, 1-5. 10
+  tipo: evangelho
+  primeira_data: '2026-10-02'
+  livro: MAT
+  normalizada: Mt 18,1-5.10
+- ref: Jó 42,1-3.5-6.12-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-03'
+  livro: JOB
+  normalizada: Jó 42,1-3.5-6.12-16
+- ref: Lc 10,17-24
+  tipo: evangelho
+  primeira_data: '2026-10-03'
+  livro: LUK
+  normalizada: Lc 10,17-24
+- ref: Is 5,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-04'
+  livro: ISA
+  normalizada: Is 5,1-7
+- ref: Fl 4,6-9
+  tipo: segundaLeitura
+  primeira_data: '2026-10-04'
+  livro: PHP
+  normalizada: Fl 4,6-9
+- ref: Mt 21,33-43
+  tipo: evangelho
+  primeira_data: '2026-10-04'
+  livro: MAT
+  normalizada: Mt 21,33-43
+- ref: Gl 1,6-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-05'
+  livro: GAL
+  normalizada: Gl 1,6-12
+- ref: Sl 110(111)
+  tipo: salmo
+  primeira_data: '2026-10-05'
+  livro: PSA
+  normalizada: Sl 110
+  salmo_hebraico: '111'
+- ref: Lc 10,25-37
+  tipo: evangelho
+  primeira_data: '2026-10-05'
+  livro: LUK
+  normalizada: Lc 10,25-37
+- ref: Gl 1,13-24
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-06'
+  livro: GAL
+  normalizada: Gl 1,13-24
+- ref: Lc 10,38-42
+  tipo: evangelho
+  primeira_data: '2026-10-06'
+  livro: LUK
+  normalizada: Lc 10,38-42
+- ref: At 1,12-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-07'
+  livro: ACT
+  normalizada: At 1,12-14
+- ref: Sl Lc 1
+  tipo: salmo
+  primeira_data: '2026-10-07'
+  livro: LUK
+  normalizada: Lc 1
+  cantico: true
+- ref: Lc 1,26-38
+  tipo: evangelho
+  primeira_data: '2026-10-07'
+  livro: LUK
+  normalizada: Lc 1,26-38
+- ref: Gl 3,1-5
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-08'
+  livro: GAL
+  normalizada: Gl 3,1-5
+- ref: Lc 11,5-13
+  tipo: evangelho
+  primeira_data: '2026-10-08'
+  livro: LUK
+  normalizada: Lc 11,5-13
+- ref: Gl 3,7-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-09'
+  livro: GAL
+  normalizada: Gl 3,7-14
+- ref: Lc 11,15-26
+  tipo: evangelho
+  primeira_data: '2026-10-09'
+  livro: LUK
+  normalizada: Lc 11,15-26
+- ref: Gl 3,22-29
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-10'
+  livro: GAL
+  normalizada: Gl 3,22-29
+- ref: Sl 104(105)
+  tipo: salmo
+  primeira_data: '2026-10-10'
+  livro: PSA
+  normalizada: Sl 104
+  salmo_hebraico: '105'
+- ref: Lc 11,27-28
+  tipo: evangelho
+  primeira_data: '2026-10-10'
+  livro: LUK
+  normalizada: Lc 11,27-28
+- ref: Is 25,6-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-11'
+  livro: ISA
+  normalizada: Is 25,6-10
+- ref: Fl 4,12-14.19-20
+  tipo: segundaLeitura
+  primeira_data: '2026-10-11'
+  livro: PHP
+  normalizada: Fl 4,12-14.19-20
+- ref: Est 5, 1b-2; 7, 2b-3
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-12'
+  livro: EST
+  normalizada: Est 5,1b-2; 7,2b-3
+- ref: Ap 12, 1. 5. 13a. 15-16a
+  tipo: segundaLeitura
+  primeira_data: '2026-10-12'
+  livro: REV
+  normalizada: Ap 12,1.5.13a.15-16a
+- ref: Jo 2, 1-11
+  tipo: evangelho
+  primeira_data: '2026-10-12'
+  livro: JHN
+  normalizada: Jo 2,1-11
+- ref: Gl 5,1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-13'
+  livro: GAL
+  normalizada: Gl 5,1-6
+- ref: Lc 11,37-41
+  tipo: evangelho
+  primeira_data: '2026-10-13'
+  livro: LUK
+  normalizada: Lc 11,37-41
+- ref: Gl 5,18-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-14'
+  livro: GAL
+  normalizada: Gl 5,18-25
+- ref: Lc 11,42-46
+  tipo: evangelho
+  primeira_data: '2026-10-14'
+  livro: LUK
+  normalizada: Lc 11,42-46
+- ref: Ef 1,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-15'
+  livro: EPH
+  normalizada: Ef 1,1-10
+- ref: Lc 11,47-54
+  tipo: evangelho
+  primeira_data: '2026-10-15'
+  livro: LUK
+  normalizada: Lc 11,47-54
+- ref: Ef 1,11-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-16'
+  livro: EPH
+  normalizada: Ef 1,11-14
+- ref: Lc 12,1-7
+  tipo: evangelho
+  primeira_data: '2026-10-16'
+  livro: LUK
+  normalizada: Lc 12,1-7
+- ref: Ef 1,15-23
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-17'
+  livro: EPH
+  normalizada: Ef 1,15-23
+- ref: Lc 12,8-12
+  tipo: evangelho
+  primeira_data: '2026-10-17'
+  livro: LUK
+  normalizada: Lc 12,8-12
+- ref: Is 45,1.4-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-18'
+  livro: ISA
+  normalizada: Is 45,1.4-6
+- ref: 1Ts 1,1-5
+  tipo: segundaLeitura
+  primeira_data: '2026-10-18'
+  livro: 1TH
+  normalizada: 1Ts 1,1-5
+- ref: Mt 22,15-21
+  tipo: evangelho
+  primeira_data: '2026-10-18'
+  livro: MAT
+  normalizada: Mt 22,15-21
+- ref: Ef 2,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-19'
+  livro: EPH
+  normalizada: Ef 2,1-10
+- ref: Lc 12,13-21
+  tipo: evangelho
+  primeira_data: '2026-10-19'
+  livro: LUK
+  normalizada: Lc 12,13-21
+- ref: Ef 2,12-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-20'
+  livro: EPH
+  normalizada: Ef 2,12-22
+- ref: Lc 12,35-38
+  tipo: evangelho
+  primeira_data: '2026-10-20'
+  livro: LUK
+  normalizada: Lc 12,35-38
+- ref: Ef 3,2-12
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-21'
+  livro: EPH
+  normalizada: Ef 3,2-12
+- ref: Is 12
+  tipo: salmo
+  primeira_data: '2026-10-21'
+  livro: ISA
+  normalizada: Is 12
+- ref: Lc 12,39-48
+  tipo: evangelho
+  primeira_data: '2026-10-21'
+  livro: LUK
+  normalizada: Lc 12,39-48
+- ref: Ef 3,14-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-22'
+  livro: EPH
+  normalizada: Ef 3,14-21
+- ref: Lc 12,49-53
+  tipo: evangelho
+  primeira_data: '2026-10-22'
+  livro: LUK
+  normalizada: Lc 12,49-53
+- ref: Ef 4,1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-23'
+  livro: EPH
+  normalizada: Ef 4,1-6
+- ref: Lc 12,54-59
+  tipo: evangelho
+  primeira_data: '2026-10-23'
+  livro: LUK
+  normalizada: Lc 12,54-59
+- ref: Ef 4,7-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-24'
+  livro: EPH
+  normalizada: Ef 4,7-16
+- ref: Sl 121(122)
+  tipo: salmo
+  primeira_data: '2026-10-24'
+  livro: PSA
+  normalizada: Sl 121
+  salmo_hebraico: '122'
+- ref: Lc 13,1-9
+  tipo: evangelho
+  primeira_data: '2026-10-24'
+  livro: LUK
+  normalizada: Lc 13,1-9
+- ref: Ex 22,20-26
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-25'
+  livro: EXO
+  normalizada: Ex 22,20-26
+- ref: 1Ts 1,5-10
+  tipo: segundaLeitura
+  primeira_data: '2026-10-25'
+  livro: 1TH
+  normalizada: 1Ts 1,5-10
+- ref: Ef 4,32-5,8
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-26'
+  livro: EPH
+  normalizada: Ef 4,32-5,8
+- ref: Lc 13,10-17
+  tipo: evangelho
+  primeira_data: '2026-10-26'
+  livro: LUK
+  normalizada: Lc 13,10-17
+- ref: Ef 5,21-33
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-27'
+  livro: EPH
+  normalizada: Ef 5,21-33
+- ref: Lc 13,18-21
+  tipo: evangelho
+  primeira_data: '2026-10-27'
+  livro: LUK
+  normalizada: Lc 13,18-21
+- ref: Ef 2,19-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-28'
+  livro: EPH
+  normalizada: Ef 2,19-22
+- ref: Sl 18(19A)
+  tipo: salmo
+  primeira_data: '2026-10-28'
+  livro: PSA
+  normalizada: Sl 18,1-7
+  salmo_hebraico: 19A
+- ref: Lc 6,12-19
+  tipo: evangelho
+  primeira_data: '2026-10-28'
+  livro: LUK
+  normalizada: Lc 6,12-19
+- ref: Ef 6,10-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-29'
+  livro: EPH
+  normalizada: Ef 6,10-20
+- ref: Lc 13,31-35
+  tipo: evangelho
+  primeira_data: '2026-10-29'
+  livro: LUK
+  normalizada: Lc 13,31-35
+- ref: Fl 1,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-30'
+  livro: PHP
+  normalizada: Fl 1,1-11
+- ref: Lc 14,1-6
+  tipo: evangelho
+  primeira_data: '2026-10-30'
+  livro: LUK
+  normalizada: Lc 14,1-6
+- ref: Fl 1,18-26
+  tipo: primeiraLeitura
+  primeira_data: '2026-10-31'
+  livro: PHP
+  normalizada: Fl 1,18-26
+- ref: Lc 14,1.7-11¬¬
+  tipo: evangelho
+  primeira_data: '2026-10-31'
+  livro: LUK
+  normalizada: Lc 14,1.7-11
+- ref: Ap 7, 2-4. 9-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-01'
+  livro: REV
+  normalizada: Ap 7,2-4.9-14
+- ref: 1Jo 3, 1-3
+  tipo: segundaLeitura
+  primeira_data: '2026-11-01'
+  livro: 1JN
+  normalizada: 1Jo 3,1-3
+- ref: Mt 5, 1-12a
+  tipo: evangelho
+  primeira_data: '2026-11-01'
+  livro: MAT
+  normalizada: Mt 5,1-12a
+- ref: Jó 19, 1. 23-27a
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-02'
+  livro: JOB
+  normalizada: Jó 19,1.23-27a
+- ref: 1Cor 15,20-24a.25-28
+  tipo: segundaLeitura
+  primeira_data: '2026-11-02'
+  livro: 1CO
+  normalizada: 1Cor 15,20-24a.25-28
+- ref: Lc 12,35-40
+  tipo: evangelho
+  primeira_data: '2026-11-02'
+  livro: LUK
+  normalizada: Lc 12,35-40
+- ref: Fl 2, 5-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-03'
+  livro: PHP
+  normalizada: Fl 2,5-11
+- ref: Lc 14, 15-24
+  tipo: evangelho
+  primeira_data: '2026-11-03'
+  livro: LUK
+  normalizada: Lc 14,15-24
+- ref: Fl 2,12-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-04'
+  livro: PHP
+  normalizada: Fl 2,12-18
+- ref: Lc 14,25-33
+  tipo: evangelho
+  primeira_data: '2026-11-04'
+  livro: LUK
+  normalizada: Lc 14,25-33
+- ref: Fl 3,3-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-05'
+  livro: PHP
+  normalizada: Fl 3,3-8
+- ref: Lc 15,1-10
+  tipo: evangelho
+  primeira_data: '2026-11-05'
+  livro: LUK
+  normalizada: Lc 15,1-10
+- ref: Fl 3,17-4,1
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-06'
+  livro: PHP
+  normalizada: Fl 3,17-4,1
+- ref: Lc 16,1-8
+  tipo: evangelho
+  primeira_data: '2026-11-06'
+  livro: LUK
+  normalizada: Lc 16,1-8
+- ref: Fl 4,10-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-07'
+  livro: PHP
+  normalizada: Fl 4,10-19
+- ref: Lc 16,9-15
+  tipo: evangelho
+  primeira_data: '2026-11-07'
+  livro: LUK
+  normalizada: Lc 16,9-15
+- ref: Sb 6,12-16
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-08'
+  livro: WIS
+  normalizada: Sb 6,12-16
+- ref: 1Ts 4,13-18 (Forma longa)
+  tipo: segundaLeitura
+  primeira_data: '2026-11-08'
+  livro: 1TH
+  normalizada: 1Ts 4,13-18
+  nota: Forma longa
+- ref: 1Ts 4,13-14 (Forma breve)
+  tipo: segundaLeitura
+  primeira_data: '2026-11-08'
+  livro: 1TH
+  normalizada: 1Ts 4,13-14
+  nota: Forma breve
+- ref: Ez 47,1-2.8-9.12
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-09'
+  livro: EZK
+  normalizada: Ez 47,1-2.8-9.12
+- ref: Sl 45(46)
+  tipo: salmo
+  primeira_data: '2026-11-09'
+  livro: PSA
+  normalizada: Sl 45
+  salmo_hebraico: '46'
+- ref: Jo 2,13-22
+  tipo: evangelho
+  primeira_data: '2026-11-09'
+  livro: JHN
+  normalizada: Jo 2,13-22
+- ref: Tt 2,1-8.11-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-10'
+  livro: TIT
+  normalizada: Tt 2,1-8.11-14
+- ref: Lc 17,7-10
+  tipo: evangelho
+  primeira_data: '2026-11-10'
+  livro: LUK
+  normalizada: Lc 17,7-10
+- ref: Tt 3,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-11'
+  livro: TIT
+  normalizada: Tt 3,1-7
+- ref: Lc 17,11-19
+  tipo: evangelho
+  primeira_data: '2026-11-11'
+  livro: LUK
+  normalizada: Lc 17,11-19
+- ref: Fm 7-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-12'
+  livro: PHM
+  normalizada: Fm 7-20
+- ref: Lc 17,20-25
+  tipo: evangelho
+  primeira_data: '2026-11-12'
+  livro: LUK
+  normalizada: Lc 17,20-25
+- ref: 2Jo 4-9
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-13'
+  livro: 2JN
+  normalizada: 2Jo 4-9
+- ref: Lc 17,26-37
+  tipo: evangelho
+  primeira_data: '2026-11-13'
+  livro: LUK
+  normalizada: Lc 17,26-37
+- ref: 3Jo 5-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-14'
+  livro: 3JN
+  normalizada: 3Jo 5-8
+- ref: Lc 18,1-8
+  tipo: evangelho
+  primeira_data: '2026-11-14'
+  livro: LUK
+  normalizada: Lc 18,1-8
+- ref: Pr 31,10-13.19-20.30-31
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-15'
+  livro: PRO
+  normalizada: Pr 31,10-13.19-20.30-31
+- ref: 1Ts 5,1-6
+  tipo: segundaLeitura
+  primeira_data: '2026-11-15'
+  livro: 1TH
+  normalizada: 1Ts 5,1-6
+- ref: Mt 25,14-30
+  tipo: evangelho
+  primeira_data: '2026-11-15'
+  livro: MAT
+  normalizada: Mt 25,14-30
+- ref: Ap 1,1-4; 2,1-5
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-16'
+  livro: REV
+  normalizada: Ap 1,1-4; 2,1-5
+- ref: Lc 18,35-43
+  tipo: evangelho
+  primeira_data: '2026-11-16'
+  livro: LUK
+  normalizada: Lc 18,35-43
+- ref: Ap 3,1-6.14-22
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-17'
+  livro: REV
+  normalizada: Ap 3,1-6.14-22
+- ref: Sl 14(15)
+  tipo: salmo
+  primeira_data: '2026-11-17'
+  livro: PSA
+  normalizada: Sl 14
+  salmo_hebraico: '15'
+- ref: Lc 19,1-10
+  tipo: evangelho
+  primeira_data: '2026-11-17'
+  livro: LUK
+  normalizada: Lc 19,1-10
+- ref: Ap 4,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-18'
+  livro: REV
+  normalizada: Ap 4,1-11
+- ref: Sl 150
+  tipo: salmo
+  primeira_data: '2026-11-18'
+  livro: PSA
+  normalizada: Sl 150
+- ref: Lc 19,11-28
+  tipo: evangelho
+  primeira_data: '2026-11-18'
+  livro: LUK
+  normalizada: Lc 19,11-28
+- ref: Ap 5,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-19'
+  livro: REV
+  normalizada: Ap 5,1-10
+- ref: Lc 19,41-44
+  tipo: evangelho
+  primeira_data: '2026-11-19'
+  livro: LUK
+  normalizada: Lc 19,41-44
+- ref: Ap 10,8-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-20'
+  livro: REV
+  normalizada: Ap 10,8-11
+- ref: Lc 19,45-48
+  tipo: evangelho
+  primeira_data: '2026-11-20'
+  livro: LUK
+  normalizada: Lc 19,45-48
+- ref: Ez 34,11-12.15-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-22'
+  livro: EZK
+  normalizada: Ez 34,11-12.15-17
+- ref: 1Cor 15,20-26.28
+  tipo: segundaLeitura
+  primeira_data: '2026-11-22'
+  livro: 1CO
+  normalizada: 1Cor 15,20-26.28
+- ref: Mt 25,31-46
+  tipo: evangelho
+  primeira_data: '2026-11-22'
+  livro: MAT
+  normalizada: Mt 25,31-46
+- ref: Ap 14, 1-3. 4b-5
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-23'
+  livro: REV
+  normalizada: Ap 14,1-3.4b-5
+- ref: Lc 21,1-4
+  tipo: evangelho
+  primeira_data: '2026-11-23'
+  livro: LUK
+  normalizada: Lc 21,1-4
+- ref: Ap 14,14-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-24'
+  livro: REV
+  normalizada: Ap 14,14-19
+- ref: Lc 21,5-11
+  tipo: evangelho
+  primeira_data: '2026-11-24'
+  livro: LUK
+  normalizada: Lc 21,5-11
+- ref: Ap 15,1-4
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-25'
+  livro: REV
+  normalizada: Ap 15,1-4
+- ref: Lc 21,12-19
+  tipo: evangelho
+  primeira_data: '2026-11-25'
+  livro: LUK
+  normalizada: Lc 21,12-19
+- ref: Ap 18,1-2.21-23; 19,1-3.9
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-26'
+  livro: REV
+  normalizada: Ap 18,1-2.21-23; 19,1-3.9
+- ref: Lc 21,20-28
+  tipo: evangelho
+  primeira_data: '2026-11-26'
+  livro: LUK
+  normalizada: Lc 21,20-28
+- ref: Ap 20,1-4.11-21,2
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-27'
+  livro: REV
+  normalizada: Ap 20,1-4.11-21,2
+- ref: Lc 21,29-33
+  tipo: evangelho
+  primeira_data: '2026-11-27'
+  livro: LUK
+  normalizada: Lc 21,29-33
+- ref: Ap 22,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-28'
+  livro: REV
+  normalizada: Ap 22,1-7
+- ref: Lc 21,34-36
+  tipo: evangelho
+  primeira_data: '2026-11-28'
+  livro: LUK
+  normalizada: Lc 21,34-36
+- ref: Is 63,16-17.19; 64,2-7
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-29'
+  livro: ISA
+  normalizada: Is 63,16-17.19; 64,2-7
+- ref: 1Cor 1,3-9
+  tipo: segundaLeitura
+  primeira_data: '2026-11-29'
+  livro: 1CO
+  normalizada: 1Cor 1,3-9
+- ref: Mc 13,33-37
+  tipo: evangelho
+  primeira_data: '2026-11-29'
+  livro: MRK
+  normalizada: Mc 13,33-37
+- ref: Rm 10,9-18
+  tipo: primeiraLeitura
+  primeira_data: '2026-11-30'
+  livro: ROM
+  normalizada: Rm 10,9-18
+- ref: Mt 4,18-22
+  tipo: evangelho
+  primeira_data: '2026-11-30'
+  livro: MAT
+  normalizada: Mt 4,18-22
+- ref: Is 11,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-01'
+  livro: ISA
+  normalizada: Is 11,1-10
+- ref: Lc 10,21-24
+  tipo: evangelho
+  primeira_data: '2026-12-01'
+  livro: LUK
+  normalizada: Lc 10,21-24
+- ref: Is 25, 6-10a
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-02'
+  livro: ISA
+  normalizada: Is 25,6-10a
+- ref: Mt 15, 29-37
+  tipo: evangelho
+  primeira_data: '2026-12-02'
+  livro: MAT
+  normalizada: Mt 15,29-37
+- ref: Is 26,1-6
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-03'
+  livro: ISA
+  normalizada: Is 26,1-6
+- ref: Mt 7,21.24-27
+  tipo: evangelho
+  primeira_data: '2026-12-03'
+  livro: MAT
+  normalizada: Mt 7,21.24-27
+- ref: Is 29, 17-24
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-04'
+  livro: ISA
+  normalizada: Is 29,17-24
+- ref: Mt 9, 27-31
+  tipo: evangelho
+  primeira_data: '2026-12-04'
+  livro: MAT
+  normalizada: Mt 9,27-31
+- ref: Is 30, 19-21. 23-26
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-05'
+  livro: ISA
+  normalizada: Is 30,19-21.23-26
+- ref: Sl 146(147A)
+  tipo: salmo
+  primeira_data: '2026-12-05'
+  livro: PSA
+  normalizada: Sl 146
+  salmo_hebraico: 147A
+- ref: Mt 9, 35–10, 1. 6-8
+  tipo: evangelho
+  primeira_data: '2026-12-05'
+  livro: MAT
+  normalizada: Mt 9,35-10,1.6-8
+- ref: Is 40,1-5.9-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-06'
+  livro: ISA
+  normalizada: Is 40,1-5.9-11
+- ref: 2Pd 3,8-14
+  tipo: segundaLeitura
+  primeira_data: '2026-12-06'
+  livro: 2PE
+  normalizada: 2Pd 3,8-14
+- ref: Mc 1,1-8
+  tipo: evangelho
+  primeira_data: '2026-12-06'
+  livro: MRK
+  normalizada: Mc 1,1-8
+- ref: Is 35,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-07'
+  livro: ISA
+  normalizada: Is 35,1-10
+- ref: Lc 5,17-26
+  tipo: evangelho
+  primeira_data: '2026-12-07'
+  livro: LUK
+  normalizada: Lc 5,17-26
+- ref: Gn 3,9-15.20
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-08'
+  livro: GEN
+  normalizada: Gn 3,9-15.20
+- ref: Ef 1,3-6.11-12
+  tipo: segundaLeitura
+  primeira_data: '2026-12-08'
+  livro: EPH
+  normalizada: Ef 1,3-6.11-12
+- ref: Is 40,25-31
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-09'
+  livro: ISA
+  normalizada: Is 40,25-31
+- ref: Mt 11,28-30
+  tipo: evangelho
+  primeira_data: '2026-12-09'
+  livro: MAT
+  normalizada: Mt 11,28-30
+- ref: Is 41,13-20
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-10'
+  livro: ISA
+  normalizada: Is 41,13-20
+- ref: Mt 11,11-15
+  tipo: evangelho
+  primeira_data: '2026-12-10'
+  livro: MAT
+  normalizada: Mt 11,11-15
+- ref: Is 48,17-19
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-11'
+  livro: ISA
+  normalizada: Is 48,17-19
+- ref: Mt 11,16-19
+  tipo: evangelho
+  primeira_data: '2026-12-11'
+  livro: MAT
+  normalizada: Mt 11,16-19
+- ref: Lc 1, 39-47
+  tipo: evangelho
+  primeira_data: '2026-12-12'
+  livro: LUK
+  normalizada: Lc 1,39-47
+- ref: Is 61,1-2.10-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-13'
+  livro: ISA
+  normalizada: Is 61,1-2.10-11
+- ref: 1Ts 5,16-24
+  tipo: segundaLeitura
+  primeira_data: '2026-12-13'
+  livro: 1TH
+  normalizada: 1Ts 5,16-24
+- ref: Jo 1,6-8.19-28
+  tipo: evangelho
+  primeira_data: '2026-12-13'
+  livro: JHN
+  normalizada: Jo 1,6-8.19-28
+- ref: Nm 24,2-7.15-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-14'
+  livro: NUM
+  normalizada: Nm 24,2-7.15-17
+- ref: Mt 21,23-27
+  tipo: evangelho
+  primeira_data: '2026-12-14'
+  livro: MAT
+  normalizada: Mt 21,23-27
+- ref: Sf 3,1-2.9-13
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-15'
+  livro: ZEP
+  normalizada: Sf 3,1-2.9-13
+- ref: Sl 33(34)
+  tipo: salmo
+  primeira_data: '2026-12-15'
+  livro: PSA
+  normalizada: Sl 33
+  salmo_hebraico: '34'
+- ref: Is 45,6-8.18.21-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-16'
+  livro: ISA
+  normalizada: Is 45,6-8.18.21-25
+- ref: Lc 7,19-23
+  tipo: evangelho
+  primeira_data: '2026-12-16'
+  livro: LUK
+  normalizada: Lc 7,19-23
+- ref: Gn 49,2.8-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-17'
+  livro: GEN
+  normalizada: Gn 49,2.8-10
+- ref: Mt 1,1-17
+  tipo: evangelho
+  primeira_data: '2026-12-17'
+  livro: MAT
+  normalizada: Mt 1,1-17
+- ref: Jr 23,5-8
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-18'
+  livro: JER
+  normalizada: Jr 23,5-8
+- ref: Mt 1,18-24
+  tipo: evangelho
+  primeira_data: '2026-12-18'
+  livro: MAT
+  normalizada: Mt 1,18-24
+- ref: Jz 13,2-7.24-25
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-19'
+  livro: JDG
+  normalizada: Jz 13,2-7.24-25
+- ref: Sl 70(71)
+  tipo: salmo
+  primeira_data: '2026-12-19'
+  livro: PSA
+  normalizada: Sl 70
+  salmo_hebraico: '71'
+- ref: Lc 1,5-25
+  tipo: evangelho
+  primeira_data: '2026-12-19'
+  livro: LUK
+  normalizada: Lc 1,5-25
+- ref: 2Sm 7,1-5.8-12.14.16
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-20'
+  livro: 2SA
+  normalizada: 2Sm 7,1-5.8-12.14.16
+- ref: Rm 16,25-27
+  tipo: segundaLeitura
+  primeira_data: '2026-12-20'
+  livro: ROM
+  normalizada: Rm 16,25-27
+- ref: Ct 2,8-14
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-21'
+  livro: SNG
+  normalizada: Ct 2,8-14
+- ref: Sf 3,14-18a
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-21'
+  livro: ZEP
+  normalizada: Sf 3,14-18a
+- ref: Lc 1,39-45
+  tipo: evangelho
+  primeira_data: '2026-12-21'
+  livro: LUK
+  normalizada: Lc 1,39-45
+- ref: 1Sm 1,24-28
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-22'
+  livro: 1SA
+  normalizada: 1Sm 1,24-28
+- ref: Lc 1,46-56
+  tipo: evangelho
+  primeira_data: '2026-12-22'
+  livro: LUK
+  normalizada: Lc 1,46-56
+- ref: Ml 3,1-4.23-24
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-23'
+  livro: MAL
+  normalizada: Ml 3,1-4.23-24
+- ref: Lc 1,57-66
+  tipo: evangelho
+  primeira_data: '2026-12-23'
+  livro: LUK
+  normalizada: Lc 1,57-66
+- ref: Tt 2, 11-14
+  tipo: segundaLeitura
+  primeira_data: '2026-12-24'
+  livro: TIT
+  normalizada: Tt 2,11-14
+- ref: Lc 2, 1-14
+  tipo: evangelho
+  primeira_data: '2026-12-24'
+  livro: LUK
+  normalizada: Lc 2,1-14
+- ref: Is 52, 7-10
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-25'
+  livro: ISA
+  normalizada: Is 52,7-10
+- ref: Hb 1, 1-6
+  tipo: segundaLeitura
+  primeira_data: '2026-12-25'
+  livro: HEB
+  normalizada: Hb 1,1-6
+- ref: Jo 1, 1-18
+  tipo: evangelho
+  primeira_data: '2026-12-25'
+  livro: JHN
+  normalizada: Jo 1,1-18
+- ref: At 6, 8-10; 7, 54-59
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-26'
+  livro: ACT
+  normalizada: At 6,8-10; 7,54-59
+- ref: Mt 10, 17-22
+  tipo: evangelho
+  primeira_data: '2026-12-26'
+  livro: MAT
+  normalizada: Mt 10,17-22
+- ref: Eclo 3, 3-7. 14-17a
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-27'
+  livro: SIR
+  normalizada: Eclo 3,3-7.14-17a
+- ref: Cl 3, 12-21
+  tipo: segundaLeitura
+  primeira_data: '2026-12-27'
+  livro: COL
+  normalizada: Cl 3,12-21
+- ref: Lc 2, 22-40 (mais longo)
+  tipo: evangelho
+  primeira_data: '2026-12-27'
+  livro: LUK
+  normalizada: Lc 2,22-40
+  nota: mais longo
+- ref: Lc 2, 22.39-40 (mais breve)
+  tipo: evangelho
+  primeira_data: '2026-12-27'
+  livro: LUK
+  normalizada: Lc 2,22.39-40
+  nota: mais breve
+- ref: 1Jo 1, 5–2, 2
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-28'
+  livro: 1JN
+  normalizada: 1Jo 1,5-2,2
+- ref: Sl 123(124)
+  tipo: salmo
+  primeira_data: '2026-12-28'
+  livro: PSA
+  normalizada: Sl 123
+  salmo_hebraico: '124'
+- ref: Mt 2, 13-18
+  tipo: evangelho
+  primeira_data: '2026-12-28'
+  livro: MAT
+  normalizada: Mt 2,13-18
+- ref: 1Jo 2,3-11
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-29'
+  livro: 1JN
+  normalizada: 1Jo 2,3-11
+- ref: Lc 2,22-35
+  tipo: evangelho
+  primeira_data: '2026-12-29'
+  livro: LUK
+  normalizada: Lc 2,22-35
+- ref: 1Jo 2, 12-17
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-30'
+  livro: 1JN
+  normalizada: 1Jo 2,12-17
+- ref: Lc 2, 36-40
+  tipo: evangelho
+  primeira_data: '2026-12-30'
+  livro: LUK
+  normalizada: Lc 2,36-40
+- ref: 1Jo 2, 18-21
+  tipo: primeiraLeitura
+  primeira_data: '2026-12-31'
+  livro: 1JN
+  normalizada: 1Jo 2,18-21
+- ref: Sl 71
+  tipo: salmo
+  primeira_data: '2027-01-03'
+  livro: PSA
+  normalizada: Sl 71
+- ref: Sl 28(29),1a.2.3ac-4.3b.9b-10 (R. 11b)
+  tipo: salmo
+  primeira_data: '2027-01-10'
+  livro: PSA
+  normalizada: Sl 28,1a.2.3ac-4.3b.9b-10
+  salmo_hebraico: '29'
+- ref: Mc 1,7-11 (Jesus batizado por João)
+  tipo: evangelho
+  primeira_data: '2027-01-10'
+  livro: MRK
+  normalizada: Mc 1,7-11
+  nota: Jesus batizado por João
+- ref: Sl 96(97)
+  tipo: salmo
+  primeira_data: '2027-01-11'
+  livro: PSA
+  normalizada: Sl 96
+  salmo_hebraico: '97'
+- ref: Mc 1, 14-20
+  tipo: evangelho
+  primeira_data: '2027-01-11'
+  livro: MRK
+  normalizada: Mc 1,14-20
+- ref: Hb 2, 5-12
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-12'
+  livro: HEB
+  normalizada: Hb 2,5-12
+- ref: Mc 1, 21b-28
+  tipo: evangelho
+  primeira_data: '2027-01-12'
+  livro: MRK
+  normalizada: Mc 1,21b-28
+- ref: Hb 2, 14-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-13'
+  livro: HEB
+  normalizada: Hb 2,14-18
+- ref: Mc 1, 29-39
+  tipo: evangelho
+  primeira_data: '2027-01-13'
+  livro: MRK
+  normalizada: Mc 1,29-39
+- ref: Hb 3, 7-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-14'
+  livro: HEB
+  normalizada: Hb 3,7-14
+- ref: Mc 1, 40-45
+  tipo: evangelho
+  primeira_data: '2027-01-14'
+  livro: MRK
+  normalizada: Mc 1,40-45
+- ref: Hb 4,1-5.11
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-15'
+  livro: HEB
+  normalizada: Hb 4,1-5.11
+- ref: Sl 77(78),3 e 4bc.6c-7.8 (R. cf. 7c)
+  tipo: salmo
+  primeira_data: '2027-01-15'
+  livro: PSA
+  normalizada: Sl 77,3.4bc.6c-7.8
+  salmo_hebraico: '78'
+- ref: Hb 4, 12-16
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-16'
+  livro: HEB
+  normalizada: Hb 4,12-16
+- ref: Sl 18(19B)
+  tipo: salmo
+  primeira_data: '2027-01-16'
+  livro: PSA
+  normalizada: Sl 18,8-15
+  salmo_hebraico: 19B
+- ref: Mc 2, 13-17
+  tipo: evangelho
+  primeira_data: '2027-01-16'
+  livro: MRK
+  normalizada: Mc 2,13-17
+- ref: 1Sm 3, 3b-10. 19
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-17'
+  livro: 1SA
+  normalizada: 1Sm 3,3b-10.19
+- ref: Sl 39
+  tipo: salmo
+  primeira_data: '2027-01-17'
+  livro: PSA
+  normalizada: Sl 39
+- ref: 1Cor 6, 13c-15a. 17-20
+  tipo: segundaLeitura
+  primeira_data: '2027-01-17'
+  livro: 1CO
+  normalizada: 1Cor 6,13c-15a.17-20
+- ref: Jo 1, 35-42
+  tipo: evangelho
+  primeira_data: '2027-01-17'
+  livro: JHN
+  normalizada: Jo 1,35-42
+- ref: Hb 5,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-18'
+  livro: HEB
+  normalizada: Hb 5,1-10
+- ref: Sl 109(110),1.2.3.4 (R. 4bc)
+  tipo: salmo
+  primeira_data: '2027-01-18'
+  livro: PSA
+  normalizada: Sl 109,1.2.3.4
+  salmo_hebraico: '110'
+- ref: Mc 2,18-22
+  tipo: evangelho
+  primeira_data: '2027-01-18'
+  livro: MRK
+  normalizada: Mc 2,18-22
+- ref: Hb 6,10-20
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-19'
+  livro: HEB
+  normalizada: Hb 6,10-20
+- ref: Sl 110(111),1-2.4-5.9 e 10c (R. 5b)
+  tipo: salmo
+  primeira_data: '2027-01-19'
+  livro: PSA
+  normalizada: Sl 110,1-2.4-5.9.10c
+  salmo_hebraico: '111'
+- ref: Mc 2,23-28
+  tipo: evangelho
+  primeira_data: '2027-01-19'
+  livro: MRK
+  normalizada: Mc 2,23-28
+- ref: Hb 7, 1-3. 15-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-20'
+  livro: HEB
+  normalizada: Hb 7,1-3.15-17
+- ref: Sl 109
+  tipo: salmo
+  primeira_data: '2027-01-20'
+  livro: PSA
+  normalizada: Sl 109
+- ref: Mc 3, 1-6
+  tipo: evangelho
+  primeira_data: '2027-01-20'
+  livro: MRK
+  normalizada: Mc 3,1-6
+- ref: Hb 7,25-8,6
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-21'
+  livro: HEB
+  normalizada: Hb 7,25-8,6
+- ref: Sl 39(40),7-8a.8b-9.10.17 (R. cf. 8a.9a)
+  tipo: salmo
+  primeira_data: '2027-01-21'
+  livro: PSA
+  normalizada: Sl 39,7-8a.8b-9.10.17
+  salmo_hebraico: '40'
+- ref: Hb 8,6-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-22'
+  livro: HEB
+  normalizada: Hb 8,6-13
+- ref: Sl 84(85),8 e 10.11-12.13-14 (R. 11a)
+  tipo: salmo
+  primeira_data: '2027-01-22'
+  livro: PSA
+  normalizada: Sl 84,8.10.11-12.13-14
+  salmo_hebraico: '85'
+- ref: Mc 3,13-19
+  tipo: evangelho
+  primeira_data: '2027-01-22'
+  livro: MRK
+  normalizada: Mc 3,13-19
+- ref: Hb 9,2-3.11-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-23'
+  livro: HEB
+  normalizada: Hb 9,2-3.11-14
+- ref: Sl 46(47),2-3.6-7.8-9 (R. 6)
+  tipo: salmo
+  primeira_data: '2027-01-23'
+  livro: PSA
+  normalizada: Sl 46,2-3.6-7.8-9
+  salmo_hebraico: '47'
+- ref: Jn 3, 1-5. 10
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-24'
+  livro: JON
+  normalizada: Jn 3,1-5.10
+- ref: 1Cor 7, 29-31
+  tipo: segundaLeitura
+  primeira_data: '2027-01-24'
+  livro: 1CO
+  normalizada: 1Cor 7,29-31
+- ref: At 22, 3-16
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-25'
+  livro: ACT
+  normalizada: At 22,3-16
+- ref: At 9, 1-22
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-25'
+  livro: ACT
+  normalizada: At 9,1-22
+- ref: Sl 116(117)
+  tipo: salmo
+  primeira_data: '2027-01-25'
+  livro: PSA
+  normalizada: Sl 116
+  salmo_hebraico: '117'
+- ref: Mc 16, 15-18
+  tipo: evangelho
+  primeira_data: '2027-01-25'
+  livro: MRK
+  normalizada: Mc 16,15-18
+- ref: Tt 1,1-5
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-26'
+  livro: TIT
+  normalizada: Tt 1,1-5
+- ref: Hb 10, 11-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-27'
+  livro: HEB
+  normalizada: Hb 10,11-18
+- ref: Sl 109(110)
+  tipo: salmo
+  primeira_data: '2027-01-27'
+  livro: PSA
+  normalizada: Sl 109
+  salmo_hebraico: '110'
+- ref: Mc 4, 1-20
+  tipo: evangelho
+  primeira_data: '2027-01-27'
+  livro: MRK
+  normalizada: Mc 4,1-20
+- ref: Hb 10,19-25
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-28'
+  livro: HEB
+  normalizada: Hb 10,19-25
+- ref: Sl 23(24),1-2.3-4ab.5-6 (R. cf. 6)
+  tipo: salmo
+  primeira_data: '2027-01-28'
+  livro: PSA
+  normalizada: Sl 23,1-2.3-4ab.5-6
+  salmo_hebraico: '24'
+- ref: Hb 10,32-39
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-29'
+  livro: HEB
+  normalizada: Hb 10,32-39
+- ref: Sl 36(37),3-4.5-6.23-24.39-40 (R. 39a)
+  tipo: salmo
+  primeira_data: '2027-01-29'
+  livro: PSA
+  normalizada: Sl 36,3-4.5-6.23-24.39-40
+  salmo_hebraico: '37'
+- ref: Hb 11,1-2.8-19
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-30'
+  livro: HEB
+  normalizada: Hb 11,1-2.8-19
+- ref: Lc 1,69-70.71-72.73-75 (R. cf. 68)
+  tipo: salmo
+  primeira_data: '2027-01-30'
+  livro: LUK
+  normalizada: Lc 1,69-70.71-72.73-75
+- ref: Dt 18, 15-20
+  tipo: primeiraLeitura
+  primeira_data: '2027-01-31'
+  livro: DEU
+  normalizada: Dt 18,15-20
+- ref: 1Cor 7, 32-35
+  tipo: segundaLeitura
+  primeira_data: '2027-01-31'
+  livro: 1CO
+  normalizada: 1Cor 7,32-35
+- ref: Mc 1, 21-28
+  tipo: evangelho
+  primeira_data: '2027-01-31'
+  livro: MRK
+  normalizada: Mc 1,21-28
+- ref: Hb 11,32-40
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-01'
+  livro: HEB
+  normalizada: Hb 11,32-40
+- ref: Mc 5, 1-20
+  tipo: evangelho
+  primeira_data: '2027-02-01'
+  livro: MRK
+  normalizada: Mc 5,1-20
+- ref: Hb 12,4-7.11-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-03'
+  livro: HEB
+  normalizada: Hb 12,4-7.11-15
+- ref: Sl 102(103),1-2.13-14.17-18a (R. cf. 17)
+  tipo: salmo
+  primeira_data: '2027-02-03'
+  livro: PSA
+  normalizada: Sl 102,1-2.13-14.17-18a
+  salmo_hebraico: '103'
+- ref: Hb 12,18-19.21-24
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-04'
+  livro: HEB
+  normalizada: Hb 12,18-19.21-24
+- ref: Sl 47(48),2-3a.3b-4.9.10-11 (R. cf. 10)
+  tipo: salmo
+  primeira_data: '2027-02-04'
+  livro: PSA
+  normalizada: Sl 47,2-3a.3b-4.9.10-11
+  salmo_hebraico: '48'
+- ref: Hb 13,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-05'
+  livro: HEB
+  normalizada: Hb 13,1-8
+- ref: Sl 26(27),1.3.5.8b-9abc (R. 1a)
+  tipo: salmo
+  primeira_data: '2027-02-05'
+  livro: PSA
+  normalizada: Sl 26,1.3.5.8b-9abc
+  salmo_hebraico: '27'
+- ref: Hb 13,15-17.20-21
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-06'
+  livro: HEB
+  normalizada: Hb 13,15-17.20-21
+- ref: Sl 22(23),1-3a.3b-4.5.6 (R. 1)
+  tipo: salmo
+  primeira_data: '2027-02-06'
+  livro: PSA
+  normalizada: Sl 22,1-3a.3b-4.5.6
+  salmo_hebraico: '23'
+- ref: Jó 7, 1-4. 6-7
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-07'
+  livro: JOB
+  normalizada: Jó 7,1-4.6-7
+- ref: Sl 146
+  tipo: salmo
+  primeira_data: '2027-02-07'
+  livro: PSA
+  normalizada: Sl 146
+- ref: 1Cor 9, 16-19. 22-23
+  tipo: segundaLeitura
+  primeira_data: '2027-02-07'
+  livro: 1CO
+  normalizada: 1Cor 9,16-19.22-23
+- ref: Gn 1,1-19
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-08'
+  livro: GEN
+  normalizada: Gn 1,1-19
+- ref: Sl 103(104),1-2a.5-6.10 e 12.24 e 35c (R. 31b)
+  tipo: salmo
+  primeira_data: '2027-02-08'
+  livro: PSA
+  normalizada: Sl 103,1-2a.5-6.10.12.24.35c
+  salmo_hebraico: '104'
+- ref: Gn 1,20-2,4a
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-09'
+  livro: GEN
+  normalizada: Gn 1,20-2,4a
+- ref: Sl 36
+  tipo: salmo
+  primeira_data: '2027-02-09'
+  livro: PSA
+  normalizada: Sl 36
+- ref: Mc 7, 1-13
+  tipo: evangelho
+  primeira_data: '2027-02-09'
+  livro: MRK
+  normalizada: Mc 7,1-13
+- ref: Gn 9, 8-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-14'
+  livro: GEN
+  normalizada: Gn 9,8-15
+- ref: 1Pd 3, 18-22
+  tipo: segundaLeitura
+  primeira_data: '2027-02-14'
+  livro: 1PE
+  normalizada: 1Pd 3,18-22
+- ref: Mc 1, 12-15
+  tipo: evangelho
+  primeira_data: '2027-02-14'
+  livro: MRK
+  normalizada: Mc 1,12-15
+- ref: Gn 22,1-2.9a.10-13.15-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-21'
+  livro: GEN
+  normalizada: Gn 22,1-2.9a.10-13.15-18
+- ref: Sl 115(116B),10.15.16-17.18-19 (R. Sl 114,9)
+  tipo: salmo
+  primeira_data: '2027-02-21'
+  livro: PSA
+  normalizada: Sl 115,10.15.16-17.18-19
+  salmo_hebraico: 116B
+- ref: Rm 8,31b-34
+  tipo: segundaLeitura
+  primeira_data: '2027-02-21'
+  livro: ROM
+  normalizada: Rm 8,31b-34
+- ref: Mc 9,2-10
+  tipo: evangelho
+  primeira_data: '2027-02-21'
+  livro: MRK
+  normalizada: Mc 9,2-10
+- ref: 1Pd 5, 1-4
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-22'
+  livro: 1PE
+  normalizada: 1Pd 5,1-4
+- ref: Ex 20, 1-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-02-28'
+  livro: EXO
+  normalizada: Ex 20,1-17
+- ref: 1Cor 1, 22-25
+  tipo: segundaLeitura
+  primeira_data: '2027-02-28'
+  livro: 1CO
+  normalizada: 1Cor 1,22-25
+- ref: Jo 2, 13-25
+  tipo: evangelho
+  primeira_data: '2027-02-28'
+  livro: JHN
+  normalizada: Jo 2,13-25
+- ref: 2Cr 36, 14-16. 19-23
+  tipo: primeiraLeitura
+  primeira_data: '2027-03-07'
+  livro: 2CH
+  normalizada: 2Cr 36,14-16.19-23
+- ref: Sl 136
+  tipo: salmo
+  primeira_data: '2027-03-07'
+  livro: PSA
+  normalizada: Sl 136
+- ref: Ef 2, 4-10
+  tipo: segundaLeitura
+  primeira_data: '2027-03-07'
+  livro: EPH
+  normalizada: Ef 2,4-10
+- ref: Jo 3, 14-21
+  tipo: evangelho
+  primeira_data: '2027-03-07'
+  livro: JHN
+  normalizada: Jo 3,14-21
+- ref: Ex 32, 7-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-03-11'
+  livro: EXO
+  normalizada: Ex 32,7-14
+- ref: Sl 105
+  tipo: salmo
+  primeira_data: '2027-03-11'
+  livro: PSA
+  normalizada: Sl 105
+- ref: Jo 5, 31-47
+  tipo: evangelho
+  primeira_data: '2027-03-11'
+  livro: JHN
+  normalizada: Jo 5,31-47
+- ref: Jr 31, 31-34
+  tipo: primeiraLeitura
+  primeira_data: '2027-03-14'
+  livro: JER
+  normalizada: Jr 31,31-34
+- ref: Hb 5, 7-9
+  tipo: segundaLeitura
+  primeira_data: '2027-03-14'
+  livro: HEB
+  normalizada: Hb 5,7-9
+- ref: Jo 12, 20-33
+  tipo: evangelho
+  primeira_data: '2027-03-14'
+  livro: JHN
+  normalizada: Jo 12,20-33
+- ref: Jo 8, 1-11
+  tipo: evangelho
+  primeira_data: '2027-03-15'
+  livro: JHN
+  normalizada: Jo 8,1-11
+- ref: Dn 3,14-20.24.49a.91-92.95
+  tipo: primeiraLeitura
+  primeira_data: '2027-03-17'
+  livro: DAN
+  normalizada: Dn 3,14-20.24.49a.91-92.95
+- ref: Dn 3,52.53-54.55.56-57 (R. 52b)
+  tipo: salmo
+  primeira_data: '2027-03-17'
+  livro: DAN
+  normalizada: Dn 3,52.53-54.55.56-57
+- ref: Jo 8,31-42
+  tipo: evangelho
+  primeira_data: '2027-03-17'
+  livro: JHN
+  normalizada: Jo 8,31-42
+- ref: Ez 37,21-28
+  tipo: primeiraLeitura
+  primeira_data: '2027-03-20'
+  livro: EZK
+  normalizada: Ez 37,21-28
+- ref: Jr 31,10.11-12ab.13 (R. cf. 10d)
+  tipo: salmo
+  primeira_data: '2027-03-20'
+  livro: JER
+  normalizada: Jr 31,10.11-12ab.13
+- ref: Jo 11,45-56
+  tipo: evangelho
+  primeira_data: '2027-03-20'
+  livro: JHN
+  normalizada: Jo 11,45-56
+- ref: Mc 11,1-10 (Entrada em Jerusalém)
+  tipo: evangelho
+  primeira_data: '2027-03-21'
+  livro: MRK
+  normalizada: Mc 11,1-10
+  nota: Entrada em Jerusalém
+- ref: Mc 14,1-15,47 (Paixão do Senhor)
+  tipo: evangelho
+  primeira_data: '2027-03-21'
+  livro: MRK
+  normalizada: Mc 14,1-15,47
+  nota: Paixão do Senhor
+- ref: Mc 15, 1-39 (Paixão do Senhor - Mais breve)
+  tipo: evangelho
+  primeira_data: '2027-03-21'
+  livro: MRK
+  normalizada: Mc 15,1-39
+  nota: Paixão do Senhor - Mais breve
+- ref: Ex 12,1-8.11-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-03-25'
+  livro: EXO
+  normalizada: Ex 12,1-8.11-14
+- ref: Sl 115(116B),12-13.15-16bc.17-18 (R. cf. 1Cor 10,16)
+  tipo: salmo
+  primeira_data: '2027-03-25'
+  livro: PSA
+  normalizada: Sl 115,12-13.15-16bc.17-18
+  salmo_hebraico: 116B
+- ref: 1Cor 11,23-26
+  tipo: segundaLeitura
+  primeira_data: '2027-03-25'
+  livro: 1CO
+  normalizada: 1Cor 11,23-26
+- ref: Jo 13,1-15
+  tipo: evangelho
+  primeira_data: '2027-03-25'
+  livro: JHN
+  normalizada: Jo 13,1-15
+- ref: Gn 1,1-2,2
+  tipo: primeiraLeitura
+  primeira_data: '2027-03-27'
+  livro: GEN
+  normalizada: Gn 1,1-2,2
+- ref: Gn 22, 1-2. 9a. 10-13. 15-18
+  tipo: segundaLeitura
+  primeira_data: '2027-03-27'
+  livro: GEN
+  normalizada: Gn 22,1-2.9a.10-13.15-18
+- ref: At 4, 32-35
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-04'
+  livro: ACT
+  normalizada: At 4,32-35
+- ref: 1Jo 5, 1-6
+  tipo: segundaLeitura
+  primeira_data: '2027-04-04'
+  livro: 1JN
+  normalizada: 1Jo 5,1-6
+- ref: Jo 20, 19-31
+  tipo: evangelho
+  primeira_data: '2027-04-04'
+  livro: JHN
+  normalizada: Jo 20,19-31
+- ref: Is 7, 10-14; 8, 10
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-05'
+  livro: ISA
+  normalizada: Is 7,10-14; 8,10
+- ref: Hb 10, 4-10
+  tipo: segundaLeitura
+  primeira_data: '2027-04-05'
+  livro: HEB
+  normalizada: Hb 10,4-10
+- ref: At 5,17-26
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-07'
+  livro: ACT
+  normalizada: At 5,17-26
+- ref: Sl 33(34),2-3.4-5.6-7.8-9 (R. 7a)
+  tipo: salmo
+  primeira_data: '2027-04-07'
+  livro: PSA
+  normalizada: Sl 33,2-3.4-5.6-7.8-9
+  salmo_hebraico: '34'
+- ref: Jo 3,16-21
+  tipo: evangelho
+  primeira_data: '2027-04-07'
+  livro: JHN
+  normalizada: Jo 3,16-21
+- ref: At 3, 13-15. 17-19
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-11'
+  livro: ACT
+  normalizada: At 3,13-15.17-19
+- ref: 1Jo 2, 1-5a
+  tipo: segundaLeitura
+  primeira_data: '2027-04-11'
+  livro: 1JN
+  normalizada: 1Jo 2,1-5a
+- ref: At 9, 31-42
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-17'
+  livro: ACT
+  normalizada: At 9,31-42
+- ref: Jo 6, 60-69
+  tipo: evangelho
+  primeira_data: '2027-04-17'
+  livro: JHN
+  normalizada: Jo 6,60-69
+- ref: At 4, 8-12
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-18'
+  livro: ACT
+  normalizada: At 4,8-12
+- ref: 1Jo 3, 1-2
+  tipo: segundaLeitura
+  primeira_data: '2027-04-18'
+  livro: 1JN
+  normalizada: 1Jo 3,1-2
+- ref: Jo 10, 11-18
+  tipo: evangelho
+  primeira_data: '2027-04-18'
+  livro: JHN
+  normalizada: Jo 10,11-18
+- ref: At 11, 1-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-19'
+  livro: ACT
+  normalizada: At 11,1-18
+- ref: Jo 10, 1-10
+  tipo: evangelho
+  primeira_data: '2027-04-19'
+  livro: JHN
+  normalizada: Jo 10,1-10
+- ref: At 12, 24-13, 5a
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-21'
+  livro: ACT
+  normalizada: At 12,24-13,5a
+- ref: Jo 12, 44-50
+  tipo: evangelho
+  primeira_data: '2027-04-21'
+  livro: JHN
+  normalizada: Jo 12,44-50
+- ref: At 13, 44-52
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-24'
+  livro: ACT
+  normalizada: At 13,44-52
+- ref: Jo 14, 7-14
+  tipo: evangelho
+  primeira_data: '2027-04-24'
+  livro: JHN
+  normalizada: Jo 14,7-14
+- ref: At 9, 26-31
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-25'
+  livro: ACT
+  normalizada: At 9,26-31
+- ref: 1Jo 3, 18-24
+  tipo: segundaLeitura
+  primeira_data: '2027-04-25'
+  livro: 1JN
+  normalizada: 1Jo 3,18-24
+- ref: At 15,7-21
+  tipo: primeiraLeitura
+  primeira_data: '2027-04-29'
+  livro: ACT
+  normalizada: At 15,7-21
+- ref: Sl 95(96),1-2a.2b-3.10 (R. cf. 3)
+  tipo: salmo
+  primeira_data: '2027-04-29'
+  livro: PSA
+  normalizada: Sl 95,1-2a.2b-3.10
+  salmo_hebraico: '96'
+- ref: Jo 15,9-11
+  tipo: evangelho
+  primeira_data: '2027-04-29'
+  livro: JHN
+  normalizada: Jo 15,9-11
+- ref: At 10, 25-26. 34-35. 44-48
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-02'
+  livro: ACT
+  normalizada: At 10,25-26.34-35.44-48
+- ref: 1Cor 15, 1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-03'
+  livro: 1CO
+  normalizada: 1Cor 15,1-8
+- ref: Jo 14, 6-14
+  tipo: evangelho
+  primeira_data: '2027-05-03'
+  livro: JHN
+  normalizada: Jo 14,6-14
+- ref: At 18, 1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-06'
+  livro: ACT
+  normalizada: At 18,1-8
+- ref: Jo 16, 16-20
+  tipo: evangelho
+  primeira_data: '2027-05-06'
+  livro: JHN
+  normalizada: Jo 16,16-20
+- ref: At 1, 1-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-09'
+  livro: ACT
+  normalizada: At 1,1-11
+- ref: Ef 1, 17-23
+  tipo: segundaLeitura
+  primeira_data: '2027-05-09'
+  livro: EPH
+  normalizada: Ef 1,17-23
+- ref: Gl 5, 16-25
+  tipo: segundaLeitura
+  primeira_data: '2027-05-16'
+  livro: GAL
+  normalizada: Gl 5,16-25
+- ref: Jo 15, 26-27; 16, 12-15
+  tipo: evangelho
+  primeira_data: '2027-05-16'
+  livro: JHN
+  normalizada: Jo 15,26-27; 16,12-15
+- ref: Eclo 2,1-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-18'
+  livro: SIR
+  normalizada: Eclo 2,1-13
+- ref: Mc 9,30-37
+  tipo: evangelho
+  primeira_data: '2027-05-18'
+  livro: MRK
+  normalizada: Mc 9,30-37
+- ref: Eclo 4,12-22
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-19'
+  livro: SIR
+  normalizada: Eclo 4,12-22
+- ref: Mc 9,38-40
+  tipo: evangelho
+  primeira_data: '2027-05-19'
+  livro: MRK
+  normalizada: Mc 9,38-40
+- ref: Eclo 5,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-20'
+  livro: SIR
+  normalizada: Eclo 5,1-10
+- ref: Mc 9,41-50
+  tipo: evangelho
+  primeira_data: '2027-05-20'
+  livro: MRK
+  normalizada: Mc 9,41-50
+- ref: Eclo 6,5-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-21'
+  livro: SIR
+  normalizada: Eclo 6,5-17
+- ref: Mc 10,1-12
+  tipo: evangelho
+  primeira_data: '2027-05-21'
+  livro: MRK
+  normalizada: Mc 10,1-12
+- ref: Eclo 17,1-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-22'
+  livro: SIR
+  normalizada: Eclo 17,1-13
+- ref: Mc 10,13-16
+  tipo: evangelho
+  primeira_data: '2027-05-22'
+  livro: MRK
+  normalizada: Mc 10,13-16
+- ref: Dt 4, 32-34. 39-40
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-23'
+  livro: DEU
+  normalizada: Dt 4,32-34.39-40
+- ref: Rm 8, 14-17
+  tipo: segundaLeitura
+  primeira_data: '2027-05-23'
+  livro: ROM
+  normalizada: Rm 8,14-17
+- ref: Mt 28, 16-20
+  tipo: evangelho
+  primeira_data: '2027-05-23'
+  livro: MAT
+  normalizada: Mt 28,16-20
+- ref: Eclo 17,20-28
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-24'
+  livro: SIR
+  normalizada: Eclo 17,20-28
+- ref: Mc 10,17-27
+  tipo: evangelho
+  primeira_data: '2027-05-24'
+  livro: MRK
+  normalizada: Mc 10,17-27
+- ref: Eclo 35, 1-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-25'
+  livro: SIR
+  normalizada: Eclo 35,1-15
+- ref: Eclo 36,1-2a.5-6.13-19
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-26'
+  livro: SIR
+  normalizada: Eclo 36,1-2a.5-6.13-19
+- ref: Sl 78(79),8.9.11.13 (R. Eclo 36,1b)
+  tipo: salmo
+  primeira_data: '2027-05-26'
+  livro: PSA
+  normalizada: Sl 78,8.9.11.13
+  salmo_hebraico: '79'
+- ref: Mc 10,32-45
+  tipo: evangelho
+  primeira_data: '2027-05-26'
+  livro: MRK
+  normalizada: Mc 10,32-45
+- ref: Ex 24, 3-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-27'
+  livro: EXO
+  normalizada: Ex 24,3-8
+- ref: Hb 9, 11-15
+  tipo: segundaLeitura
+  primeira_data: '2027-05-27'
+  livro: HEB
+  normalizada: Hb 9,11-15
+- ref: Mc 14, 12-16. 22-26
+  tipo: evangelho
+  primeira_data: '2027-05-27'
+  livro: MRK
+  normalizada: Mc 14,12-16.22-26
+- ref: Eclo 44,1.9-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-28'
+  livro: SIR
+  normalizada: Eclo 44,1.9-13
+- ref: Sl 149,1-2.3-4.5-6a e 9b (R. 4a)
+  tipo: salmo
+  primeira_data: '2027-05-28'
+  livro: PSA
+  normalizada: Sl 149,1-2.3-4.5-6a.9b
+- ref: Eclo 51,17-27
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-29'
+  livro: SIR
+  normalizada: Eclo 51,17-27
+- ref: Sl 18(19B),8.9.10.11 (R. 9a)
+  tipo: salmo
+  primeira_data: '2027-05-29'
+  livro: PSA
+  normalizada: Sl 18,8.9.10.11
+  salmo_hebraico: 19B
+- ref: Dt 5,12-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-30'
+  livro: DEU
+  normalizada: Dt 5,12-15
+- ref: Sl 80(81),3-4.5-6ab.6c-8a.10-11b (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-05-30'
+  livro: PSA
+  normalizada: Sl 80,3-4.5-6ab.6c-8a.10-11b
+  salmo_hebraico: '81'
+- ref: 2Cor 4,6-11
+  tipo: segundaLeitura
+  primeira_data: '2027-05-30'
+  livro: 2CO
+  normalizada: 2Cor 4,6-11
+- ref: Mc 2,23-3,6
+  tipo: evangelho
+  primeira_data: '2027-05-30'
+  livro: MRK
+  normalizada: Mc 2,23-3,6
+- ref: Sf 3, 14-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-31'
+  livro: ZEP
+  normalizada: Sf 3,14-18
+- ref: Rm 12,9-16b
+  tipo: primeiraLeitura
+  primeira_data: '2027-05-31'
+  livro: ROM
+  normalizada: Rm 12,9-16b
+- ref: Is 12, 2-3. 4bcd. 5-6
+  tipo: salmo
+  primeira_data: '2027-05-31'
+  livro: ISA
+  normalizada: Is 12,2-3.4bcd.5-6
+- ref: Tb 2,9-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-01'
+  livro: TOB
+  normalizada: Tb 2,9-14
+- ref: Sl 111(112),1-2.7bc-8.9 (R. cf. 7c)
+  tipo: salmo
+  primeira_data: '2027-06-01'
+  livro: PSA
+  normalizada: Sl 111,1-2.7bc-8.9
+  salmo_hebraico: '112'
+- ref: Tb 3,1-11a.16-17a
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-02'
+  livro: TOB
+  normalizada: Tb 3,1-11a.16-17a
+- ref: Sl 24(25),1-3.4bc-5ab.6-7bc.8-9 (R. 1b)
+  tipo: salmo
+  primeira_data: '2027-06-02'
+  livro: PSA
+  normalizada: Sl 24,1-3.4bc-5ab.6-7bc.8-9
+  salmo_hebraico: '25'
+- ref: Tb 6,10-11.7,1.9-17.8,4-9a
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-03'
+  livro: TOB
+  normalizada: Tb 6,10-11; 7,1.9-17; 8,4-9a
+- ref: Sl 127(128),1-2.3.4-5 (R. cf. 1a)
+  tipo: salmo
+  primeira_data: '2027-06-03'
+  livro: PSA
+  normalizada: Sl 127,1-2.3.4-5
+  salmo_hebraico: '128'
+- ref: Mc 12,28b-34
+  tipo: evangelho
+  primeira_data: '2027-06-03'
+  livro: MRK
+  normalizada: Mc 12,28b-34
+- ref: Os 11,1.3-4.8c-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-04'
+  livro: HOS
+  normalizada: Os 11,1.3-4.8c-9
+- ref: Is 12,2-3.4bcd.5-6 (R. 3)
+  tipo: salmo
+  primeira_data: '2027-06-04'
+  livro: ISA
+  normalizada: Is 12,2-3.4bcd.5-6
+- ref: Ef 3,8-12.14-19
+  tipo: segundaLeitura
+  primeira_data: '2027-06-04'
+  livro: EPH
+  normalizada: Ef 3,8-12.14-19
+- ref: Jo 19,31-37
+  tipo: evangelho
+  primeira_data: '2027-06-04'
+  livro: JHN
+  normalizada: Jo 19,31-37
+- ref: Is 61,9-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-05'
+  livro: ISA
+  normalizada: Is 61,9-11
+- ref: 1Sm 2,1.4-5.6-7 8abcd (R. cf. 1a)
+  tipo: salmo
+  primeira_data: '2027-06-05'
+  livro: 1SA
+  normalizada: 1Sm 2,1.4-5.6-7.8abcd
+- ref: Lc 2,41-51
+  tipo: evangelho
+  primeira_data: '2027-06-05'
+  livro: LUK
+  normalizada: Lc 2,41-51
+- ref: Gn 3,9-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-06'
+  livro: GEN
+  normalizada: Gn 3,9-15
+- ref: Sl 129(130),1-2.3-4ab.4c-6.7-8 (R. 7)
+  tipo: salmo
+  primeira_data: '2027-06-06'
+  livro: PSA
+  normalizada: Sl 129,1-2.3-4ab.4c-6.7-8
+  salmo_hebraico: '130'
+- ref: 2Cor 4,13-18.5,1
+  tipo: segundaLeitura
+  primeira_data: '2027-06-06'
+  livro: 2CO
+  normalizada: 2Cor 4,13-18; 5,1
+- ref: Mc 3,20-35
+  tipo: evangelho
+  primeira_data: '2027-06-06'
+  livro: MRK
+  normalizada: Mc 3,20-35
+- ref: 2Cor 1,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-07'
+  livro: 2CO
+  normalizada: 2Cor 1,1-7
+- ref: Sl 33(34),2-3.4-5.6-7.8-9 (R. 9a)
+  tipo: salmo
+  primeira_data: '2027-06-07'
+  livro: PSA
+  normalizada: Sl 33,2-3.4-5.6-7.8-9
+  salmo_hebraico: '34'
+- ref: 2 Cor 1,18-22
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-08'
+  livro: 2CO
+  normalizada: 2Cor 1,18-22
+- ref: 2Cor 3,4-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-09'
+  livro: 2CO
+  normalizada: 2Cor 3,4-11
+- ref: Sl 98(99),5.6.7.8.9 (R. cf. 9c)
+  tipo: salmo
+  primeira_data: '2027-06-09'
+  livro: PSA
+  normalizada: Sl 98,5.6.7.8.9
+  salmo_hebraico: '99'
+- ref: Mt 5,17-19
+  tipo: evangelho
+  primeira_data: '2027-06-09'
+  livro: MAT
+  normalizada: Mt 5,17-19
+- ref: 2 Cor 3,15-4,1.3-6
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-10'
+  livro: 2CO
+  normalizada: 2Cor 3,15-4,1.3-6
+- ref: Mt 5,20-26
+  tipo: evangelho
+  primeira_data: '2027-06-10'
+  livro: MAT
+  normalizada: Mt 5,20-26
+- ref: At 11,21b-26.13,1-3
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-11'
+  livro: ACT
+  normalizada: At 11,21b-26; 13,1-3
+- ref: Sl 97(98),1.2-3ab.3cd-4.5-6 (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-06-11'
+  livro: PSA
+  normalizada: Sl 97,1.2-3ab.3cd-4.5-6
+  salmo_hebraico: '98'
+- ref: Mt 10,7-13
+  tipo: evangelho
+  primeira_data: '2027-06-11'
+  livro: MAT
+  normalizada: Mt 10,7-13
+- ref: 2 Cor 5,14-21
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-12'
+  livro: 2CO
+  normalizada: 2Cor 5,14-21
+- ref: Mt 5,33-37
+  tipo: evangelho
+  primeira_data: '2027-06-12'
+  livro: MAT
+  normalizada: Mt 5,33-37
+- ref: Ez 17, 22-24
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-13'
+  livro: EZK
+  normalizada: Ez 17,22-24
+- ref: Sl 91
+  tipo: salmo
+  primeira_data: '2027-06-13'
+  livro: PSA
+  normalizada: Sl 91
+- ref: 2Cor 5, 6-10
+  tipo: segundaLeitura
+  primeira_data: '2027-06-13'
+  livro: 2CO
+  normalizada: 2Cor 5,6-10
+- ref: Mc 4, 26-34
+  tipo: evangelho
+  primeira_data: '2027-06-13'
+  livro: MRK
+  normalizada: Mc 4,26-34
+- ref: 2 Cor 6,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-14'
+  livro: 2CO
+  normalizada: 2Cor 6,1-10
+- ref: Sl 98(97)
+  tipo: salmo
+  primeira_data: '2027-06-14'
+  livro: PSA
+  normalizada: Sl 98
+  salmo_hebraico: '97'
+- ref: 2 Cor 8,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-15'
+  livro: 2CO
+  normalizada: 2Cor 8,1-9
+- ref: 2 Cor 9,6-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-16'
+  livro: 2CO
+  normalizada: 2Cor 9,6-11
+- ref: 2Cor 11,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-17'
+  livro: 2CO
+  normalizada: 2Cor 11,1-11
+- ref: Sl 110(111),1-2.3-4.7-8 (R. 7a)
+  tipo: salmo
+  primeira_data: '2027-06-17'
+  livro: PSA
+  normalizada: Sl 110,1-2.3-4.7-8
+  salmo_hebraico: '111'
+- ref: Mt 6,7-15
+  tipo: evangelho
+  primeira_data: '2027-06-17'
+  livro: MAT
+  normalizada: Mt 6,7-15
+- ref: 2Cor 11,18.21b-30
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-18'
+  livro: 2CO
+  normalizada: 2Cor 11,18.21b-30
+- ref: Sl 33(34),2-3.4-5.6-7 (R. cf. 18b)
+  tipo: salmo
+  primeira_data: '2027-06-18'
+  livro: PSA
+  normalizada: Sl 33,2-3.4-5.6-7
+  salmo_hebraico: '34'
+- ref: 2Cor 12,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-19'
+  livro: 2CO
+  normalizada: 2Cor 12,1-10
+- ref: Sl 33(34),8-9.10-11.12-13 (R. 9a)
+  tipo: salmo
+  primeira_data: '2027-06-19'
+  livro: PSA
+  normalizada: Sl 33,8-9.10-11.12-13
+  salmo_hebraico: '34'
+- ref: Mt 6,24-34
+  tipo: evangelho
+  primeira_data: '2027-06-19'
+  livro: MAT
+  normalizada: Mt 6,24-34
+- ref: Jó 38, 1. 8-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-20'
+  livro: JOB
+  normalizada: Jó 38,1.8-11
+- ref: Sl 106
+  tipo: salmo
+  primeira_data: '2027-06-20'
+  livro: PSA
+  normalizada: Sl 106
+- ref: 2Cor 5, 14-17
+  tipo: segundaLeitura
+  primeira_data: '2027-06-20'
+  livro: 2CO
+  normalizada: 2Cor 5,14-17
+- ref: Mc 4, 35-41
+  tipo: evangelho
+  primeira_data: '2027-06-20'
+  livro: MRK
+  normalizada: Mc 4,35-41
+- ref: Gn 12,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-21'
+  livro: GEN
+  normalizada: Gn 12,1-9
+- ref: Sl 32(33),12-13.18-19.20 e 22 (R. 12b)
+  tipo: salmo
+  primeira_data: '2027-06-21'
+  livro: PSA
+  normalizada: Sl 32,12-13.18-19.20.22
+  salmo_hebraico: '33'
+- ref: Gn 13,2.5-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-22'
+  livro: GEN
+  normalizada: Gn 13,2.5-18
+- ref: Sl 14(15),1a-2-3ab.3cd-4ab.5 (R. 1b)
+  tipo: salmo
+  primeira_data: '2027-06-22'
+  livro: PSA
+  normalizada: Sl 14,1a-3ab.3cd-4ab.5
+  salmo_hebraico: '15'
+- ref: Mt 7,6.12-14
+  tipo: evangelho
+  primeira_data: '2027-06-22'
+  livro: MAT
+  normalizada: Mt 7,6.12-14
+- ref: Gn 15,1-12.17-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-23'
+  livro: GEN
+  normalizada: Gn 15,1-12.17-18
+- ref: Mt 7,15-20
+  tipo: evangelho
+  primeira_data: '2027-06-23'
+  livro: MAT
+  normalizada: Mt 7,15-20
+- ref: Gn 17,1.9-10.15-22
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-25'
+  livro: GEN
+  normalizada: Gn 17,1.9-10.15-22
+- ref: Sl 127(128),1-2.3.4-5 (R. 4)
+  tipo: salmo
+  primeira_data: '2027-06-25'
+  livro: PSA
+  normalizada: Sl 127,1-2.3.4-5
+  salmo_hebraico: '128'
+- ref: Mt 8,1-4
+  tipo: evangelho
+  primeira_data: '2027-06-25'
+  livro: MAT
+  normalizada: Mt 8,1-4
+- ref: Gn 18,1-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-26'
+  livro: GEN
+  normalizada: Gn 18,1-15
+- ref: Lc 1,46-47.48-49.50 + 53.54-55 (R. 54b)
+  tipo: salmo
+  primeira_data: '2027-06-26'
+  livro: LUK
+  normalizada: Lc 1,46-47.48-49.50.53.54-55
+- ref: Mt 8,5-17
+  tipo: evangelho
+  primeira_data: '2027-06-26'
+  livro: MAT
+  normalizada: Mt 8,5-17
+- ref: Sb 1,13-15. 2,23-24
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-27'
+  livro: WIS
+  normalizada: Sb 1,13-15; 2,23-24
+- ref: Sl 29(30),2.4.5-6.11.12a.13b (R. 2a.4b)
+  tipo: salmo
+  primeira_data: '2027-06-27'
+  livro: PSA
+  normalizada: Sl 29,2.4.5-6.11.12a.13b
+  salmo_hebraico: '30'
+- ref: 2Cor 8,7-15
+  tipo: segundaLeitura
+  primeira_data: '2027-06-27'
+  livro: 2CO
+  normalizada: 2Cor 8,7-15
+- ref: Gn 18,16-33
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-28'
+  livro: GEN
+  normalizada: Gn 18,16-33
+- ref: Sl 102(103),1-2.3-4.8-9.10-11 (R. 8a)
+  tipo: salmo
+  primeira_data: '2027-06-28'
+  livro: PSA
+  normalizada: Sl 102,1-2.3-4.8-9.10-11
+  salmo_hebraico: '103'
+- ref: Mt 8,18-22
+  tipo: evangelho
+  primeira_data: '2027-06-28'
+  livro: MAT
+  normalizada: Mt 8,18-22
+- ref: Gn 19,15-29
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-29'
+  livro: GEN
+  normalizada: Gn 19,15-29
+- ref: Sl 25(26)
+  tipo: salmo
+  primeira_data: '2027-06-29'
+  livro: PSA
+  normalizada: Sl 25
+  salmo_hebraico: '26'
+- ref: Gn 21,5.8-20
+  tipo: primeiraLeitura
+  primeira_data: '2027-06-30'
+  livro: GEN
+  normalizada: Gn 21,5.8-20
+- ref: Gn 22,1-19
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-01'
+  livro: GEN
+  normalizada: Gn 22,1-19
+- ref: Sl 114(115),1-2.3-4.5-6.8-9 (R. 9)
+  tipo: salmo
+  primeira_data: '2027-07-01'
+  livro: PSA
+  normalizada: Sl 114,1-2.3-4.5-6.8-9
+  salmo_hebraico: '115'
+- ref: Mt 9,1-8
+  tipo: evangelho
+  primeira_data: '2027-07-01'
+  livro: MAT
+  normalizada: Mt 9,1-8
+- ref: Gn 23,1-4.19; 24,1-8.62-67
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-02'
+  livro: GEN
+  normalizada: Gn 23,1-4.19; 24,1-8.62-67
+- ref: Gn 28,10-22
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-05'
+  livro: GEN
+  normalizada: Gn 28,10-22
+- ref: Gn 32,23-33
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-06'
+  livro: GEN
+  normalizada: Gn 32,23-33
+- ref: Gn 41,55-57;42,5-7a.17-24a
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-07'
+  livro: GEN
+  normalizada: Gn 41,55-57; 42,5-7a.17-24a
+- ref: Sl 32(33),2-3.10-11.18-19 (R. 22)
+  tipo: salmo
+  primeira_data: '2027-07-07'
+  livro: PSA
+  normalizada: Sl 32,2-3.10-11.18-19
+  salmo_hebraico: '33'
+- ref: Mt 10,1-7
+  tipo: evangelho
+  primeira_data: '2027-07-07'
+  livro: MAT
+  normalizada: Mt 10,1-7
+- ref: Gn 44,18-21.23b-29;45,1-5
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-08'
+  livro: GEN
+  normalizada: Gn 44,18-21.23b-29; 45,1-5
+- ref: Sl 104(105),16-17.18-19.20-21 (R. 5a)
+  tipo: salmo
+  primeira_data: '2027-07-08'
+  livro: PSA
+  normalizada: Sl 104,16-17.18-19.20-21
+  salmo_hebraico: '105'
+- ref: Gn 46,1-7.28-30
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-09'
+  livro: GEN
+  normalizada: Gn 46,1-7.28-30
+- ref: Sl 36(37),3-4.18-19.27-28.39-40 (R. 39a)
+  tipo: salmo
+  primeira_data: '2027-07-09'
+  livro: PSA
+  normalizada: Sl 36,3-4.18-19.27-28.39-40
+  salmo_hebraico: '37'
+- ref: Mt 10,16-23
+  tipo: evangelho
+  primeira_data: '2027-07-09'
+  livro: MAT
+  normalizada: Mt 10,16-23
+- ref: Gn 49,29-32.50,15-26a
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-10'
+  livro: GEN
+  normalizada: Gn 49,29-32; 50,15-26a
+- ref: Sl 104(105),1-2.3-4.6-7 (R. cf. Sl 68(69),33)
+  tipo: salmo
+  primeira_data: '2027-07-10'
+  livro: PSA
+  normalizada: Sl 104,1-2.3-4.6-7
+  salmo_hebraico: '105'
+- ref: Am 7, 12-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-11'
+  livro: AMO
+  normalizada: Am 7,12-15
+- ref: Ef 1, 3-14 ou mais breve Ef 1, 3-10
+  tipo: segundaLeitura
+  primeira_data: '2027-07-11'
+  livro: EPH
+  normalizada: Ef 1,3-14 ou 1,3-10
+- ref: Mc 6, 7-13
+  tipo: evangelho
+  primeira_data: '2027-07-11'
+  livro: MRK
+  normalizada: Mc 6,7-13
+- ref: Ex 1,8-14.22
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-12'
+  livro: EXO
+  normalizada: Ex 1,8-14.22
+- ref: Ex 2,1-15a
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-13'
+  livro: EXO
+  normalizada: Ex 2,1-15a
+- ref: Sl 68(69),3.14.30-31.33-34 (R. cf. 33)
+  tipo: salmo
+  primeira_data: '2027-07-13'
+  livro: PSA
+  normalizada: Sl 68,3.14.30-31.33-34
+  salmo_hebraico: '69'
+- ref: Ex 3,1-6.9-12
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-14'
+  livro: EXO
+  normalizada: Ex 3,1-6.9-12
+- ref: Sl 102(103),1-2.3-4.6-7 (R. 8a)
+  tipo: salmo
+  primeira_data: '2027-07-14'
+  livro: PSA
+  normalizada: Sl 102,1-2.3-4.6-7
+  salmo_hebraico: '103'
+- ref: Mt 11,25-27
+  tipo: evangelho
+  primeira_data: '2027-07-14'
+  livro: MAT
+  normalizada: Mt 11,25-27
+- ref: Ex 3,13-20
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-15'
+  livro: EXO
+  normalizada: Ex 3,13-20
+- ref: Sl 104(105),1 + 5.8-9.24-25.26-27 (R. 8a)
+  tipo: salmo
+  primeira_data: '2027-07-15'
+  livro: PSA
+  normalizada: Sl 104,1.5.8-9.24-25.26-27
+  salmo_hebraico: '105'
+- ref: Zc 2,14-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-16'
+  livro: ZEC
+  normalizada: Zc 2,14-17
+- ref: Lc 1,46-47.48-49.50-51.52-53.54-55 (R. Cf. 54b)
+  tipo: salmo
+  primeira_data: '2027-07-16'
+  livro: LUK
+  normalizada: Lc 1,46-47.48-49.50-51.52-53.54-55
+- ref: Mt 12,46-50
+  tipo: evangelho
+  primeira_data: '2027-07-16'
+  livro: MAT
+  normalizada: Mt 12,46-50
+- ref: Ex 12,37-42
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-17'
+  livro: EXO
+  normalizada: Ex 12,37-42
+- ref: Sl 135(136),1 + 23-24.10-12.13-15
+  tipo: salmo
+  primeira_data: '2027-07-17'
+  livro: PSA
+  normalizada: Sl 135,1.23-24.10-12.13-15
+  salmo_hebraico: '136'
+- ref: Jr 23, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-18'
+  livro: JER
+  normalizada: Jr 23,1-6
+- ref: Ef 2, 13-18
+  tipo: segundaLeitura
+  primeira_data: '2027-07-18'
+  livro: EPH
+  normalizada: Ef 2,13-18
+- ref: Mc 6, 30-34
+  tipo: evangelho
+  primeira_data: '2027-07-18'
+  livro: MRK
+  normalizada: Mc 6,30-34
+- ref: Ex 14,5-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-19'
+  livro: EXO
+  normalizada: Ex 14,5-18
+- ref: Ex 15,1-2.3-4.5-6 (R. 1a)
+  tipo: salmo
+  primeira_data: '2027-07-19'
+  livro: EXO
+  normalizada: Ex 15,1-2.3-4.5-6
+- ref: Ex 14,21-15,1
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-20'
+  livro: EXO
+  normalizada: Ex 14,21-15,1
+- ref: Ex 15,8-9.10 e 12.17 (R. 1a)
+  tipo: salmo
+  primeira_data: '2027-07-20'
+  livro: EXO
+  normalizada: Ex 15,8-9.10.12.17
+- ref: Ex 16,1-5.9-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-21'
+  livro: EXO
+  normalizada: Ex 16,1-5.9-15
+- ref: Mt 13,1-9
+  tipo: evangelho
+  primeira_data: '2027-07-21'
+  livro: MAT
+  normalizada: Mt 13,1-9
+- ref: Ex 20,1-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-23'
+  livro: EXO
+  normalizada: Ex 20,1-17
+- ref: Ex 24,3-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-24'
+  livro: EXO
+  normalizada: Ex 24,3-8
+- ref: Sl 49(50),1-2.5-6.14-15 (R. 14a)
+  tipo: salmo
+  primeira_data: '2027-07-24'
+  livro: PSA
+  normalizada: Sl 49,1-2.5-6.14-15
+  salmo_hebraico: '50'
+- ref: Mt 13,24-30
+  tipo: evangelho
+  primeira_data: '2027-07-24'
+  livro: MAT
+  normalizada: Mt 13,24-30
+- ref: 2Rs 4, 42-44
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-25'
+  livro: 2KI
+  normalizada: 2Rs 4,42-44
+- ref: Ef 4, 1-6
+  tipo: segundaLeitura
+  primeira_data: '2027-07-25'
+  livro: EPH
+  normalizada: Ef 4,1-6
+- ref: Eclo 44, 1. 10-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-26'
+  livro: SIR
+  normalizada: Eclo 44,1.10-15
+- ref: Sl 131
+  tipo: salmo
+  primeira_data: '2027-07-26'
+  livro: PSA
+  normalizada: Sl 131
+- ref: Mt 13, 16-17
+  tipo: evangelho
+  primeira_data: '2027-07-26'
+  livro: MAT
+  normalizada: Mt 13,16-17
+- ref: Ex 33,7-11;34,5b.28
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-27'
+  livro: EXO
+  normalizada: Ex 33,7-11; 34,5b.28
+- ref: Sl 102(103),6-7.8-9.10-11.12-13 (R. 8a)
+  tipo: salmo
+  primeira_data: '2027-07-27'
+  livro: PSA
+  normalizada: Sl 102,6-7.8-9.10-11.12-13
+  salmo_hebraico: '103'
+- ref: Mt 13,36-43
+  tipo: evangelho
+  primeira_data: '2027-07-27'
+  livro: MAT
+  normalizada: Mt 13,36-43
+- ref: Ex 34,29-35
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-28'
+  livro: EXO
+  normalizada: Ex 34,29-35
+- ref: Sl 98(99)
+  tipo: salmo
+  primeira_data: '2027-07-28'
+  livro: PSA
+  normalizada: Sl 98
+  salmo_hebraico: '99'
+- ref: Mt 13,44-46
+  tipo: evangelho
+  primeira_data: '2027-07-28'
+  livro: MAT
+  normalizada: Mt 13,44-46
+- ref: Lv 23,1.4-11.15-16.27.34b-37
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-30'
+  livro: LEV
+  normalizada: Lv 23,1.4-11.15-16.27.34b-37
+- ref: Sl 80(81),3-4.5-6ab.10-11ab (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-07-30'
+  livro: PSA
+  normalizada: Sl 80,3-4.5-6ab.10-11ab
+  salmo_hebraico: '81'
+- ref: Lv 25,1.8-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-07-31'
+  livro: LEV
+  normalizada: Lv 25,1.8-17
+- ref: Sl 66(67),2-3.5.7-8 (R. 4)
+  tipo: salmo
+  primeira_data: '2027-07-31'
+  livro: PSA
+  normalizada: Sl 66,2-3.5.7-8
+  salmo_hebraico: '67'
+- ref: Ex 16, 2-4. 12-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-01'
+  livro: EXO
+  normalizada: Ex 16,2-4.12-15
+- ref: Ef 4, 17. 20-24
+  tipo: segundaLeitura
+  primeira_data: '2027-08-01'
+  livro: EPH
+  normalizada: Ef 4,17.20-24
+- ref: Jo 6, 24-35
+  tipo: evangelho
+  primeira_data: '2027-08-01'
+  livro: JHN
+  normalizada: Jo 6,24-35
+- ref: Nm 11,4b-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-02'
+  livro: NUM
+  normalizada: Nm 11,4b-15
+- ref: Sl 80(81),12-13.14-15.16-17 (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-08-02'
+  livro: PSA
+  normalizada: Sl 80,12-13.14-15.16-17
+  salmo_hebraico: '81'
+- ref: Nm 12,1-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-03'
+  livro: NUM
+  normalizada: Nm 12,1-13
+- ref: Nm 13,1-2.25-14,1.26-30.34-35
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-04'
+  livro: NUM
+  normalizada: Nm 13,1-2.25-14,1.26-30.34-35
+- ref: Sl 105(106),6-7a.13-14.21-22.23 (R. 4a)
+  tipo: salmo
+  primeira_data: '2027-08-04'
+  livro: PSA
+  normalizada: Sl 105,6-7a.13-14.21-22.23
+  salmo_hebraico: '106'
+- ref: Mt 15,21-28
+  tipo: evangelho
+  primeira_data: '2027-08-04'
+  livro: MAT
+  normalizada: Mt 15,21-28
+- ref: Nm 20,1-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-05'
+  livro: NUM
+  normalizada: Nm 20,1-13
+- ref: Mt 16,13-23
+  tipo: evangelho
+  primeira_data: '2027-08-05'
+  livro: MAT
+  normalizada: Mt 16,13-23
+- ref: Mc 9, 2-10
+  tipo: evangelho
+  primeira_data: '2027-08-06'
+  livro: MRK
+  normalizada: Mc 9,2-10
+- ref: Lc 9,28b-36
+  tipo: evangelho
+  primeira_data: '2027-08-06'
+  livro: LUK
+  normalizada: Lc 9,28b-36
+- ref: Dt 6,4-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-07'
+  livro: DEU
+  normalizada: Dt 6,4-13
+- ref: 1Rs 19, 4-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-08'
+  livro: 1KI
+  normalizada: 1Rs 19,4-8
+- ref: Ef 4, 30-5, 2
+  tipo: segundaLeitura
+  primeira_data: '2027-08-08'
+  livro: EPH
+  normalizada: Ef 4,30-5,2
+- ref: Jo 6, 41-51
+  tipo: evangelho
+  primeira_data: '2027-08-08'
+  livro: JHN
+  normalizada: Jo 6,41-51
+- ref: Dt 10,12-22
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-09'
+  livro: DEU
+  normalizada: Dt 10,12-22
+- ref: Sl 147(147B),12-13.14-15.19-20 (R. 12a)
+  tipo: salmo
+  primeira_data: '2027-08-09'
+  livro: PSA
+  normalizada: Sl 147,12-13.14-15.19-20
+  salmo_hebraico: 147B
+- ref: Mt 17,22-27
+  tipo: evangelho
+  primeira_data: '2027-08-09'
+  livro: MAT
+  normalizada: Mt 17,22-27
+- ref: Dt 34,1-12
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-11'
+  livro: DEU
+  normalizada: Dt 34,1-12
+- ref: Sl 65(66),1-3a.5 e 16-17 (R. cf. 20a.9a)
+  tipo: salmo
+  primeira_data: '2027-08-11'
+  livro: PSA
+  normalizada: Sl 65,1-3a.5.16-17
+  salmo_hebraico: '66'
+- ref: Js 3,7-10a.11.13-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-12'
+  livro: JOS
+  normalizada: Js 3,7-10a.11.13-17
+- ref: Sl 113A(114),1-2.3-4.5-6 (R. Aleluia)
+  tipo: salmo
+  primeira_data: '2027-08-12'
+  livro: PSA
+  normalizada: Sl 113,1-2.3-4.5-6
+  salmo_hebraico: '114'
+- ref: Mt 18,21-19,1
+  tipo: evangelho
+  primeira_data: '2027-08-12'
+  livro: MAT
+  normalizada: Mt 18,21-19,1
+- ref: Js 24,1-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-13'
+  livro: JOS
+  normalizada: Js 24,1-13
+- ref: Sl 135(136),1-3.16-18.21-22.24
+  tipo: salmo
+  primeira_data: '2027-08-13'
+  livro: PSA
+  normalizada: Sl 135,1-3.16-18.21-22.24
+  salmo_hebraico: '136'
+- ref: Js 24,14-29
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-14'
+  livro: JOS
+  normalizada: Js 24,14-29
+- ref: Sl 15(16),1-2a e 5.7-8.11 (R. cf. 5a)
+  tipo: salmo
+  primeira_data: '2027-08-14'
+  livro: PSA
+  normalizada: Sl 15,1-2a.5.7-8.11
+  salmo_hebraico: '16'
+- ref: Ap 11,19a;12,1-6a.10ab
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-15'
+  livro: REV
+  normalizada: Ap 11,19a; 12,1-6a.10ab
+- ref: Sl 44(45),10bc.11.12ab.16 (R. 10b)
+  tipo: salmo
+  primeira_data: '2027-08-15'
+  livro: PSA
+  normalizada: Sl 44,10bc.11.12ab.16
+  salmo_hebraico: '45'
+- ref: 1Cor 15,20-27a
+  tipo: segundaLeitura
+  primeira_data: '2027-08-15'
+  livro: 1CO
+  normalizada: 1Cor 15,20-27a
+- ref: Lc 1,39-56 (Cântico de Maria)
+  tipo: evangelho
+  primeira_data: '2027-08-15'
+  livro: LUK
+  normalizada: Lc 1,39-56
+  nota: Cântico de Maria
+- ref: Jz 2,11-19
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-16'
+  livro: JDG
+  normalizada: Jz 2,11-19
+- ref: Jz 6,11-24
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-17'
+  livro: JDG
+  normalizada: Jz 6,11-24
+- ref: Jz 9,6-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-18'
+  livro: JDG
+  normalizada: Jz 9,6-15
+- ref: Sl 20(21),2-3.4-5.6-7 (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-08-18'
+  livro: PSA
+  normalizada: Sl 20,2-3.4-5.6-7
+  salmo_hebraico: '21'
+- ref: Mt 20,1-16a
+  tipo: evangelho
+  primeira_data: '2027-08-18'
+  livro: MAT
+  normalizada: Mt 20,1-16a
+- ref: Jz 11,29-39a
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-19'
+  livro: JDG
+  normalizada: Jz 11,29-39a
+- ref: Sl 39(40),5.7-8a.8b-9.10 (R. cf. 8a.9a)
+  tipo: salmo
+  primeira_data: '2027-08-19'
+  livro: PSA
+  normalizada: Sl 39,5.7-8a.8b-9.10
+  salmo_hebraico: '40'
+- ref: Rt 1,1.3-6.14b-16.22
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-20'
+  livro: RUT
+  normalizada: Rt 1,1.3-6.14b-16.22
+- ref: Sl 145(146),5-6.7.8-9a.9bc-10 (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-08-20'
+  livro: PSA
+  normalizada: Sl 145,5-6.7.8-9a.9bc-10
+  salmo_hebraico: '146'
+- ref: Rt 2,1-3.8-11;4,13-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-21'
+  livro: RUT
+  normalizada: Rt 2,1-3.8-11; 4,13-17
+- ref: Sl 127(128),1-2.3.4-5(R. 4)
+  tipo: salmo
+  primeira_data: '2027-08-21'
+  livro: PSA
+  normalizada: Sl 127,1-2.3.4-5
+  salmo_hebraico: '128'
+- ref: Mt 23,1-12
+  tipo: evangelho
+  primeira_data: '2027-08-21'
+  livro: MAT
+  normalizada: Mt 23,1-12
+- ref: Js 24,1-2a.15-17.18b
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-22'
+  livro: JOS
+  normalizada: Js 24,1-2a.15-17.18b
+- ref: Sl 33(34) (R. 9a)
+  tipo: salmo
+  primeira_data: '2027-08-22'
+  livro: PSA
+  normalizada: Sl 33
+  salmo_hebraico: '34'
+- ref: Ef 5,21-32
+  tipo: segundaLeitura
+  primeira_data: '2027-08-22'
+  livro: EPH
+  normalizada: Ef 5,21-32
+- ref: Jo 6,60-69
+  tipo: evangelho
+  primeira_data: '2027-08-22'
+  livro: JHN
+  normalizada: Jo 6,60-69
+- ref: 2Cor 10, 17–11, 2
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-23'
+  livro: 2CO
+  normalizada: 2Cor 10,17-11,2
+- ref: Mt 13, 44-46
+  tipo: evangelho
+  primeira_data: '2027-08-23'
+  livro: MAT
+  normalizada: Mt 13,44-46
+- ref: 1Ts 2,9-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-25'
+  livro: 1TH
+  normalizada: 1Ts 2,9-13
+- ref: Sl 138(139),7-8.9-10.11-12ab (R. 1a)
+  tipo: salmo
+  primeira_data: '2027-08-25'
+  livro: PSA
+  normalizada: Sl 138,7-8.9-10.11-12ab
+  salmo_hebraico: '139'
+- ref: 1Ts 3,7-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-26'
+  livro: 1TH
+  normalizada: 1Ts 3,7-13
+- ref: Sl 89(90),3-4.12-13.14 e 17 (R. 14)
+  tipo: salmo
+  primeira_data: '2027-08-26'
+  livro: PSA
+  normalizada: Sl 89,3-4.12-13.14.17
+  salmo_hebraico: '90'
+- ref: 1Ts 4,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-27'
+  livro: 1TH
+  normalizada: 1Ts 4,1-8
+- ref: Sl 96(97) (R. 12a)
+  tipo: salmo
+  primeira_data: '2027-08-27'
+  livro: PSA
+  normalizada: Sl 96
+  salmo_hebraico: '97'
+- ref: 1Ts 4,9-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-28'
+  livro: 1TH
+  normalizada: 1Ts 4,9-11
+- ref: Sl 97(98),1.7-8.9 (R. 9)
+  tipo: salmo
+  primeira_data: '2027-08-28'
+  livro: PSA
+  normalizada: Sl 97,1.7-8.9
+  salmo_hebraico: '98'
+- ref: Dt 4, 1-2. 6-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-29'
+  livro: DEU
+  normalizada: Dt 4,1-2.6-8
+- ref: Sl 14
+  tipo: salmo
+  primeira_data: '2027-08-29'
+  livro: PSA
+  normalizada: Sl 14
+- ref: Tg 1, 17-18. 21b-22. 27
+  tipo: segundaLeitura
+  primeira_data: '2027-08-29'
+  livro: JAS
+  normalizada: Tg 1,17-18.21b-22.27
+- ref: Mc 7, 1-8. 14-15. 21-23
+  tipo: evangelho
+  primeira_data: '2027-08-29'
+  livro: MRK
+  normalizada: Mc 7,1-8.14-15.21-23
+- ref: 1Ts 4,13-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-30'
+  livro: 1TH
+  normalizada: 1Ts 4,13-18
+- ref: 1Ts 5,1-6.9-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-08-31'
+  livro: 1TH
+  normalizada: 1Ts 5,1-6.9-11
+- ref: Cl 1,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-01'
+  livro: COL
+  normalizada: Cl 1,1-8
+- ref: Sl 51(52),10.11 (R. 10b)
+  tipo: salmo
+  primeira_data: '2027-09-01'
+  livro: PSA
+  normalizada: Sl 51,10.11
+  salmo_hebraico: '52'
+- ref: Cl 1,9-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-02'
+  livro: COL
+  normalizada: Cl 1,9-14
+- ref: Cl 1,15-20
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-03'
+  livro: COL
+  normalizada: Cl 1,15-20
+- ref: Sl 99(100),2.3.4.5 (R. 2c)
+  tipo: salmo
+  primeira_data: '2027-09-03'
+  livro: PSA
+  normalizada: Sl 99,2.3.4.5
+  salmo_hebraico: '100'
+- ref: Cl 1,21-23
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-04'
+  livro: COL
+  normalizada: Cl 1,21-23
+- ref: Sl 53(54)
+  tipo: salmo
+  primeira_data: '2027-09-04'
+  livro: PSA
+  normalizada: Sl 53
+  salmo_hebraico: '54'
+- ref: Is 35, 4-7a
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-05'
+  livro: ISA
+  normalizada: Is 35,4-7a
+- ref: Tg 2, 1-5
+  tipo: segundaLeitura
+  primeira_data: '2027-09-05'
+  livro: JAS
+  normalizada: Tg 2,1-5
+- ref: Cl 1,24-2,3
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-06'
+  livro: COL
+  normalizada: Cl 1,24-2,3
+- ref: Sl 61(62),6-7.9 (R. 8a)
+  tipo: salmo
+  primeira_data: '2027-09-06'
+  livro: PSA
+  normalizada: Sl 61,6-7.9
+  salmo_hebraico: '62'
+- ref: Lc 6,6-11
+  tipo: evangelho
+  primeira_data: '2027-09-06'
+  livro: LUK
+  normalizada: Lc 6,6-11
+- ref: Cl 2,6-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-07'
+  livro: COL
+  normalizada: Cl 2,6-15
+- ref: Mq 5,1-4
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-08'
+  livro: MIC
+  normalizada: Mq 5,1-4
+- ref: Mt 1,18-23
+  tipo: evangelho
+  primeira_data: '2027-09-08'
+  livro: MAT
+  normalizada: Mt 1,18-23
+- ref: Cl 3,12-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-09'
+  livro: COL
+  normalizada: Cl 3,12-17
+- ref: 1Tm 1,1-2.12-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-10'
+  livro: 1TI
+  normalizada: 1Tm 1,1-2.12-14
+- ref: 1Tm 1,15-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-11'
+  livro: 1TI
+  normalizada: 1Tm 1,15-17
+- ref: Sl 112(113),1-2.3-4.5a e 6-7 (R. 2)
+  tipo: salmo
+  primeira_data: '2027-09-11'
+  livro: PSA
+  normalizada: Sl 112,1-2.3-4.5a.6-7
+  salmo_hebraico: '113'
+- ref: Is 50, 5-9a
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-12'
+  livro: ISA
+  normalizada: Is 50,5-9a
+- ref: Sl 114
+  tipo: salmo
+  primeira_data: '2027-09-12'
+  livro: PSA
+  normalizada: Sl 114
+- ref: Tg 2, 14-18
+  tipo: segundaLeitura
+  primeira_data: '2027-09-12'
+  livro: JAS
+  normalizada: Tg 2,14-18
+- ref: Mc 8, 27-35
+  tipo: evangelho
+  primeira_data: '2027-09-12'
+  livro: MRK
+  normalizada: Mc 8,27-35
+- ref: 1Tm 2,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-13'
+  livro: 1TI
+  normalizada: 1Tm 2,1-8
+- ref: Sl 27(28),2.7.8-9 (R. 6)
+  tipo: salmo
+  primeira_data: '2027-09-13'
+  livro: PSA
+  normalizada: Sl 27,2.7.8-9
+  salmo_hebraico: '28'
+- ref: Lc 7,1-10
+  tipo: evangelho
+  primeira_data: '2027-09-13'
+  livro: LUK
+  normalizada: Lc 7,1-10
+- ref: Lc 2,33-35
+  tipo: evangelho
+  primeira_data: '2027-09-15'
+  livro: LUK
+  normalizada: Lc 2,33-35
+- ref: 1Tm 4,12-16
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-16'
+  livro: 1TI
+  normalizada: 1Tm 4,12-16
+- ref: Sl 110(111),7-8.9.10 (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-09-16'
+  livro: PSA
+  normalizada: Sl 110,7-8.9.10
+  salmo_hebraico: '111'
+- ref: 1Tm 6,2c-12
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-17'
+  livro: 1TI
+  normalizada: 1Tm 6,2c-12
+- ref: Sl 48(49),6-7.8-10.17-18.19-20 (R. Mt 5,3)
+  tipo: salmo
+  primeira_data: '2027-09-17'
+  livro: PSA
+  normalizada: Sl 48,6-7.8-10.17-18.19-20
+  salmo_hebraico: '49'
+- ref: 1Tm 6,13-16
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-18'
+  livro: 1TI
+  normalizada: 1Tm 6,13-16
+- ref: Sb 2, 12. 17-20
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-19'
+  livro: WIS
+  normalizada: Sb 2,12.17-20
+- ref: Sl 53
+  tipo: salmo
+  primeira_data: '2027-09-19'
+  livro: PSA
+  normalizada: Sl 53
+- ref: Tg 3, 16-4, 3
+  tipo: segundaLeitura
+  primeira_data: '2027-09-19'
+  livro: JAS
+  normalizada: Tg 3,16-4,3
+- ref: Mc 9, 30-37
+  tipo: evangelho
+  primeira_data: '2027-09-19'
+  livro: MRK
+  normalizada: Mc 9,30-37
+- ref: Esd 1,1-6
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-20'
+  livro: EZR
+  normalizada: Esd 1,1-6
+- ref: Sl 125(126),1-2ab.2cd-3.4-5.6 (R. 3a)
+  tipo: salmo
+  primeira_data: '2027-09-20'
+  livro: PSA
+  normalizada: Sl 125,1-2ab.2cd-3.4-5.6
+  salmo_hebraico: '126'
+- ref: Lc 8,16-18
+  tipo: evangelho
+  primeira_data: '2027-09-20'
+  livro: LUK
+  normalizada: Lc 8,16-18
+- ref: Esd 9,5-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-22'
+  livro: EZR
+  normalizada: Esd 9,5-9
+- ref: Tb 13,2.3-4.5.8 (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-09-22'
+  livro: TOB
+  normalizada: Tb 13,2.3-4.5.8
+- ref: Ag 1,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-23'
+  livro: HAG
+  normalizada: Ag 1,1-8
+- ref: Ag 1,15b-2,9
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-24'
+  livro: HAG
+  normalizada: Ag 1,15b-2,9
+- ref: Sl 42(43),1.2.3.4. (R. cf. 5bc)
+  tipo: salmo
+  primeira_data: '2027-09-24'
+  livro: PSA
+  normalizada: Sl 42,1.2.3.4
+  salmo_hebraico: '43'
+- ref: Zc 2,5-9.14-15a
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-25'
+  livro: ZEC
+  normalizada: Zc 2,5-9.14-15a
+- ref: Jr 31,10.11-12ab.13 (R. 10d)
+  tipo: salmo
+  primeira_data: '2027-09-25'
+  livro: JER
+  normalizada: Jr 31,10.11-12ab.13
+- ref: Lc 9,43b-45
+  tipo: evangelho
+  primeira_data: '2027-09-25'
+  livro: LUK
+  normalizada: Lc 9,43b-45
+- ref: Nm 11, 25-29
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-26'
+  livro: NUM
+  normalizada: Nm 11,25-29
+- ref: Tg 5, 1-6
+  tipo: segundaLeitura
+  primeira_data: '2027-09-26'
+  livro: JAS
+  normalizada: Tg 5,1-6
+- ref: Mc 9, 38-43. 45. 47-48
+  tipo: evangelho
+  primeira_data: '2027-09-26'
+  livro: MRK
+  normalizada: Mc 9,38-43.45.47-48
+- ref: Zc 8,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-27'
+  livro: ZEC
+  normalizada: Zc 8,1-8
+- ref: Sl 101(102),16-18.19-21.29 e 22-23 (R. 17)
+  tipo: salmo
+  primeira_data: '2027-09-27'
+  livro: PSA
+  normalizada: Sl 101,16-18.19-21.29.22-23
+  salmo_hebraico: '102'
+- ref: Zc 8,20-23
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-28'
+  livro: ZEC
+  normalizada: Zc 8,20-23
+- ref: Sl 86(87),1-3.4-5.6-7 (R. Zc 8,23)
+  tipo: salmo
+  primeira_data: '2027-09-28'
+  livro: PSA
+  normalizada: Sl 86,1-3.4-5.6-7
+  salmo_hebraico: '87'
+- ref: Lc 9,51-56
+  tipo: evangelho
+  primeira_data: '2027-09-28'
+  livro: LUK
+  normalizada: Lc 9,51-56
+- ref: Ap 12,7-12a
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-29'
+  livro: REV
+  normalizada: Ap 12,7-12a
+- ref: Ne 8,1-4a.5-6.7b-12
+  tipo: primeiraLeitura
+  primeira_data: '2027-09-30'
+  livro: NEH
+  normalizada: Ne 8,1-4a.5-6.7b-12
+- ref: Sl 18(19),8.9.10.11 (R. 9a)
+  tipo: salmo
+  primeira_data: '2027-09-30'
+  livro: PSA
+  normalizada: Sl 18,8.9.10.11
+  salmo_hebraico: '19'
+- ref: Br 1,15-22
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-01'
+  livro: BAR
+  normalizada: Br 1,15-22
+- ref: Sl 78(79),1-2.3-5.8.9 (R. 9b)
+  tipo: salmo
+  primeira_data: '2027-10-01'
+  livro: PSA
+  normalizada: Sl 78,1-2.3-5.8.9
+  salmo_hebraico: '79'
+- ref: Lc 10,13-16
+  tipo: evangelho
+  primeira_data: '2027-10-01'
+  livro: LUK
+  normalizada: Lc 10,13-16
+- ref: Gn 2, 18-24
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-03'
+  livro: GEN
+  normalizada: Gn 2,18-24
+- ref: Sl 127
+  tipo: salmo
+  primeira_data: '2027-10-03'
+  livro: PSA
+  normalizada: Sl 127
+- ref: Hb 2, 9-11
+  tipo: segundaLeitura
+  primeira_data: '2027-10-03'
+  livro: HEB
+  normalizada: Hb 2,9-11
+- ref: Mc 10, 2-16 (Mais longo)
+  tipo: evangelho
+  primeira_data: '2027-10-03'
+  livro: MRK
+  normalizada: Mc 10,2-16
+  nota: Mais longo
+- ref: Mc 10,2-12 (Mais breve)
+  tipo: evangelho
+  primeira_data: '2027-10-03'
+  livro: MRK
+  normalizada: Mc 10,2-12
+  nota: Mais breve
+- ref: Jn 1,1-2,1.11
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-04'
+  livro: JON
+  normalizada: Jn 1,1-2,1.11
+- ref: Jn 2,2.3.4.5.8 (R. 7c)
+  tipo: salmo
+  primeira_data: '2027-10-04'
+  livro: JON
+  normalizada: Jn 2,2.3.4.5.8
+- ref: Jn 3,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-05'
+  livro: JON
+  normalizada: Jn 3,1-10
+- ref: Sl 129(130) (R. 3)
+  tipo: salmo
+  primeira_data: '2027-10-05'
+  livro: PSA
+  normalizada: Sl 129
+  salmo_hebraico: '130'
+- ref: Jn 4,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-06'
+  livro: JON
+  normalizada: Jn 4,1-11
+- ref: Lc 11,1-4
+  tipo: evangelho
+  primeira_data: '2027-10-06'
+  livro: LUK
+  normalizada: Lc 11,1-4
+- ref: 'Cânt.: Lc 1,46-47.48-49.50-51.52-53.54-55 (R. 49 ou: Bendita sejais, ó Virgem Maria, trouxestes no ventre a Palavra
+    eterna!)'
+  tipo: salmo
+  primeira_data: '2027-10-07'
+  livro: LUK
+  normalizada: Lc 1,46-47.48-49.50-51.52-53.54-55
+  cantico: true
+- ref: Jl 1,13-15; 2,1-2
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-08'
+  livro: JOL
+  normalizada: Jl 1,13-15; 2,1-2
+- ref: Jl 4,12-21
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-09'
+  livro: JOL
+  normalizada: Jl 4,12-21
+- ref: Sb 7, 7-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-10'
+  livro: WIS
+  normalizada: Sb 7,7-11
+- ref: Hb 4, 12-13
+  tipo: segundaLeitura
+  primeira_data: '2027-10-10'
+  livro: HEB
+  normalizada: Hb 4,12-13
+- ref: Mc 10, 17-30 ou mais breve 10, 17-27
+  tipo: evangelho
+  primeira_data: '2027-10-10'
+  livro: MRK
+  normalizada: Mc 10,17-30 ou 10,17-27
+- ref: mais breve 10,17-27
+  tipo: evangelho
+  primeira_data: '2027-10-10'
+  livro: MRK
+  normalizada: Mc 10,17-27
+  nota: mais breve
+  livro_padrao: MRK
+- ref: Rm 1,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-11'
+  livro: ROM
+  normalizada: Rm 1,1-7
+- ref: Lc 11,29-32
+  tipo: evangelho
+  primeira_data: '2027-10-11'
+  livro: LUK
+  normalizada: Lc 11,29-32
+- ref: Rm 2,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-13'
+  livro: ROM
+  normalizada: Rm 2,1-11
+- ref: Sl 61(62),2-3.6-7.9 (R. 13b)
+  tipo: salmo
+  primeira_data: '2027-10-13'
+  livro: PSA
+  normalizada: Sl 61,2-3.6-7.9
+  salmo_hebraico: '62'
+- ref: Rm 3,21-30
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-14'
+  livro: ROM
+  normalizada: Rm 3,21-30
+- ref: Rm 4,1-8
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-15'
+  livro: ROM
+  normalizada: Rm 4,1-8
+- ref: Sl 31(32),1-2.5.11 (R. cf. 7)
+  tipo: salmo
+  primeira_data: '2027-10-15'
+  livro: PSA
+  normalizada: Sl 31,1-2.5.11
+  salmo_hebraico: '32'
+- ref: Rm 4,13.16-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-16'
+  livro: ROM
+  normalizada: Rm 4,13.16-18
+- ref: Sl 104(105),6-7.8-9.42-43 (R. 8a)
+  tipo: salmo
+  primeira_data: '2027-10-16'
+  livro: PSA
+  normalizada: Sl 104,6-7.8-9.42-43
+  salmo_hebraico: '105'
+- ref: Is 53, 10-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-17'
+  livro: ISA
+  normalizada: Is 53,10-11
+- ref: Ex 17,8-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-17'
+  livro: EXO
+  normalizada: Ex 17,8-13
+- ref: Sl 120(121)
+  tipo: salmo
+  primeira_data: '2027-10-17'
+  livro: PSA
+  normalizada: Sl 120
+  salmo_hebraico: '121'
+- ref: Hb 4, 14-16
+  tipo: segundaLeitura
+  primeira_data: '2027-10-17'
+  livro: HEB
+  normalizada: Hb 4,14-16
+- ref: 2Tm 3,14-4,2
+  tipo: segundaLeitura
+  primeira_data: '2027-10-17'
+  livro: 2TI
+  normalizada: 2Tm 3,14-4,2
+- ref: Mc 10, 35-45 ou mais breve 10, 42-45
+  tipo: evangelho
+  primeira_data: '2027-10-17'
+  livro: MRK
+  normalizada: Mc 10,35-45 ou 10,42-45
+- ref: mais breve 10, 42-45
+  tipo: evangelho
+  primeira_data: '2027-10-17'
+  livro: MRK
+  normalizada: Mc 10,42-45
+  nota: mais breve
+  livro_padrao: MRK
+- ref: 2Tm 4, 10-17b
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-18'
+  livro: 2TI
+  normalizada: 2Tm 4,10-17b
+- ref: Rm 5,12.15b.17-19.20b-21
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-19'
+  livro: ROM
+  normalizada: Rm 5,12.15b.17-19.20b-21
+- ref: Rm 6,12-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-20'
+  livro: ROM
+  normalizada: Rm 6,12-18
+- ref: Rm 6,19-23
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-21'
+  livro: ROM
+  normalizada: Rm 6,19-23
+- ref: Rm 7,18-25
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-22'
+  livro: ROM
+  normalizada: Rm 7,18-25
+- ref: Rm 8,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-23'
+  livro: ROM
+  normalizada: Rm 8,1-11
+- ref: Jr 31, 7-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-24'
+  livro: JER
+  normalizada: Jr 31,7-9
+- ref: Hb 5, 1-6
+  tipo: segundaLeitura
+  primeira_data: '2027-10-24'
+  livro: HEB
+  normalizada: Hb 5,1-6
+- ref: Rm 8,12-17
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-25'
+  livro: ROM
+  normalizada: Rm 8,12-17
+- ref: Sl 67(68),2 e 4.6-7ab.20-21 (R. 21a)
+  tipo: salmo
+  primeira_data: '2027-10-25'
+  livro: PSA
+  normalizada: Sl 67,2.4.6-7ab.20-21
+  salmo_hebraico: '68'
+- ref: Rm 8,18-25
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-26'
+  livro: ROM
+  normalizada: Rm 8,18-25
+- ref: Rm 8,26-30
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-27'
+  livro: ROM
+  normalizada: Rm 8,26-30
+- ref: Sl 12(13)
+  tipo: salmo
+  primeira_data: '2027-10-27'
+  livro: PSA
+  normalizada: Sl 12
+  salmo_hebraico: '13'
+- ref: Lc 13,22-30
+  tipo: evangelho
+  primeira_data: '2027-10-27'
+  livro: LUK
+  normalizada: Lc 13,22-30
+- ref: Lc 6, 12-19
+  tipo: evangelho
+  primeira_data: '2027-10-28'
+  livro: LUK
+  normalizada: Lc 6,12-19
+- ref: Rm 11,1-2a.11-12.25-29
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-30'
+  livro: ROM
+  normalizada: Rm 11,1-2a.11-12.25-29
+- ref: Sl 93(94),12-13a.14-15.17-18 (R. 14a)
+  tipo: salmo
+  primeira_data: '2027-10-30'
+  livro: PSA
+  normalizada: Sl 93,12-13a.14-15.17-18
+  salmo_hebraico: '94'
+- ref: Lc 14,1.7-11
+  tipo: evangelho
+  primeira_data: '2027-10-30'
+  livro: LUK
+  normalizada: Lc 14,1.7-11
+- ref: Dt 6,2-6
+  tipo: primeiraLeitura
+  primeira_data: '2027-10-31'
+  livro: DEU
+  normalizada: Dt 6,2-6
+- ref: Sl 17(18),2-.3a.3bc-4.47.51ab (R. 2)
+  tipo: salmo
+  primeira_data: '2027-10-31'
+  livro: PSA
+  normalizada: Sl 17,2.3a.3bc-4.47.51ab
+  salmo_hebraico: '18'
+- ref: Hb 7,23-28
+  tipo: segundaLeitura
+  primeira_data: '2027-10-31'
+  livro: HEB
+  normalizada: Hb 7,23-28
+- ref: Rm 11,29-36
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-01'
+  livro: ROM
+  normalizada: Rm 11,29-36
+- ref: Lc 14,12-14
+  tipo: evangelho
+  primeira_data: '2027-11-01'
+  livro: LUK
+  normalizada: Lc 14,12-14
+- ref: 2Mc 12,43-46
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-02'
+  livro: 2MA
+  normalizada: 2Mc 12,43-46
+- ref: Sb 3,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-02'
+  livro: WIS
+  normalizada: Sb 3,1-9
+- ref: Sb 4,7-15
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-02'
+  livro: WIS
+  normalizada: Sb 4,7-15
+- ref: Rm 5, 5-11
+  tipo: segundaLeitura
+  primeira_data: '2027-11-02'
+  livro: ROM
+  normalizada: Rm 5,5-11
+- ref: Rm 5, 17-21
+  tipo: segundaLeitura
+  primeira_data: '2027-11-02'
+  livro: ROM
+  normalizada: Rm 5,17-21
+- ref: Rm 14,7-12
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-04'
+  livro: ROM
+  normalizada: Rm 14,7-12
+- ref: Sl 26(27),1.4.13-14 (R. 13)
+  tipo: salmo
+  primeira_data: '2027-11-04'
+  livro: PSA
+  normalizada: Sl 26,1.4.13-14
+  salmo_hebraico: '27'
+- ref: Rm 15,14-21
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-05'
+  livro: ROM
+  normalizada: Rm 15,14-21
+- ref: Rm 16,3-9.16.22-27
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-06'
+  livro: ROM
+  normalizada: Rm 16,3-9.16.22-27
+- ref: Sb 1,1-7
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-08'
+  livro: WIS
+  normalizada: Sb 1,1-7
+- ref: Sl 138(139),1-3.4-6.7-8.9-10 (R. 24b)
+  tipo: salmo
+  primeira_data: '2027-11-08'
+  livro: PSA
+  normalizada: Sl 138,1-3.4-6.7-8.9-10
+  salmo_hebraico: '139'
+- ref: Lc 17,1-6
+  tipo: evangelho
+  primeira_data: '2027-11-08'
+  livro: LUK
+  normalizada: Lc 17,1-6
+- ref: Ez 47, 1-2. 8-9. 12
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-09'
+  livro: EZK
+  normalizada: Ez 47,1-2.8-9.12
+- ref: Jo 2, 13-22
+  tipo: evangelho
+  primeira_data: '2027-11-09'
+  livro: JHN
+  normalizada: Jo 2,13-22
+- ref: Sb 6,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-10'
+  livro: WIS
+  normalizada: Sb 6,1-11
+- ref: Sl 81(82),3-4.6-7 (R. 8a)
+  tipo: salmo
+  primeira_data: '2027-11-10'
+  livro: PSA
+  normalizada: Sl 81,3-4.6-7
+  salmo_hebraico: '82'
+- ref: Sb 7,22-8,1
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-11'
+  livro: WIS
+  normalizada: Sb 7,22-8,1
+- ref: Sl 118(119),89,90.91.130.135.175 (R. 89a)
+  tipo: salmo
+  primeira_data: '2027-11-11'
+  livro: PSA
+  normalizada: Sl 118,89.90.91.130.135.175
+  salmo_hebraico: '119'
+- ref: Sb 13,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-12'
+  livro: WIS
+  normalizada: Sb 13,1-9
+- ref: Sl 18A(19),2-3.4-5 (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-11-12'
+  livro: PSA
+  normalizada: Sl 18,2-3.4-5
+  salmo_hebraico: '19'
+- ref: Sb 18,14-16.19,6-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-13'
+  livro: WIS
+  normalizada: Sb 18,14-16; 19,6-9
+- ref: Sl 104(105),2-3.36-37.42-43 (R. 5a)
+  tipo: salmo
+  primeira_data: '2027-11-13'
+  livro: PSA
+  normalizada: Sl 104,2-3.36-37.42-43
+  salmo_hebraico: '105'
+- ref: Dn 12, 1-3
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-14'
+  livro: DAN
+  normalizada: Dn 12,1-3
+- ref: Hb 10, 11-14. 18
+  tipo: segundaLeitura
+  primeira_data: '2027-11-14'
+  livro: HEB
+  normalizada: Hb 10,11-14.18
+- ref: Mc 13, 24-32
+  tipo: evangelho
+  primeira_data: '2027-11-14'
+  livro: MRK
+  normalizada: Mc 13,24-32
+- ref: 1Mc 1,10-15.41-43.54-57.62-64
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-15'
+  livro: 1MA
+  normalizada: 1Mc 1,10-15.41-43.54-57.62-64
+- ref: Sl 118(119) (R. 88)
+  tipo: salmo
+  primeira_data: '2027-11-15'
+  livro: PSA
+  normalizada: Sl 118
+  salmo_hebraico: '119'
+- ref: 2Mc 6,18-31
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-16'
+  livro: 2MA
+  normalizada: 2Mc 6,18-31
+- ref: Sl 3
+  tipo: salmo
+  primeira_data: '2027-11-16'
+  livro: PSA
+  normalizada: Sl 3
+- ref: 2Mc 7,1.20-31
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-17'
+  livro: 2MA
+  normalizada: 2Mc 7,1.20-31
+- ref: Sl 16(17),1.5-6.8b.15 (R. 15b)
+  tipo: salmo
+  primeira_data: '2027-11-17'
+  livro: PSA
+  normalizada: Sl 16,1.5-6.8b.15
+  salmo_hebraico: '17'
+- ref: 1Mc 2,15-29
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-18'
+  livro: 1MA
+  normalizada: 1Mc 2,15-29
+- ref: 1Mc 4,36-37.52-59
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-19'
+  livro: 1MA
+  normalizada: 1Mc 4,36-37.52-59
+- ref: 1Cr 29,10.11abc.11d-12a.12bcd (R. 13b)
+  tipo: salmo
+  primeira_data: '2027-11-19'
+  livro: 1CH
+  normalizada: 1Cr 29,10.11abc.11d-12a.12bcd
+- ref: 1Mc 6,1-13
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-20'
+  livro: 1MA
+  normalizada: 1Mc 6,1-13
+- ref: Sl 9A(9),2-3.4 e 6.16b e 19 (R. cf. 15a)
+  tipo: salmo
+  primeira_data: '2027-11-20'
+  livro: PSA
+  normalizada: Sl 9,2-3.4.6.16b.19
+  salmo_hebraico: '9'
+- ref: Lc 20,27-40
+  tipo: evangelho
+  primeira_data: '2027-11-20'
+  livro: LUK
+  normalizada: Lc 20,27-40
+- ref: Dn 7, 13-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-21'
+  livro: DAN
+  normalizada: Dn 7,13-14
+- ref: Ap 1, 5-8
+  tipo: segundaLeitura
+  primeira_data: '2027-11-21'
+  livro: REV
+  normalizada: Ap 1,5-8
+- ref: Jo 18, 33b-37
+  tipo: evangelho
+  primeira_data: '2027-11-21'
+  livro: JHN
+  normalizada: Jo 18,33b-37
+- ref: Dn 1,1-6.8-20
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-22'
+  livro: DAN
+  normalizada: Dn 1,1-6.8-20
+- ref: Dn 2,31-45
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-23'
+  livro: DAN
+  normalizada: Dn 2,31-45
+- ref: Dn 3,57-59.60-61 (R. cf. 59b)
+  tipo: salmo
+  primeira_data: '2027-11-23'
+  livro: DAN
+  normalizada: Dn 3,57-59.60-61
+- ref: Dn 5,1-6.13-14.16-17.23-28
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-24'
+  livro: DAN
+  normalizada: Dn 5,1-6.13-14.16-17.23-28
+- ref: Dn 3,62-63.64-65.66-67 (R. 59b)
+  tipo: salmo
+  primeira_data: '2027-11-24'
+  livro: DAN
+  normalizada: Dn 3,62-63.64-65.66-67
+- ref: Dn 6,12-28
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-25'
+  livro: DAN
+  normalizada: Dn 6,12-28
+- ref: Dn 3,68-70.71-72.73-74 (R. 59b)
+  tipo: salmo
+  primeira_data: '2027-11-25'
+  livro: DAN
+  normalizada: Dn 3,68-70.71-72.73-74
+- ref: Dn 7,2-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-26'
+  livro: DAN
+  normalizada: Dn 7,2-14
+- ref: Dn 3,75-77.78-79.80-81 (R. 59b)
+  tipo: salmo
+  primeira_data: '2027-11-26'
+  livro: DAN
+  normalizada: Dn 3,75-77.78-79.80-81
+- ref: Dn 7,15-27
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-27'
+  livro: DAN
+  normalizada: Dn 7,15-27
+- ref: Dn 3,82-83.84-85.86-87 (R. 59b)
+  tipo: salmo
+  primeira_data: '2027-11-27'
+  livro: DAN
+  normalizada: Dn 3,82-83.84-85.86-87
+- ref: Jr 33, 14-16
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-28'
+  livro: JER
+  normalizada: Jr 33,14-16
+- ref: 1Ts 3, 12-4, 2
+  tipo: segundaLeitura
+  primeira_data: '2027-11-28'
+  livro: 1TH
+  normalizada: 1Ts 3,12-4,2
+- ref: Lc 21, 25-28. 34-36
+  tipo: evangelho
+  primeira_data: '2027-11-28'
+  livro: LUK
+  normalizada: Lc 21,25-28.34-36
+- ref: Is 2, 1-5
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-29'
+  livro: ISA
+  normalizada: Is 2,1-5
+- ref: Mt 8, 5-11
+  tipo: evangelho
+  primeira_data: '2027-11-29'
+  livro: MAT
+  normalizada: Mt 8,5-11
+- ref: Rm 10, 9-18
+  tipo: primeiraLeitura
+  primeira_data: '2027-11-30'
+  livro: ROM
+  normalizada: Rm 10,9-18
+- ref: Mt 4, 18-22
+  tipo: evangelho
+  primeira_data: '2027-11-30'
+  livro: MAT
+  normalizada: Mt 4,18-22
+- ref: Is 26, 1-6
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-02'
+  livro: ISA
+  normalizada: Is 26,1-6
+- ref: Mt 7, 21. 24-27
+  tipo: evangelho
+  primeira_data: '2027-12-02'
+  livro: MAT
+  normalizada: Mt 7,21.24-27
+- ref: Is 29,17-24
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-03'
+  livro: ISA
+  normalizada: Is 29,17-24
+- ref: Sl 26(27),1.4.13-14 (R. 1a)
+  tipo: salmo
+  primeira_data: '2027-12-03'
+  livro: PSA
+  normalizada: Sl 26,1.4.13-14
+  salmo_hebraico: '27'
+- ref: Mt 9,27-31
+  tipo: evangelho
+  primeira_data: '2027-12-03'
+  livro: MAT
+  normalizada: Mt 9,27-31
+- ref: Br 5,1-9
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-05'
+  livro: BAR
+  normalizada: Br 5,1-9
+- ref: Sl 125(126),1-2ab.2cd-3.4-5.6 (R. 3)
+  tipo: salmo
+  primeira_data: '2027-12-05'
+  livro: PSA
+  normalizada: Sl 125,1-2ab.2cd-3.4-5.6
+  salmo_hebraico: '126'
+- ref: Fl 1,4-6.8-11
+  tipo: segundaLeitura
+  primeira_data: '2027-12-05'
+  livro: PHP
+  normalizada: Fl 1,4-6.8-11
+- ref: Lc 3,1-6
+  tipo: evangelho
+  primeira_data: '2027-12-05'
+  livro: LUK
+  normalizada: Lc 3,1-6
+- ref: Is 35, 1-10
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-06'
+  livro: ISA
+  normalizada: Is 35,1-10
+- ref: Lc 5, 17-26
+  tipo: evangelho
+  primeira_data: '2027-12-06'
+  livro: LUK
+  normalizada: Lc 5,17-26
+- ref: Is 40,1-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-07'
+  livro: ISA
+  normalizada: Is 40,1-11
+- ref: Sl 95(96),1-2.3e10ac.11-12.13 (R. Is 40,9-10)
+  tipo: salmo
+  primeira_data: '2027-12-07'
+  livro: PSA
+  normalizada: Sl 95,1-2.3.10ac.11-12.13
+  salmo_hebraico: '96'
+- ref: Mt 18,12-14
+  tipo: evangelho
+  primeira_data: '2027-12-07'
+  livro: MAT
+  normalizada: Mt 18,12-14
+- ref: Ef 1, 3-6. 11-12
+  tipo: segundaLeitura
+  primeira_data: '2027-12-08'
+  livro: EPH
+  normalizada: Ef 1,3-6.11-12
+- ref: Eclo 48,1-4.9-11
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-11'
+  livro: SIR
+  normalizada: Eclo 48,1-4.9-11
+- ref: Sl 79(80),2ac e 3b.15-16.18-19 (R. 4)
+  tipo: salmo
+  primeira_data: '2027-12-11'
+  livro: PSA
+  normalizada: Sl 79,2ac.3b.15-16.18-19
+  salmo_hebraico: '80'
+- ref: Mt 17,10-13
+  tipo: evangelho
+  primeira_data: '2027-12-11'
+  livro: MAT
+  normalizada: Mt 17,10-13
+- ref: Is 12,2-3.4bcd.5-6 (R. 6)
+  tipo: salmo
+  primeira_data: '2027-12-12'
+  livro: ISA
+  normalizada: Is 12,2-3.4bcd.5-6
+- ref: Fl 4,4-7
+  tipo: segundaLeitura
+  primeira_data: '2027-12-12'
+  livro: PHP
+  normalizada: Fl 4,4-7
+- ref: Lc 3,10-18
+  tipo: evangelho
+  primeira_data: '2027-12-12'
+  livro: LUK
+  normalizada: Lc 3,10-18
+- ref: Nm 24,2-7.15-17a
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-13'
+  livro: NUM
+  normalizada: Nm 24,2-7.15-17a
+- ref: Sl 24(25),4bc-5ab.6-7bc.8-9 (R. 4b)
+  tipo: salmo
+  primeira_data: '2027-12-13'
+  livro: PSA
+  normalizada: Sl 24,4bc-5ab.6-7bc.8-9
+  salmo_hebraico: '25'
+- ref: Sl 33(34),2-3.6-7.17-18.19 e 23 (R. 7a)
+  tipo: salmo
+  primeira_data: '2027-12-14'
+  livro: PSA
+  normalizada: Sl 33,2-3.6-7.17-18.19.23
+  salmo_hebraico: '34'
+- ref: Is 45,6b-8.18.21b-25
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-15'
+  livro: ISA
+  normalizada: Is 45,6b-8.18.21b-25
+- ref: Sl 84(85),9ab-1O.11-12.13-14 (R. cf. Is 45,8)
+  tipo: salmo
+  primeira_data: '2027-12-15'
+  livro: PSA
+  normalizada: Sl 84,9ab-10.11-12.13-14
+  salmo_hebraico: '85'
+- ref: Is 54,1-10
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-16'
+  livro: ISA
+  normalizada: Is 54,1-10
+- ref: Sl 29(30),2 + 4.5-6.11.12a + 13b (R. 2a)
+  tipo: salmo
+  primeira_data: '2027-12-16'
+  livro: PSA
+  normalizada: Sl 29,2.4.5-6.11.12a.13b
+  salmo_hebraico: '30'
+- ref: Lc 7,24-30
+  tipo: evangelho
+  primeira_data: '2027-12-16'
+  livro: LUK
+  normalizada: Lc 7,24-30
+- ref: Sl 71(72),1-2.3-4ab.7-8.17 (R. cf. 7)
+  tipo: salmo
+  primeira_data: '2027-12-17'
+  livro: PSA
+  normalizada: Sl 71,1-2.3-4ab.7-8.17
+  salmo_hebraico: '72'
+- ref: Sl 71(72),1-2.12-13.18-19 (R. cf. 7)
+  tipo: salmo
+  primeira_data: '2027-12-18'
+  livro: PSA
+  normalizada: Sl 71,1-2.12-13.18-19
+  salmo_hebraico: '72'
+- ref: Mq 5, 1-4a
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-19'
+  livro: MIC
+  normalizada: Mq 5,1-4a
+- ref: Sl 79
+  tipo: salmo
+  primeira_data: '2027-12-19'
+  livro: PSA
+  normalizada: Sl 79
+- ref: Hb 10, 5-10
+  tipo: segundaLeitura
+  primeira_data: '2027-12-19'
+  livro: HEB
+  normalizada: Hb 10,5-10
+- ref: Lc 1, 39-45
+  tipo: evangelho
+  primeira_data: '2027-12-19'
+  livro: LUK
+  normalizada: Lc 1,39-45
+- ref: Is 7,10-14
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-20'
+  livro: ISA
+  normalizada: Is 7,10-14
+- ref: Sl 23(24),1-2.3-4ab.5-6 (R. 7c.10b)
+  tipo: salmo
+  primeira_data: '2027-12-20'
+  livro: PSA
+  normalizada: Sl 23,1-2.3-4ab.5-6
+  salmo_hebraico: '24'
+- ref: 1Sm 2,1.4-5.6-7.8abcd (R. 1a)
+  tipo: salmo
+  primeira_data: '2027-12-22'
+  livro: 1SA
+  normalizada: 1Sm 2,1.4-5.6-7.8abcd
+- ref: Sl 24(25),4-5ab.8-9.10 e 14 (R. Lc 21,28)
+  tipo: salmo
+  primeira_data: '2027-12-23'
+  livro: PSA
+  normalizada: Sl 24,4-5ab.8-9.10.14
+  salmo_hebraico: '25'
+- ref: Lc 2, 41-52
+  tipo: evangelho
+  primeira_data: '2027-12-26'
+  livro: LUK
+  normalizada: Lc 2,41-52
+- ref: 1Jo 1, 1-4
+  tipo: primeiraLeitura
+  primeira_data: '2027-12-27'
+  livro: 1JN
+  normalizada: 1Jo 1,1-4
+- ref: Jo 20, 2-8
+  tipo: evangelho
+  primeira_data: '2027-12-27'
+  livro: JHN
+  normalizada: Jo 20,2-8
