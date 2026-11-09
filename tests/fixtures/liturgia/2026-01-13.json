@@ -1,0 +1,40 @@
+{
+ "data": "13/01/2026",
+ "liturgia": "3ª feira da 1ª Semana do Tempo Comum",
+ "cor": "Verde",
+ "oracoes": {
+  "coleta": "Senhor, atendei com bondade paterna as preces do vosso povo suplicante; dai-lhe luz para ver o que deve ser feito e coragem para realizar o que viu. Por Nosso Senhor Jesus Cristo, vosso Filho, que é Deus, e convosco vive e reina, na unidade do Espírito Santo, por todos os séculos dos séculos.",
+  "oferendas": "Possa agradar-vos, Senhor, a oferenda do vosso povo; ela nos obtenha a santificação e o que confiantes vos pedimos. Por Cristo, nosso Senhor.",
+  "comunhao": "Deus todo-poderoso, que refazeis as nossas forças pelos vossos sacramentos, nós vos pedimos a graça de vos servir por uma vida que vos seja agradável. Por Cristo, nosso Senhor.",
+  "extras": []
+ },
+ "leituras": {
+  "primeiraLeitura": [
+   {
+    "referencia": "1Sm 1,9-20",
+    "titulo": "Leitura do primeiro livro de Samuel",
+    "texto": "Naqueles dias, 9Ana levantou-se depois de ter comido e bebido em Silo. Ora, o sacerdote Eli estava sentado em sua cadeira à porta do templo do Senhor. 10Ana, com o coração cheio de amargura, orou ao Senhor, derramando copiosas lágrimas. 11E fez a seguinte promessa, dizendo: “Senhor todo-poderoso, se olhares para a aflição de tua serva e te lembrares de mim, se não te esqueceres da tua escrava e lhe deres um filho homem, eu o oferecerei a ti por todos os dias de sua vida, e não passará navalha sobre a sua cabeça”. 12Como ela se demorasse nas preces diante do Senhor, Eli observava o movimento de seus lábios. 13Ana, porém, apenas murmurava; os seus lábios se moviam, mas não se podia ouvir palavra alguma. Eli julgou que ela estivesse embriagada; 14por isso lhe disse: “Até quando estarás bêbada? Vai tirar essa bebedeira!” 15Ana, porém, respondeu: “Não é isso, meu senhor! Sou apenas uma mulher muito infeliz; não bebi vinho nem outra coisa que possa embebedar, mas desafoguei a minha alma na presença do Senhor. 16Não julgues a tua serva como uma mulher perdida, pois foi pelo excesso da minha dor e da minha aflição que falei até agora”. 17Eli então lhe disse: “Vai em paz e que o Deus de Israel te conceda o que lhe pediste”. 18Ela respondeu: “Que tua serva encontre graça diante dos teus olhos”. E a mulher foi embora, comeu e o seu semblante não era mais o mesmo. 19Na manhã seguinte, ela e seu marido levantaram-se muito cedo e, depois de terem adorado o Senhor, voltaram para sua casa em Ramá. Elcana uniu-se a Ana, sua mulher, e o Senhor lembrou-se dela. 20Ana concebeu e, no devido tempo, deu à luz um filho e chamou-o Samuel, porque – disse ela – “eu o pedi ao Senhor”."
+   }
+  ],
+  "segundaLeitura": [],
+  "salmo": [
+   {
+    "referencia": "Sl 1Sm 2",
+    "refrao": "Meu coração se alegrou em Deus, meu salvador.",
+    "texto": "– Exulta no Senhor meu coração, e se eleva a minha fronte no meu Deus; minha boca desafia os meus rivais porque me alegro com a vossa salvação.\n– O arco dos fortes foi dobrado, foi quebrado, mas os fracos se vestiram de vigor. Os saciados se empregaram por um pão, mas os pobres e os famintos se fartaram. Muitas vezes deu à luz a que era estéril, mas a mãe de muitos filhos definhou.\n– É o Senhor quem dá a morte e dá a vida, faz descer à sepultura e faz voltar; é o Senhor quem faz o pobre e faz o rico, é o Senhor quem nos humilha e nos exalta.\n– O Senhor ergue do pó o homem fraco e do lixo ele retira o indigente, para fazê-los assentar-se com os nobres num lugar de muita honra e distinção."
+   }
+  ],
+  "evangelho": [
+   {
+    "referencia": "Mc 1,21-28",
+    "titulo": "Proclamação do Evangelho de Jesus Cristo segundo Marcos",
+    "texto": "21Estando com seus discípulos em Cafarnaum, Jesus, num dia de sábado, entrou na sinagoga e começou a ensinar. 22Todos ficavam admirados com o seu ensinamento, pois ensinava como quem tem autoridade, não como os mestres da lei. 23Estava então na sinagoga um homem possuído por um espírito mau. Ele gritou: 24“Que queres de nós, Jesus nazareno? Vieste para nos destruir? Eu sei quem tu és: tu és o santo de Deus”. 25Jesus o intimou: “Cala-te e sai dele!” 26Então o espírito mau sacudiu o homem com violência, deu um grande grito e saiu. 27E todos ficaram muito espantados e perguntavam uns aos outros: “O que é isto? Um ensinamento novo, dado com autoridade: ele manda até nos espíritos maus e eles obedecem!” 28E a fama de Jesus logo se espalhou por toda parte, em toda a região da Galileia."
+   }
+  ],
+  "extras": []
+ },
+ "antifonas": {
+  "entrada": "Vi um homem sentado num trono excelso; a multidão dos Anjos o adora, cantando a uma só voz: Eis aquele cujo nome e império permanecem eternamente.",
+  "comunhao": "Junto de vós, Senhor, está a fonte da vida, e em vossa luz veremos a luz. (Sl 35, 10)"
+ }
+}

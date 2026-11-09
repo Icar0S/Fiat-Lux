@@ -1,0 +1,51 @@
+{
+ "data": "08/11/2026",
+ "liturgia": "32º Domingo do Tempo Comum",
+ "cor": "Verde",
+ "oracoes": {
+  "coleta": "Deus de poder e misericórdia, dignai-vos afastar de nós toda adversidade, para que, sem impedimento do corpo e do espírito, nos dediquemos com plena disposição ao vosso serviço. Por nosso Senhor Jesus Cristo, vosso Filho, que é Deus, e convosco vive e reina, na unidade do Espírito Santo, por todos os séculos dos séculos.",
+  "oferendas": "Senhor, olhai com benevolência para o sacrifício que apresentamos, a fim de que participemos com amor do mistério da paixão do vosso Filho. Que vive e reina pelos séculos dos séculos.",
+  "comunhao": "Fortalecidos por este alimento sagrado nós vos damos graças, Senhor, e imploramos vossa clemência para que, pelo dom do Espírito Santo, perdure a graça da santidade naqueles que receberam a força do alto. Por Cristo, nosso Senhor.",
+  "extras": []
+ },
+ "leituras": {
+  "primeiraLeitura": [
+   {
+    "referencia": "Sb 6,12-16",
+    "titulo": "Leitura do livro da Sabedoria",
+    "texto": "12A sabedoria é resplandecente e sempre viçosa. Ela é facilmente contemplada por aqueles que a amam, e é encontrada por aqueles que a procuram. 13Ela até se antecipa, dando-se a conhecer aos que a desejam. 14Quem por ela madruga não se cansará, pois a encontrará sentada à sua porta. 15Meditar sobre ela é a perfeição da prudência; e quem ficar acordado por causa dela em breve há de viver despreocupado. 16Pois ela mesma sai à procura dos que a merecem, cheia de bondade, aparece-lhes nas estradas e vai ao seu encontro em todos os seus projetos."
+   }
+  ],
+  "salmo": [
+   {
+    "referencia": "Sl 62(63)",
+    "refrao": "A minha alma tem sede de vós e vos deseja, ó Senhor.",
+    "texto": "– Sois vós, ó Senhor, o meu Deus! Desde a aurora ansioso vos busco. A minha alma tem sede de vós, minha carne também vos deseja, como terra sedenta e sem água!\n– Venho, assim, contemplar-vos no templo, para ver vossa glória e poder. Vosso amor vale mais do que a vida: e por isso meus lábios vos louvam.\n– Quero, pois, vos louvar pela vida e elevar para vós minhas mãos! A minha alma será saciada, como em grande banquete de festa; cantará a alegria em meus lábios.\n– Penso em vós no meu leito, de noite, nas vigílias suspiro por vós! Para mim fostes sempre um socorro; de vossas asas à sombra eu exulto!"
+   }
+  ],
+  "segundaLeitura": [
+   {
+    "referencia": "1Ts 4,13-18 (Forma longa)",
+    "titulo": "Leitura da primeira carta de São Paulo aos Tessalonicenses",
+    "texto": "13Irmãos, não queremos deixar-vos na incerteza a respeito dos mortos, para que não fiqueis tristes como os outros, que não têm esperança. 14Se Jesus morreu e ressuscitou – e esta é nossa fé -, de modo semelhante Deus trará de volta, com Cristo, os que através dele entraram no sono da morte. 15Isto vos declaramos, segundo a palavra do Senhor: nós que formos deixados com vida para a vinda do Senhor não levaremos vantagem em relação aos que morreram. 16Pois o Senhor mesmo, quando for dada a ordem, à voz do arcanjo e ao som da trombeta, descerá do céu, e os que morreram em Cristo ressuscitarão primeiro. 17Em seguida, nós que formos deixados com vida seremos arrebatados com eles nas nuvens, para o encontro com o Senhor, nos ares. E assim estaremos sempre com o Senhor. 18Exortai-vos, pois, uns aos outros com essas palavras."
+   },
+   {
+    "referencia": "1Ts 4,13-14 (Forma breve)",
+    "titulo": "Leitura da primeira carta de São Paulo aos Tessalonicenses",
+    "texto": "13Irmãos, não queremos deixar-vos na incerteza a respeito dos mortos, para que não fiqueis tristes como os outros, que não têm esperança. 14Se Jesus morreu e ressuscitou – e esta é nossa fé -, de modo semelhante Deus trará de volta, com Cristo, os que através dele entraram no sono da morte."
+   }
+  ],
+  "evangelho": [
+   {
+    "referencia": "Mt 25,1-13",
+    "titulo": "Proclamação do Evangelho de Jesus Cristo segundo Mateus",
+    "texto": "Naquele tempo, disse Jesus a seus discípulos esta parábola: 1“O Reino dos céus é como a história das dez jovens que pegaram suas lâmpadas de óleo e saíram ao encontro do noivo. 2Cinco delas eram imprevidentes, e as outras cinco eram previdentes. 3As imprevidentes pegaram as suas lâmpadas, mas não levaram óleo consigo. 4As previdentes, porém, levaram vasilhas com óleo junto com as lâmpadas. 5O noivo estava demorando, e todas elas acabaram cochilando e dormindo. 6No meio da noite, ouviu-se um grito: ‘O noivo está chegando. Ide ao seu encontro!’ 7Então as dez jovens se levantaram e prepararam as lâmpadas. 8As imprevidentes disseram às previdentes: ‘Dai-nos um pouco de óleo, porque nossas lâmpadas estão se apagando’. 9As previdentes responderam: ‘De modo nenhum, porque o óleo pode ser insuficiente para nós e para vós. É melhor irdes comprar aos vendedores’. 10Enquanto elas foram comprar óleo, o noivo chegou, e as que estavam preparadas entraram com ele para a festa de casamento. E a porta se fechou. 11Por fim, chegaram também as outras jovens e disseram: ‘Senhor! Senhor! Abre-nos a porta!’ 12Ele, porém, respondeu: ‘Em verdade eu vos digo, não vos conheço!’ 13Portanto, ficai vigiando, pois não sabeis qual será o dia nem a hora”. -Palavra da salvação."
+   }
+  ],
+  "extras": []
+ },
+ "antifonas": {
+  "entrada": "Chegue à vossa presença, Senhor, a minha oração; inclinai vosso ouvido à minha prece. (Cf. Sl 87, 3)",
+  "comunhao": "O Senhor é o pastor que me conduz; não me falta coisa alguma. Pelos prados e campinas verdejantes ele me leva a descansar. Para as águas repousantes me encaminha. (Cf. Sl 22, 1-2)"
+ }
+}
