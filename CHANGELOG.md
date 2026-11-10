@@ -2,6 +2,79 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versões em SemVer.
 
+## [Não lançado]
+
+### Mudado
+
+- **LLM local, sem APIs de terceiros ([ADR-012](docs/adr/012-llm-local-por-api-http.md)):** o
+  Fiat Lux fala com um servidor de LLM pela API HTTP (`POST /v1/chat`, `GET /v1/models`,
+  `Authorization: Bearer`). URL, chave e modelos ficam só no `.env` (`FIATLUX_LLM_URL`,
+  `FIATLUX_LLM_CHAVE`, `FIATLUX_LLM_MODELO` e os específicos por tarefa) e, no CI, em secrets e
+  variables. Quem clonar aponta para o servidor que quiser. Sem modelo configurado, vale o padrão
+  do servidor; sem URL, o `--dry-run` usa o cliente offline.
+- **Saída estruturada pelo prompt:** a API não tem modo JSON. Um molde da resposta, gerado do
+  esquema Pydantic, vai no prompt de sistema (com o JSON Schema cru, o `qwen3:8b` devolvia
+  `{"properties": {…}}`). A resposta é extraída (tolera `<think>`, cercas de código, texto em
+  volta e um único campo embrulhando tudo) e validada. Fora do formato, o pedido é refeito com
+  o erro explicado.
+- **Temperatura por tarefa** no lugar do esforço (classificação 0,1 · consultas 0,3 · seleção
+  0,2 · redação 0,7 · juiz 0) e `max_tokens` até 8192, o teto da API.
+- **Fila do servidor:** 429 e 503 esperam o `Retry-After`, até 15 min somados por execução. Os
+  workflows diário e semanal passaram a 45 e 60 min, porque o servidor atende um pedido por vez.
+
+### Adicionado
+
+- **Configuração em um comando:** `configurar.ps1` (Windows PowerShell 5.1+) e `configurar.sh`
+  (Linux/macOS, bash 3.2+). Acham o `uv` (PATH, instalador oficial, winget, scoop, chocolatey,
+  `pip`/`pipx` de qualquer Python, conda) ou instalam o oficial. No Windows, põem a pasta dele
+  no PATH do usuário (registro, sem duplicar, preservando `REG_EXPAND_SZ`). Escolhem o modo
+  (completo se os modelos neurais já estiverem instalados ou baixados), rodam `uv sync` e
+  chamam `fiatlux configurar`. Avisam sobre caminhos longos demais no Windows.
+- **`fiatlux configurar`:** cria o `.env`, pergunta (opcionalmente) a URL e a chave do servidor
+  de LLM e configura o Telegram (confere o token com `getMe`, acha os `chat_id` com `getUpdates`
+  e manda uma mensagem de teste). Confere o servidor sem gerar texto (`GET /v1/models`): chave,
+  URL, se os modelos de cada tarefa existem e estão baixados, e a janela de contexto. Uma chave
+  recusada ou uma URL errada podem ser corrigidas na hora. Monta a base bíblica só se a validação
+  falhar e reconstrói o índice só se ele faltar, estiver incompleto ou não combinar com o modo.
+  Termina com uma Palavra do Dia de teste (`--dry-run`; com o cliente offline enquanto o LLM não
+  responde), um resumo, o que falta para a mensagem sair completa e o veredito na última linha
+  ("Tudo pronto." só quando é verdade). Pode ser repetido; não pergunta nada sem um console de
+  verdade (no Windows, `isatty()` também é verdadeiro para o `NUL`).
+- **`ErroPermanente` e disjuntor no cliente de LLM:** chave recusada, URL errada, servidor
+  inalcançável depois de três tentativas e fila esgotada não passam tentando de novo. Na primeira
+  falha, o cliente para de chamar o servidor até o fim da execução (um modelo inexistente fecha
+  só aquele modelo), e as etapas vão direto às reservas. Sem o modelo de geração, a busca e o
+  rerank (≈ 1 min em CPU) são pulados, porque o fallback sairia de qualquer jeito. Os avisos dizem
+  o motivo uma vez, no topo ("LLM indisponível nesta execução: …"), e o alerta ao administrador
+  traz o mesmo motivo.
+- Guia e README: configuração automática como caminho recomendado, o contrato da API do LLM
+  (guia, seção 8) e problemas novos na tabela (uv fora do PATH, política de execução, PATH no VS
+  Code, `.venv` em uso, chave recusada, URL errada, servidor inalcançável, modelo que falta,
+  resposta fora do formato).
+
+### Removido
+
+- Claude e o SDK `anthropic`: `ClienteClaude`, `ANTHROPIC_API_KEY`, o esforço por tarefa
+  (`output_config.effort`), o fallback server-side, o tratamento de recusas (`refusal`) e os
+  preços dos modelos Claude (a tabela de preços fica vazia: custo zero num servidor local). Sem o
+  SDK, o caminho mais longo da `.venv` no modo leve caiu de ~165 para 117 caracteres.
+
+### Corrigido
+
+- Ruído do Hugging Face na saída: as linhas `HTTP Request: … 404` vinham do logger `httpx2`
+  (o cliente HTTP do `huggingface_hub` 2.x), e o aviso de "unauthenticated requests" é um
+  cabeçalho do servidor. Agora `httpx2` fica em WARNING e `HF_HUB_VERBOSITY` é `error` por
+  padrão; erros continuam aparecendo.
+- O traceback de uma falha ia para o console junto com a mensagem de contingência; agora fica no
+  log JSON e, no console, só com `--verboso`.
+- A seleção de passagens, depois de uma falha da API, repetia o pedido dizendo ao modelo que
+  "a resposta anterior foi inválida", e o aviso dizia "inválida" quando a causa era a rede.
+- Barras "Loading weights" do transformers 5 a cada modelo carregado; as barras de download do
+  `huggingface_hub` continuam.
+- No `configurar`, os avisos de log repetiam o que o resumo já diz: durante o comando, o console
+  só mostra erros (com `--verboso` ou `--json-logs`, nada muda).
+- Aviso do GDELT sem repetição: `GDELT recusou por limite de taxa (429); notícias só do RSS`.
+
 ## [0.1.0] — 2026-11-09
 
 Primeira implementação do [plano](plano.md), fases F0–F8 (nome definitivo: **Fiat Lux**; o
