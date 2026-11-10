@@ -6,6 +6,7 @@ import typer
 
 from fiat_lux.cli import (
     cmd_biblia,
+    cmd_configurar,
     cmd_estado,
     cmd_eval,
     cmd_indice,
@@ -20,6 +21,10 @@ app = typer.Typer(
     no_args_is_help=True,
     pretty_exceptions_show_locals=False,
 )
+app.command(
+    "configurar",
+    help="Primeira vez: prepara o que falta (.env, base bíblica, índice) e mostra funcionando.",
+)(cmd_configurar.configurar)
 app.add_typer(
     cmd_biblia.app, name="biblia", help="Corpus bíblico: baixar, ingerir, validar, exportar."
 )
@@ -45,6 +50,9 @@ def _principal(
     # modelos do Hugging Face no cache do projeto (plano: HF_HOME=.cache/huggingface)
     os.environ.setdefault("HF_HOME", str(raiz_projeto() / ".cache" / "huggingface"))
     os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+    # avisos do servidor do Hub (ex.: "unauthenticated requests") só confundem; erros continuam.
+    # Precisa vir antes do primeiro import do huggingface_hub, que lê a variável ao carregar.
+    os.environ.setdefault("HF_HUB_VERBOSITY", "error")
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     configurar_logs(json=json_logs, nivel="DEBUG" if verboso else "INFO")
 

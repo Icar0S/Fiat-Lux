@@ -165,6 +165,29 @@ class ClienteTelegram:
         resultado: list[dict[str, Any]] = self._chamar("getUpdates", dados)
         return resultado
 
+    def identidade(self) -> dict[str, Any]:
+        """`getMe`: confere o token e devolve os dados do bot (id, username…)."""
+        resultado: dict[str, Any] = self._chamar("getMe", {})
+        return resultado
+
+
+def chats_recentes(updates: list[dict[str, Any]]) -> list[tuple[str, str]]:
+    """(chat_id, nome) de quem escreveu ao bot, sem repetir, na ordem das mensagens."""
+    chats: dict[str, str] = {}
+    for u in updates:
+        mensagem = u.get("message") or u.get("edited_message") or {}
+        chat = mensagem.get("chat") or {}
+        if "id" not in chat:
+            continue
+        nome = (
+            chat.get("title")
+            or " ".join(p for p in (chat.get("first_name"), chat.get("last_name")) if p)
+            or chat.get("username")
+            or str(chat["id"])
+        )
+        chats.setdefault(str(chat["id"]), str(nome))
+    return list(chats.items())
+
 
 def interpretar_feedback(
     updates: list[dict[str, Any]], ids_por_mensagem: dict[int, int]
