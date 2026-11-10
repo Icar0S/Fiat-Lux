@@ -16,8 +16,10 @@ duração e custo de cada execução. Toda falha ou fallback também gera uma me
 | Índice bíblico ausente no CI | `fiatlux indice baixar-release` | Rodar o workflow `construir-indice.yml` |
 | Custo acima do teto mensal | Só fallback (Evangelho + oração) e aviso | Revisar o tamanho dos prompts, o lote de clusters e `custo_max_mensal_usd` |
 | Verificação reprovou após 2 revisões | Fallback e aviso com as violações | Ver `mensagens.verificacao_json`; ajustar o prompt P4 ou a regra |
-| Sem `ANTHROPIC_API_KEY` | Classificação por palavras-chave, consultas determinísticas, seleção pelo escore; sem redação, sai o fallback | Definir a chave no `.env` (local) ou nos *secrets* (CI) |
-| Recusa do modelo (`refusal`) | Sonnet: fallback server-side; Haiku: classificador por palavras-chave | Ver a categoria no log; reformular o prompt se for falso positivo |
+| Sem `FIATLUX_LLM_URL` | Classificação por palavras-chave, consultas determinísticas, seleção pelo escore; sem redação, sai o fallback | Definir `FIATLUX_LLM_URL` e `FIATLUX_LLM_CHAVE` no `.env` (local) ou nos *secrets* (CI) |
+| Servidor de LLM recusou a chave, URL errada ou servidor inalcançável | Na primeira falha, parou de chamar o servidor até o fim da execução (`evento=llm_indisponivel`); reservas e fallback, com o motivo no 1º aviso e no alerta | Conferir `<URL>/v1/ready`, a chave e a URL; `fiatlux configurar` confere sem gerar texto |
+| Servidor de LLM ocupado (429/503) | Esperou o `Retry-After` (`evento=llm_espera`), até `espera_fila_max_s` somado na execução; depois, como acima | Ver a fila em `/v1/status`; aumentar `espera_fila_max_s` ou mudar o horário do agendamento |
+| Resposta fora do formato JSON | Pediu de novo com o erro (`evento=llm_formato`); na 2ª falha, a etapa usa a reserva | Se for frequente, usar um modelo maior (`FIATLUX_LLM_MODELO_GERACAO`) ou aumentar `tentativas_formato` |
 | Pipeline lento, perto do `timeout-minutes` | Nada | Ver `evento=rerank` no log (pares e segundos); usar `--sem-rerank` ou `usar_rerank = false` em `config/settings.toml` (ADR-010) |
 | Execução duplicada | Idempotência por (data, tipo, perfil, destinatário) | Nada; para reenviar, apague a linha em `mensagens` |
 

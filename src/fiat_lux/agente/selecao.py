@@ -3,7 +3,7 @@
 O LLM recebe 12 candidatos com id, referência e texto, e devolve ids. Validação: ids do
 conjunto, principal ≠ complementares, regra de perfil e, de preferência, uma complementar de
 outro testamento. Resposta inválida ⇒ nova tentativa com o erro explicado; segunda falha ⇒
-seleção determinística pelo escore S.
+seleção determinística pelo escore S (direto, se o provedor estiver fora: `ErroPermanente`).
 """
 
 from __future__ import annotations
@@ -11,7 +11,15 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from fiat_lux.agente.contexto import ContextoDoDia
-from fiat_lux.llm.cliente import Contabilidade, ErroLLM, LLMClient, Pedido, chamar
+from fiat_lux.llm.cliente import (
+    Contabilidade,
+    ErroLLM,
+    ErroPermanente,
+    LLMClient,
+    Pedido,
+    chamar,
+    motivo_curto,
+)
 from fiat_lux.llm.esquemas import Selecao
 from fiat_lux.llm.offline import embutir
 from fiat_lux.llm.prompts import carregar
@@ -68,7 +76,7 @@ def selecionar(
     cands: list[Candidato],
     llm: LLMClient | None,
     modelo: str,
-    esforco: str = "medium",
+    temperatura: float = 0.2,
     contabilidade: Contabilidade | None = None,
 ) -> Escolha:
     if len(cands) < 3:
@@ -106,20 +114,26 @@ def selecionar(
     }
     sistema = carregar("selecao").texto
     usuario = embutir(dados)
-    erro_anterior: list[str] = []
+    correcao: list[str] = []  # só erros de validação voltam ao modelo; falha da API não
+    ultimo = ""
     for tentativa in range(2):
         u = (
             usuario
-            if not erro_anterior
-            else f"{usuario}\n\nA resposta anterior foi inválida: {'; '.join(erro_anterior)}. Corrija."
+            if not correcao
+            else f"{usuario}\n\nA resposta anterior foi inválida: {'; '.join(correcao)}. Corrija."
         )
         try:
             s = chamar(
-                llm, Pedido("selecao", modelo, sistema, u, esforco, 6000), Selecao, contabilidade
+                llm,
+                Pedido("selecao", modelo, sistema, u, temperatura, 6000),
+                Selecao,
+                contabilidade,
             )
+        except ErroPermanente as e:
+            return deterministica(cands, f"seleção pelo escore ({motivo_curto(e)})")
         except ErroLLM as e:
             log().warning("selecao_llm_falhou", tentativa=tentativa, erro=str(e))
-            erro_anterior = [str(e)]
+            ultimo = f"seleção do LLM falhou duas vezes: {e}"
             continue
         erros = validar(s, mapa, ctx.perfil.nome == "evangelico")
         if not erros:
@@ -132,5 +146,6 @@ def selecionar(
                 alertas=s.alertas,
                 metodo="llm",
             )
-        erro_anterior = erros
-    return deterministica(cands, f"seleção do LLM inválida duas vezes: {'; '.join(erro_anterior)}")
+        correcao = erros
+        ultimo = f"seleção do LLM inválida duas vezes: {'; '.join(erros)}"
+    return deterministica(cands, ultimo)

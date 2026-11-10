@@ -25,8 +25,15 @@ from fiat_lux.entrega import markdown as arquivo
 from fiat_lux.estado import Estado
 from fiat_lux.liturgia.cliente_api import ClienteLiturgia
 from fiat_lux.liturgia.servico import ServicoLiturgia
-from fiat_lux.llm.cliente import Contabilidade, ErroOrcamento, LLMClient
-from fiat_lux.llm.fabrica import criar_cliente, tem_credencial
+from fiat_lux.llm.cliente import (
+    Contabilidade,
+    ErroOrcamento,
+    ErroPermanente,
+    LLMClient,
+    motivo_curto,
+    provedor_bloqueado,
+)
+from fiat_lux.llm.fabrica import criar_cliente, llm_configurado
 from fiat_lux.llm.prompts import hash_conjunto
 from fiat_lux.logs import log
 from fiat_lux.noticias.coleta import coletor_padrao, processar_dia
@@ -60,6 +67,40 @@ class ResultadoDiaria:
     etapa_falha: str | None = None
     tentativas_redacao: int = 0
     llm: str = ""
+    # o LLM ficou fora nesta execução (ErroPermanente): causa ("chave", "conexao"…) e motivo
+    llm_causa: str = ""
+    llm_indisponivel: str = ""
+
+
+def registrar_bloqueio(res: ResultadoDiaria, llm: LLMClient) -> None:
+    """Diz uma vez só, no topo dos avisos, por que o LLM ficou fora nesta execução (as etapas
+    dizem apenas "sem o LLM")."""
+    b = provedor_bloqueado(llm)
+    if b is None:
+        return
+    res.llm_causa, res.llm_indisponivel = b.causa, b.motivo
+    if b.causa != "sem_servidor":  # a falta de servidor já foi avisada no início (cliente_llm)
+        res.avisos.insert(0, f"LLM indisponível nesta execução: {b.motivo}")
+
+
+def aviso_de_falha(res: ResultadoDiaria, etapa: str, e: Exception, evento: str) -> None:
+    """Registra a falha que levou ao fallback. Sem o LLM (`ErroPermanente`), é uma situação
+    prevista, não um defeito: sem traceback e com um aviso que diz o que saiu no lugar."""
+    if isinstance(e, ErroPermanente):
+        log().warning(evento, etapa=etapa, motivo=e.motivo)
+        res.avisos.append(
+            f"sem a redação ({motivo_curto(e)}): saiu a mensagem de contingência "
+            "(Evangelho do dia + oração)"
+        )
+        return
+    log().error(evento, etapa=etapa, erro=str(e), trace=traceback.format_exc(limit=3))
+    res.avisos.append(f"falha em {etapa}: {e}")
+
+
+def resumo_da_falha(res: ResultadoDiaria, ultimos: int) -> str:
+    if res.llm_indisponivel:
+        return f"LLM indisponível: {res.llm_indisponivel}"
+    return "; ".join(res.avisos[-ultimos:])
 
 
 def passagens_json(escolha: Escolha | None) -> str:
@@ -85,14 +126,14 @@ def passagens_json(escolha: Escolha | None) -> str:
 
 def cliente_llm(s: Settings, provedor: str | None, dry_run: bool, avisos: list[str]) -> LLMClient:
     escolha = provedor or s.llm.provedor
-    if escolha == "anthropic" and not tem_credencial(s):
+    if escolha == "local" and not llm_configurado(s):
         if dry_run:
-            avisos.append("sem ANTHROPIC_API_KEY: dry-run com o cliente offline (determinístico)")
+            avisos.append("sem FIATLUX_LLM_URL: dry-run com o cliente offline (determinístico)")
             escolha = "offline"
         else:
             avisos.append(
-                "sem ANTHROPIC_API_KEY: as etapas de LLM usam as reservas e a mensagem sai como "
-                "fallback (Evangelho + oração); defina a chave no .env"
+                "sem FIATLUX_LLM_URL: as etapas de LLM usam as reservas e a mensagem sai como "
+                "fallback (Evangelho + oração); aponte para o servidor de LLM no .env"
             )
     return criar_cliente(s, escolha)
 
@@ -171,10 +212,7 @@ def executar(
             if isinstance(e, ErroOrcamento)
             else "Hoje não foi possível preparar a reflexão completa; segue o Evangelho do dia."
         )
-        log().error(
-            "diaria_falhou", etapa=rast.etapa, erro=str(e), trace=traceback.format_exc(limit=3)
-        )
-        res.avisos.append(f"falha em {rast.etapa}: {e}")
+        aviso_de_falha(res, rast.etapa, e, "diaria_falhou")
         ctx = ctx or _contexto_minimo(op.data, perfil, estado)
         try:
             res.markdown = mod_fallback.gerar(ctx, motivo, repo, buscador, s.geral.versao_pipeline)
@@ -183,6 +221,7 @@ def executar(
             res.avisos.append(f"fallback falhou: {e2}")
             res.status = "falhou"
     res.avisos += rast.avisos
+    registrar_bloqueio(res, llm)
     res.tentativas_redacao = rast.tentativas_redacao
     res.custo = round(contab.uso.custo_usd, 5)
     entregar(
@@ -202,7 +241,7 @@ def executar(
         res.status,
         time.perf_counter() - inicio,
         res.etapa_falha,
-        "; ".join(res.avisos[-3:]) if res.etapa_falha else None,
+        resumo_da_falha(res, 3) if res.etapa_falha else None,
         res.custo,
     )
     fechar_recursos(repo, buscador)
@@ -309,7 +348,7 @@ def entregar(
     if res.status in {"fallback", "falhou"}:
         alertar_admin(
             s,
-            f"Fiat Lux {data} ({tipo}): {res.status} em {res.etapa_falha} — {'; '.join(res.avisos[-2:])}",
+            f"Fiat Lux {data} ({tipo}): {res.status} em {res.etapa_falha} — {resumo_da_falha(res, 2)}",
         )
 
 

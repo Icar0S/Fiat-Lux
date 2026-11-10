@@ -13,7 +13,7 @@ permissions:
 jobs:
   diaria:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     env:
       PYTHONUTF8: "1"
       HF_HOME: .cache/huggingface
@@ -39,7 +39,11 @@ jobs:
       - name: Palavra do Dia
         run: uv run fiatlux --json-logs palavra diaria ${{ inputs.data && format('--data {0}', inputs.data) || '' }} --quieto
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # servidor de LLM: URL e chave nos secrets; modelos (opcionais) nas variables
+          FIATLUX_LLM_URL: ${{ secrets.FIATLUX_LLM_URL }}
+          FIATLUX_LLM_CHAVE: ${{ secrets.FIATLUX_LLM_CHAVE }}
+          FIATLUX_LLM_MODELO: ${{ vars.FIATLUX_LLM_MODELO }}
+          FIATLUX_LLM_MODELO_GERACAO: ${{ vars.FIATLUX_LLM_MODELO_GERACAO }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
           TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}

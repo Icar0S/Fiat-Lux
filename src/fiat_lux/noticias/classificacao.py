@@ -9,7 +9,15 @@ from __future__ import annotations
 
 import re
 
-from fiat_lux.llm.cliente import Contabilidade, ErroLLM, LLMClient, Pedido, chamar
+from fiat_lux.llm.cliente import (
+    Contabilidade,
+    ErroLLM,
+    ErroPermanente,
+    LLMClient,
+    Pedido,
+    chamar,
+    motivo_curto,
+)
 from fiat_lux.llm.esquemas import ClassificacaoLote
 from fiat_lux.llm.offline import embutir
 from fiat_lux.llm.prompts import carregar
@@ -45,7 +53,7 @@ def classificar(
     clusters: list[Cluster],
     llm: LLMClient | None,
     modelo: str,
-    esforco: str = "low",
+    temperatura: float = 0.1,
     top: int = 15,
     titulos_por_cluster: int = 5,
     confianca_minima: float = 0.5,
@@ -77,27 +85,40 @@ def classificar(
             modelo=modelo,
             sistema=sistema,
             usuario=f"Escopo: {escopo}.\n{embutir({'grupos': grupos})}",
-            esforco=esforco,
+            temperatura=temperatura,
             max_tokens=8000,
         )
         try:
             resp = chamar(llm, pedido, ClassificacaoLote, contabilidade)
+        except ErroPermanente as e:
+            # o provedor não volta nesta execução: os demais escopos vão direto às palavras-chave
+            avisos.append(f"classificação das notícias por palavras-chave ({motivo_curto(e)})")
+            llm = None
+            for c in lote:
+                _por_palavras(c)
+            continue
         except ErroLLM as e:
             log().warning("classificacao_reserva", escopo=escopo, erro=str(e))
             avisos.append(f"classificação por palavras-chave no escopo {escopo} ({e})")
             for c in lote:
                 _por_palavras(c)
             continue
-        por_id = {g.id: g for g in resp.grupos}
-        for i, c in enumerate(lote):
-            g = por_id.get(f"{escopo}-{i}")
-            if g is None:
-                _por_palavras(c)
-                continue
-            c.categoria = g.categoria if g.confianca >= confianca_minima else "outro"
-            c.gravidade, c.confianca, c.sensivel = g.gravidade, g.confianca, g.sensivel
-            c.rotulo = g.rotulo
-            c.classificado_por = "llm"
-            # reforço determinístico de sensibilidade (não depende só do LLM)
-            c.sensivel = c.sensivel or detectar_sensibilidade(" ".join(c.titulos))
+        _aplicar(lote, resp, escopo, confianca_minima)
     return avisos
+
+
+def _aplicar(
+    lote: list[Cluster], resp: ClassificacaoLote, escopo: str, confianca_minima: float
+) -> None:
+    por_id = {g.id: g for g in resp.grupos}
+    for i, c in enumerate(lote):
+        g = por_id.get(f"{escopo}-{i}")
+        if g is None:
+            _por_palavras(c)
+            continue
+        c.categoria = g.categoria if g.confianca >= confianca_minima else "outro"
+        c.gravidade, c.confianca, c.sensivel = g.gravidade, g.confianca, g.sensivel
+        c.rotulo = g.rotulo
+        c.classificado_por = "llm"
+        # reforço determinístico de sensibilidade (não depende só do LLM)
+        c.sensivel = c.sensivel or detectar_sensibilidade(" ".join(c.titulos))

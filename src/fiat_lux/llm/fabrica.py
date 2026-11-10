@@ -2,32 +2,48 @@
 
 from __future__ import annotations
 
-import os
+from typing import TYPE_CHECKING, Any
 
 from fiat_lux.config import Settings
 from fiat_lux.llm.cache import CacheLLM
 from fiat_lux.llm.cliente import (
-    ClienteClaude,
     ClienteComCache,
+    ClienteNaoConfigurado,
     ClienteOffline,
-    ClienteSemCredencial,
     LLMClient,
     TabelaPrecos,
 )
 from fiat_lux.logs import log
+
+if TYPE_CHECKING:
+    from fiat_lux.llm.servidor import ClienteServidor
+
+PROVEDORES = ("local", "offline")
 
 
 def tabela_precos(s: Settings) -> TabelaPrecos:
     return TabelaPrecos({m: (p.entrada, p.saida) for m, p in s.custos.precos.items()})
 
 
-def tem_credencial(s: Settings) -> bool:
-    """ANTHROPIC_API_KEY/AUTH_TOKEN no ambiente (um perfil `ant auth login` também serve ao SDK)."""
-    return bool(
-        s.anthropic_api_key
-        or os.environ.get("ANTHROPIC_AUTH_TOKEN")
-        or os.environ.get("ANTHROPIC_PROFILE")
-    )
+def llm_configurado(s: Settings) -> bool:
+    """Há um servidor de LLM configurado (`FIATLUX_LLM_URL` no `.env`)?"""
+    return bool(s.llm.url.strip())
+
+
+def cliente_servidor(s: Settings, **ajustes: Any) -> ClienteServidor:
+    """O cliente HTTP do servidor configurado; `ajustes` troca parâmetros (ex.: `timeout_s`)."""
+    from fiat_lux.llm.servidor import ClienteServidor
+
+    parametros: dict[str, Any] = {
+        "timeout_s": s.llm.timeout_s,
+        "tentativas_formato": s.llm.tentativas_formato,
+        "espera_fila_max_s": s.llm.espera_fila_max_s,
+        "max_tokens": s.llm.max_tokens,
+        "precos": tabela_precos(s),
+    }
+    parametros.update(ajustes)
+    chave = s.llm_chave.get_secret_value() if s.llm_chave else None
+    return ClienteServidor(s.llm.url, chave, **parametros)
 
 
 def criar_cliente(
@@ -37,13 +53,12 @@ def criar_cliente(
     cliente: LLMClient
     if escolha == "offline":
         cliente = ClienteOffline()
-    elif escolha == "anthropic" and not tem_credencial(s):
-        return ClienteSemCredencial()
-    elif escolha == "anthropic":
-        chave = s.anthropic_api_key.get_secret_value() if s.anthropic_api_key else None
-        cliente = ClienteClaude(api_key=chave, timeout_s=s.llm.timeout_s, precos=tabela_precos(s))
+    elif escolha == "local" and not llm_configurado(s):
+        return ClienteNaoConfigurado()
+    elif escolha == "local":
+        cliente = cliente_servidor(s)
     else:
-        raise ValueError(f"provedor de LLM desconhecido: {escolha!r}")
+        raise ValueError(f"provedor de LLM desconhecido: {escolha!r} (use local ou offline)")
     # o cliente offline é determinístico: cache só esconderia mudanças nos manipuladores
     cachear = (usar_cache if usar_cache is not None else s.llm.cache) and escolha != "offline"
     if cachear:

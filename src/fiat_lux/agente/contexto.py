@@ -64,7 +64,7 @@ def resumir_evangelho(
                 modelo,
                 carregar("resumo_evangelho").texto,
                 embutir(texto[:6000], "evangelho"),
-                "low",
+                0.2,
                 2000,
             ),
             ResumoEvangelho,

@@ -256,9 +256,9 @@ def test_cache_evita_segunda_chamada(tmp_path):
 
 
 def test_custos_e_teto_mensal():
-    t = TabelaPrecos({"claude-sonnet-5-5": (2.0, 10.0)})
+    t = TabelaPrecos({"modelo-pago": (2.0, 10.0)})
     assert t.custo(
-        "claude-sonnet-5-5", Uso(tokens_entrada=1_000_000, tokens_saida=100_000)
+        "modelo-pago", Uso(tokens_entrada=1_000_000, tokens_saida=100_000)
     ) == pytest.approx(3.0)
     c = Contabilidade(gasto_mes_usd=9.99, teto_mes_usd=10.0)
     c.uso.custo_usd = 0.02
@@ -269,68 +269,6 @@ def test_custos_e_teto_mensal():
 def test_offline_sem_manipulador():
     with pytest.raises(ErroLLM):
         ClienteOffline({}).gerar(Pedido("inexistente", "m", "s", "u"), Julgamento)
-
-
-def test_cliente_claude_trata_recusa_e_saida(monkeypatch):
-    from types import SimpleNamespace
-
-    from fiat_lux.llm.cliente import ClienteClaude, ErroRecusa
-
-    class Falso:
-        def __init__(self, resp):
-            self.beta = SimpleNamespace(
-                messages=SimpleNamespace(parse=lambda **kw: self._registrar(kw, resp))
-            )
-            self.kw = None
-
-        def _registrar(self, kw, resp):
-            self.kw = kw
-            return resp
-
-    uso = SimpleNamespace(
-        input_tokens=1000,
-        output_tokens=200,
-        cache_read_input_tokens=0,
-        cache_creation_input_tokens=0,
-    )
-    ok = SimpleNamespace(
-        stop_reason="end_turn",
-        usage=uso,
-        model="claude-sonnet-5-5",
-        parsed_output=Julgamento(
-            partidario=False,
-            castigo_ou_profecia=False,
-            exposicao_vitimas=False,
-            tom_condenatorio=False,
-            motivos=[],
-        ),
-    )
-    falso = Falso(ok)
-    r = ClienteClaude(cliente=falso).gerar(
-        Pedido("juiz", "claude-sonnet-5-5", "s", "u", "low"), Julgamento
-    )
-    assert r.dados.aprovado and r.uso.custo_usd > 0
-    assert (
-        falso.kw["fallbacks"] == "default"
-        and "server-side-fallback-2026-07-01" in falso.kw["betas"]
-    )
-    assert "temperature" not in falso.kw and falso.kw["output_config"] == {"effort": "low"}
-    haiku = Falso(ok)
-    ClienteClaude(cliente=haiku).gerar(
-        Pedido("classificacao", "claude-haiku-5-5", "s", "u"), Julgamento
-    )
-    assert "fallbacks" not in haiku.kw  # Haiku 5.5 não tem fallback server-side
-    recusa = SimpleNamespace(
-        stop_reason="refusal",
-        usage=uso,
-        model="claude-sonnet-5-5",
-        parsed_output=None,
-        stop_details=SimpleNamespace(category="general_harms", explanation="x"),
-    )
-    with pytest.raises(ErroRecusa):
-        ClienteClaude(cliente=Falso(recusa)).gerar(
-            Pedido("juiz", "claude-sonnet-5-5", "s", "u"), Julgamento
-        )
 
 
 def test_redacao_offline_nunca_copia_manchetes():
@@ -353,8 +291,8 @@ def test_redacao_offline_nunca_copia_manchetes():
     assert 40 <= len(olhar.split()) <= 90
 
 
-def test_sem_credencial_falha_com_erro_claro(monkeypatch):
-    """Sem ANTHROPIC_API_KEY (e fora do dry-run), as etapas recebem ErroLLM e usam as reservas."""
+def test_sem_servidor_de_llm_falha_com_erro_claro(monkeypatch):
+    """Sem FIATLUX_LLM_URL (e fora do dry-run), as etapas recebem ErroLLM e usam as reservas."""
     import pytest
 
     from fiat_lux.config import Settings
@@ -362,10 +300,19 @@ def test_sem_credencial_falha_com_erro_claro(monkeypatch):
     from fiat_lux.llm.esquemas import Consultas
     from fiat_lux.llm.fabrica import criar_cliente
 
-    for var in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_PROFILE"):
-        monkeypatch.delenv(var, raising=False)
+    monkeypatch.delenv("FIATLUX_LLM_URL", raising=False)
     s = Settings(_env_file=None)
-    cliente = criar_cliente(s, "anthropic")
-    assert cliente.nome == "anthropic:sem-credencial"
-    with pytest.raises(ErroLLM, match="ANTHROPIC_API_KEY"):
-        cliente.gerar(Pedido("consultas", "claude-haiku-5-5", "", ""), Consultas)
+    cliente = criar_cliente(s, "local")
+    assert cliente.nome == "local:sem-servidor"
+    with pytest.raises(ErroLLM, match="FIATLUX_LLM_URL"):
+        cliente.gerar(Pedido("consultas", "", "", ""), Consultas)
+
+
+def test_provedor_desconhecido_diz_as_opcoes():
+    import pytest
+
+    from fiat_lux.config import Settings
+    from fiat_lux.llm.fabrica import criar_cliente
+
+    with pytest.raises(ValueError, match="use local ou offline"):
+        criar_cliente(Settings(_env_file=None), "anthropic")

@@ -3,7 +3,15 @@
 from __future__ import annotations
 
 from fiat_lux.agente.contexto import ContextoDoDia
-from fiat_lux.llm.cliente import Contabilidade, ErroLLM, LLMClient, Pedido, chamar
+from fiat_lux.llm.cliente import (
+    Contabilidade,
+    ErroLLM,
+    ErroPermanente,
+    LLMClient,
+    Pedido,
+    chamar,
+    motivo_curto,
+)
 from fiat_lux.llm.esquemas import Consultas
 from fiat_lux.llm.offline import embutir
 from fiat_lux.llm.prompts import carregar
@@ -32,7 +40,7 @@ def gerar(
     ctx: ContextoDoDia,
     llm: LLMClient | None,
     modelo: str,
-    esforco: str = "low",
+    temperatura: float = 0.3,
     contabilidade: Contabilidade | None = None,
 ) -> tuple[list[str], list[str], list[str]]:
     """Devolve (consultas, origens, avisos)."""
@@ -57,15 +65,21 @@ def gerar(
             r = chamar(
                 llm,
                 Pedido(
-                    "consultas", modelo, carregar("consultas").texto, embutir(dados), esforco, 4000
+                    "consultas",
+                    modelo,
+                    carregar("consultas").texto,
+                    embutir(dados),
+                    temperatura,
+                    4000,
                 ),
                 Consultas,
                 contabilidade,
             )
             pares += [(c.texto, c.origem) for c in r.consultas[:6]]
         except ErroLLM as e:
-            log().warning("consultas_llm_falhou", erro=str(e))
-            avisos.append(f"consultas só determinísticas ({e})")
+            if not isinstance(e, ErroPermanente):  # o permanente já foi registrado pelo cliente
+                log().warning("consultas_llm_falhou", erro=str(e))
+            avisos.append(f"consultas só determinísticas ({motivo_curto(e)})")
     pares += resto
     vistos: set[str] = set()
     textos, origens = [], []

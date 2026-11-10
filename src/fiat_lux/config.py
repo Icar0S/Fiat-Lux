@@ -69,18 +69,25 @@ class Liturgia(BaseModel):
 
 
 class LLM(BaseModel):
-    provedor: str = "anthropic"
-    modelo_classificacao: str = "claude-haiku-5-5"
-    modelo_geracao: str = "claude-sonnet-5-5"
-    modelo_juiz: str = "claude-sonnet-5-5"
-    esforco_classificacao: str = "low"
-    esforco_consultas: str = "low"
-    esforco_selecao: str = "medium"
-    esforco_redacao: str = "medium"
-    esforco_juiz: str = "low"
+    """Servidor de LLM (API HTTP, ADR-012). URL, chave e modelos de cada instalação ficam no
+    `.env` (`FIATLUX_LLM_URL`, `FIATLUX_LLM_CHAVE`, `FIATLUX_LLM_MODELO…`); modelo vazio = o
+    padrão do servidor."""
+
+    provedor: str = "local"  # local (servidor HTTP) | offline (determinístico, sem rede)
+    url: str = ""
+    modelo_classificacao: str = ""
+    modelo_geracao: str = ""
+    modelo_juiz: str = ""
+    temperatura_classificacao: float = 0.1
+    temperatura_consultas: float = 0.3
+    temperatura_selecao: float = 0.2
+    temperatura_redacao: float = 0.7
+    temperatura_juiz: float = 0.0
     max_tentativas_redacao: int = 2
-    max_tokens: int = 16000
-    timeout_s: float = 120
+    max_tokens: int = 8192  # teto aceito pela API (o servidor eleva valores baixos demais)
+    tentativas_formato: int = 2  # pedidos por resposta que não veio no JSON combinado
+    timeout_s: float = 600  # inferência local, em CPU/GPU modesta, com fila
+    espera_fila_max_s: float = 900  # total aguardando 429 (fila cheia) e 503 (sob pressão)
     cache: bool = True
 
 
@@ -198,10 +205,16 @@ class Settings(BaseSettings):
     tz: str | None = None
     estado: Path | None = None
     custo_max_mensal_usd: float | None = None
+    # Servidor de LLM: FIATLUX_LLM_URL, FIATLUX_LLM_MODELO (todas as tarefas) e os específicos.
+    llm_url: str | None = None
+    llm_modelo: str | None = None
+    llm_modelo_classificacao: str | None = None
+    llm_modelo_geracao: str | None = None
+    llm_modelo_juiz: str | None = None
 
-    # Segredos (sem prefixo).
-    anthropic_api_key: SecretStr | None = Field(
-        default=None, validation_alias=AliasChoices("ANTHROPIC_API_KEY")
+    # Segredos.
+    llm_chave: SecretStr | None = Field(
+        default=None, validation_alias=AliasChoices("FIATLUX_LLM_CHAVE")
     )
     telegram_bot_token: SecretStr | None = Field(
         default=None, validation_alias=AliasChoices("TELEGRAM_BOT_TOKEN")
@@ -242,6 +255,14 @@ class Settings(BaseSettings):
             self.caminhos.estado_db = self.estado
         if self.custo_max_mensal_usd is not None:
             self.custos.custo_max_mensal_usd = self.custo_max_mensal_usd
+        if self.llm_url:
+            self.llm.url = self.llm_url.strip()
+        for tarefa in ("classificacao", "geracao", "juiz"):
+            escolhido: str = getattr(self, f"llm_modelo_{tarefa}") or self.llm_modelo or ""
+            if escolhido.strip():
+                setattr(self.llm, f"modelo_{tarefa}", escolhido.strip())
+        if self.llm_chave is not None and not self.llm_chave.get_secret_value().strip():
+            self.llm_chave = None  # `FIATLUX_LLM_CHAVE=` vazio no .env conta como sem chave
         self.caminhos = self.caminhos.resolvidos(raiz_projeto())
         return self
 

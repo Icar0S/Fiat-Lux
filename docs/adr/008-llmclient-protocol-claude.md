@@ -1,6 +1,8 @@
 # ADR-008: LLMClient como Protocol, Claude como padrão; esforço no lugar de temperatura
 
-- **Status:** aceito (2026-11-09)
+- **Status:** substituído em parte pelo [ADR-012](012-llm-local-por-api-http.md) (2026-11-10). O
+  `LLMClient` como Protocol, o cliente offline e o cache continuam; o Claude, o esforço por
+  tarefa e os preços saíram.
 
 ## Contexto
 

@@ -65,8 +65,8 @@ class Coletor:
                     if tom_q:
                         serie = self.gdelt.serie(tom_q, "TimelineTone", "1d")
                         tons[escopo] = serie[-1][1] if serie else None
-                except ErroGdelt as e:
-                    avisos.append(f"GDELT indisponível ({e}); usando RSS")
+                except ErroGdelt as e:  # as mensagens do ErroGdelt já citam o GDELT
+                    avisos.append(f"{e}; notícias só do RSS")
                     gdelt_ok = False  # não insiste nos demais escopos
             if self.rss is not None and (escopo == "regional" or len(artigos) < 30):
                 for feed in cfg.get("rss", []):
@@ -279,7 +279,7 @@ def processar_dia(
         res.clusters,
         llm,
         s.llm.modelo_classificacao,
-        s.llm.esforco_classificacao,
+        s.llm.temperatura_classificacao,
         s.noticias.top_clusters_classificar,
         s.noticias.titulos_por_cluster,
         s.noticias.confianca_minima,

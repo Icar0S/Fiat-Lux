@@ -12,4 +12,4 @@ Python 3.12 gerenciado pelo uv (lockfile `uv.lock`, `uv sync --frozen` no CI). C
 
 ## Consequências
 
-Ecossistema de NLP (scikit-learn, sentence-transformers), SDK oficial `anthropic`. O Python 3.12 é instalado pelo próprio uv (a máquina tinha 3.11). Alternativas: Node/TypeScript (romcal nativo), Poetry.
+Ecossistema de NLP (scikit-learn, sentence-transformers), SDK oficial `anthropic` (removido no ADR-012, que trocou o Claude por um LLM local). O Python 3.12 é instalado pelo próprio uv (a máquina tinha 3.11). Alternativas: Node/TypeScript (romcal nativo), Poetry.

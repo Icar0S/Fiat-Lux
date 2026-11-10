@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import datetime as dt
 import time
-import traceback
 from dataclasses import dataclass
 from typing import Any
 
@@ -27,13 +26,19 @@ from fiat_lux.estado import Estado
 from fiat_lux.liturgia.cliente_api import ClienteLiturgia
 from fiat_lux.liturgia.modelos import DiaLiturgico
 from fiat_lux.liturgia.servico import ServicoLiturgia
-from fiat_lux.llm.cliente import Contabilidade, ErroLLM, Pedido, chamar
+from fiat_lux.llm.cliente import Contabilidade, ErroLLM, Pedido, chamar, motivo_curto
 from fiat_lux.llm.esquemas import ExtrasSemana
 from fiat_lux.llm.offline import embutir
 from fiat_lux.llm.prompts import carregar
-from fiat_lux.logs import log
 from fiat_lux.noticias.classificacao import sanear
-from fiat_lux.orquestracao.diaria import ResultadoDiaria, cliente_llm, entregar, fechar_recursos
+from fiat_lux.orquestracao.diaria import (
+    ResultadoDiaria,
+    aviso_de_falha,
+    cliente_llm,
+    entregar,
+    fechar_recursos,
+    registrar_bloqueio,
+)
 from fiat_lux.orquestracao.nucleo import Rastreio, Recursos, VerificacaoReprovada, gerar_palavra
 from fiat_lux.pastoral import Neutralidade, Perfil, neutralidade, taxonomia, tempos_liturgicos
 from fiat_lux.pastoral import perfil as obter_perfil
@@ -204,14 +209,14 @@ def executar(
                             "evangelho_resumo": ctx.evangelho_resumo,
                         }
                     ),
-                    "low",
+                    s.llm.temperatura_redacao,
                     4000,
                 ),
                 ExtrasSemana,
                 contab,
             )
         except ErroLLM as e:
-            res.avisos.append(f"extras da semana indisponíveis: {e}")
+            res.avisos.append(f"extras da semana indisponíveis: {motivo_curto(e)}")
             extras = ExtrasSemana(frase=FRASE_PADRAO, perguntas=[])
         neu = neutralidade()
         if mencoes_politicas(" ".join([extras.frase, *extras.perguntas]), neu):
@@ -283,10 +288,7 @@ def executar(
         res.etapa_falha = rast.etapa
         if isinstance(ex, VerificacaoReprovada):
             res.verificacao = ex.checagens
-        log().error(
-            "semanal_falhou", etapa=rast.etapa, erro=str(ex), trace=traceback.format_exc(limit=3)
-        )
-        res.avisos.append(f"falha em {rast.etapa}: {ex}")
+        aviso_de_falha(res, rast.etapa, ex, "semanal_falhou")
         ctx = ctx or mod_contexto.ContextoDoDia(data=domingo, liturgia=None, perfil=perfil)
         try:
             res.markdown = mod_fallback.gerar(
@@ -300,6 +302,7 @@ def executar(
         except Exception as e2:
             res.avisos.append(f"fallback falhou: {e2}")
     res.avisos += rast.avisos
+    registrar_bloqueio(res, llm)
     res.custo = round(contab.uso.custo_usd, 5)
     entregar(
         sabado, "semanal", perfil.nome, res, contab, s, estado, op.dry_run, op.sem_envio, None, foto

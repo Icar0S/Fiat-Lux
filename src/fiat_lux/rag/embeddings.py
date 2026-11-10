@@ -39,6 +39,19 @@ class Embedder(Protocol):
 _MODELOS: dict[tuple[Any, ...], Any] = {}
 
 
+def _sem_barras_do_transformers() -> None:
+    """O transformers 5 desenha uma barra "Loading weights" a cada modelo carregado (≈ 1 s), que
+    só polui a saída. O gancho desliga as barras do próprio transformers; as de download do
+    huggingface_hub (o modelo baixado na primeira vez) são de outro módulo e continuam."""
+    try:
+        from transformers.utils import logging as tlog
+    except ImportError:
+        return
+    instalar = getattr(tlog, "set_tqdm_hook", None)
+    if callable(instalar):
+        instalar(lambda fabrica, args, kwargs: fabrica(*args, **{**kwargs, "disable": True}))
+
+
 def modelo_st(
     tipo: Literal["bi", "cross"], modelo: str, dispositivo: str | None = None, **kw: Any
 ) -> Any:
@@ -46,6 +59,7 @@ def modelo_st(
     e o modo semanal abrem o buscador várias vezes)."""
     chave = (tipo, modelo, dispositivo, *sorted(kw.items()))
     if chave not in _MODELOS:
+        _sem_barras_do_transformers()
         if tipo == "bi":
             from sentence_transformers import SentenceTransformer
 

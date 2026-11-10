@@ -16,7 +16,7 @@ from fiat_lux.biblia.versificacao import Versificacao
 from fiat_lux.config import Settings
 from fiat_lux.estado import Estado
 from fiat_lux.liturgia.modelos import DiaLiturgico
-from fiat_lux.llm.cliente import Contabilidade, ErroLLM, LLMClient
+from fiat_lux.llm.cliente import Contabilidade, ErroLLM, LLMClient, provedor_bloqueado
 from fiat_lux.llm.esquemas import Julgamento, Redacao
 from fiat_lux.logs import log
 from fiat_lux.pastoral import neutralidade
@@ -85,7 +85,7 @@ def recuperar(
 ) -> list[Candidato]:
     rast.etapa = "consultas"
     qs, origens, av = mod_consultas.gerar(
-        ctx, r.llm, r.s.llm.modelo_classificacao, r.s.llm.esforco_consultas, r.contab
+        ctx, r.llm, r.s.llm.modelo_classificacao, r.s.llm.temperatura_consultas, r.contab
     )
     rast.avisos += av
     rast.etapa = "rag"
@@ -110,10 +110,16 @@ def recuperar(
 def gerar_palavra(
     ctx: ContextoDoDia, dia: DiaLiturgico | None, r: Recursos, rast: Rastreio
 ) -> Palavra:
+    bloqueio = provedor_bloqueado(r.llm, r.s.llm.modelo_geracao)
+    if bloqueio is not None:
+        # sem o modelo de geração não há redação: buscar e reordenar passagens (≈ 1 min de rerank
+        # neural em CPU) só atrasaria o mesmo fallback
+        rast.etapa = "redacao"
+        raise bloqueio.copia()
     cands = recuperar(ctx, dia, r, rast)
     rast.etapa = "selecao"
     escolha = selecionar(
-        ctx, cands, r.llm, r.s.llm.modelo_geracao, r.s.llm.esforco_selecao, r.contab
+        ctx, cands, r.llm, r.s.llm.modelo_geracao, r.s.llm.temperatura_selecao, r.contab
     )
     rast.avisos += escolha.alertas
     rast.etapa = "redacao"
@@ -124,7 +130,13 @@ def gerar_palavra(
     for tentativa in range(r.s.llm.max_tentativas_redacao + 1):
         rast.tentativas_redacao = tentativa + 1
         redacao = redigir(
-            ctx, escolha, r.llm, r.s.llm.modelo_geracao, r.s.llm.esforco_redacao, revisao, r.contab
+            ctx,
+            escolha,
+            r.llm,
+            r.s.llm.modelo_geracao,
+            r.s.llm.temperatura_redacao,
+            revisao,
+            r.contab,
         )
         julg: Julgamento | None = None
         try:
@@ -132,7 +144,7 @@ def gerar_palavra(
                 substituir(getattr(redacao, c), escolha)
                 for c in ("olhar_sobre_o_dia", "reflexao", "ensinamento", "gesto", "oracao")
             )
-            julg = julgar(texto, r.llm, r.s.llm.modelo_juiz, r.s.llm.esforco_juiz, r.contab)
+            julg = julgar(texto, r.llm, r.s.llm.modelo_juiz, r.s.llm.temperatura_juiz, r.contab)
         except ErroLLM as e:
             rast.avisos.append(f"juiz indisponível: {e}")
         perfil = ctx.perfil

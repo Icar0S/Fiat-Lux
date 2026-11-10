@@ -82,7 +82,7 @@ def redigir(
     escolha: Escolha,
     llm: LLMClient,
     modelo: str,
-    esforco: str = "medium",
+    temperatura: float = 0.7,
     revisao: list[str] | None = None,
     contabilidade: Contabilidade | None = None,
 ) -> Redacao:
@@ -126,7 +126,7 @@ def redigir(
         )
     return chamar(
         llm,
-        Pedido("redacao", modelo, carregar("redacao").texto, usuario, esforco, 16000),
+        Pedido("redacao", modelo, carregar("redacao").texto, usuario, temperatura, 8192),
         Redacao,
         contabilidade,
     )
@@ -136,13 +136,18 @@ def julgar(
     texto_final: str,
     llm: LLMClient,
     modelo: str,
-    esforco: str = "low",
+    temperatura: float = 0.0,
     contabilidade: Contabilidade | None = None,
 ) -> Julgamento:
     return chamar(
         llm,
         Pedido(
-            "juiz", modelo, carregar("juiz").texto, embutir(texto_final, "mensagem"), esforco, 4000
+            "juiz",
+            modelo,
+            carregar("juiz").texto,
+            embutir(texto_final, "mensagem"),
+            temperatura,
+            4000,
         ),
         Julgamento,
         contabilidade,

@@ -1,14 +1,14 @@
-"""Cliente de LLM (plano §5, §9; ADR-008).
+"""Cliente de LLM (plano §5, §9; ADR-008, ADR-012).
 
 `LLMClient` é um Protocol: o pipeline não conhece o provedor. Implementações:
 
-- `ClienteClaude`: SDK oficial `anthropic` (2.x), saída estruturada validada por Pydantic
-  (`messages.parse` + `output_format`), profundidade controlada por `output_config.effort`
-  (a API 2026-10-21 não aceita mais `temperature`), cache de prompt automático e
-  `fallbacks: "default"` nos modelos que o suportam (Sonnet 5.5). Recusas (`stop_reason ==
-  "refusal"`) viram `ErroRecusa`, tratado pelo chamador.
+- `ClienteServidor` (`fiat_lux.llm.servidor`): o servidor de LLM da instalação, pela API HTTP
+  (`POST /v1/chat`). URL, chave e modelos vêm do `.env`. A saída estruturada é pedida no prompt
+  e validada por Pydantic. Falhas que não passam tentando de novo (chave recusada, modelo
+  inexistente, servidor inalcançável) viram `ErroPermanente` e fecham o cliente pelo resto da
+  execução: as chamadas seguintes falham na hora, sem rede.
 - `ClienteOffline`: determinístico e sem rede, delega a "manipuladores" por tarefa
-  (`fiat_lux.llm.offline`). Usado em testes, `--dry-run` sem chave e como reserva.
+  (`fiat_lux.llm.offline`). Usado em testes, `--dry-run` sem servidor e como reserva.
 - `ClienteComCache`: embrulha qualquer cliente com cache por hash da entrada (§9).
 """
 
@@ -16,37 +16,42 @@ from __future__ import annotations
 
 import hashlib
 import json
-import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, Literal, Protocol, TypeVar
+from typing import Any, Protocol, TypeVar
 
 from pydantic import BaseModel
 
-from fiat_lux.logs import log
-
 T = TypeVar("T", bound=BaseModel)
-Esforco = Literal["low", "medium", "high", "xhigh", "max"]
-
-# Modelos com fallback server-side (beta `server-side-fallback-2026-07-01`, forma "default").
-# Haiku 5.5 não tem fallback: uma recusa fica recusada.
-MODELOS_COM_FALLBACK = frozenset(
-    {"claude-sonnet-5-5", "claude-opus-5-5", "claude-opus-5", "claude-fable-5-1"}
-)
-BETA_FALLBACK = "server-side-fallback-2026-07-01"
 
 
 class ErroLLM(RuntimeError):
     """Falha ao obter resposta válida do LLM."""
 
 
-class ErroRecusa(ErroLLM):
-    """O modelo recusou (classificador de segurança)."""
+class ErroPermanente(ErroLLM):
+    """O servidor de LLM não vai responder nesta execução, por mais que se tente.
 
-    def __init__(self, categoria: str | None, explicacao: str | None = None) -> None:
-        super().__init__(f"recusa do modelo (categoria={categoria})")
-        self.categoria = categoria
-        self.explicacao = explicacao
+    `causa`: "chave", "conexao", "url", "ocupado", "sem_servidor" (o servidor todo fica fora) ou
+    "modelo" (só `modelo` fica fora). `motivo` é a explicação curta, para pessoas.
+    """
+
+    def __init__(self, causa: str, motivo: str, modelo: str | None = None) -> None:
+        super().__init__(f"LLM indisponível: {motivo}")
+        self.causa = causa
+        self.motivo = motivo
+        self.modelo = modelo
+
+    def copia(self) -> ErroPermanente:
+        return ErroPermanente(self.causa, self.motivo, self.modelo)
+
+
+def motivo_curto(e: ErroLLM) -> str:
+    """Motivo para o aviso de uma etapa. Quando o servidor todo está fora, o motivo aparece uma
+    vez só, no topo dos avisos (`provedor_bloqueado`), e as etapas dizem apenas "sem o LLM"."""
+    if isinstance(e, ErroPermanente) and e.modelo is None:
+        return "sem o LLM"
+    return str(e)
 
 
 class ErroOrcamento(ErroLLM):
@@ -80,12 +85,12 @@ class RespostaLLM[T]:
 
 @dataclass(frozen=True, slots=True)
 class Pedido:
-    tarefa: str  # "classificacao", "consultas", "selecao", "redacao", "juiz", "avaliacao"
-    modelo: str
+    tarefa: str  # "classificacao", "consultas", "selecao", "redacao", "juiz", "avaliacao"…
+    modelo: str  # vazio: o modelo padrão do servidor
     sistema: str
     usuario: str
-    esforco: str = "medium"  # low | medium | high | xhigh | max
-    max_tokens: int = 16000
+    temperatura: float = 0.3
+    max_tokens: int = 8192
 
     def chave(self, esquema: type[BaseModel]) -> str:
         conteudo = json.dumps(
@@ -94,7 +99,7 @@ class Pedido:
                 "modelo": self.modelo,
                 "sistema": self.sistema,
                 "usuario": self.usuario,
-                "esforco": self.esforco,
+                "temperatura": self.temperatura,
                 "esquema": esquema.__name__,
                 "schema": esquema.model_json_schema(),
             },
@@ -110,14 +115,24 @@ class LLMClient(Protocol):
     def gerar(self, pedido: Pedido, esquema: type[T]) -> RespostaLLM[T]: ...
 
 
+def provedor_bloqueado(
+    cliente: LLMClient | None, modelo: str | None = None
+) -> ErroPermanente | None:
+    """O `ErroPermanente` que já fechou o servidor nesta execução (todo ele ou só `modelo`), se
+    houver. Clientes sem esse controle (offline, falsos de teste) nunca estão bloqueados."""
+    bloqueio = getattr(cliente, "bloqueio", None)
+    return bloqueio(modelo) if callable(bloqueio) else None
+
+
 # --------------------------------------------------------------------------- custos
 
 
 @dataclass(frozen=True, slots=True)
 class TabelaPrecos:
-    """US$ por milhão de tokens (entrada, saída). Cache: leitura 0,1×, escrita 1,25× da entrada."""
+    """US$ por milhão de tokens (entrada, saída), por modelo. Vazia num servidor local: custo
+    zero. Cache: leitura 0,1×, escrita 1,25× da entrada."""
 
-    precos: dict[str, tuple[float, float]]
+    precos: dict[str, tuple[float, float]] = field(default_factory=dict)
 
     def custo(self, modelo: str, uso: Uso) -> float:
         entrada, saida = self.precos.get(modelo, (0.0, 0.0))
@@ -127,100 +142,6 @@ class TabelaPrecos:
             + uso.tokens_cache_escrita * entrada * 1.25
             + uso.tokens_saida * saida
         ) / 1_000_000
-
-
-PRECOS_PADRAO = TabelaPrecos(
-    {
-        "claude-haiku-5-5": (0.10, 0.50),
-        "claude-sonnet-5-5": (2.00, 10.00),
-        "claude-opus-5-5": (4.00, 20.00),
-    }
-)
-
-
-# --------------------------------------------------------------------------- Claude
-
-
-class ClienteClaude:
-    nome = "anthropic"
-
-    def __init__(
-        self,
-        api_key: str | None = None,
-        timeout_s: float = 120,
-        max_retries: int = 3,
-        precos: TabelaPrecos = PRECOS_PADRAO,
-        cliente: Any | None = None,
-    ) -> None:
-        if cliente is None:
-            import anthropic
-
-            cliente = anthropic.Anthropic(
-                api_key=api_key, timeout=timeout_s, max_retries=max_retries
-            )
-        self._cli = cliente
-        self.precos = precos
-
-    def gerar(self, pedido: Pedido, esquema: type[T]) -> RespostaLLM[T]:
-        import anthropic
-
-        inicio = time.perf_counter()
-        extras: dict[str, Any] = {}
-        if pedido.modelo in MODELOS_COM_FALLBACK:
-            extras = {"betas": [BETA_FALLBACK], "fallbacks": "default"}
-        try:
-            resp = self._cli.beta.messages.parse(
-                model=pedido.modelo,
-                max_tokens=pedido.max_tokens,
-                system=pedido.sistema,
-                messages=[{"role": "user", "content": pedido.usuario}],
-                output_format=esquema,
-                output_config={"effort": pedido.esforco},  # type: ignore[arg-type]
-                cache_control={"type": "ephemeral"},
-                **extras,
-            )
-        except anthropic.BadRequestError as e:
-            raise ErroLLM(f"requisição inválida ({pedido.tarefa}): {e.message}") from e
-        except anthropic.AuthenticationError as e:
-            raise ErroLLM("chave da API inválida ou ausente (ANTHROPIC_API_KEY)") from e
-        except anthropic.PermissionDeniedError as e:
-            raise ErroLLM("a chave não tem permissão para este modelo") from e
-        except anthropic.NotFoundError as e:
-            raise ErroLLM(f"modelo ou endpoint inexistente: {pedido.modelo}") from e
-        except anthropic.RateLimitError as e:
-            raise ErroLLM("limite de taxa da API (429) após as tentativas automáticas") from e
-        except anthropic.APIStatusError as e:
-            raise ErroLLM(f"erro da API ({e.status_code}) em {pedido.tarefa}") from e
-        except anthropic.APIConnectionError as e:
-            raise ErroLLM("falha de conexão com a API da Anthropic") from e
-        uso = Uso(
-            tokens_entrada=int(getattr(resp.usage, "input_tokens", 0) or 0),
-            tokens_saida=int(getattr(resp.usage, "output_tokens", 0) or 0),
-            tokens_cache_leitura=int(getattr(resp.usage, "cache_read_input_tokens", 0) or 0),
-            tokens_cache_escrita=int(getattr(resp.usage, "cache_creation_input_tokens", 0) or 0),
-        )
-        modelo_real = str(getattr(resp, "model", pedido.modelo) or pedido.modelo)
-        uso.custo_usd = self.precos.custo(modelo_real, uso)
-        if resp.stop_reason == "refusal":
-            det = getattr(resp, "stop_details", None)
-            raise ErroRecusa(getattr(det, "category", None), getattr(det, "explanation", None))
-        if resp.stop_reason == "max_tokens":
-            raise ErroLLM(f"resposta truncada por max_tokens em {pedido.tarefa}")
-        dados = resp.parsed_output
-        if dados is None:
-            raise ErroLLM(f"saída estruturada ausente em {pedido.tarefa}")
-        log().info(
-            "llm",
-            tarefa=pedido.tarefa,
-            modelo=modelo_real,
-            entrada=uso.tokens_entrada,
-            saida=uso.tokens_saida,
-            cache_leitura=uso.tokens_cache_leitura,
-            custo=round(uso.custo_usd, 5),
-        )
-        return RespostaLLM(
-            dados=dados, modelo=modelo_real, uso=uso, duracao_s=time.perf_counter() - inicio
-        )
 
 
 # --------------------------------------------------------------------------- offline
@@ -235,17 +156,22 @@ def _manipuladores_padrao() -> dict[str, Manipulador]:
     return dict(MANIPULADORES)
 
 
-class ClienteSemCredencial:
-    """Provedor `anthropic` sem chave: cada chamada falha com um ErroLLM claro, e cada etapa cai
-    na sua reserva (classificação por palavras-chave, consultas determinísticas, seleção pelo
-    escore); sem redação, sai o fallback seguro. Nada é enviado à API."""
+class ClienteNaoConfigurado:
+    """Provedor `local` sem `FIATLUX_LLM_URL`: cada chamada falha com um ErroPermanente claro, e
+    cada etapa cai na sua reserva (classificação por palavras-chave, consultas determinísticas,
+    seleção pelo escore); sem redação, sai o fallback seguro. Nada vai para a rede."""
 
-    nome = "anthropic:sem-credencial"
+    nome = "local:sem-servidor"
+
+    def bloqueio(self, modelo: str | None = None) -> ErroPermanente:
+        return ErroPermanente(
+            "sem_servidor",
+            "sem FIATLUX_LLM_URL (aponte para o servidor de LLM no .env, ou use --dry-run para "
+            "o cliente offline)",
+        )
 
     def gerar(self, pedido: Pedido, esquema: type[T]) -> RespostaLLM[T]:
-        raise ErroLLM(
-            "sem ANTHROPIC_API_KEY: defina a chave no .env, ou use --dry-run (cliente offline)"
-        )
+        raise self.bloqueio()
 
 
 class ClienteOffline:
@@ -277,6 +203,9 @@ class ClienteComCache:
         self.interno = interno
         self.cache = cache
         self.nome = f"{interno.nome}+cache"
+
+    def bloqueio(self, modelo: str | None = None) -> ErroPermanente | None:
+        return provedor_bloqueado(self.interno, modelo)
 
     def gerar(self, pedido: Pedido, esquema: type[T]) -> RespostaLLM[T]:
         chave = pedido.chave(esquema)

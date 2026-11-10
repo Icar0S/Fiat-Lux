@@ -23,7 +23,7 @@ def _hoje() -> dt.date:
 def coletar(
     data: str = typer.Option(None, "--data", help="AAAA-MM-DD (padrão: hoje)"),
     sem_gdelt: bool = typer.Option(False, "--sem-gdelt", help="Só RSS."),
-    llm: str = typer.Option(None, "--llm", help="anthropic | offline"),
+    llm: str = typer.Option(None, "--llm", help="local (servidor de LLM) | offline"),
     sem_llm: bool = typer.Option(False, "--sem-llm", help="Classifica por palavras-chave."),
 ) -> None:
     """Coleta, agrupa, classifica e mede as notícias do dia."""

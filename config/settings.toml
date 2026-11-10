@@ -1,6 +1,7 @@
 # Parâmetros gerais do Fiat Lux (plano §5 e Apêndice E).
 # Variáveis de ambiente prevalecem: FIATLUX_PERFIL, FIATLUX_TZ, FIATLUX_ESTADO,
-# FIATLUX_CUSTO_MAX_MENSAL_USD e os segredos (ANTHROPIC_API_KEY, TELEGRAM_*).
+# FIATLUX_CUSTO_MAX_MENSAL_USD, o servidor de LLM (FIATLUX_LLM_URL, FIATLUX_LLM_MODELO…) e os
+# segredos (FIATLUX_LLM_CHAVE, TELEGRAM_*).
 
 [geral]
 nome = "Fiat Lux"
@@ -28,21 +29,26 @@ dias_prefetch = 7
 memoria_facultativa_usa_feria = true
 
 [llm]
-provedor = "anthropic"            # anthropic | offline (determinístico, sem rede)
-modelo_classificacao = "claude-haiku-5-5"
-modelo_geracao = "claude-sonnet-5-5"
-modelo_juiz = "claude-sonnet-5-5"
-# A API 2026-10-21 (SDK anthropic 2.x) não aceita mais `temperature`; Haiku 5.5 e Sonnet 5.5 só
-# amostram com o padrão. As temperaturas do plano (0 / 0,2 / 0,6) viraram níveis de esforço
-# (`output_config.effort`); a reprodutibilidade vem do cache por hash de entrada (ADR-008).
-esforco_classificacao = "low"
-esforco_consultas = "low"
-esforco_selecao = "medium"
-esforco_redacao = "medium"
-esforco_juiz = "low"
+# Servidor de LLM com a API HTTP descrita no guia (seção 8): POST /v1/chat e GET /v1/models.
+# URL, chave e modelos ficam no .env de cada instalação (FIATLUX_LLM_URL, FIATLUX_LLM_CHAVE,
+# FIATLUX_LLM_MODELO…), nunca aqui: quem clonar aponta para o servidor que quiser.
+provedor = "local"                # local (servidor HTTP) | offline (determinístico, sem rede)
+url = ""
+modelo_classificacao = ""         # vazio: o modelo padrão do servidor
+modelo_geracao = ""
+modelo_juiz = ""
+# Temperatura por tarefa: baixa onde a resposta é uma escolha (classificar, selecionar, julgar),
+# mais alta na redação. A reprodutibilidade vem do cache por hash de entrada.
+temperatura_classificacao = 0.1
+temperatura_consultas = 0.3
+temperatura_selecao = 0.2
+temperatura_redacao = 0.7
+temperatura_juiz = 0.0
 max_tentativas_redacao = 2
-max_tokens = 16000
-timeout_s = 120
+max_tokens = 8192                 # teto da API; modelos que raciocinam gastam ~1000 tokens antes
+tentativas_formato = 2            # pedidos por resposta fora do JSON combinado
+timeout_s = 600                   # por pedido (inferência local, com fila)
+espera_fila_max_s = 900           # total esperando fila cheia (429) ou servidor sob pressão (503)
 cache = true
 
 [rag]
@@ -90,5 +96,6 @@ limite_telegram = 4096
 
 [custos]
 custo_max_mensal_usd = 10.0
-# US$ por milhão de tokens; conferir a tabela oficial antes de mudar de modelo.
-precos = { "claude-haiku-5-5" = { entrada = 0.10, saida = 0.50 }, "claude-sonnet-5-5" = { entrada = 2.00, saida = 10.00 }, "claude-opus-5-5" = { entrada = 4.00, saida = 20.00 } }
+# US$ por milhão de tokens, por modelo; vazio = custo zero (servidor local). Só faz sentido
+# para um servidor que cobre por uso: precos = { "modelo" = { entrada = 0.10, saida = 0.50 } }
+precos = {}

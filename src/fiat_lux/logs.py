@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
+import contextlib
 import logging
 import re
 import sys
+from collections.abc import Iterator
 from typing import Any
 
 import structlog
 
-_SEGREDOS = re.compile(r"(bot\d+:[A-Za-z0-9_-]{20,}|sk-ant-[A-Za-z0-9_-]{10,})")
+# token do bot do Telegram, chaves no formato sk-… (a do servidor de LLM) e cabeçalhos Bearer
+_SEGREDOS = re.compile(
+    r"(bot\d+:[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{10,}|Bearer\s+[A-Za-z0-9._~+/=-]{8,})"
+)
 
 
 def _mascarar(_: Any, __: str, evento: dict[str, Any]) -> dict[str, Any]:
@@ -22,27 +27,61 @@ def _mascarar(_: Any, __: str, evento: dict[str, Any]) -> dict[str, Any]:
     return evento
 
 
+def _sem_trace(_: Any, __: str, evento: dict[str, Any]) -> dict[str, Any]:
+    """No console, o traceback só aparece com --verboso (o JSON dos logs guarda sempre)."""
+    if evento.pop("trace", None) is not None:
+        evento["traceback"] = "fiatlux --verboso …"
+    return evento
+
+
+_atual: dict[str, Any] = {"json": False, "nivel": "INFO"}
+
+
 def configurar_logs(json: bool = False, nivel: str = "INFO") -> None:
+    _atual.update(json=json, nivel=nivel)
     logging.basicConfig(format="%(message)s", stream=sys.stderr, level=nivel)
-    for ruidoso in ("httpx", "httpcore", "urllib3", "sentence_transformers", "filelock"):
-        logging.getLogger(ruidoso).setLevel(logging.WARNING)
+    logging.getLogger().setLevel(nivel)
+    # httpx2: cliente HTTP do huggingface_hub 2.x ("HTTP Request: HEAD … 404" a cada arquivo)
+    for ruidoso in ("httpx", "httpx2", "httpcore", "urllib3", "sentence_transformers", "filelock"):
+        logging.getLogger(ruidoso).setLevel(max(logging.WARNING, logging.getLevelName(nivel)))
     processadores: list[Any] = [
         structlog.contextvars.merge_contextvars,
         structlog.processors.add_log_level,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         _mascarar,
     ]
-    processadores.append(
-        structlog.processors.JSONRenderer(ensure_ascii=False)
-        if json
-        else structlog.dev.ConsoleRenderer(colors=sys.stderr.isatty())
-    )
+    if json:
+        processadores.append(structlog.processors.JSONRenderer(ensure_ascii=False))
+    else:
+        if nivel != "DEBUG":
+            processadores.append(_sem_trace)
+        processadores.append(structlog.dev.ConsoleRenderer(colors=sys.stderr.isatty()))
     structlog.configure(
         processors=processadores,
         wrapper_class=structlog.make_filtering_bound_logger(logging.getLevelName(nivel)),
         logger_factory=structlog.PrintLoggerFactory(file=sys.stderr),
         cache_logger_on_first_use=False,
     )
+
+
+@contextlib.contextmanager
+def so_erros_no_console() -> Iterator[None]:
+    """Para comandos que resumem os avisos no fim (`fiatlux configurar`): no console, só erros,
+    até o fim do bloco. Com --verboso ou --json-logs, nada muda. Só o filtro de nível é trocado
+    (e depois restaurado): o destino dos logs fica onde estava."""
+    if _atual["json"] or _atual["nivel"] in {"DEBUG", "ERROR", "CRITICAL"}:
+        yield
+        return
+    filtro = structlog.get_config()["wrapper_class"]
+    raiz = logging.getLogger()
+    nivel_raiz = raiz.level
+    structlog.configure(wrapper_class=structlog.make_filtering_bound_logger(logging.ERROR))
+    raiz.setLevel(logging.ERROR)
+    try:
+        yield
+    finally:
+        structlog.configure(wrapper_class=filtro)
+        raiz.setLevel(nivel_raiz)
 
 
 def log(nome: str = "fiat_lux") -> Any:

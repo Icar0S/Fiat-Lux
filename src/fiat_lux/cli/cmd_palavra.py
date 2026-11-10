@@ -3,12 +3,29 @@
 from __future__ import annotations
 
 import datetime as dt
+from typing import TYPE_CHECKING
 
 import typer
 
 from fiat_lux.cli.comum import console, falhar
 
+if TYPE_CHECKING:
+    from fiat_lux.orquestracao.diaria import ResultadoDiaria
+
 app = typer.Typer(no_args_is_help=True)
+
+
+def imprimir_resultado_diaria(r: ResultadoDiaria, mostrar: bool = True) -> None:
+    """Mensagem (opcional), resumo, verificação V1–V8 e avisos de uma Palavra do Dia."""
+    if mostrar and r.markdown:
+        console.print(r.markdown, markup=False, highlight=False)
+    console.print(
+        f"\n[bold]status:[/] {r.status} · llm: {r.llm} · custo: US$ {r.custo:.4f} · arquivo: {r.caminho}"
+    )
+    for c in r.verificacao:
+        console.print(f"  {'✅' if c.ok else '❌'} {c.id} {c.motivo}", markup=False)
+    for a in r.avisos:
+        console.print(f"  aviso: {a}", markup=False)
 
 
 def _data(valor: str | None) -> dt.date:
@@ -32,7 +49,7 @@ def diaria(
     sem_envio: bool = typer.Option(
         False, "--sem-envio", help="Arquiva, mas não envia pelo Telegram."
     ),
-    llm: str = typer.Option(None, "--llm", help="anthropic | offline"),
+    llm: str = typer.Option(None, "--llm", help="local (servidor de LLM) | offline"),
     sem_noticias: bool = typer.Option(
         False, "--sem-noticias", help="Não coleta (usa as já coletadas)."
     ),
@@ -58,15 +75,7 @@ def diaria(
         ),
         s,
     )
-    if mostrar and r.markdown:
-        console.print(r.markdown, markup=False, highlight=False)
-    console.print(
-        f"\n[bold]status:[/] {r.status} · llm: {r.llm} · custo: US$ {r.custo:.4f} · arquivo: {r.caminho}"
-    )
-    for c in r.verificacao:
-        console.print(f"  {'✅' if c.ok else '❌'} {c.id} {c.motivo}", markup=False)
-    for a in r.avisos:
-        console.print(f"  aviso: {a}", markup=False)
+    imprimir_resultado_diaria(r, mostrar)
     if r.status == "falhou":
         raise typer.Exit(1)
 
