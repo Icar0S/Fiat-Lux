@@ -32,8 +32,10 @@ class ErroLLM(RuntimeError):
 class ErroPermanente(ErroLLM):
     """O servidor de LLM não vai responder nesta execução, por mais que se tente.
 
-    `causa`: "chave", "conexao", "url", "ocupado", "sem_servidor" (o servidor todo fica fora) ou
-    "modelo" (só `modelo` fica fora). `motivo` é a explicação curta, para pessoas.
+    `causa`: "chave", "conexao", "url", "ocupado", "sem_servidor" (o servidor todo fica fora),
+    "modelo" (só `modelo` fica fora: o servidor não o tem) ou "lento" (só `modelo` fica fora: as
+    respostas dele passam do tempo que o proxy na frente do servidor espera). `modelo` vazio é o
+    padrão do servidor. `motivo` é a explicação curta, para pessoas.
     """
 
     def __init__(self, causa: str, motivo: str, modelo: str | None = None) -> None:
@@ -47,9 +49,10 @@ class ErroPermanente(ErroLLM):
 
 
 def motivo_curto(e: ErroLLM) -> str:
-    """Motivo para o aviso de uma etapa. Quando o servidor todo está fora, o motivo aparece uma
-    vez só, no topo dos avisos (`provedor_bloqueado`), e as etapas dizem apenas "sem o LLM"."""
-    if isinstance(e, ErroPermanente) and e.modelo is None:
+    """Motivo para o aviso de uma etapa. Quando o servidor todo está fora (ou um modelo lento
+    demais para o proxy), o motivo aparece uma vez só, no topo dos avisos (`registrar_bloqueio`),
+    e as etapas dizem apenas "sem o LLM"."""
+    if isinstance(e, ErroPermanente) and (e.modelo is None or e.causa == "lento"):
         return "sem o LLM"
     return str(e)
 

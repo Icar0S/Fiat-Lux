@@ -176,3 +176,24 @@ def test_anunciar_fecha_o_andamento_com_o_resultado() -> None:
     assert "! saiu a mensagem de contingência, em 0:41" in texto
     assert "✗ Palavra da Semana: falhou, em 0:05" in texto
     assert set(v.ETAPAS) >= {"liturgia", "noticias", "rag", "redacao", "semana", "plano_de_leitura"}
+
+
+def test_andamento_mostra_o_pedido_ao_llm_em_curso() -> None:
+    from fiat_lux.llm.servidor import OBSERVADOR
+
+    def rodar() -> None:
+        with v.andamento("coletando e classificando as notícias") as a, v.acompanhar_llm(a):
+            observador = OBSERVADOR.get()
+            assert observador is not None
+            observador("pedido", "classificacao")
+            assert a.detalhe == "LLM: classificando as notícias"
+            observador("fim", "classificacao")
+            assert a.detalhe == ""
+        assert OBSERVADOR.get() is None  # desligado ao sair
+
+    texto = capturar(rodar)
+    assert "· LLM: classificando as notícias" in texto  # sem terminal, vira linha
+    animado = v.Andamento("buscando", animado=True)
+    animado.detalhar("LLM: escrevendo a reflexão")
+    renderizado = capturar(lambda: console.print(animado))
+    assert "buscando  ·  LLM: escrevendo a reflexão 0:00" in renderizado

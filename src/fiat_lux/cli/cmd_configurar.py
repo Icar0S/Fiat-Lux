@@ -54,6 +54,18 @@ _CAUSAS: dict[str, tuple[str, str]] = {
         "trocar o modelo no .env (FIATLUX_LLM_MODELO, ou FIATLUX_LLM_MODELO_GERACAO e os "
         "outros por tarefa) ou baixar o modelo no servidor",
     ),
+    "lento": (
+        "lento demais para o proxy",
+        "usar um modelo que responda mais rápido, sem raciocinar antes (FIATLUX_LLM_MODELO no "
+        ".env), ou desligar o raciocínio (FIATLUX_LLM_SEM_RACIOCINIO; no qwen3, /no_think); se "
+        "o servidor está na mesma rede, apontar a FIATLUX_LLM_URL para ele direto, sem o proxy "
+        "(guia, seção 8)",
+    ),
+    "ocupado": (
+        "ocupado",
+        "rodar de novo com o servidor mais livre (GET /v1/status mostra a fila) e conferir se "
+        "outra execução do Fiat Lux não está rodando ao mesmo tempo",
+    ),
 }
 
 _PROXIMOS_PASSOS = (
@@ -360,7 +372,7 @@ def _demonstrar(s: Settings, ml: bool, usar_llm: bool) -> ResultadoDiaria:
         )
     v.info("rerank neural em CPU: 1 a 2 min" if ml else "busca lexical: cerca de 1 min")
     hoje = dt.datetime.now(ZoneInfo(s.geral.fuso)).date()
-    with v.andamento("começando") as andamento:
+    with v.andamento("começando") as andamento, v.acompanhar_llm(andamento):
         res = executar(
             OpcoesDiaria(
                 data=hoje,
@@ -427,8 +439,10 @@ def _configurar(
     else:
         usar_llm = llm.estado in {"ok", "incerto"}
         res = _demonstrar(s, ml, usar_llm)
-        if llm.estado == "incerto" and res.llm_causa:  # o teste não concluiu; a demonstração sim
-            llm = inst.SituacaoLLM("indisponivel", res.llm_causa, res.llm_indisponivel)
+        # o teste (sem inferência) não concluiu, ou passou e a geração esbarrou em algo que só
+        # aparece gerando (servidor lento demais para o proxy, ocupado): vale o da demonstração
+        if res.llm_causa and llm.estado in {"incerto", "ok"}:
+            llm = inst.SituacaoLLM("indisponivel", res.llm_causa, res.llm_indisponivel, llm.modelos)
         resumo.append(_linha_demonstracao(res, raiz, offline=not usar_llm))
         falhou = res.status == "falhou"
         if res.status == "fallback" and llm.estado != "indisponivel":

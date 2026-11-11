@@ -49,6 +49,20 @@ max_tokens = 8192                 # teto da API; modelos que raciocinam gastam ~
 tentativas_formato = 2            # pedidos por resposta fora do JSON combinado
 timeout_s = 600                   # por pedido (inferência local, com fila)
 espera_fila_max_s = 900           # total esperando fila cheia (429) ou servidor sob pressão (503)
+# Modelos que "pensam" antes de responder (qwen3) gastam milhares de tokens nisso. Uma marca no
+# fim do pedido desliga o raciocínio (no qwen3, "/no_think"). Vazio = não mexe: cada servidor tem
+# a sua, no .env (FIATLUX_LLM_SEM_RACIOCINIO). Vale nas tarefas da lista; para manter o
+# raciocínio numa delas (ex.: redação, com um servidor sem limite de tempo), tire-a daqui.
+marcador_sem_raciocinio = ""
+tarefas_sem_raciocinio = [
+    "classificacao", "consultas", "resumo_evangelho", "selecao", "redacao", "juiz", "semanal",
+]
+# Tarefas com reserva sem o LLM (palavras-chave, consultas determinísticas): com o servidor
+# ocupado (GET /v1/status), cada uma espera a vez por até espera_max_opcional_s; somadas, espera
+# e geração não passam de tempo_max_opcionais_s; com fila longa, seguem direto pela reserva.
+tarefas_opcionais = ["classificacao", "consultas", "resumo_evangelho"]
+tempo_max_opcionais_s = 300
+espera_max_opcional_s = 120
 cache = true
 
 [rag]
@@ -83,8 +97,10 @@ timespan = "24h"
 limiar_cluster = 0.80             # distância de cosseno no TF-IDF das manchetes do dia (ADR-011)
 limiar_dedup_titulo = 90
 limiar_dedup_cosseno = 0.92
-top_clusters_classificar = 15
-titulos_por_cluster = 5
+# Grupos mais relevantes de cada escopo que vão ao LLM (os outros, por palavras-chave). A Palavra
+# do Dia usa os 3 temas principais; lotes menores respondem bem mais rápido num LLM local.
+top_clusters_classificar = 8
+titulos_por_cluster = 3
 confianca_minima = 0.5
 
 [entrega]

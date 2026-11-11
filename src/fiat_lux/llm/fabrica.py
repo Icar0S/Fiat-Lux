@@ -40,6 +40,11 @@ def cliente_servidor(s: Settings, **ajustes: Any) -> ClienteServidor:
         "espera_fila_max_s": s.llm.espera_fila_max_s,
         "max_tokens": s.llm.max_tokens,
         "precos": tabela_precos(s),
+        "marcador_sem_raciocinio": s.llm.marcador_sem_raciocinio,
+        "tarefas_sem_raciocinio": s.llm.tarefas_sem_raciocinio,
+        "tarefas_opcionais": s.llm.tarefas_opcionais,
+        "tempo_max_opcionais_s": s.llm.tempo_max_opcionais_s,
+        "espera_max_opcional_s": s.llm.espera_max_opcional_s,
     }
     parametros.update(ajustes)
     chave = s.llm_chave.get_secret_value() if s.llm_chave else None

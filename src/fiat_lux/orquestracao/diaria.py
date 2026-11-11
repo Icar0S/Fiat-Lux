@@ -11,7 +11,7 @@ import datetime as dt
 import json
 import time
 import traceback
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -74,10 +74,18 @@ class ResultadoDiaria:
     llm_indisponivel: str = ""
 
 
-def registrar_bloqueio(res: ResultadoDiaria, llm: LLMClient) -> None:
+def registrar_bloqueio(res: ResultadoDiaria, llm: LLMClient, modelos: Iterable[str] = ()) -> None:
     """Diz uma vez só, no topo dos avisos, por que o LLM ficou fora nesta execução (as etapas
-    dizem apenas "sem o LLM")."""
-    b = provedor_bloqueado(llm)
+    dizem apenas "sem o LLM"): o servidor todo, ou um dos `modelos` da execução, lento demais
+    para o proxy na frente do servidor."""
+    b = provedor_bloqueado(llm) or next(
+        (
+            x
+            for m in dict.fromkeys(modelos)
+            if (x := provedor_bloqueado(llm, m)) is not None and x.causa == "lento"
+        ),
+        None,
+    )
     if b is None:
         return
     res.llm_causa, res.llm_indisponivel = b.causa, b.motivo
@@ -223,7 +231,9 @@ def executar(
             res.avisos.append(f"fallback falhou: {e2}")
             res.status = "falhou"
     res.avisos += rast.avisos
-    registrar_bloqueio(res, llm)
+    registrar_bloqueio(
+        res, llm, (s.llm.modelo_classificacao, s.llm.modelo_geracao, s.llm.modelo_juiz)
+    )
     res.tentativas_redacao = rast.tentativas_redacao
     res.custo = round(contab.uso.custo_usd, 5)
     entregar(

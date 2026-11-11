@@ -88,6 +88,30 @@ class LLM(BaseModel):
     tentativas_formato: int = 2  # pedidos por resposta que não veio no JSON combinado
     timeout_s: float = 600  # inferência local, em CPU/GPU modesta, com fila
     espera_fila_max_s: float = 900  # total aguardando 429 (fila cheia) e 503 (sob pressão)
+    # Modelos que "pensam" antes de responder (qwen3) gastam milhares de tokens nisso. Uma marca
+    # no fim do pedido desliga o raciocínio (no qwen3: "/no_think"). Vazio = não mexe; cada
+    # servidor/modelo tem a sua (FIATLUX_LLM_SEM_RACIOCINIO no .env). Vale nas tarefas abaixo:
+    # para manter o raciocínio numa delas (ex.: redação), tire-a da lista.
+    marcador_sem_raciocinio: str = ""
+    tarefas_sem_raciocinio: list[str] = Field(
+        default_factory=lambda: [
+            "classificacao",
+            "consultas",
+            "resumo_evangelho",
+            "selecao",
+            "redacao",
+            "juiz",
+            "semanal",
+        ]
+    )
+    # Tarefas com reserva sem o LLM (palavras-chave, consultas determinísticas): esperam a vez por
+    # até `espera_max_opcional_s` cada e, somadas (espera e geração), não passam de
+    # `tempo_max_opcionais_s`; com fila longa no servidor, seguem direto pela reserva.
+    tarefas_opcionais: list[str] = Field(
+        default_factory=lambda: ["classificacao", "consultas", "resumo_evangelho"]
+    )
+    tempo_max_opcionais_s: float = 300
+    espera_max_opcional_s: float = 120
     cache: bool = True
 
 
@@ -159,8 +183,8 @@ class Noticias(BaseModel):
     limiar_cluster: float = 0.80  # distância de cosseno, TF-IDF das manchetes (ADR-011)
     limiar_dedup_titulo: int = 90
     limiar_dedup_cosseno: float = 0.92
-    top_clusters_classificar: int = 15
-    titulos_por_cluster: int = 5
+    top_clusters_classificar: int = 8  # a Palavra do Dia usa os 3 temas principais
+    titulos_por_cluster: int = 3
     confianca_minima: float = 0.5
 
 
@@ -211,6 +235,7 @@ class Settings(BaseSettings):
     llm_modelo_classificacao: str | None = None
     llm_modelo_geracao: str | None = None
     llm_modelo_juiz: str | None = None
+    llm_sem_raciocinio: str | None = None
 
     # Segredos.
     llm_chave: SecretStr | None = Field(
@@ -261,6 +286,8 @@ class Settings(BaseSettings):
             escolhido: str = getattr(self, f"llm_modelo_{tarefa}") or self.llm_modelo or ""
             if escolhido.strip():
                 setattr(self.llm, f"modelo_{tarefa}", escolhido.strip())
+        if self.llm_sem_raciocinio is not None:
+            self.llm.marcador_sem_raciocinio = self.llm_sem_raciocinio.strip()
         if self.llm_chave is not None and not self.llm_chave.get_secret_value().strip():
             self.llm_chave = None  # `FIATLUX_LLM_CHAVE=` vazio no .env conta como sem chave
         self.caminhos = self.caminhos.resolvidos(raiz_projeto())

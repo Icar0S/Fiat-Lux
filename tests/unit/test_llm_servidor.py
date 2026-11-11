@@ -79,14 +79,22 @@ def resposta_chat(conteudo: str, modelo: str = "qwen3:4b", **extra: Any) -> dict
 
 class Servidor:
     """Servidor falso: responde da fila `respostas` (status, corpo, cabeçalhos) e guarda os
-    pedidos recebidos. Uma exceção na fila é levantada no lugar da resposta."""
+    pedidos recebidos. Uma exceção na fila é levantada no lugar da resposta. Não tem
+    `GET /v1/status` (404), como qualquer servidor que não informa a fila."""
 
     def __init__(self, *respostas: Any) -> None:
         self.respostas = list(respostas)
         self.pedidos: list[httpx.Request] = []
         self.esperas: list[float] = []
+        self.status = 0  # consultas a /v1/status
+
+    def fila(self) -> httpx.Response:
+        return httpx.Response(404, json={"detail": "Not Found"})
 
     def __call__(self, pedido: httpx.Request) -> httpx.Response:
+        if pedido.url.path == "/v1/status":
+            self.status += 1
+            return self.fila()
         self.pedidos.append(pedido)
         item = self.respostas.pop(0) if self.respostas else (200, resposta_chat("{}"), {})
         if isinstance(item, Exception):
@@ -624,3 +632,192 @@ def test_barras_do_transformers_desligadas_sem_mexer_nas_do_hub(
     recebido: dict[str, Any] = {}
     ganchos[0](lambda *a, **kw: recebido.update(kw), (), {"desc": "Loading weights"})
     assert recebido == {"desc": "Loading weights", "disable": True}
+
+
+# ------------------------------------------------------------------ LLM local mais leve
+
+
+LIVRE = (0, 0, 0.0)  # (aguardando, rodando, espera estimada)
+OCUPADO = (0, 1, 0.0)  # um pedido rodando; o servidor não conta o que já roda na estimativa
+
+
+class ServidorComStatus(Servidor):
+    """Como o Servidor, com `GET /v1/status`: cada consulta tira um estado de `filas` (o último
+    se repete). Com `filas` vazio, 404."""
+
+    def __init__(self, filas: list[tuple[int, int, float]], *respostas: Any) -> None:
+        super().__init__(*respostas)
+        self.filas = list(filas)
+
+    def fila(self) -> httpx.Response:
+        if not self.filas:
+            return super().fila()
+        aguardando, rodando, espera = self.filas.pop(0) if len(self.filas) > 1 else self.filas[0]
+        return httpx.Response(
+            200,
+            json={
+                "state": "green",
+                "queue": {
+                    "depth": aguardando,
+                    "running": rodando,
+                    "max_depth": 16,
+                    "max_concurrent": 1,
+                    "avg_duration_s": 160.0,
+                    "estimated_wait_s": espera,
+                    "completed": 7,
+                    "rejected": 0,
+                },
+            },
+        )
+
+
+def test_marca_sem_raciocinio_so_nas_tarefas_simples() -> None:
+    srv = Servidor(
+        (200, resposta_chat(json.dumps(JULGAMENTO_OK)), {}),
+        (200, resposta_chat(json.dumps(JULGAMENTO_OK)), {}),
+    )
+    cli = srv.cliente(marcador_sem_raciocinio="/no_think", tarefas_sem_raciocinio=("consultas",))
+    cli.gerar(pedido(tarefa="consultas"), Julgamento)
+    cli.gerar(pedido(tarefa="redacao"), Julgamento)
+    assert srv.corpo(0)["messages"][1]["content"].endswith("\n\n/no_think")
+    assert "/no_think" not in srv.corpo(1)["messages"][1]["content"]
+
+
+def test_tarefa_opcional_nao_espera_fila_longa() -> None:
+    srv = ServidorComStatus([(3, 1, 600.0)])  # ~10 min de fila
+    cli = srv.cliente(tarefas_opcionais=("classificacao",), espera_max_opcional_s=120)
+    with pytest.raises(ErroLLM, match="fila do servidor de LLM longa") as e:
+        cli.gerar(pedido(tarefa="classificacao"), Julgamento)
+    assert not isinstance(e.value, ErroPermanente)  # a redação, depois, ainda pode usar o LLM
+    assert srv.pedidos == [] and srv.esperas == []  # nada foi para /v1/chat, nem esperou
+
+
+def test_espera_a_vez_com_o_servidor_ocupado_em_vez_de_entrar_na_fila() -> None:
+    from fiat_lux.llm.servidor import OBSERVADOR
+
+    eventos: list[tuple[str, str]] = []
+    srv = ServidorComStatus(
+        [OCUPADO, OCUPADO, LIVRE], (200, resposta_chat(json.dumps(JULGAMENTO_OK)), {})
+    )
+    cli = srv.cliente(espera_fila_max_s=100)
+    marca = OBSERVADOR.set(lambda evento, tarefa: eventos.append((evento, tarefa)))
+    try:
+        assert cli.gerar(pedido(tarefa="juiz"), Julgamento).dados.aprovado
+    finally:
+        OBSERVADOR.reset(marca)
+    assert srv.esperas == [5.0, 5.0] and cli.espera_restante_s == 90.0
+    assert srv.status == 3 and len(srv.pedidos) == 1
+    assert eventos == [("fila", "juiz"), ("pedido", "juiz"), ("fim", "juiz")]
+
+
+def test_opcional_com_o_servidor_sempre_ocupado_segue_pela_reserva() -> None:
+    srv = ServidorComStatus([OCUPADO])
+    cli = srv.cliente(tarefas_opcionais=("consultas",), espera_max_opcional_s=12)
+    with pytest.raises(ErroLLM, match=r"ocupado \(10 s esperando a vez\)") as e:
+        cli.gerar(pedido(tarefa="consultas"), Julgamento)
+    assert not isinstance(e.value, ErroPermanente)
+    assert srv.esperas == [5.0, 5.0] and srv.pedidos == []
+    assert cli.tempo_opcionais_s >= 10.0  # a espera conta no orçamento das opcionais
+
+
+def test_essencial_com_o_servidor_ocupado_por_tempo_demais_desiste_da_execucao() -> None:
+    srv = ServidorComStatus([OCUPADO])
+    cli = srv.cliente(espera_fila_max_s=10)
+    with pytest.raises(ErroPermanente) as e:
+        cli.gerar(pedido(tarefa="redacao"), Julgamento)
+    assert e.value.causa == "ocupado" and srv.esperas == [5.0, 5.0] and srv.pedidos == []
+    assert provedor_bloqueado(cli) is not None
+
+
+def test_orcamento_das_opcionais_esgotado_vai_direto_a_reserva() -> None:
+    ok = (200, resposta_chat(json.dumps(JULGAMENTO_OK)), {})
+    srv = Servidor(ok, ok)
+    cli = srv.cliente(tarefas_opcionais=("consultas",), tempo_max_opcionais_s=100)
+    cli.gerar(pedido(tarefa="consultas"), Julgamento)  # sem /v1/status: segue normalmente
+    assert srv.status == 1 and cli.tempo_opcionais_s > 0
+    cli.tempo_opcionais_s = 100.0
+    with pytest.raises(ErroLLM, match="tempo das etapas opcionais do LLM esgotado"):
+        cli.gerar(pedido(tarefa="consultas"), Julgamento)
+    assert cli.gerar(pedido(tarefa="redacao"), Julgamento).dados.aprovado  # não opcional
+    assert srv.status == 1  # o servidor sem /v1/status não é consultado de novo
+
+
+CORTE = (524, {"detail": "A timeout occurred"}, {})  # Cloudflare: o servidor demorou demais
+
+
+def test_corte_do_proxy_nao_repete_e_o_segundo_fecha_o_modelo() -> None:
+    srv = Servidor(CORTE, CORTE, (200, resposta_chat(json.dumps(JULGAMENTO_OK)), {}))
+    cli = srv.cliente()
+    with pytest.raises(ErroLLM, match="cortou a resposta") as primeiro:
+        cli.gerar(pedido("qwen3:8b"), Julgamento)
+    assert not isinstance(primeiro.value, ErroPermanente)
+    assert len(srv.pedidos) == 1 and srv.esperas == []  # repetir dobraria o trabalho lá
+    with pytest.raises(ErroPermanente) as segundo:
+        cli.gerar(pedido("qwen3:8b"), Julgamento)
+    assert segundo.value.causa == "lento" and segundo.value.modelo == "qwen3:8b"
+    assert "passam do tempo que o proxy" in segundo.value.motivo
+    assert motivo_curto(segundo.value) == "sem o LLM"  # o motivo vai uma vez, no topo
+    with pytest.raises(ErroPermanente):  # nem vai à rede
+        cli.gerar(pedido("qwen3:8b"), Julgamento)
+    assert len(srv.pedidos) == 2
+    assert cli.gerar(pedido("qwen2.5-coder:7b"), Julgamento).dados.aprovado  # outro modelo, sim
+    assert provedor_bloqueado(cli) is None and provedor_bloqueado(cli, "qwen3:8b") is not None
+
+
+def test_modelo_padrao_lento_aparece_uma_vez_no_topo_dos_avisos() -> None:
+    srv = Servidor(CORTE, CORTE)
+    cli = srv.cliente()
+    for _ in range(2):
+        with pytest.raises(ErroLLM):
+            cli.gerar(pedido(""), Julgamento)
+    assert provedor_bloqueado(cli) is None and provedor_bloqueado(cli, "") is not None
+    res = ResultadoDiaria(avisos=["seleção pelo escore (sem o LLM)"])
+    registrar_bloqueio(res, cli, ("", "", ""))
+    assert res.llm_causa == "lento"
+    assert res.avisos[0].startswith(
+        "LLM indisponível nesta execução: as respostas do modelo padrão passam do tempo"
+    )
+    assert len(res.avisos) == 2
+
+
+def test_erro_passageiro_do_servidor_e_repetido() -> None:
+    srv = Servidor(
+        (500, {"detail": "erro interno"}, {}), (200, resposta_chat(json.dumps(JULGAMENTO_OK)), {})
+    )
+    assert srv.cliente().gerar(pedido(), Julgamento).dados.aprovado
+    assert srv.esperas == [5.0] and len(srv.pedidos) == 2
+
+
+def test_andamento_recebe_os_eventos_dos_pedidos() -> None:
+    from fiat_lux.llm.servidor import OBSERVADOR
+
+    eventos: list[tuple[str, str]] = []
+    srv = Servidor(
+        (429, {"detail": "fila cheia"}, {"Retry-After": "1"}),
+        (200, resposta_chat("sem JSON"), {}),
+        (200, resposta_chat(json.dumps(JULGAMENTO_OK)), {}),
+    )
+    marca = OBSERVADOR.set(lambda evento, tarefa: eventos.append((evento, tarefa)))
+    try:
+        srv.cliente().gerar(pedido(tarefa="juiz"), Julgamento)
+    finally:
+        OBSERVADOR.reset(marca)
+    assert eventos == [("pedido", "juiz"), ("fila", ""), ("formato", "juiz"), ("fim", "juiz")]
+
+
+def test_configuracao_da_marca_e_dos_lotes(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("FIATLUX_LLM_SEM_RACIOCINIO", " /no_think ")
+    s = Settings(_env_file=None)
+    assert s.llm.marcador_sem_raciocinio == "/no_think"
+    # atrás de um proxy que corta em ~2 min, nenhuma tarefa pode raciocinar: a marca vale em todas
+    assert set(s.llm.tarefas_sem_raciocinio) == {
+        "classificacao",
+        "consultas",
+        "resumo_evangelho",
+        "selecao",
+        "redacao",
+        "juiz",
+        "semanal",
+    }
+    assert set(s.llm.tarefas_opcionais) == {"classificacao", "consultas", "resumo_evangelho"}
+    assert s.noticias.top_clusters_classificar == 8 and s.noticias.titulos_por_cluster == 3

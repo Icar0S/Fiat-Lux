@@ -97,6 +97,7 @@ def diaria(
     with (
         so_erros_no_console(),
         v.andamento("começando", animar=not logs_detalhados()) as andamento,
+        v.acompanhar_llm(andamento),
     ):
         r = executar(
             OpcoesDiaria(
@@ -139,6 +140,7 @@ def semanal(
     with (
         so_erros_no_console(),
         v.andamento("começando", animar=not logs_detalhados()) as andamento,
+        v.acompanhar_llm(andamento),
     ):
         r = executar(
             OpcoesSemanal(

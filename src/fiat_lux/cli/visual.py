@@ -154,19 +154,28 @@ def prompt(texto: str) -> str:
 # --------------------------------------------------------------------------- andamento
 
 
+def _mmss(segundos: float) -> str:
+    s = int(segundos)
+    return f"{s // 60}:{s % 60:02d}"
+
+
 class Andamento:
-    """Indicador de que algo está rodando: animado num terminal; fora dele, uma linha por texto."""
+    """Indicador de que algo está rodando: animado num terminal; fora dele, uma linha por texto.
+
+    Além do texto da etapa, um `detalhe` opcional (o pedido ao LLM em curso, com o próprio
+    tempo): `⠧ coletando as notícias · LLM: classificando as notícias 1:12  25:59`."""
 
     def __init__(self, texto: str, animado: bool) -> None:
         self.texto = texto
         self.animado = animado
         self.inicio = time.monotonic()
+        self.detalhe = ""
+        self._inicio_detalhe = self.inicio
         self._spinner = Spinner("dots", style=f"bold {OURO}")
 
     @property
     def decorrido(self) -> str:
-        s = int(time.monotonic() - self.inicio)
-        return f"{s // 60}:{s % 60:02d}"
+        return _mmss(time.monotonic() - self.inicio)
 
     def atualizar(self, texto: str) -> None:
         if texto == self.texto:
@@ -175,11 +184,58 @@ class Andamento:
         if not self.animado:
             info(texto)
 
+    def detalhar(self, detalhe: str) -> None:
+        """Troca (ou, com "", apaga) o detalhe; o relógio dele recomeça."""
+        if detalhe == self.detalhe:
+            return
+        self.detalhe = detalhe
+        self._inicio_detalhe = time.monotonic()
+        if detalhe and not self.animado:
+            linha("neutro", detalhe, recuo=5)
+
     def __rich__(self) -> RenderableType:
-        self._spinner.update(
-            text=Text.assemble((self.texto, "bold"), (f"  {self.decorrido}", APAGADO))
-        )
+        partes: list[tuple[str, str]] = [(self.texto, "bold")]
+        if self.detalhe:
+            desde = _mmss(time.monotonic() - self._inicio_detalhe)
+            partes.append((f"  ·  {self.detalhe} {desde}", APAGADO))
+        partes.append((f"  {self.decorrido}", APAGADO))
+        self._spinner.update(text=Text.assemble(*partes))
         return Padding(self._spinner, (0, 0, 0, 3))
+
+
+# tarefa do LLM (Pedido.tarefa) → o que o detalhe do andamento mostra
+TAREFAS_LLM = {
+    "classificacao": "classificando as notícias",
+    "consultas": "gerando as consultas",
+    "resumo_evangelho": "resumindo o Evangelho",
+    "selecao": "escolhendo as passagens",
+    "redacao": "escrevendo a reflexão",
+    "juiz": "conferindo a neutralidade",
+    "semanal": "escrevendo a frase da semana",
+}
+
+
+@contextmanager
+def acompanhar_llm(estado: Andamento) -> Iterator[None]:
+    """Liga os pedidos ao servidor de LLM ao detalhe do andamento enquanto o bloco roda."""
+    from fiat_lux.llm.servidor import OBSERVADOR
+
+    def observar(evento: str, tarefa: str) -> None:
+        rotulo = TAREFAS_LLM.get(tarefa, tarefa)
+        if evento == "pedido":
+            estado.detalhar(f"LLM: {rotulo}")
+        elif evento == "formato":
+            estado.detalhar(f"LLM: {rotulo} (pedindo de novo: formato)")
+        elif evento == "fila":
+            estado.detalhar("LLM: servidor ocupado, aguardando a vez")
+        elif evento == "fim":
+            estado.detalhar("")
+
+    marca = OBSERVADOR.set(observar)
+    try:
+        yield
+    finally:
+        OBSERVADOR.reset(marca)
 
 
 @contextmanager
