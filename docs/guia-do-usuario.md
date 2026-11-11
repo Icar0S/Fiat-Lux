@@ -378,6 +378,7 @@ Os perfis estão em `config/perfis.yaml`.
 | `FIATLUX_LLM_CHAVE` | chave do servidor (vai como `Authorization: Bearer`); vazia se ele não pede |
 | `FIATLUX_LLM_MODELO` | modelo de todas as tarefas (vazio: o padrão do servidor) |
 | `FIATLUX_LLM_MODELO_GERACAO`, `…_CLASSIFICACAO`, `…_JUIZ` | modelo de uma tarefa (seleção e redação; notícias, consultas e resumo; juiz de neutralidade) |
+| `FIATLUX_LLM_SEM_RACIOCINIO` | marca que desliga o raciocínio do modelo nas tarefas simples (no qwen3, `/no_think`; [seção 8](#velocidade-raciocínio-fila-e-proxy)) |
 | `TELEGRAM_BOT_TOKEN` | token do bot ([seção 9](#9-recebendo-no-telegram)) |
 | `TELEGRAM_CHAT_IDS` | quem recebe (lista separada por vírgula; também é a allowlist) |
 | `TELEGRAM_ADMIN_CHAT_ID` | quem recebe alertas de falha e fallback |
@@ -435,6 +436,7 @@ que quiser, e essa configuração fica só no `.env`.
 |---|---|---|
 | `POST /v1/chat` | `messages` (cada uma com `role` `system`, `user` ou `assistant` e `content`), `model` (opcional), `temperature`, `max_tokens` e `allow_fallback` | `content` e, quando houver, `model` (o que de fato respondeu), `tokens_in`, `tokens_out`, `fallback_applied`, `queue_wait_s` |
 | `GET /v1/models` | — | `models` (cada um com `name`, `installed`, `available` e `context`) e `default` |
+| `GET /v1/status` (opcional) | — | `queue` com `depth` (aguardando), `running`, `max_concurrent` e `estimated_wait_s` |
 
 A autenticação é por `Authorization: Bearer <chave>`, quando o servidor pede. Fila cheia
 responde **429** com `Retry-After`; servidor sob pressão, **503**; modelo desconhecido, **404**.
@@ -454,6 +456,42 @@ mil (o `configurar` avisa quando a janela é menor).
 
 As respostas ficam em cache por hash da entrada (`data/cache/llm.sqlite`): reprocessar o mesmo
 dia não chama o servidor de novo.
+
+### Velocidade: raciocínio, fila e proxy
+
+Um servidor caseiro costuma atender **um pedido por vez**, e cada Palavra do Dia faz de 6 a 8
+pedidos (classificação das notícias de cada escopo, consultas, resumo do Evangelho, seleção,
+redação e juiz). O que mais pesa:
+
+- **Modelos que raciocinam antes de responder** (como o qwen3) gastam centenas a milhares de
+  tokens pensando: num servidor modesto, 2 a 3 minutos por pedido. Prefira um modelo que
+  responde direto (`FIATLUX_LLM_MODELO`, ou o de cada tarefa) ou desligue o raciocínio com
+  `FIATLUX_LLM_SEM_RACIOCINIO` (no qwen3, `/no_think`): a marca vai no fim de todos os pedidos.
+  Para manter o raciocínio numa tarefa (a redação, por exemplo, num servidor sem limite de
+  tempo), tire-a de `tarefas_sem_raciocinio`, em `[llm]`.
+  Medido num servidor caseiro: um modelo de 7B que não raciocina classificou 8 grupos de
+  notícias em 40 s; um de 4B que raciocina passou de 2 min por pedido.
+- **Proxy na frente do servidor** (o Cloudflare, por exemplo, desiste depois de 100 a 120 s):
+  a resposta que demora mais vira **524** (ou 504), mas o servidor continua gerando. O Fiat Lux
+  não repete o pedido na hora, porque isso só dobraria o trabalho na fila. Espera o servidor
+  ficar livre antes do pedido seguinte e, no segundo corte do mesmo modelo, deixa o modelo de
+  fora até o fim da execução (`LLM indisponível nesta execução: as respostas do modelo …
+  passam do tempo que o proxy na frente do servidor espera`). Saídas: um modelo mais rápido,
+  o raciocínio desligado ou, se o Fiat Lux roda na mesma rede, a `FIATLUX_LLM_URL` apontando
+  direto para o servidor, sem o proxy.
+- **Fila:** se o servidor tem `GET /v1/status`, o Fiat Lux espera a vez antes de enviar, em
+  vez de entrar na fila dele (atrás de um proxy, o tempo na fila contaria para o limite). As
+  etapas que têm reserva sem o LLM (classificação, consultas e resumo) esperam até 2 min cada
+  (`espera_max_opcional_s`) e, somadas espera e geração, até 5 min (`tempo_max_opcionais_s`);
+  passou disso, ou com a fila longa, seguem pela reserva. As outras esperam até
+  `espera_fila_max_s`. Duas execuções ao mesmo tempo no mesmo servidor disputam a vez: espere
+  uma terminar.
+- **Lotes menores:** a classificação manda ao LLM os 8 grupos de notícias mais relevantes de
+  cada escopo, com 3 manchetes cada (`top_clusters_classificar` e `titulos_por_cluster` em
+  `[noticias]`); os demais vão por palavras-chave.
+
+Enquanto a Palavra do Dia é gerada, o indicador mostra o pedido em curso e há quanto tempo
+(`LLM: classificando as notícias 0:38`), ou `servidor ocupado, aguardando a vez`.
 
 Sem o servidor e sem `--dry-run`, as etapas de LLM usam as reservas (classificação por
 palavras-chave, consultas determinísticas, seleção pelo escore) e a mensagem sai como
@@ -577,6 +615,9 @@ uv run fiatlux estado apagar-destinatario <chat_id> --sim
 | `LLM: … não existe (FIATLUX_LLM_URL é a raiz do servidor, sem /v1 no fim)` | URL errada | corrija `FIATLUX_LLM_URL` (só a raiz, como `https://llm.exemplo.com`) |
 | `LLM: servidor de LLM inalcançável em …` | servidor fora do ar, rede ou URL errada | abra `<URL>/v1/ready` no navegador; deve responder `ready` |
 | `LLM: o servidor não tem o modelo …` | nome de modelo errado, ou modelo ainda não baixado no servidor | troque `FIATLUX_LLM_MODELO` (ou o da tarefa) no `.env`, ou baixe o modelo no servidor; `GET /v1/models` lista os que existem |
+| a etapa "coletando e classificando as notícias" (ou outra com LLM) passa de 10 minutos | modelo que raciocina (2 a 3 min por pedido) atrás de um proxy que corta as respostas, ou outra execução usando o mesmo servidor | um modelo que responde direto ou `FIATLUX_LLM_SEM_RACIOCINIO` ([seção 8](#velocidade-raciocínio-fila-e-proxy)); não rode duas execuções ao mesmo tempo. O indicador mostra o pedido em curso e há quanto tempo |
+| `LLM indisponível nesta execução: as respostas do modelo … passam do tempo que o proxy na frente do servidor espera (524 em 120 s)` | o proxy (ex.: Cloudflare) desiste antes de o modelo terminar | um modelo mais rápido (`FIATLUX_LLM_MODELO`), o raciocínio desligado, ou a `FIATLUX_LLM_URL` direto no servidor, sem o proxy |
+| `servidor de LLM ocupado (… s esperando a vez)` ou `o servidor de LLM ficou ocupado por tempo demais nesta execução` | outra execução (ou outro programa) usando o servidor | espere terminar e rode de novo; `GET /v1/status` mostra a fila |
 | `resposta fora do formato em …` | o modelo não devolveu o JSON pedido, nem depois da correção | de vez em quando é normal em modelos pequenos (a etapa usa a reserva); se for sempre, use um modelo maior em `FIATLUX_LLM_MODELO_GERACAO` ou aumente `tentativas_formato` em `[llm]` |
 | `aviso: GDELT recusou por limite de taxa (429); notícias só do RSS` | o GDELT limita requisições por IP | nada: o RSS cobre os três escopos; o medidor fica sem o componente de tom |
 | `já enviada para este destinatário; nada a fazer` | idempotência: o dia já foi entregue | use `--dry-run` para testar; para reenviar, apague a linha em `mensagens` (runbook) |

@@ -55,6 +55,15 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
   A Palavra do Dia aparece formatada num painel (títulos, citações e listas; links pelo nome
   da fonte, sem a URL inteira) e a verificação V1 a V8 numa linha. RGB onde o terminal
   entende ANSI, 16 ou 256 cores nos outros; sem terminal ou com `NO_COLOR`, texto simples.
+- **LLM mais leve:** `FIATLUX_LLM_SEM_RACIOCINIO` põe uma marca (no qwen3, `/no_think`) no fim
+  dos pedidos, para o modelo responder sem raciocinar antes (a lista de tarefas fica em
+  `tarefas_sem_raciocinio`). As etapas com reserva sem o LLM esperam a vez por até 2 min cada
+  e 5 min somados (`espera_max_opcional_s`, `tempo_max_opcionais_s`) e não entram em fila
+  longa. A classificação manda lotes menores: os 8 grupos mais relevantes de cada escopo, com 3
+  manchetes cada (eram 15 e 5).
+- **Andamento do LLM:** na Palavra do Dia e na demonstração do `configurar`, o indicador mostra
+  o pedido em curso e há quanto tempo (`LLM: classificando as notícias 0:38`), a espera pela vez
+  no servidor e os pedidos refeitos por causa do formato.
 - Guia e README: configuração automática como caminho recomendado, o contrato da API do LLM
   (guia, seção 8) e problemas novos na tabela (uv fora do PATH, política de execução, PATH no VS
   Code, `.venv` em uso, chave recusada, URL errada, servidor inalcançável, modelo que falta,
@@ -69,6 +78,15 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
 
 ### Corrigido
 
+- **Execução presa por mais de uma hora com o servidor de LLM atrás de um proxy:** com um
+  modelo que raciocina (cerca de 3 min por pedido) e um proxy que desiste em 120 s (Cloudflare,
+  524), cada pedido era cortado e repetido duas vezes, e o servidor, que continua gerando depois
+  do corte, processava os três. Agora o corte não se repete, o pedido seguinte espera o servidor
+  ficar livre (`GET /v1/status`, quando existe) e, no segundo corte do mesmo modelo, ele fica de
+  fora da execução: o motivo aparece uma vez, no topo dos avisos, e o resumo do `configurar` diz
+  o que fazer ("lento demais para o proxy"). Medido: a classificação de 8 grupos de notícias leva
+  40 s num modelo de 7B que não raciocina; num de 4B que raciocina, passava de 2 min e era
+  cortada.
 - Ruído do Hugging Face na saída: as linhas `HTTP Request: … 404` vinham do logger `httpx2`
   (o cliente HTTP do `huggingface_hub` 2.x), e o aviso de "unauthenticated requests" é um
   cabeçalho do servidor. Agora `httpx2` fica em WARNING e `HF_HUB_VERBOSITY` é `error` por

@@ -40,6 +40,15 @@ raciocinam gastam cerca de 1000 tokens antes de responder.
   tentativas e espera esgotada viram `ErroPermanente`, que fecha o cliente até o fim da
   execução. Um modelo inexistente fecha só aquele modelo. `allow_fallback` fica ligado: sob
   pressão, um modelo mais leve responde em vez de 503.
+- **Proxy e vez na fila (adendo de 2026-11-10):** atrás de um proxy que desiste antes do modelo
+  terminar (Cloudflare: 524 em 100 a 120 s), o servidor continua gerando a resposta cortada.
+  Repetir o pedido só triplicava o trabalho na fila: uma execução com um modelo que raciocina
+  chegou a 65 min. Por isso o 504/524 não se repete, e cada pedido espera o servidor ficar livre
+  (`GET /v1/status`, opcional no contrato) antes de sair, em vez de esperar na fila dele, onde o
+  tempo conta para o limite do proxy. No segundo corte, o modelo fica fora da execução
+  (`ErroPermanente` com causa "lento"). As tarefas com reserva sem o LLM têm um orçamento de
+  tempo próprio, e uma marca opcional (`FIATLUX_LLM_SEM_RACIOCINIO`) desliga o raciocínio
+  nos pedidos (em todas as tarefas, por padrão).
 - **Conferência sem inferência:** o `fiatlux configurar` consulta `GET /v1/models` para
   validar a URL, a chave, se os modelos de cada tarefa existem e estão baixados, e a janela de
   contexto (avisa abaixo de 8192 tokens; o maior pedido, o da seleção, tem cerca de 4 mil).
