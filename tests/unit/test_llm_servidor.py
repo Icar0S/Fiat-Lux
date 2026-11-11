@@ -210,6 +210,28 @@ def test_prompt_traz_um_molde_e_nao_o_json_schema() -> None:
     assert molde(esquema_compacto(Julgamento)).startswith('{"partidario": <true ou false>')
 
 
+def test_molde_da_redacao_pede_a_reflexao_em_4_paragrafos_e_junta_num_texto() -> None:
+    """Pedida como um texto de 180 a 380 palavras, o qwen2.5-coder:7b escrevia ~90 a 120 (em
+    11/11/2026); a estrutura de 4 parágrafos, cada um com o seu papel, é o que ele segue."""
+    from fiat_lux.llm.esquemas import Redacao
+
+    m = molde(esquema_compacto(Redacao))
+    assert '"olhar_sobre_o_dia": "<um parágrafo de 3 a 4 frases sobre o momento>"' in m
+    assert '"reflexao": ["<1º parágrafo, 4 a 5 frases: o que diz a passagem principal, com o ' in m
+    assert m.count("º parágrafo") == 4 and ", …" not in m
+    r = Redacao.model_validate(
+        {
+            "olhar_sobre_o_dia": "o",
+            "reflexao": ["Um {{P1}}.", " Dois. ", "", "Três."],
+            "ensinamento": "e",
+            "gesto": "g",
+            "oracao": "o",
+        }
+    )
+    assert r.reflexao == "Um {{P1}}.\n\nDois.\n\nTrês."
+    assert Redacao(**r.model_dump()).reflexao == r.reflexao  # o cache guarda o texto já junto
+
+
 def test_resposta_embrulhada_num_campo_e_aceita_sem_nova_tentativa() -> None:
     srv = Servidor((200, resposta_chat(json.dumps({"properties": JULGAMENTO_OK})), {}))
     assert srv.cliente().gerar(pedido(), Julgamento).dados.aprovado

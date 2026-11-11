@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any, Literal
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 Categoria = Literal[
     "luto_tragedia",
@@ -85,12 +85,37 @@ class Selecao(BaseModel):
     alertas: list[str]
 
 
+_PARAGRAFOS_REFLEXAO = (
+    "1º parágrafo, 4 a 5 frases: o que diz a passagem principal, com o {{P1}}",
+    "2º parágrafo, 4 a 5 frases: a ligação com o Evangelho do dia",
+    "3º parágrafo, 4 a 5 frases: o que essa Palavra diz ao momento e aos temas do dia",
+    "4º parágrafo, 4 a 5 frases: um convite esperançoso para viver isso hoje",
+)
+
+
 class Redacao(BaseModel):
-    olhar_sobre_o_dia: str
-    reflexao: str
-    ensinamento: str
-    gesto: str
-    oracao: str
+    """O texto da Palavra do Dia. O modelo recebe a reflexão como uma lista de 4 parágrafos, cada
+    um com o seu papel: modelos pequenos seguem uma estrutura melhor que um número de palavras, e
+    escrevem bem mais assim. Aqui ela vira um texto só, com os parágrafos separados por linha em
+    branco."""
+
+    olhar_sobre_o_dia: str = Field(description="um parágrafo de 3 a 4 frases sobre o momento")
+    reflexao: str = Field(
+        json_schema_extra={
+            "type": "array",
+            "prefixItems": [{"type": "string", "description": d} for d in _PARAGRAFOS_REFLEXAO],
+        }
+    )
+    ensinamento: str = Field(description="1 ou 2 frases")
+    gesto: str = Field(description="uma única ação concreta, viável hoje")
+    oracao: str = Field(description="3 a 5 frases, dirigidas a Deus")
+
+    @field_validator("reflexao", mode="before")
+    @classmethod
+    def _paragrafos(cls, v: Any) -> Any:
+        if isinstance(v, list):
+            return "\n\n".join(str(p).strip() for p in v if str(p).strip())
+        return v
 
 
 class Julgamento(BaseModel):

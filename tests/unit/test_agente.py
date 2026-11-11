@@ -10,6 +10,7 @@ from fiat_lux.agente.contexto import ContextoDoDia
 from fiat_lux.agente.montagem import citacao_inline, data_extenso, substituir
 from fiat_lux.agente.selecao import Escolha, deterministica, selecionar, validar
 from fiat_lux.agente.verificacao import (
+    Checagem,
     EntradaVerificacao,
     RefPermitida,
     aprovado,
@@ -316,3 +317,120 @@ def test_provedor_desconhecido_diz_as_opcoes():
 
     with pytest.raises(ValueError, match="use local ou offline"):
         criar_cliente(Settings(_env_file=None), "anthropic")
+
+
+# ------------------------------------------------------------------ modelos pequenos
+
+
+def _escolha_lucas() -> Escolha:
+    p1 = cand(1, "LUK", cap=17, vers=16)
+    p1.texto = "E prostrou-se por terra a seus pés, dando-lhe graças. Era um samaritano."
+    c1 = cand(2, "JER", cap=16, vers=7)
+    c2 = cand(3, "2CO", cap=1, vers=3)
+    c2.caps_vers = [(1, 3), (1, 4)]
+    c2.texto = "Bendito seja Deus, Pai de misericórdias e Deus de toda a consolação."
+    return Escolha(principal=p1, complementares=[c1, c2])
+
+
+def test_selecao_aceita_a_referencia_ou_o_texto_no_lugar_do_id():
+    from fiat_lux.agente.selecao import ids_curtos, resolver_id
+
+    e = _escolha_lucas()
+    mapa = ids_curtos([e.principal, *e.complementares])
+    assert resolver_id("cand_02", mapa) == "cand_02"
+    assert resolver_id("cand 3", mapa) == resolver_id("03", mapa) == "cand_03"
+    assert resolver_id("Lc 17,16", mapa) == resolver_id("Lucas 17:16", mapa) == "cand_01"
+    assert resolver_id("2Cor 1,3-4", mapa) == "cand_03"
+    assert resolver_id("Bendito seja Deus, Pai de misericórdias e Deus", mapa) == "cand_03"
+    # fora da lista continua fora: outro versículo, outro livro, id inexistente, trecho curto
+    for valor in ("Lc 17,11", "1Jo 5,20", "cand_42", "Bendito seja Deus"):
+        assert resolver_id(valor, mapa) is None, valor
+
+
+def test_selecao_com_referencias_vale_como_escolha_do_llm():
+    class Pequeno:
+        nome = "pequeno"
+
+        def gerar(self, pedido, esquema):
+            return RespostaLLM(
+                dados=Selecao(
+                    principal="Lc 17,16",
+                    complementares=["Jr 16,7", "2Cor 1,3-4"],
+                    temas_atendidos=[],
+                    ligacao_liturgica="",
+                    justificativa="",
+                    alertas=[],
+                ),
+                modelo="x",
+            )
+
+    e = _escolha_lucas()
+    ctx = ContextoDoDia(data=dt.date(2026, 11, 11), liturgia=None, perfil=perfil("catolico"))
+    escolha = selecionar(ctx, [e.principal, *e.complementares], Pequeno(), "x")
+    assert escolha.metodo == "llm" and escolha.principal.livro == "LUK"
+    assert [c.livro for c in escolha.complementares] == ["JER", "2CO"]
+
+
+def test_p1_esquecido_entra_depois_da_frase_que_cita_a_passagem():
+    from fiat_lux.agente.redacao import INTRODUCAO_P1, ajustar_marcadores
+    from fiat_lux.agente.verificacao import v1_placeholders
+
+    e = _escolha_lucas()
+    r = redacao_valida(
+        reflexao="Hoje é dia de gratidão. Em Lc 17,16 o samaritano volta para agradecer. "
+        "Os outros nove seguem adiante."
+    )
+    ajustada, ajustes = ajustar_marcadores(r, e)
+    assert v1_placeholders(ajustada).ok and len(ajustes) == 1
+    assert f"o samaritano volta para agradecer. {INTRODUCAO_P1} Os outros" in ajustada.reflexao
+    # sem a referência, vale o nome do livro ("Evangelho de Lucas")
+    r = redacao_valida(reflexao="Deus é bom. No Evangelho de Lucas, um samaritano agradece. Fim.")
+    ajustada, _ = ajustar_marcadores(r, e)
+    assert f"um samaritano agradece. {INTRODUCAO_P1} Fim." in ajustada.reflexao
+    # sem nenhuma das duas, depois da primeira frase (com o ponto que faltava)
+    ajustada, _ = ajustar_marcadores(redacao_valida(reflexao="Deus é bom"), e)
+    assert ajustada.reflexao == f"Deus é bom. {INTRODUCAO_P1}"
+    # com o {{P1}} uma vez, nada muda
+    certa = redacao_valida()
+    assert ajustar_marcadores(certa, e) == (certa, [])
+
+
+def test_marcadores_repetidos_viram_referencia_e_desconhecidos_saem():
+    from fiat_lux.agente.redacao import ajustar_marcadores
+    from fiat_lux.agente.verificacao import v1_placeholders
+
+    r = redacao_valida(
+        olhar_sobre_o_dia="Como diz {{P1}}, hoje {{C3}} é dia de agradecer.",
+        reflexao="Diz o Senhor: {{P1}}. E também {{C1}} e {{C1}}.",
+    )
+    ajustada, ajustes = ajustar_marcadores(r, _escolha_lucas())
+    assert v1_placeholders(ajustada).ok and len(ajustes) == 3
+    assert ajustada.olhar_sobre_o_dia == "Como diz {{P1}}, hoje é dia de agradecer."
+    assert ajustada.reflexao == "Diz o Senhor: Lc 17,16. E também {{C1}} e Jr 16,7."
+
+
+def test_revisao_pede_para_ampliar_o_curto_e_repetir_o_que_estava_certo():
+    from fiat_lux.agente.redacao import revisao_para
+    from fiat_lux.agente.verificacao import v4_comprimentos
+
+    curta = redacao_valida(reflexao="{{P1}} " + " ".join(["palavra"] * 90))
+    pedidos = revisao_para([v4_comprimentos(curta)], curta)
+    reflexao = next(p for p in pedidos if p.startswith("reflexao"))
+    assert "90 palavras e precisa de 180 a 380" in reflexao and "4 parágrafos" in reflexao
+    assert "acrescente 2 ou 3 frases novas a CADA um" in reflexao
+    assert "AMPLIAR" in reflexao and "palavra palavra" in reflexao
+    assert any(p.startswith("olhar_sobre_o_dia: está certo; repita-o") for p in pedidos)
+    assert any(p.startswith("oracao: está certo; repita-o") for p in pedidos)
+    # com outro portão reprovado, o texto pode mudar todo: não pede para repetir nada
+    v2 = Checagem("V2", False, "referências fora do conjunto permitido: Ap 13,16")
+    pedidos = revisao_para([v2, v4_comprimentos(curta)], curta)
+    assert pedidos[0].startswith("V2:") and not any("está certo; repita" in p for p in pedidos)
+
+
+def test_reflexao_num_bloco_so_vira_paragrafos_sem_cortar_a_citacao():
+    from fiat_lux.agente.montagem import paragrafar
+
+    bloco = "Um. Dois: {{P1}}. Três. Quatro. Cinco. Seis. Sete."
+    assert paragrafar(bloco) == "Um. Dois: {{P1}}. Três.\n\nQuatro. Cinco. Seis. Sete."
+    assert paragrafar("Já tem.\n\nParágrafos.") == "Já tem.\n\nParágrafos."
+    assert paragrafar("Curta. Demais.") == "Curta. Demais."

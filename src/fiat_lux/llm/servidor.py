@@ -109,7 +109,11 @@ def molde(no: dict[str, Any]) -> str:
         ]
         return "{" + ", ".join(campos) + "}"
     if tipo == "array":
+        if "prefixItems" in no:  # itens fixos (ex.: os 4 parágrafos da reflexão), cada um o seu
+            return "[" + ", ".join(molde(item) for item in no["prefixItems"]) + "]"
         return f"[{molde(no.get('items', {}))}, …]"
+    if tipo == "string" and no.get("description"):
+        return f'"<{no["description"]}>"'
     return {
         "string": '"<texto>"',
         "boolean": "<true ou false>",

@@ -1,6 +1,8 @@
 """Seleção em conjunto fechado (plano §8.5.3; prompt P3).
 
-O LLM recebe 12 candidatos com id, referência e texto, e devolve ids. Validação: ids do
+O LLM recebe 12 candidatos com id, referência e texto, e devolve ids. Modelos pequenos às vezes
+devolvem a referência ("Lc 17,16") ou o texto do candidato no lugar do id: isso vale como o
+candidato correspondente (`resolver_id`), e só candidato da lista vale. Validação: ids do
 conjunto, principal ≠ complementares, regra de perfil e, de preferência, uma complementar de
 outro testamento. Resposta inválida ⇒ nova tentativa com o erro explicado; segunda falha ⇒
 seleção determinística pelo escore S (direto, se o provedor estiver fora: `ErroPermanente`).
@@ -8,9 +10,13 @@ seleção determinística pelo escore S (direto, se o provedor estiver fora: `Er
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 
+from rapidfuzz import fuzz
+
 from fiat_lux.agente.contexto import ContextoDoDia
+from fiat_lux.biblia.referencias import tentar_parse
 from fiat_lux.llm.cliente import (
     Contabilidade,
     ErroLLM,
@@ -26,6 +32,14 @@ from fiat_lux.llm.prompts import carregar
 from fiat_lux.logs import log
 from fiat_lux.noticias.classificacao import sanear
 from fiat_lux.rag.busca import Candidato
+from fiat_lux.textos import chave
+
+_ID = re.compile(r"\s*(?:cand(?:idato)?[\s_\-]*)?0*(\d{1,2})\s*", re.IGNORECASE)
+_REF_NO_INICIO = re.compile(
+    r"\s*\(?\s*((?:[1-3]\s?)?[A-Za-zÀ-ÿ]+\.?\s*\d{1,3}"
+    r"(?:\s*[,:]\s*\d{1,3}[a-z]?(?:\s*[-–]\s*\d{1,3}[a-z]?)?)?)"
+)
+_MIN_PALAVRAS_TEXTO = 6  # trecho mais curto que isso não identifica um candidato pelo texto
 
 
 @dataclass(slots=True)
@@ -41,6 +55,60 @@ class Escolha:
 
 def ids_curtos(cands: list[Candidato]) -> dict[str, Candidato]:
     return {f"cand_{i:02d}": c for i, c in enumerate(cands, 1)}
+
+
+def _mesma_ref(valor: str, c: Candidato) -> bool:
+    """`valor` começa pela referência do candidato ("Lc 17,16", "Lucas 17:16", "(Lc 17,16) E…")."""
+    m = _REF_NO_INICIO.match(valor)
+    if m is None or not c.caps_vers:
+        return False
+    ref = tentar_parse(m.group(1).replace(":", ","), "nativo")
+    if ref is None or ref.livro != c.livro or len(ref.intervalos) != 1:
+        return False
+    iv = ref.intervalos[0]
+    (c1, v1), (c2, v2) = c.caps_vers[0], c.caps_vers[-1]
+    return (iv.cap_ini, iv.vers_ini) == (c1, v1) and iv.fim == (c2, v2)
+
+
+def _pelo_texto(valor: str, mapa: dict[str, Candidato]) -> str | None:
+    """O candidato cujo texto o modelo copiou (inteiro ou um trecho), se só um combina."""
+    k = chave(valor)
+    if len(k.split()) < _MIN_PALAVRAS_TEXTO:
+        return None
+    achados = [cid for cid, c in mapa.items() if fuzz.partial_ratio(k, chave(c.texto)) >= 95]
+    return achados[0] if len(achados) == 1 else None
+
+
+def resolver_id(valor: str, mapa: dict[str, Candidato]) -> str | None:
+    """O id do candidato que `valor` indica: o próprio id ("cand_01", "cand 1", "1"), a referência
+    ou o texto do candidato. None se não indica nenhum, ou mais de um."""
+    if valor in mapa:
+        return valor
+    m = _ID.fullmatch(valor)
+    if m is not None:
+        cid = f"cand_{int(m.group(1)):02d}"
+        return cid if cid in mapa else None
+    pela_ref = [cid for cid, c in mapa.items() if _mesma_ref(valor, c)]
+    if len(pela_ref) == 1:
+        return pela_ref[0]
+    return _pelo_texto(valor, mapa) if not pela_ref else None
+
+
+def normalizar(s: Selecao, mapa: dict[str, Candidato]) -> tuple[Selecao, list[str]]:
+    """A seleção com ids no lugar de referências e textos, e o que foi trocado (para o log). O
+    que não indica nenhum candidato fica como veio: a validação o recusa."""
+    trocas: list[str] = []
+
+    def troca(valor: str) -> str:
+        cid = resolver_id(valor, mapa)
+        if cid is None or cid == valor:
+            return valor
+        trocas.append(f"{valor[:40]!r} → {cid}")
+        return cid
+
+    principal = troca(s.principal)
+    complementares = [troca(c) for c in s.complementares if c]
+    return s.model_copy(update={"principal": principal, "complementares": complementares}), trocas
 
 
 def validar(s: Selecao, mapa: dict[str, Candidato], perfil_evangelico: bool) -> list[str]:
@@ -135,6 +203,9 @@ def selecionar(
             log().warning("selecao_llm_falhou", tentativa=tentativa, erro=str(e))
             ultimo = f"seleção do LLM falhou duas vezes: {e}"
             continue
+        s, trocas = normalizar(s, mapa)
+        if trocas:
+            log().info("selecao_ids_pela_referencia", trocas=trocas)
         erros = validar(s, mapa, ctx.perfil.nome == "evangelico")
         if not erros:
             return Escolha(

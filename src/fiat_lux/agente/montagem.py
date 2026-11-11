@@ -90,6 +90,25 @@ def citacao_inline(c: Candidato, max_palavras: int = 22) -> str:
     return f"“{texto}” ({c.rotulo()})"
 
 
+_FIM_DE_FRASE = re.compile(r"(?:(?<=[.!?…])|(?<=[.!?…][\"”’)]))\s+(?=[A-ZÀ-Ú“\"{])")
+
+
+def paragrafar(texto: str, frases: int = 3) -> str:
+    """A reflexão que veio num bloco só, em parágrafos de `frases` frases (sem deixar uma frase
+    sozinha no fim). Vem antes de `substituir`: a citação bíblica tem pontos dentro."""
+    t = texto.strip()
+    if "\n\n" in t:
+        return t
+    partes = _FIM_DE_FRASE.split(t)
+    if len(partes) < frases + 2:
+        return t
+    grupos = [partes[i : i + frases] for i in range(0, len(partes), frases)]
+    if len(grupos) > 1 and len(grupos[-1]) == 1:
+        ultima = grupos.pop()
+        grupos[-1] += ultima
+    return "\n\n".join(" ".join(g) for g in grupos)
+
+
 def substituir(texto: str, escolha: Escolha) -> str:
     mapa = {"P1": escolha.principal}
     for i, c in enumerate(escolha.complementares[:2], 1):
@@ -149,7 +168,7 @@ def renderizar_diaria(
             else None,
             rotulo_evangelho=ctx.perfil.rotulo_evangelho,
             p1=_passagem(escolha.principal, ctx.perfil.rotulo_deutero),
-            reflexao=substituir(redacao.reflexao, escolha),
+            reflexao=substituir(paragrafar(redacao.reflexao), escolha),
             ensinamento=substituir(redacao.ensinamento, escolha),
             gesto=substituir(redacao.gesto, escolha),
             oracao=substituir(redacao.oracao, escolha),

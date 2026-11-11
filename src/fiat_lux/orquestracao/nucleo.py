@@ -9,7 +9,13 @@ from dataclasses import dataclass, field
 from fiat_lux.agente import consultas as mod_consultas
 from fiat_lux.agente.contexto import ContextoDoDia
 from fiat_lux.agente.montagem import substituir
-from fiat_lux.agente.redacao import julgar, permitidas, redigir
+from fiat_lux.agente.redacao import (
+    ajustar_marcadores,
+    julgar,
+    permitidas,
+    redigir,
+    revisao_para,
+)
 from fiat_lux.agente.selecao import Escolha, selecionar
 from fiat_lux.agente.verificacao import Checagem, EntradaVerificacao, aprovado, verificar, violacoes
 from fiat_lux.biblia.repositorio import Repositorio
@@ -153,6 +159,9 @@ def gerar_palavra(
             revisao,
             r.contab,
         )
+        redacao, ajustes = ajustar_marcadores(redacao, escolha)
+        if ajustes:
+            log().info("redacao_marcadores_ajustados", tentativa=tentativa, ajustes=ajustes)
         julg: Julgamento | None = None
         try:
             texto = "\n\n".join(
@@ -182,8 +191,8 @@ def gerar_palavra(
         )
         if aprovado(checagens):
             break
-        revisao = violacoes(checagens)
-        log().warning("verificacao_reprovou", tentativa=tentativa, violacoes=revisao)
+        log().warning("verificacao_reprovou", tentativa=tentativa, violacoes=violacoes(checagens))
+        revisao = revisao_para(checagens, redacao)
     if redacao is None or not aprovado(checagens):
         raise VerificacaoReprovada(checagens)
     return Palavra(escolha, redacao, checagens, cands)

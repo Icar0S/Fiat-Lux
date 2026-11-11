@@ -16,6 +16,7 @@ from fiat_lux.agente.montagem import (
     TEMPOS,
     atribuicao,
     data_extenso,
+    paragrafar,
     renderizar,
     substituir,
 )
@@ -276,7 +277,7 @@ def executar(
                 "traducao": TRADUCOES[esc.principal.traducao].sigla,
                 "texto": esc.principal.texto,
             },
-            reflexao=substituir(palavra.redacao.reflexao, esc),
+            reflexao=substituir(paragrafar(palavra.redacao.reflexao), esc),
             ensinamento=substituir(palavra.redacao.ensinamento, esc),
             gesto=substituir(palavra.redacao.gesto, esc),
             oracao=substituir(palavra.redacao.oracao, esc),
