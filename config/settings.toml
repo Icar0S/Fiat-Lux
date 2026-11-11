@@ -1,7 +1,7 @@
 # Parâmetros gerais do Fiat Lux (plano §5 e Apêndice E).
 # Variáveis de ambiente prevalecem: FIATLUX_PERFIL, FIATLUX_TZ, FIATLUX_ESTADO,
 # FIATLUX_CUSTO_MAX_MENSAL_USD, o servidor de LLM (FIATLUX_LLM_URL, FIATLUX_LLM_MODELO…) e os
-# segredos (FIATLUX_LLM_CHAVE, TELEGRAM_*).
+# segredos (FIATLUX_LLM_CHAVE, SMTP_SENHA, TELEGRAM_*).
 
 [geral]
 nome = "Fiat Lux"
@@ -104,9 +104,11 @@ titulos_por_cluster = 3
 confianca_minima = 0.5
 
 [entrega]
-telegram = true
+# Provisoriamente, a Palavra do Dia vai por e-mail (SMTP_* e EMAIL_* no .env); o Telegram fica
+# desligado (telegram = true o religa, com TELEGRAM_* no .env). Sem canal, só o arquivo em saidas/.
+telegram = false
 arquivo = true
-email = false
+email = true
 horario_limite = "06:30"
 limite_telegram = 4096
 

@@ -43,6 +43,16 @@ jobs:
           FIATLUX_LLM_CHAVE: ${{ secrets.FIATLUX_LLM_CHAVE }}
           FIATLUX_LLM_MODELO: ${{ vars.FIATLUX_LLM_MODELO }}
           FIATLUX_LLM_MODELO_GERACAO: ${{ vars.FIATLUX_LLM_MODELO_GERACAO }}
+          FIATLUX_LLM_MODELO_JUIZ: ${{ vars.FIATLUX_LLM_MODELO_JUIZ }}
+          FIATLUX_LLM_SEM_RACIOCINIO: ${{ vars.FIATLUX_LLM_SEM_RACIOCINIO }}
+          # entrega por e-mail (o Telegram está provisoriamente desligado no settings.toml)
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USUARIO: ${{ secrets.SMTP_USUARIO }}
+          SMTP_SENHA: ${{ secrets.SMTP_SENHA }}
+          EMAIL_REMETENTE: ${{ secrets.EMAIL_REMETENTE }}
+          EMAIL_DESTINATARIOS: ${{ secrets.EMAIL_DESTINATARIOS }}
+          EMAIL_ADMIN: ${{ secrets.EMAIL_ADMIN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_IDS: ${{ secrets.TELEGRAM_CHAT_IDS }}
           TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}

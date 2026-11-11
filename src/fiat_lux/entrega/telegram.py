@@ -23,7 +23,7 @@ class ErroTelegram(RuntimeError):
     pass
 
 
-def _inline(texto: str) -> str:
+def markdown_inline(texto: str) -> str:
     t = html.escape(texto, quote=False)
     t = re.sub(
         r"\[([^\]]+)\]\((https?://[^)\s]+)\)",
@@ -42,17 +42,17 @@ def markdown_para_html(md: str) -> str:
     for linha in md.splitlines():
         s = linha.rstrip()
         if s.startswith("# "):
-            saida.append(f"<b>{_inline(s[2:])}</b>")
+            saida.append(f"<b>{markdown_inline(s[2:])}</b>")
         elif s.startswith("## "):
-            saida.append(f"\n<b>{_inline(s[3:])}</b>")
+            saida.append(f"\n<b>{markdown_inline(s[3:])}</b>")
         elif s.startswith("> "):
-            saida.append(f"<blockquote>{_inline(s[2:])}</blockquote>")
+            saida.append(f"<blockquote>{markdown_inline(s[2:])}</blockquote>")
         elif s.startswith("- "):
-            saida.append(f"• {_inline(s[2:])}")
+            saida.append(f"• {markdown_inline(s[2:])}")
         elif s.strip() == "---":
             saida.append("—")
         else:
-            saida.append(_inline(s))
+            saida.append(markdown_inline(s))
     texto = "\n".join(saida)
     return re.sub(r"\n{3,}", "\n\n", texto).strip()
 

@@ -77,7 +77,7 @@ def diaria(
     perfil: str = typer.Option(None, "--perfil", help="catolico | evangelico | ecumenico"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Não envia nem arquiva em saidas/."),
     sem_envio: bool = typer.Option(
-        False, "--sem-envio", help="Arquiva, mas não envia pelo Telegram."
+        False, "--sem-envio", help="Arquiva em saidas/, mas não envia (e-mail)."
     ),
     llm: str = typer.Option(None, "--llm", help="local (servidor de LLM) | offline"),
     sem_noticias: bool = typer.Option(

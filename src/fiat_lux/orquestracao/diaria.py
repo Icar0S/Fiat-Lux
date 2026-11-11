@@ -8,6 +8,7 @@ fixa + aviso), nunca a conteúdo não verificado. `--dry-run` não envia nem mar
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import json
 import time
 import traceback
@@ -23,6 +24,7 @@ from fiat_lux.agente.verificacao import Checagem
 from fiat_lux.biblia.repositorio import Repositorio
 from fiat_lux.config import Settings, obter_settings
 from fiat_lux.entrega import markdown as arquivo
+from fiat_lux.entrega.email import ClienteEmail, ErroEmail, assunto_de, mascarar
 from fiat_lux.estado import Estado
 from fiat_lux.liturgia.cliente_api import ClienteLiturgia
 from fiat_lux.liturgia.servico import ServicoLiturgia
@@ -278,6 +280,60 @@ def _contexto_minimo(data: dt.date, perfil, estado: Estado) -> mod_contexto.Cont
     return ctx
 
 
+def destinos(s: Settings, avisos: list[str] | None = None) -> list[str]:
+    """Para onde vai a mensagem: os e-mails de EMAIL_DESTINATARIOS e, com o Telegram ligado
+    (`[entrega] telegram`), as conversas de TELEGRAM_CHAT_IDS; sem nenhum, só o arquivo."""
+    alvos: list[str] = []
+    if s.entrega.email and s.email_destinatarios:
+        if s.email_configurado:
+            alvos += s.email_destinatarios
+        elif avisos is not None:
+            avisos.append(
+                "e-mail sem SMTP_HOST ou remetente no .env: a mensagem ficou só em saidas/"
+            )
+    if s.entrega.telegram and s.telegram_bot_token:
+        alvos += s.telegram_chat_ids
+    return alvos or ["arquivo"]
+
+
+def rotulo_destino(dest: str) -> str:
+    """Como o destinatário fica no estado (que vai para o git): o e-mail, só por um código
+    derivado do endereço, que basta para não enviar duas vezes."""
+    if "@" not in dest:
+        return dest
+    return "email:" + hashlib.sha256(dest.strip().lower().encode()).hexdigest()[:12]
+
+
+def cliente_email(s: Settings) -> ClienteEmail:
+    return ClienteEmail(
+        (s.smtp_host or "").strip(),
+        s.smtp_port,
+        s.smtp_usuario,
+        s.smtp_senha.get_secret_value() if s.smtp_senha else None,
+        s.email_remetente,
+    )
+
+
+def _enviar(
+    dest: str, res: ResultadoDiaria, s: Settings, foto: Path | None, email: ClienteEmail | None
+) -> list[int] | None:
+    """Envia para um destinatário. Devolve os ids das mensagens do Telegram ([] no e-mail), ou
+    None se não havia como enviar (e-mail sem SMTP, Telegram sem token)."""
+    anexos = [foto] if foto is not None and foto.is_file() else []
+    if "@" in dest:
+        if email is None:
+            return None
+        email.enviar(dest, assunto_de(res.markdown), res.markdown, anexos)
+        return []
+    if not s.telegram_bot_token:
+        return None
+    from fiat_lux.entrega.telegram import ClienteTelegram
+
+    tg = ClienteTelegram(s.telegram_bot_token.get_secret_value(), tuple(s.telegram_chat_ids))
+    ids = [tg.enviar_foto(dest, f, "Tendência do medidor na semana") for f in anexos]
+    return ids + tg.enviar_markdown(dest, res.markdown, s.entrega.limite_telegram)
+
+
 def entregar(
     data: dt.date,
     tipo: str,
@@ -300,51 +356,27 @@ def entregar(
         res.caminho = destino
         return
     res.caminho = arquivo.arquivar(s.caminhos.saidas, data, res.markdown, tipo, perfil)
-    alvos = destinatarios if destinatarios is not None else (s.telegram_chat_ids or ["arquivo"])
+    alvos = destinatarios if destinatarios is not None else destinos(s, res.avisos)
+    email = cliente_email(s) if s.email_configurado else None
     for dest in alvos:
-        if estado.ja_enviada(data, tipo, perfil, dest):
+        rotulo = rotulo_destino(dest)
+        if estado.ja_enviada(data, tipo, perfil, rotulo):
             res.avisos.append("já enviada para este destinatário; nada a fazer (idempotência)")
             continue
-        mid = estado.gravar_mensagem(
-            {
-                "data": data.isoformat(),
-                "tipo": tipo,
-                "perfil": perfil,
-                "destinatario": dest,
-                "conteudo_md": res.markdown,
-                "passagens_json": passagens_json(res.escolha),
-                "verificacao_json": json.dumps(
-                    [{"id": c.id, "ok": c.ok, "motivo": c.motivo} for c in res.verificacao],
-                    ensure_ascii=False,
-                ),
-                "modelo_llm": ",".join(sorted(contab.modelos)) or res.llm,
-                "hash_prompts": hash_conjunto(),
-                "versao_pipeline": s.geral.versao_pipeline,
-                "tokens_entrada": contab.uso.tokens_entrada,
-                "tokens_saida": contab.uso.tokens_saida,
-                "custo_estimado": res.custo,
-                "status": res.status,
-            }
-        )
-        ids: list[int] = []
-        if dest != "arquivo" and not sem_envio and s.telegram_bot_token:
-            from fiat_lux.entrega.telegram import ClienteTelegram, ErroTelegram
+        mid = estado.gravar_mensagem(_registro(data, tipo, perfil, rotulo, res, contab, s))
+        ids: list[int] | None = [] if dest == "arquivo" else None
+        if dest != "arquivo" and not sem_envio:  # --sem-envio não marca como enviada
+            from fiat_lux.entrega.telegram import ErroTelegram
 
-            tg = ClienteTelegram(
-                s.telegram_bot_token.get_secret_value(), tuple(s.telegram_chat_ids)
-            )
             try:
-                if foto is not None and foto.is_file():
-                    ids.append(tg.enviar_foto(dest, foto, "Tendência do medidor na semana"))
-                ids += tg.enviar_markdown(dest, res.markdown, s.entrega.limite_telegram)
-            except ErroTelegram as e:
-                res.avisos.append(f"Telegram falhou: {e}")
+                ids = _enviar(dest, res, s, foto, email)
+            except (ErroEmail, ErroTelegram) as e:
+                canal = f"e-mail para {mascarar(dest)}" if "@" in dest else "Telegram"
+                res.avisos.append(f"{canal} falhou: {e}")
                 if res.status == "rascunho":
                     res.status = "falhou"
                 continue
-        if (
-            dest == "arquivo" or ids
-        ):  # --sem-envio não marca como enviada (não bloqueia o envio real)
+        if ids is not None:
             estado.marcar_enviada(mid, ids)
             if res.status == "rascunho":
                 res.status = "enviada"
@@ -364,15 +396,53 @@ def entregar(
         )
 
 
-def alertar_admin(s: Settings, texto: str) -> None:
-    if not (s.telegram_bot_token and s.telegram_admin_chat_id):
-        log().warning("alerta_admin_sem_canal", texto=texto[:200])
-        return
-    from fiat_lux.entrega.telegram import ClienteTelegram, ErroTelegram
+def _registro(
+    data: dt.date,
+    tipo: str,
+    perfil: str,
+    rotulo: str,
+    res: ResultadoDiaria,
+    contab: Contabilidade,
+    s: Settings,
+) -> dict[str, object]:
+    return {
+        "data": data.isoformat(),
+        "tipo": tipo,
+        "perfil": perfil,
+        "destinatario": rotulo,
+        "conteudo_md": res.markdown,
+        "passagens_json": passagens_json(res.escolha),
+        "verificacao_json": json.dumps(
+            [{"id": c.id, "ok": c.ok, "motivo": c.motivo} for c in res.verificacao],
+            ensure_ascii=False,
+        ),
+        "modelo_llm": ",".join(sorted(contab.modelos)) or res.llm,
+        "hash_prompts": hash_conjunto(),
+        "versao_pipeline": s.geral.versao_pipeline,
+        "tokens_entrada": contab.uso.tokens_entrada,
+        "tokens_saida": contab.uso.tokens_saida,
+        "custo_estimado": res.custo,
+        "status": res.status,
+    }
 
-    try:
-        ClienteTelegram(
-            s.telegram_bot_token.get_secret_value(), (s.telegram_admin_chat_id,)
-        ).enviar_texto(s.telegram_admin_chat_id, texto)
-    except ErroTelegram as e:
-        log().error("alerta_admin_falhou", erro=str(e))
+
+def alertar_admin(s: Settings, texto: str) -> None:
+    """Avisa quem cuida do Fiat Lux que a mensagem saiu em contingência ou falhou: por e-mail
+    (EMAIL_ADMIN ou, sem ele, quem envia) ou, com o Telegram ligado, por ele; sem canal, no log."""
+    if s.entrega.email and s.email_configurado and s.email_admin:
+        try:
+            cliente_email(s).enviar(s.email_admin, "Fiat Lux: alerta", texto)
+        except ErroEmail as e:
+            log().error("alerta_admin_falhou", canal="email", erro=str(e))
+        return
+    if s.entrega.telegram and s.telegram_bot_token and s.telegram_admin_chat_id:
+        from fiat_lux.entrega.telegram import ClienteTelegram, ErroTelegram
+
+        try:
+            ClienteTelegram(
+                s.telegram_bot_token.get_secret_value(), (s.telegram_admin_chat_id,)
+            ).enviar_texto(s.telegram_admin_chat_id, texto)
+        except ErroTelegram as e:
+            log().error("alerta_admin_falhou", canal="telegram", erro=str(e))
+        return
+    log().warning("alerta_admin_sem_canal", texto=texto[:200])

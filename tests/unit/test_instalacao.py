@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sqlite3
 from pathlib import Path
+from typing import ClassVar
 
 import pytest
 from typer.testing import CliRunner
@@ -261,6 +262,79 @@ def test_perguntar_telegram_acha_o_chat_e_manda_mensagem_de_teste(
     assert enviados == ["42"]
 
 
+def test_gravar_senha_entre_aspas_e_ler_igual(tmp_path: Path) -> None:
+    env = tmp_path / ".env"
+    env.write_bytes(b"SMTP_SENHA=\n")
+    senha = "a#b c!$x"
+    inst.gravar_variavel_env(env, "SMTP_SENHA", senha, aspas=True)
+    assert env.read_bytes() == b"SMTP_SENHA='a#b c!$x'\n"
+    assert inst.ler_env(env)["SMTP_SENHA"] == senha
+    for impossivel in ("com'aspa", "barra\\", "${HOME}"):
+        with pytest.raises(ValueError, match="SMTP_SENHA"):
+            inst.gravar_variavel_env(env, "SMTP_SENHA", impossivel, aspas=True)
+
+
+class EmailFalso:
+    enviados: ClassVar[list[tuple[str, str, str]]] = []
+    erro: str | None = None
+
+    def __init__(self, host: str, porta: int, usuario: str, senha: str, remetente: str) -> None:
+        self.dados = (host, porta, usuario, senha, remetente)
+
+    def enviar(self, para: str, assunto: str, markdown: str, anexos: object = ()) -> None:
+        from fiat_lux.entrega.email import ErroEmail
+
+        if EmailFalso.erro:
+            raise ErroEmail(EmailFalso.erro, "senha")
+        EmailFalso.enviados.append((para, self.dados[0], self.dados[3]))
+
+
+def test_perguntar_email_testa_a_conta_antes_de_gravar(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from fiat_lux.cli.cmd_configurar import _perguntar_email
+    from fiat_lux.entrega import email
+
+    monkeypatch.setattr(email, "ClienteEmail", EmailFalso)
+    EmailFalso.enviados, EmailFalso.erro = [], None
+    env = tmp_path / ".env"
+    env.write_bytes(EXEMPLO.encode())
+    # configurar agora? · quem envia · senha de app (com os espaços do Google) · quem recebe
+    _respostas(monkeypatch, "s", "voce@gmail.com", "abcd efgh ijkl mnop", "")
+    _perguntar_email(env)
+    assert EmailFalso.enviados == [("voce@gmail.com", "smtp.gmail.com", "abcdefghijklmnop")]
+    valores = inst.ler_env(env)
+    assert valores["SMTP_HOST"] == "smtp.gmail.com" and valores["SMTP_PORT"] == "587"
+    assert valores["SMTP_USUARIO"] == valores["EMAIL_REMETENTE"] == "voce@gmail.com"
+    assert valores["SMTP_SENHA"] == "abcdefghijklmnop"
+    assert valores["EMAIL_DESTINATARIOS"] == "voce@gmail.com"
+    _perguntar_email(env)  # já configurado: não pergunta mais nada (a fila de respostas acabou)
+
+
+def test_perguntar_email_com_senha_recusada_nao_grava_nada(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from fiat_lux.cli.cmd_configurar import _perguntar_email
+    from fiat_lux.entrega import email
+
+    monkeypatch.setattr(email, "ClienteEmail", EmailFalso)
+    EmailFalso.enviados, EmailFalso.erro = [], "o servidor de e-mail recusou o usuário ou a senha"
+    env = tmp_path / ".env"
+    env.write_bytes(EXEMPLO.encode())
+    # outro provedor: servidor e porta perguntados; dois destinatários
+    _respostas(
+        monkeypatch,
+        "s",
+        "eu@provedor.com.br",
+        "smtp.provedor.com.br",
+        "465",
+        "x",
+        "a@b.com, c@d.org",
+    )
+    _perguntar_email(env)
+    assert env.read_bytes() == EXEMPLO.encode()
+
+
 @pytest.fixture
 def app_configurar(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     """Só o comando, sem o callback da CLI: ele reconfiguraria os logs para o stream
@@ -289,6 +363,11 @@ def app_configurar(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         "FIATLUX_LLM_MODELO",
         "TELEGRAM_BOT_TOKEN",
         "TELEGRAM_CHAT_IDS",
+        "SMTP_HOST",
+        "SMTP_USUARIO",
+        "SMTP_SENHA",
+        "EMAIL_REMETENTE",
+        "EMAIL_DESTINATARIOS",
     ):
         monkeypatch.delenv(variavel, raising=False)
     monkeypatch.setattr(inst, "ml_instalado", lambda: False)
@@ -391,6 +470,7 @@ def test_configurar_com_llm_ok_termina_com_tudo_pronto(
     assert "verificação 8/8" in r.output and "textos do LLM" in r.output
     final = r.output.split("● Resumo")[1]
     assert "✦ Tudo pronto" in final and "Quase pronto" not in final
+    assert "E-mail" in final and "não configurado" in final and "Telegram" not in final
     assert "uv run fiatlux palavra diaria --dry-run" in final  # próximos passos no painel
 
 

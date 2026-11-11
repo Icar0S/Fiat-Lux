@@ -170,11 +170,25 @@ def ler_env(caminho: Path) -> dict[str, str]:
     return {k: v or "" for k, v in dotenv_values(caminho, encoding="utf-8").items()}
 
 
-def gravar_variavel_env(caminho: Path, chave: str, valor: str) -> None:
+def _aspas_simples(valor: str) -> str | None:
+    """`'valor'`, que o python-dotenv lê ao pé da letra, se o valor cabe nelas: sem aspas
+    simples, barra invertida, quebra de linha nem `${` (que ele expandiria)."""
+    if any(x in valor for x in ("'", "\\", "\n", "\r", "${")):
+        return None
+    return f"'{valor}'"
+
+
+def gravar_variavel_env(caminho: Path, chave: str, valor: str, aspas: bool = False) -> None:
     """Grava `CHAVE=valor` no `.env`, preservando as outras linhas, o comentário da linha e o
-    tipo de quebra de linha. Só aceita valores que não precisam de aspas."""
-    if not _NOME_VARIAVEL.fullmatch(chave) or not _VALOR_SEGURO.fullmatch(valor):
-        raise ValueError(f"valor inesperado para {chave}")
+    tipo de quebra de linha. Sem `aspas`, só aceita valores que não precisam delas; com `aspas`
+    (senhas), o valor que precisa vai entre aspas simples."""
+    if not _NOME_VARIAVEL.fullmatch(chave):
+        raise ValueError(f"nome inesperado: {chave}")
+    if not _VALOR_SEGURO.fullmatch(valor):
+        entre_aspas = _aspas_simples(valor) if aspas else None
+        if entre_aspas is None:
+            raise ValueError(f"valor inesperado para {chave}")
+        valor = entre_aspas
     texto = caminho.read_bytes().decode("utf-8") if caminho.is_file() else ""
     linha = re.compile(
         rf"^{chave}[ \t]*=[^\r\n]*?(?P<comentario>[ \t]+#[^\r\n]*)?(?P<cr>\r?)$", re.MULTILINE

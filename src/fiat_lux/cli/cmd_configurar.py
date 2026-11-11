@@ -31,6 +31,13 @@ if TYPE_CHECKING:
 _SIM = {"s", "sim", "y", "yes"}
 _FORMATO_URL = re.compile(r"https?://[A-Za-z0-9.\-]+(:\d{1,5})?(/[A-Za-z0-9._~\-/]*)?")
 _FORMATO_CHAVE = re.compile(r"[A-Za-z0-9_.:\-]{8,}")
+_FORMATO_EMAIL = re.compile(r"[^@\s,;]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}")
+_FORMATO_HOST = re.compile(r"[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)+")
+# servidor de envio (SMTP) dos provedores mais comuns, pelo domínio do e-mail
+_SMTP_CONHECIDOS = {
+    "gmail.com": ("smtp.gmail.com", 587),
+    "googlemail.com": ("smtp.gmail.com", 587),
+}
 _SEM_LLM = "a Palavra do Dia de verdade sai só com o Evangelho do dia e uma oração fixa"
 _DEMONSTRACAO = "Demonstração"
 
@@ -70,7 +77,7 @@ _CAUSAS: dict[str, tuple[str, str]] = {
 
 _PROXIMOS_PASSOS = (
     ("uv run fiatlux palavra diaria --dry-run", "gera de novo, sem enviar nada"),
-    ("uv run fiatlux palavra diaria", "arquiva em saidas/ e envia pelo Telegram"),
+    ("uv run fiatlux palavra diaria", "arquiva em saidas/ e envia por e-mail"),
     ("uv run fiatlux palavra semanal --dry-run", "Palavra da Semana, com gráfico"),
     ("uv run fiatlux --help", "todos os comandos"),
 )
@@ -252,6 +259,97 @@ def _escolher_chats(chats: list[tuple[str, str]]) -> list[str]:
     return [cid for i, (cid, _) in enumerate(chats, 1) if i in numeros]
 
 
+def _dados_smtp(remetente: str) -> tuple[str, int] | None:
+    """Servidor e porta de envio: os do provedor, se conhecido; senão, perguntados."""
+    dominio = remetente.rsplit("@", 1)[1].lower()
+    if dominio in _SMTP_CONHECIDOS:
+        host, porta = _SMTP_CONHECIDOS[dominio]
+        v.info(f"servidor de envio: {host}, porta {porta}")
+        if host == "smtp.gmail.com":
+            v.dica(
+                "No Gmail, a senha é uma senha de app, não a da conta: ligue a verificação em "
+                "duas etapas e crie a senha em myaccount.google.com/apppasswords (16 letras)."
+            )
+        return host, porta
+    host = _perguntar("Servidor de envio (SMTP) do seu provedor, ex.: smtp.provedor.com.br")
+    if not _FORMATO_HOST.fullmatch(host):
+        v.aviso("isso não parece um servidor (ex.: smtp.provedor.com.br); não gravei")
+        return None
+    resposta = _perguntar("Porta (Enter = 587; 465 se o provedor pede SSL)") or "587"
+    if not resposta.isdigit() or not 0 < int(resposta) < 65536:
+        v.aviso("porta inválida; não gravei")
+        return None
+    return host, int(resposta)
+
+
+def _perguntar_email(env: Path) -> None:
+    """E-mail de quem envia, servidor, senha e quem recebe; grava no .env só depois de entrar na
+    conta e mandar um e-mail de teste."""
+    from fiat_lux.entrega.email import ClienteEmail, ErroEmail, mascarar
+    from fiat_lux.instalacao import gravar_variavel_env, ler_env
+
+    valores = ler_env(env)
+    if valores.get("SMTP_HOST") and valores.get("EMAIL_DESTINATARIOS"):
+        v.ok("E-mail: já configurado.")
+        return
+    v.info(
+        "E-mail (opcional): para receber a Palavra do Dia por e-mail, todo dia. O envio sai da "
+        "sua conta de e-mail (SMTP)."
+    )
+    if _perguntar("Configurar o e-mail agora? [s/N]").lower() not in _SIM:
+        return
+    remetente = _perguntar("Seu e-mail, que vai enviar (ex.: voce@gmail.com)")
+    if not _FORMATO_EMAIL.fullmatch(remetente):
+        v.aviso("isso não parece um e-mail; não gravei")
+        return
+    smtp = _dados_smtp(remetente)
+    if smtp is None:
+        return
+    host, porta = smtp
+    senha = _perguntar("Senha (não aparece na tela)", secreto=True)
+    if host == "smtp.gmail.com":
+        senha = senha.replace(" ", "")  # a senha de app aparece em 4 grupos de 4 letras
+    if not senha:
+        v.aviso("sem senha; não gravei")
+        return
+    resposta = _perguntar("Quem recebe (e-mails separados por vírgula; Enter = o seu)")
+    para = [x.strip() for x in (resposta or remetente).replace(";", ",").split(",") if x.strip()]
+    if not para or not all(_FORMATO_EMAIL.fullmatch(x) for x in para):
+        v.aviso("algum destinatário não parece um e-mail; não gravei")
+        return
+    cliente = ClienteEmail(host, porta, remetente, senha, remetente)
+    try:
+        with v.andamento(f"entrando na conta em {host} e mandando um e-mail de teste"):
+            cliente.enviar(
+                para[0],
+                "Fiat Lux configurado",
+                "✅ Fiat Lux configurado: a Palavra do Dia vai chegar por aqui, todo dia.",
+            )
+    except ErroEmail as e:
+        v.aviso(f"e-mail: {e.motivo}. Não gravei nada; rode o configurar de novo para tentar.")
+        return
+    for chave, valor in (
+        ("SMTP_HOST", host),
+        ("SMTP_PORT", str(porta)),
+        ("SMTP_USUARIO", remetente),
+        ("EMAIL_REMETENTE", remetente),
+        ("EMAIL_DESTINATARIOS", ",".join(para)),
+    ):
+        gravar_variavel_env(env, chave, valor)
+    try:
+        gravar_variavel_env(env, "SMTP_SENHA", senha, aspas=True)
+    except ValueError:
+        v.aviso(
+            "a senha tem aspas simples, barra invertida ou ${, que o .env não guarda como estão; "
+            "ponha-a à mão na SMTP_SENHA do .env"
+        )
+        return
+    v.ok(
+        f"e-mail configurado ({len(para)} destinatário(s)); mandei um e-mail de teste para "
+        f"{mascarar(para[0])}."
+    )
+
+
 def _perguntar_telegram(env: Path) -> None:
     import httpx
 
@@ -393,7 +491,7 @@ def configurar(
         False, "--sem-demonstracao", help="Não gera a Palavra do Dia de teste no fim."
     ),
     sem_perguntas: bool = typer.Option(
-        False, "--sem-perguntas", help="Não pergunta o servidor de LLM nem o Telegram."
+        False, "--sem-perguntas", help="Não pergunta o servidor de LLM nem o e-mail."
     ),
     reconstruir_indice: bool = typer.Option(
         False, "--reconstruir-indice", help="Reconstrói o índice mesmo que o atual sirva."
@@ -429,10 +527,15 @@ def _configurar(
     resumo: list[Linha] = [_linha_modo(ml), _etapa_env(raiz)]
     llm = _etapa_chaves(env, sem_perguntas)
     s = recarregar_settings()
-    resumo.append(_linha_telegram(s))
+    pendencias: list[str] = []
+    linha_email, pendencia_email = _linha_email(s)
+    resumo.append(linha_email)
+    if pendencia_email:
+        pendencias.append(pendencia_email)
+    if s.entrega.telegram:  # provisoriamente desligado: a entrega é por e-mail
+        resumo.append(_linha_telegram(s))
     resumo.append(_etapa_corpus(s))
     resumo.append(_etapa_indice(s, ml, reconstruir_indice))
-    pendencias: list[str] = []
     falhou = False
     if sem_demonstracao:
         resumo.append(Linha(_DEMONSTRACAO, "pulada", "--sem-demonstracao", "neutro"))
@@ -479,7 +582,11 @@ def _etapa_env(raiz: Path) -> Linha:
 def _etapa_chaves(env: Path, sem_perguntas: bool) -> SituacaoLLM:
     from fiat_lux.config import recarregar_settings
 
-    v.etapa("Servidor de LLM e Telegram", "opcional")
+    s = recarregar_settings()
+    titulo = (
+        "Servidor de LLM, e-mail e Telegram" if s.entrega.telegram else "Servidor de LLM e e-mail"
+    )
+    v.etapa(titulo, "opcional")
     interativo = not sem_perguntas and _terminal_interativo()
     if interativo:
         _perguntar_llm(env)
@@ -489,9 +596,35 @@ def _etapa_chaves(env: Path, sem_perguntas: bool) -> SituacaoLLM:
             "preencha o .env quando quiser"
         )
     llm = _cuidar_do_llm(recarregar_settings(), env, interativo)
-    if interativo:
+    if interativo and s.entrega.email:
+        _perguntar_email(env)
+    if interativo and s.entrega.telegram:
         _perguntar_telegram(env)
     return llm
+
+
+def _linha_email(s: Settings) -> tuple[Linha, str | None]:
+    """A linha do e-mail no resumo e, se a conta não foi aceita, a pendência. Confere servidor e
+    senha entrando na conta, sem enviar nada."""
+    from fiat_lux.entrega.email import ErroEmail
+    from fiat_lux.orquestracao.diaria import cliente_email
+
+    if not s.entrega.email:
+        return Linha("E-mail", "desligado", "[entrega] email = false", "neutro"), None
+    if not (s.email_configurado and s.email_destinatarios):
+        return Linha(
+            "E-mail", "não configurado", "a mensagem fica em saidas/ (guia, seção 9)", "neutro"
+        ), None
+    try:
+        with v.andamento(f"conferindo a conta de e-mail em {s.smtp_host} (sem enviar nada)"):
+            cliente_email(s).testar()
+    except ErroEmail as e:
+        return Linha("E-mail", "não conferido", e.motivo, "aviso"), (
+            f"E-mail ({e.motivo}): rode o configurar de novo, ou corrija SMTP_HOST, SMTP_PORT, "
+            "SMTP_USUARIO e SMTP_SENHA no .env (guia, seção 9)."
+        )
+    n = len(s.email_destinatarios)
+    return Linha("E-mail", "configurado", f"{n} destinatário(s) · conta conferida"), None
 
 
 def _linha_telegram(s: Settings) -> Linha:
@@ -598,7 +731,7 @@ def _fechar(resumo: list[Linha], pendencias: list[str], falhou: bool) -> None:
         v.comandos(_PROXIMOS_PASSOS),
         Text(),
         Text(
-            "Servidor de LLM e Telegram: rode de novo o configurar ou edite o .env (guia, seções 8 "
+            "Servidor de LLM e e-mail: rode de novo o configurar ou edite o .env (guia, seções 8 "
             "e 9). Agendar todo dia às 05:00: docs/guia-do-usuario.md, seção 10.",
             v.APAGADO,
         ),

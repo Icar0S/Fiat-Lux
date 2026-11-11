@@ -11,7 +11,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from pydantic import AliasChoices, BaseModel, Field, SecretStr, model_validator
+from pydantic import AliasChoices, BaseModel, Field, SecretStr, field_validator, model_validator
 from pydantic_settings import (
     BaseSettings,
     PydanticBaseSettingsSource,
@@ -189,9 +189,12 @@ class Noticias(BaseModel):
 
 
 class Entrega(BaseModel):
-    telegram: bool = True
+    """Canais da entrega. Provisoriamente, a Palavra do Dia vai por e-mail (SMTP, no `.env`); o
+    Telegram fica desligado até voltar a ser o canal principal (`telegram = true` o religa)."""
+
+    telegram: bool = False
     arquivo: bool = True
-    email: bool = False
+    email: bool = True
     horario_limite: str = "06:30"
     limite_telegram: int = 4096
 
@@ -254,9 +257,18 @@ class Settings(BaseSettings):
     smtp_port: int = Field(default=587, validation_alias=AliasChoices("SMTP_PORT"))
     smtp_usuario: str | None = Field(default=None, validation_alias=AliasChoices("SMTP_USUARIO"))
     smtp_senha: SecretStr | None = Field(default=None, validation_alias=AliasChoices("SMTP_SENHA"))
+    email_remetente_raw: str | None = Field(
+        default=None, validation_alias=AliasChoices("EMAIL_REMETENTE")
+    )
     email_destinatarios_raw: str = Field(
         default="", validation_alias=AliasChoices("EMAIL_DESTINATARIOS")
     )
+    email_admin_raw: str | None = Field(default=None, validation_alias=AliasChoices("EMAIL_ADMIN"))
+
+    @field_validator("smtp_port", mode="before")
+    @classmethod
+    def _porta_vazia(cls, v: Any) -> Any:
+        return 587 if v is None or (isinstance(v, str) and not v.strip()) else v
 
     @classmethod
     def settings_customise_sources(
@@ -290,6 +302,8 @@ class Settings(BaseSettings):
             self.llm.marcador_sem_raciocinio = self.llm_sem_raciocinio.strip()
         if self.llm_chave is not None and not self.llm_chave.get_secret_value().strip():
             self.llm_chave = None  # `FIATLUX_LLM_CHAVE=` vazio no .env conta como sem chave
+        if self.smtp_senha is not None and not self.smtp_senha.get_secret_value():
+            self.smtp_senha = None
         self.caminhos = self.caminhos.resolvidos(raiz_projeto())
         return self
 
@@ -300,6 +314,22 @@ class Settings(BaseSettings):
     @property
     def email_destinatarios(self) -> list[str]:
         return [c.strip() for c in self.email_destinatarios_raw.split(",") if c.strip()]
+
+    @property
+    def email_remetente(self) -> str:
+        """Quem envia: EMAIL_REMETENTE ou, sem ele, o usuário do SMTP (em geral, o próprio
+        endereço da conta)."""
+        return (self.email_remetente_raw or self.smtp_usuario or "").strip()
+
+    @property
+    def email_admin(self) -> str:
+        """Quem recebe os alertas de falha: EMAIL_ADMIN ou, sem ele, quem envia."""
+        return (self.email_admin_raw or "").strip() or self.email_remetente
+
+    @property
+    def email_configurado(self) -> bool:
+        """Há como enviar por e-mail: servidor SMTP e remetente (os destinatários são à parte)."""
+        return bool((self.smtp_host or "").strip() and "@" in self.email_remetente)
 
 
 @lru_cache(maxsize=1)
