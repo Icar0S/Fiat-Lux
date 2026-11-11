@@ -13,8 +13,10 @@ for _fluxo in (sys.stdout, sys.stderr):
     with contextlib.suppress(AttributeError, ValueError):
         _fluxo.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[union-attr]
 
-console = Console(stderr=False, highlight=False)
-erro = Console(stderr=True, highlight=False)
+# safe_box=False: bordas arredondadas também no console antigo do Windows e com a saída
+# redirecionada, iguais às que os scripts de configuração desenham
+console = Console(stderr=False, highlight=False, safe_box=False)
+erro = Console(stderr=True, highlight=False, safe_box=False)
 
 
 def falhar(msg: str, codigo: int = 1) -> NoReturn:

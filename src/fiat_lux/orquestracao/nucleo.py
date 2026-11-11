@@ -3,6 +3,7 @@ com verificação V1–V8 e até `max_tentativas_redacao` revisões."""
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 
 from fiat_lux.agente import consultas as mod_consultas
@@ -36,9 +37,23 @@ class VerificacaoReprovada(RuntimeError):
 
 @dataclass(slots=True)
 class Rastreio:
-    etapa: str = "inicio"
+    """Em que etapa a execução está (para o fallback dizer onde falhou). `ouvinte`, se houver,
+    recebe cada etapa nova: é assim que o `configurar` mostra o andamento da demonstração."""
+
+    _etapa: str = "inicio"
     avisos: list[str] = field(default_factory=list)
     tentativas_redacao: int = 0
+    ouvinte: Callable[[str], None] | None = None
+
+    @property
+    def etapa(self) -> str:
+        return self._etapa
+
+    @etapa.setter
+    def etapa(self, valor: str) -> None:
+        self._etapa = valor
+        if self.ouvinte is not None:
+            self.ouvinte(valor)
 
 
 @dataclass(slots=True)

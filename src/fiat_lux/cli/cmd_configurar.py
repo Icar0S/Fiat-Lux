@@ -2,7 +2,8 @@
 
 Os scripts `configurar.ps1` (Windows) e `configurar.sh` (Linux/macOS) chamam este comando
 depois de instalar as dependências, mas ele também roda sozinho. Pode ser repetido: cada etapa
-usa o que já existe e só faz o que falta (as regras estão em `fiat_lux.instalacao`).
+usa o que já existe e só faz o que falta (as regras estão em `fiat_lux.instalacao`). O visual
+(logo, etapas, andamento, resumo) vem de `fiat_lux.cli.visual`.
 """
 
 from __future__ import annotations
@@ -11,14 +12,16 @@ import datetime as dt
 import os
 import re
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 import typer
-from rich.markup import escape
-from rich.table import Table
+from rich.console import RenderableType
+from rich.text import Text
 
-from fiat_lux.cli.comum import console, falhar
+from fiat_lux.cli import visual as v
+from fiat_lux.cli.comum import falhar
 
 if TYPE_CHECKING:
     from fiat_lux.config import Settings
@@ -29,6 +32,7 @@ _SIM = {"s", "sim", "y", "yes"}
 _FORMATO_URL = re.compile(r"https?://[A-Za-z0-9.\-]+(:\d{1,5})?(/[A-Za-z0-9._~\-/]*)?")
 _FORMATO_CHAVE = re.compile(r"[A-Za-z0-9_.:\-]{8,}")
 _SEM_LLM = "a Palavra do Dia de verdade sai só com o Evangelho do dia e uma oração fixa"
+_DEMONSTRACAO = "Demonstração"
 
 # causa do ErroPermanente → (situação no resumo, o que fazer)
 _CAUSAS: dict[str, tuple[str, str]] = {
@@ -52,9 +56,25 @@ _CAUSAS: dict[str, tuple[str, str]] = {
     ),
 }
 
+_PROXIMOS_PASSOS = (
+    ("uv run fiatlux palavra diaria --dry-run", "gera de novo, sem enviar nada"),
+    ("uv run fiatlux palavra diaria", "arquiva em saidas/ e envia pelo Telegram"),
+    ("uv run fiatlux palavra semanal --dry-run", "Palavra da Semana, com gráfico"),
+    ("uv run fiatlux --help", "todos os comandos"),
+)
 
-def _etapa(titulo: str) -> None:
-    console.print(f"\n[bold cyan]==> {titulo}[/]")
+
+@dataclass(frozen=True, slots=True)
+class Linha:
+    """Uma linha do resumo. `nivel`: ok, aviso, erro ou neutro (dá o ícone e a cor)."""
+
+    item: str
+    situacao: str
+    detalhe: str
+    nivel: str = "ok"
+
+    def tupla(self) -> tuple[str, str, str, str]:
+        return (self.item, self.situacao, self.detalhe, self.nivel)
 
 
 def _terminal_interativo() -> bool:
@@ -79,7 +99,9 @@ def _terminal_interativo() -> bool:
 
 
 def _perguntar(texto: str, secreto: bool = False) -> str:
-    resposta: str = typer.prompt(texto, default="", show_default=False, hide_input=secreto)
+    resposta: str = typer.prompt(
+        v.prompt(texto), default="", show_default=False, hide_input=secreto
+    )
     return resposta.strip()
 
 
@@ -93,12 +115,10 @@ def _colar_url(env: Path, pedido: str) -> bool:
     if url.endswith("/v1"):
         url = url[: -len("/v1")]
     if not _FORMATO_URL.fullmatch(url):
-        console.print(
-            "[yellow]isso não parece uma URL (ex.: https://llm.exemplo.com); não gravei.[/]"
-        )
+        v.aviso("isso não parece uma URL (ex.: https://llm.exemplo.com); não gravei")
         return False
     gravar_variavel_env(env, "FIATLUX_LLM_URL", url)
-    console.print("[green]URL gravada no .env[/]")
+    v.ok("URL gravada no .env")
     return True
 
 
@@ -112,12 +132,10 @@ def _colar_chave(env: Path, pedido: str) -> bool:
     if not chave:
         return False
     if not _FORMATO_CHAVE.fullmatch(chave):
-        console.print(
-            "[yellow]isso não parece uma chave (sem espaços, 8 caracteres ou mais); não gravei.[/]"
-        )
+        v.aviso("isso não parece uma chave (sem espaços, 8 caracteres ou mais); não gravei")
         return False
     gravar_variavel_env(env, "FIATLUX_LLM_CHAVE", chave)
-    console.print("[green]chave gravada no .env[/]")
+    v.ok("chave gravada no .env")
     return True
 
 
@@ -128,7 +146,7 @@ def _perguntar_llm(env: Path) -> None:
 
     if ler_env(env).get("FIATLUX_LLM_URL") or os.environ.get("FIATLUX_LLM_URL"):
         return
-    console.print(
+    v.info(
         "Servidor de LLM (opcional): a reflexão, o ensinamento e a oração são escritos por um "
         "modelo de linguagem num servidor com a API HTTP descrita no guia (seção 8). Sem ele, "
         f"{_SEM_LLM}."
@@ -141,9 +159,10 @@ def _testar_servidor(s: Settings) -> SituacaoLLM:
     from fiat_lux.instalacao import testar_llm
     from fiat_lux.llm.fabrica import llm_configurado
 
-    if llm_configurado(s):
-        console.print(f"LLM: consultando {escape(s.llm.url)}/v1/models (sem gerar texto)…")
-    return testar_llm(s)
+    if not llm_configurado(s):
+        return testar_llm(s)
+    with v.andamento(f"consultando {s.llm.url}/v1/models (sem gerar texto)"):
+        return testar_llm(s)
 
 
 def _modelos_legiveis(sit: SituacaoLLM) -> str:
@@ -152,27 +171,31 @@ def _modelos_legiveis(sit: SituacaoLLM) -> str:
 
 def _explicar_llm(sit: SituacaoLLM) -> None:
     if sit.estado == "ok":
-        console.print(f"[green]LLM: o servidor respondeu[/] ({escape(_modelos_legiveis(sit))})")
+        v.ok(
+            Text.assemble(
+                ("LLM: o servidor respondeu ", "bold"), (f"({_modelos_legiveis(sit)})", v.APAGADO)
+            )
+        )
     elif sit.estado == "sem_servidor":
-        console.print(f"LLM: sem servidor configurado por enquanto; sem ele, {_SEM_LLM}.")
+        v.aviso(f"LLM: sem servidor configurado por enquanto; sem ele, {_SEM_LLM}.")
     elif sit.estado == "incerto":
-        console.print(
-            f"[yellow]LLM: não consegui confirmar o servidor agora[/] ({escape(sit.detalhe)}); "
-            "a demonstração tenta mesmo assim."
+        v.aviso(
+            f"LLM: não consegui confirmar o servidor agora ({sit.detalhe}); a demonstração "
+            "tenta mesmo assim."
         )
     else:
         _, fazer = _CAUSAS.get(sit.causa, ("", ""))
-        console.print(f"[yellow]LLM: {escape(sit.detalhe)}.[/]")
+        v.erro(f"LLM: {sit.detalhe}.")
         if fazer:
-            console.print(f"  O que fazer: {escape(fazer)}.")
+            v.dica(f"O que fazer: {fazer}.")
         for var in ("FIATLUX_LLM_URL", "FIATLUX_LLM_CHAVE"):
             if os.environ.get(var):
-                console.print(
-                    f"  Atenção: {var} também está nas variáveis de ambiente do sistema, que "
+                v.dica(
+                    f"Atenção: {var} também está nas variáveis de ambiente do sistema, que "
                     "valem mais que o .env."
                 )
     for aviso in sit.avisos:
-        console.print(f"  aviso: {escape(aviso)}")
+        v.aviso(aviso)
 
 
 def _cuidar_do_llm(s: Settings, env: Path, interativo: bool) -> SituacaoLLM:
@@ -206,7 +229,7 @@ def _escolher_chats(chats: list[tuple[str, str]]) -> list[str]:
         )
         return [cid] if cid else []
     for i, (cid, nome) in enumerate(chats, 1):
-        console.print(f"  {i}. {escape(nome)} (chat_id {cid})")
+        v.info(f"{i}. {nome} (chat_id {cid})")
     if len(chats) == 1:
         resposta = _perguntar("Enviar a Palavra do Dia para esta conversa? [S/n]").lower()
         return [chats[0][0]] if resposta in _SIM | {""} else []
@@ -225,9 +248,9 @@ def _perguntar_telegram(env: Path) -> None:
 
     valores = ler_env(env)
     if valores.get("TELEGRAM_BOT_TOKEN") and valores.get("TELEGRAM_CHAT_IDS"):
-        console.print("Telegram: já configurado.")
+        v.ok("Telegram: já configurado.")
         return
-    console.print(
+    v.info(
         "Telegram (opcional): para receber a Palavra do Dia no celular. Antes, crie um bot: no "
         "Telegram, fale com o @BotFather, envie /newbot e copie o token que ele devolve."
     )
@@ -237,23 +260,20 @@ def _perguntar_telegram(env: Path) -> None:
         "Cole o token do bot (não aparece na tela)", secreto=True
     )
     if not re.fullmatch(r"\d+:[A-Za-z0-9_\-]{30,}", token):
-        console.print(
-            "[yellow]isso não parece um token do BotFather (números:letras); não gravei.[/]"
-        )
+        v.aviso("isso não parece um token do BotFather (números:letras); não gravei")
         return
     cliente = ClienteTelegram(token, ())
     try:
         nome_bot = f"@{cliente.identidade().get('username', 'seu_bot')}"
         gravar_variavel_env(env, "TELEGRAM_BOT_TOKEN", token)
-        console.print(f"bot {nome_bot} encontrado; token gravado no .env")
+        v.ok(f"bot {nome_bot} encontrado; token gravado no .env")
         _perguntar(
             f"Agora, no Telegram, envie qualquer mensagem para {nome_bot} e tecle Enter aqui"
         )
         ids = _escolher_chats(chats_recentes(cliente.atualizacoes()))
         if not ids or not all(re.fullmatch(r"-?\d+", c) for c in ids):
-            console.print(
-                "[yellow]sem destinatário por enquanto; preencha TELEGRAM_CHAT_IDS no .env "
-                "quando quiser.[/]"
+            v.aviso(
+                "sem destinatário por enquanto; preencha TELEGRAM_CHAT_IDS no .env quando quiser"
             )
             return
         cliente.enviar_texto(
@@ -262,27 +282,23 @@ def _perguntar_telegram(env: Path) -> None:
         gravar_variavel_env(env, "TELEGRAM_CHAT_IDS", ",".join(ids))
         if not valores.get("TELEGRAM_ADMIN_CHAT_ID"):
             gravar_variavel_env(env, "TELEGRAM_ADMIN_CHAT_ID", ids[0])
-        console.print(
-            f"[green]Telegram configurado[/] ({len(ids)} destinatário(s)); mandei uma "
-            "mensagem de teste."
-        )
+        v.ok(f"Telegram configurado ({len(ids)} destinatário(s)); mandei uma mensagem de teste.")
     except (ErroTelegram, httpx.HTTPError) as e:
-        motivo = escape(str(e).replace(token, "<token>"))
-        console.print(f"[yellow]o Telegram respondeu com erro: {motivo}[/]")
+        v.aviso(f"o Telegram respondeu com erro: {str(e).replace(token, '<token>')}")
     finally:
         if cliente.http is not None:
             cliente.http.close()
 
 
-def _linha_llm(sit: SituacaoLLM) -> tuple[str, str, str]:
+def _linha_llm(sit: SituacaoLLM) -> Linha:
     if sit.estado == "ok":
-        return ("LLM", "ok", _modelos_legiveis(sit))
+        return Linha("LLM", "ok", _modelos_legiveis(sit))
     if sit.estado == "sem_servidor":
-        return ("LLM", "sem servidor", f"sem ele, {_SEM_LLM}")
+        return Linha("LLM", "sem servidor", f"sem ele, {_SEM_LLM}", "aviso")
     if sit.estado == "incerto":
-        return ("LLM", "não confirmado", sit.detalhe)
+        return Linha("LLM", "não confirmado", sit.detalhe, "aviso")
     situacao, _ = _CAUSAS.get(sit.causa, ("indisponível", ""))
-    return ("LLM", situacao, sit.detalhe)
+    return Linha("LLM", situacao, sit.detalhe, "aviso")
 
 
 def _pendencia_llm(sit: SituacaoLLM) -> str | None:
@@ -301,7 +317,7 @@ def _pendencia_llm(sit: SituacaoLLM) -> str | None:
     )
 
 
-def _linha_demonstracao(res: ResultadoDiaria, raiz: Path, offline: bool) -> tuple[str, str, str]:
+def _linha_demonstracao(res: ResultadoDiaria, raiz: Path, offline: bool) -> Linha:
     arquivo = "—"
     if res.caminho is not None:
         arquivo = str(
@@ -310,8 +326,8 @@ def _linha_demonstracao(res: ResultadoDiaria, raiz: Path, offline: bool) -> tupl
     if res.status == "rascunho":
         aprovadas = sum(c.ok for c in res.verificacao)
         origem = "textos de exemplo (offline)" if offline else "textos do LLM"
-        return (
-            "Demonstração",
+        return Linha(
+            _DEMONSTRACAO,
             "ok",
             f"verificação {aprovadas}/{len(res.verificacao)} · {origem} · {arquivo}",
         )
@@ -321,38 +337,41 @@ def _linha_demonstracao(res: ResultadoDiaria, raiz: Path, offline: bool) -> tupl
             if res.llm_indisponivel
             else f"falha em {res.etapa_falha}"
         )
-        return ("Demonstração", "contingência", f"{motivo} · {arquivo}")
-    return ("Demonstração", res.status, "veja os avisos acima")
+        return Linha(_DEMONSTRACAO, "contingência", f"{motivo} · {arquivo}", "aviso")
+    return Linha(_DEMONSTRACAO, res.status, "veja os avisos acima", "erro")
 
 
 def _demonstrar(s: Settings, ml: bool, usar_llm: bool) -> ResultadoDiaria:
     from zoneinfo import ZoneInfo
 
-    from fiat_lux.cli.cmd_palavra import imprimir_resultado_diaria
+    from fiat_lux.cli.cmd_palavra import anunciar, imprimir_resultado_diaria
     from fiat_lux.orquestracao.diaria import OpcoesDiaria, executar
 
-    _etapa("Demonstração: a Palavra do Dia de hoje, sem enviar nada (--dry-run)")
+    v.etapa("Demonstração", "a Palavra do Dia de hoje, sem enviar nada (--dry-run)")
     if usar_llm:
-        console.print(
+        v.info(
             "com o servidor de LLM: alguns minutos (ele atende um pedido por vez, e a Palavra do "
             "Dia faz de 6 a 10)"
         )
     else:
-        console.print(
+        v.info(
             "sem o LLM por enquanto: a demonstração usa o cliente offline, com textos de "
             "exemplo (o resto do caminho é o de verdade)"
         )
-    console.print("≈ 1 a 2 min de rerank neural em CPU" if ml else "busca lexical: ≈ 1 min")
+    v.info("rerank neural em CPU: 1 a 2 min" if ml else "busca lexical: cerca de 1 min")
     hoje = dt.datetime.now(ZoneInfo(s.geral.fuso)).date()
-    res = executar(
-        OpcoesDiaria(
-            data=hoje,
-            perfil=s.geral.perfil_padrao,
-            dry_run=True,
-            provedor_llm=None if usar_llm else "offline",
-        ),
-        s,
-    )
+    with v.andamento("começando") as andamento:
+        res = executar(
+            OpcoesDiaria(
+                data=hoje,
+                perfil=s.geral.perfil_padrao,
+                dry_run=True,
+                provedor_llm=None if usar_llm else "offline",
+                ao_mudar_etapa=lambda e: andamento.atualizar(v.ETAPAS.get(e, e)),
+            ),
+            s,
+        )
+    anunciar(res.status, andamento.decorrido)
     imprimir_resultado_diaria(res)
     return res
 
@@ -367,6 +386,9 @@ def configurar(
     reconstruir_indice: bool = typer.Option(
         False, "--reconstruir-indice", help="Reconstrói o índice mesmo que o atual sirva."
     ),
+    sem_cabecalho: bool = typer.Option(
+        False, "--sem-cabecalho", hidden=True, help="O script de configuração já mostrou o logo."
+    ),
 ) -> None:
     """Prepara o que falta (.env, LLM, base bíblica, índice) e gera uma Palavra do Dia de teste.
 
@@ -376,18 +398,20 @@ def configurar(
 
     # as etapas e o resumo dizem o que importa; avisos de log só repetiriam os mesmos fatos
     with so_erros_no_console():
-        _configurar(sem_demonstracao, sem_perguntas, reconstruir_indice)
+        _configurar(sem_demonstracao, sem_perguntas, reconstruir_indice, sem_cabecalho)
 
 
-Linha = tuple[str, str, str]  # (item, situação, detalhe) do resumo
-
-
-def _configurar(sem_demonstracao: bool, sem_perguntas: bool, reconstruir_indice: bool) -> None:
+def _configurar(
+    sem_demonstracao: bool, sem_perguntas: bool, reconstruir_indice: bool, sem_cabecalho: bool
+) -> None:
     from fiat_lux import instalacao as inst
     from fiat_lux.config import raiz_projeto, recarregar_settings
 
     raiz = raiz_projeto()
     os.chdir(raiz)  # o .env é lido da pasta atual
+    if not sem_cabecalho:
+        s0 = recarregar_settings()
+        v.cabecalho("configuração", [("pasta", str(raiz)), ("versão", s0.geral.versao_pipeline)])
     ml = inst.ml_instalado()
     env = raiz / ".env"
     resumo: list[Linha] = [_linha_modo(ml), _etapa_env(raiz)]
@@ -399,7 +423,7 @@ def _configurar(sem_demonstracao: bool, sem_perguntas: bool, reconstruir_indice:
     pendencias: list[str] = []
     falhou = False
     if sem_demonstracao:
-        resumo.append(("Demonstração", "pulada", "--sem-demonstracao"))
+        resumo.append(Linha(_DEMONSTRACAO, "pulada", "--sem-demonstracao", "neutro"))
     else:
         usar_llm = llm.estado in {"ok", "incerto"}
         res = _demonstrar(s, ml, usar_llm)
@@ -418,34 +442,35 @@ def _configurar(sem_demonstracao: bool, sem_perguntas: bool, reconstruir_indice:
 
 def _linha_modo(ml: bool) -> Linha:
     if ml:
-        return ("Modo", "completo", "modelos neurais (sentence-transformers)")
-    return (
+        return Linha("Modo", "completo", "modelos neurais (sentence-transformers)")
+    return Linha(
         "Modo",
         "leve",
         "busca lexical; para o completo, rode o script com -Modo completo (--completo)",
+        "neutro",
     )
 
 
 def _etapa_env(raiz: Path) -> Linha:
     from fiat_lux.instalacao import garantir_env
 
-    _etapa("Arquivo .env")
+    v.etapa("Arquivo .env")
     if garantir_env(raiz):
-        console.print("criado a partir do .env.example (o .env fica fora do git)")
-        return (".env", "criado", "a partir do .env.example")
-    console.print("já existe; mantido como está")
-    return (".env", "ok", "já existia")
+        v.ok("criado a partir do .env.example (o .env fica fora do git)")
+        return Linha(".env", "criado", "a partir do .env.example")
+    v.ok("já existe; mantido como está")
+    return Linha(".env", "ok", "já existia")
 
 
 def _etapa_chaves(env: Path, sem_perguntas: bool) -> SituacaoLLM:
     from fiat_lux.config import recarregar_settings
 
-    _etapa("Servidor de LLM e Telegram (opcional)")
+    v.etapa("Servidor de LLM e Telegram", "opcional")
     interativo = not sem_perguntas and _terminal_interativo()
     if interativo:
         _perguntar_llm(env)
     else:
-        console.print(
+        v.info(
             "sem perguntas agora (--sem-perguntas ou terminal não interativo); "
             "preencha o .env quando quiser"
         )
@@ -457,39 +482,54 @@ def _etapa_chaves(env: Path, sem_perguntas: bool) -> SituacaoLLM:
 
 def _linha_telegram(s: Settings) -> Linha:
     if s.telegram_bot_token and s.telegram_chat_ids:
-        return ("Telegram", "configurado", f"{len(s.telegram_chat_ids)} destinatário(s)")
-    return ("Telegram", "não configurado", "a mensagem fica em saidas/ (guia, seção 9)")
+        return Linha("Telegram", "configurado", f"{len(s.telegram_chat_ids)} destinatário(s)")
+    return Linha(
+        "Telegram", "não configurado", "a mensagem fica em saidas/ (guia, seção 9)", "neutro"
+    )
 
 
 def _etapa_corpus(s: Settings) -> Linha:
     from fiat_lux.instalacao import checar_corpus
 
     item = "Base bíblica"
-    _etapa(item)
+    v.etapa(item)
     ok, detalhe = checar_corpus(s)
     if ok:
-        console.print(f"[green]pronta[/]: {detalhe}")
-        return (item, "ok", f"{detalhe} (já existia)")
-    console.print(f"{detalhe}: montando agora (≈ 2 min na primeira vez)")
+        v.ok(f"pronta: {detalhe}")
+        return Linha(item, "ok", f"{detalhe} (já existia)")
+    v.info(f"{detalhe}: montando agora (cerca de 2 min na primeira vez)")
+    from fiat_lux.biblia.fontes import FonteAlterada
     from fiat_lux.cli import cmd_biblia
 
-    cmd_biblia.baixar(fonte=[], atualizar_lock=False)
-    cmd_biblia.ingerir()
+    try:
+        with v.andamento("baixando as fontes (o SHA-256 de cada uma é conferido)") as andamento:
+            contagem = {"n": 0}
+
+            def baixado(arquivo: str) -> None:
+                contagem["n"] += 1
+                andamento.atualizar(f"baixando as fontes · {contagem['n']} arquivos · {arquivo}")
+
+            r = cmd_biblia.baixar_todas(progresso=baixado)
+        v.ok(f"fontes: {r['baixados']} baixadas, {r['conferidos']} já conferidas")
+        with v.andamento("montando o corpus (limpeza, versificação, validação)"):
+            cmd_biblia.ingerir_corpus()
+    except (FonteAlterada, RuntimeError) as e:
+        falhar(str(e))
     ok, detalhe = checar_corpus(s)
     if not ok:
         falhar(
             f"a base bíblica não passou na validação: {detalhe}. "
             "Detalhes: uv run fiatlux biblia validar"
         )
-    console.print(f"[green]pronta[/]: {detalhe}")
-    return (item, "montada", detalhe)
+    v.ok(f"pronta: {detalhe}")
+    return Linha(item, "montada", detalhe)
 
 
 def _etapa_indice(s: Settings, ml: bool, reconstruir: bool) -> Linha:
     from fiat_lux import instalacao as inst
 
     item = "Índice de busca"
-    _etapa(item)
+    v.etapa(item)
     sit = inst.ler_situacao_indice(s.caminhos.biblia_db)
     motivo = (
         "reconstrução pedida (--reconstruir-indice)"
@@ -499,61 +539,56 @@ def _etapa_indice(s: Settings, ml: bool, reconstruir: bool) -> Linha:
         )
     )
     if motivo is None:
-        console.print(
-            f"[green]pronto[/]: {sit.embedder}, {sit.pericopes} perícopes "
-            f"(construído em {sit.construido_em})"
+        v.ok(
+            f"pronto: {sit.embedder}, {sit.pericopes} perícopes (construído em {sit.construido_em})"
         )
-        return (item, "ok", f"{sit.embedder}, {sit.pericopes} perícopes (já existia)")
+        return Linha(item, "ok", f"{sit.embedder}, {sit.pericopes} perícopes (já existia)")
     tempo = (
-        "≈ 40 min em CPU, uma vez só; o modelo (~1,1 GB) é baixado se faltar"
+        "cerca de 40 min em CPU, uma vez só; o modelo (~1,1 GB) é baixado se faltar"
         if ml
-        else "≈ 1 a 2 min"
+        else "1 a 2 min"
     )
-    console.print(f"{motivo}: construindo agora ({tempo})")
+    v.info(f"{motivo}: construindo agora ({tempo})")
     from fiat_lux.rag.indice import construir
 
-    r = construir(
-        s.caminhos.biblia_db,
-        "neural" if ml else "lexical",
-        s.rag.modelo_embeddings,
-        progresso=lambda m: console.print(m),
-    )
-    console.print(
-        f"[green]pronto[/]: {r['embedder']}, {r['pericopes']} perícopes em {r['segundos']} s"
-    )
-    return (item, "construído", f"{r['embedder']}, {r['pericopes']} perícopes")
+    with v.barra("calculando os vetores") as avancar:
+        r = construir(
+            s.caminhos.biblia_db,
+            "neural" if ml else "lexical",
+            s.rag.modelo_embeddings,
+            progresso=v.progresso_em_texto(avancar, v.info),
+        )
+    v.ok(f"pronto: {r['embedder']}, {r['pericopes']} perícopes em {r['segundos']} s")
+    return Linha(item, "construído", f"{r['embedder']}, {r['pericopes']} perícopes")
 
 
 def _fechar(resumo: list[Linha], pendencias: list[str], falhou: bool) -> None:
-    """Tabela do resumo, o que falta fazer, como usar e o veredito (última linha)."""
-    _etapa("Resumo")
-    tabela = Table(header_style="bold")
-    for coluna in ("Item", "Situação", "Detalhe"):
-        tabela.add_column(coluna)
-    for item, situacao, det in resumo:
-        tabela.add_row(item, situacao, escape(det))
-    console.print(tabela)
-    if pendencias:
-        console.print("\n[bold yellow]Falta para a Palavra do Dia sair completa:[/]")
-        for p in pendencias:
-            console.print(f"  • {escape(p)}")
-    console.print(
-        "\n[bold]Para usar[/] (na pasta do projeto):\n"
-        "  uv run fiatlux palavra diaria --dry-run    gera de novo, sem enviar nada\n"
-        "  uv run fiatlux palavra diaria              arquiva em saidas/ e envia pelo Telegram\n"
-        "  uv run fiatlux palavra semanal --dry-run   Palavra da Semana, com gráfico\n"
-        "  uv run fiatlux --help                      todos os comandos\n"
-        "Servidor de LLM e Telegram: rode de novo o configurar ou edite o .env (guia, seções 8 e 9).\n"
-        "Agendar todo dia às 05:00: docs/guia-do-usuario.md, seção 10."
-    )
+    """Tabela do resumo e o painel final: o veredito no título, o que falta e os próximos passos."""
+    v.etapa("Resumo")
+    v.resumo(linha.tupla() for linha in resumo)
+    corpo: list[RenderableType] = []
     if falhou:
-        console.print("\n[bold red]A demonstração falhou[/]: veja os avisos acima.")
+        titulo, nivel = "A demonstração falhou", "erro"
+        corpo.append(Text("Veja os avisos acima, corrija e rode o configurar de novo.", "bold"))
+    elif pendencias:
+        falta = "falta 1 item" if len(pendencias) == 1 else f"faltam {len(pendencias)} itens"
+        titulo, nivel = f"Quase pronto: {falta}", "aviso"
+        corpo.append(Text("A instalação está pronta. Para a Palavra do Dia sair completa:", "bold"))
+        corpo.append(v.marcadores(pendencias))
+    else:
+        titulo, nivel = "Tudo pronto", "ok"
+        corpo.append(Text("O Fiat Lux está configurado nesta máquina.", "bold"))
+    corpo += [
+        Text(),
+        Text("Próximos passos (na pasta do projeto)", f"bold {v.OURO}"),
+        v.comandos(_PROXIMOS_PASSOS),
+        Text(),
+        Text(
+            "Servidor de LLM e Telegram: rode de novo o configurar ou edite o .env (guia, seções 8 "
+            "e 9). Agendar todo dia às 05:00: docs/guia-do-usuario.md, seção 10.",
+            v.APAGADO,
+        ),
+    ]
+    v.painel(titulo, nivel, corpo)
+    if falhou:
         raise typer.Exit(1)
-    if not pendencias:
-        console.print("\n[bold green]Tudo pronto.[/]")
-        return
-    falta = "falta 1 item" if len(pendencias) == 1 else f"faltam {len(pendencias)} itens"
-    console.print(
-        f"\n[bold yellow]Instalação pronta, mas {falta} (acima) para a Palavra do Dia "
-        "sair completa.[/]"
-    )

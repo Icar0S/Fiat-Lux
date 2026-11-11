@@ -51,16 +51,117 @@ $VersaoMinimaUv = [version]'0.9.0'
 # de 260 do Windows. O aviso sai antes, com folga.
 $LimiteCaminho = 100
 
-function Write-Etapa([string]$Texto) {
-    Write-Host ''
-    Write-Host "==> $Texto" -ForegroundColor Cyan
+# Visual: o mesmo do fiatlux configurar (logo em degradê dourado, ● nas etapas, ✓ · ! ✗ nas
+# linhas). Cores só quando a saída é um terminal; RGB (24 bits) quando ele entende sequências
+# ANSI (Windows Terminal, VS Code, ConEmu/Cmder); senão, as 16 cores do console. NO_COLOR desliga.
+$script:Cor = (-not [Console]::IsOutputRedirected) -and (-not $env:NO_COLOR)
+$script:Rgb = $script:Cor -and ($Host.UI.SupportsVirtualTerminal -or $env:WT_SESSION -or $env:ConEmuANSI -eq 'ON' -or $env:TERM_PROGRAM -eq 'vscode')
+$script:Esc = [char]27
+$Ouro = '#F5A623'
+$Verde = '#6CC570'
+$Amarelo = '#E8C468'
+$Vermelho = '#E5534B'
+$Cinza = '#949494'
+
+function Write-Cor {
+    # $Texto na cor $Hex (RGB) ou, sem ANSI, na cor $Reserva do console; vazio = cor padrão.
+    param([string]$Texto, [string]$Hex = '', [string]$Reserva = '', [switch]$Negrito, [switch]$SemQuebra)
+    if ($script:Rgb) {
+        $codigos = @()
+        if ($Negrito) { $codigos += '1' }
+        if ($Hex) {
+            $r = [Convert]::ToInt32($Hex.Substring(1, 2), 16)
+            $g = [Convert]::ToInt32($Hex.Substring(3, 2), 16)
+            $b = [Convert]::ToInt32($Hex.Substring(5, 2), 16)
+            $codigos += "38;2;$r;$g;$b"
+        }
+        if ($codigos.Count) {
+            $Texto = "$($script:Esc)[$($codigos -join ';')m$Texto$($script:Esc)[0m"
+        }
+        Write-Host $Texto -NoNewline:$SemQuebra
+    } elseif ($script:Cor -and $Reserva) {
+        Write-Host $Texto -ForegroundColor $Reserva -NoNewline:$SemQuebra
+    } else {
+        Write-Host $Texto -NoNewline:$SemQuebra
+    }
 }
 
-function Write-Info([string]$Texto) { Write-Host "    $Texto" }
+function Get-Largura {
+    try { return [Math]::Max(40, [int]$Host.UI.RawUI.WindowSize.Width) } catch { return 100 }
+}
 
-function Write-Ok([string]$Texto) { Write-Host "    $Texto" -ForegroundColor Green }
+function Write-Logo {
+    $linhas = @(
+        '███████╗██╗ █████╗ ████████╗    ██╗     ██╗   ██╗██╗  ██╗',
+        '██╔════╝██║██╔══██╗╚══██╔══╝    ██║     ██║   ██║╚██╗██╔╝',
+        '█████╗  ██║███████║   ██║       ██║     ██║   ██║ ╚███╔╝ ',
+        '██╔══╝  ██║██╔══██║   ██║       ██║     ██║   ██║ ██╔██╗ ',
+        '██║     ██║██║  ██║   ██║       ███████╗╚██████╔╝██╔╝ ██╗',
+        '╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝ ╚═════╝ ╚═╝  ╚═╝'
+    )
+    # do claro ao âmbar, como luz que desce; a última linha, só de sombra, mais escura
+    $cores = @('#FFE08A', '#FFCF5C', '#F5B53A', '#F5A623', '#E3851B', '#9C5B1F')
+    $reservas = @('Yellow', 'Yellow', 'Yellow', 'DarkYellow', 'DarkYellow', 'DarkGray')
+    Write-Host ''
+    if ((Get-Largura) -lt 62) {
+        Write-Cor '  ✦ FIAT LUX' $Ouro 'DarkYellow' -Negrito
+        return
+    }
+    for ($i = 0; $i -lt $linhas.Count; $i++) {
+        Write-Cor ('  ' + $linhas[$i]) $cores[$i] $reservas[$i] -Negrito
+    }
+}
 
-function Write-Aviso([string]$Texto) { Write-Host "    aviso: $Texto" -ForegroundColor Yellow }
+function Write-Quadro([string]$Subtitulo, [string]$Pasta) {
+    # Quadro de bordas arredondadas, como o do fiatlux configurar: título, lema e a pasta.
+    $lema = '  ·  assistente diário e semanal da Palavra de Deus'
+    $rotulo = 'pasta   '
+    $maximo = (Get-Largura) - 8
+    if ($rotulo.Length + $Pasta.Length -gt $maximo) {
+        $resta = [Math]::Max(10, $maximo - $rotulo.Length - 1)
+        $Pasta = '…' + $Pasta.Substring($Pasta.Length - $resta)
+    }
+    if (2 + $Subtitulo.Length + $lema.Length -gt $maximo) { $lema = '' }
+    $largura = [Math]::Max(2 + $Subtitulo.Length + $lema.Length, $rotulo.Length + $Pasta.Length)
+    Write-Host ''
+    Write-Cor ('  ╭' + ('─' * ($largura + 2)) + '╮') $Ouro 'DarkYellow'
+    Write-Cor '  │ ' $Ouro 'DarkYellow' -SemQuebra
+    Write-Cor '✦ ' $Ouro 'DarkYellow' -Negrito -SemQuebra
+    Write-Cor $Subtitulo '' '' -Negrito -SemQuebra
+    Write-Cor $lema $Cinza 'DarkGray' -SemQuebra
+    Write-Host (' ' * [Math]::Max(0, $largura - 2 - $Subtitulo.Length - $lema.Length)) -NoNewline
+    Write-Cor ' │' $Ouro 'DarkYellow'
+    Write-Cor ('  │' + (' ' * ($largura + 2)) + '│') $Ouro 'DarkYellow'
+    Write-Cor '  │ ' $Ouro 'DarkYellow' -SemQuebra
+    Write-Cor $rotulo $Cinza 'DarkGray' -SemQuebra
+    Write-Host ($Pasta + (' ' * [Math]::Max(0, $largura - $rotulo.Length - $Pasta.Length))) -NoNewline
+    Write-Cor ' │' $Ouro 'DarkYellow'
+    Write-Cor ('  ╰' + ('─' * ($largura + 2)) + '╯') $Ouro 'DarkYellow'
+}
+
+function Write-Etapa([string]$Texto, [string]$Detalhe = '') {
+    Write-Host ''
+    Write-Cor ' ● ' $Ouro 'DarkYellow' -Negrito -SemQuebra
+    if ($Detalhe) {
+        Write-Cor $Texto '' '' -Negrito -SemQuebra
+        Write-Cor "  $Detalhe" $Cinza 'DarkGray'
+    } else {
+        Write-Cor $Texto '' '' -Negrito
+    }
+}
+
+function Write-Linha([string]$Icone, [string]$Hex, [string]$Reserva, [string]$Texto, [string]$HexTexto = '', [string]$ReservaTexto = '') {
+    Write-Cor "   $Icone " $Hex $Reserva -Negrito -SemQuebra
+    Write-Cor $Texto $HexTexto $ReservaTexto
+}
+
+function Write-Ok([string]$Texto) { Write-Linha '✓' $Verde 'Green' $Texto }
+
+function Write-Info([string]$Texto) { Write-Linha '·' $Cinza 'DarkGray' $Texto $Cinza 'DarkGray' }
+
+function Write-Aviso([string]$Texto) { Write-Linha '!' $Amarelo 'Yellow' $Texto $Amarelo 'Yellow' }
+
+function Write-Erro([string]$Texto) { Write-Linha '✗' $Vermelho 'Red' $Texto $Vermelho 'Red' }
 
 function Get-VersaoUv([string]$Exe) {
     # "uv 0.11.32 (3010295ae 2026-07-23 ...)" -> [version]0.11.32; $null se não roda.
@@ -202,8 +303,8 @@ $inicio = Get-Date
 $codigo = 0
 Push-Location -LiteralPath $PSScriptRoot
 try {
-    Write-Host 'Fiat Lux · configuração' -ForegroundColor White
-    Write-Info "pasta do projeto: $PSScriptRoot"
+    Write-Logo
+    Write-Quadro 'configuração' $PSScriptRoot
     if (-not (Test-Path -LiteralPath 'pyproject.toml')) {
         throw 'o configurar.ps1 precisa estar na pasta do Fiat Lux (ao lado do pyproject.toml)'
     }
@@ -217,25 +318,32 @@ try {
         Write-Aviso "o caminho desta pasta tem $($PSScriptRoot.Length) caracteres; acima de ~105, alguns arquivos do modo completo (torch) passam do limite de 260 do Windows. Prefira algo como C:\projetos\Fiat-Lux (ou habilite caminhos longos)."
     }
 
-    Write-Etapa 'uv (gerencia o Python e as dependências)'
+    Write-Etapa 'uv' 'gerencia o Python e as dependências'
     $uv = Find-Uv
     if (-not $uv) { $uv = Install-Uv }
-    Write-Ok "uv $($uv.Versao): $($uv.Caminho)"
+    Write-Ok "uv $($uv.Versao) · $($uv.Caminho)"
     $pastaUv = Split-Path -Parent $uv.Caminho
     if (Add-PathUsuario $pastaUv) {
         Write-Info "adicionei $pastaUv ao PATH do usuário: o comando uv passa a funcionar também nos próximos terminais"
     } else {
-        Write-Info 'o uv já está no PATH do usuário'
+        Write-Ok 'o uv já está no PATH do usuário'
     }
 
     Write-Etapa 'Python 3.12 e dependências'
     $m = Resolve-Modo $Modo
     Write-Info "modo $($m.Modo) ($($m.Motivo))"
     $argsSync = @('sync', '--frozen')
+    $temMl = Test-Path -LiteralPath '.venv\Lib\site-packages\sentence_transformers'
     if ($m.Modo -eq 'completo') {
         $argsSync += @('--extra', 'ml')
-        Write-Info 'o modo completo inclui o torch e o sentence-transformers (download grande na primeira vez)'
+        if (-not $temMl) {
+            Write-Info 'o modo completo inclui o torch e o sentence-transformers (download grande na primeira vez)'
+        }
     }
+    # sem download grande à vista (.venv pronta para o modo), o uv fica quieto e a linha de
+    # resultado é nossa; senão, as barras de progresso dele aparecem
+    $quieto = (Test-Path -LiteralPath '.venv') -and ($m.Modo -eq 'leve' -or $temMl)
+    if ($quieto) { $argsSync += '--quiet' }
     $ErrorActionPreference = 'Continue'
     & $uv.Caminho @argsSync
     $codigoSync = $LASTEXITCODE
@@ -243,9 +351,10 @@ try {
     if ($codigoSync -ne 0) {
         throw "o uv sync falhou (código $codigoSync; veja a mensagem acima). Se aparecer 'Acesso negado' (os error 5), feche o VS Code e outros programas que usam a .venv e rode o script de novo."
     }
+    Write-Ok 'dependências em dia (uv sync)'
 
-    Write-Etapa 'Projeto (fiatlux configurar)'
-    $argsCfg = @('run', '--no-sync', 'fiatlux', 'configurar')
+    # o fiatlux configurar continua com as próximas etapas; o logo já foi mostrado aqui
+    $argsCfg = @('run', '--no-sync', 'fiatlux', 'configurar', '--sem-cabecalho')
     if ($SemDemonstracao) { $argsCfg += '--sem-demonstracao' }
     if ($SemPerguntas) { $argsCfg += '--sem-perguntas' }
     if ($ReconstruirIndice) { $argsCfg += '--reconstruir-indice' }
@@ -255,7 +364,7 @@ try {
     $ErrorActionPreference = 'Stop'
 } catch {
     Write-Host ''
-    Write-Host "erro: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Erro "erro: $($_.Exception.Message)"
     $codigo = 1
 } finally {
     Pop-Location
@@ -265,9 +374,10 @@ $duracao = (Get-Date) - $inicio
 $tempo = '{0} min {1:00} s' -f [int][math]::Floor($duracao.TotalMinutes), $duracao.Seconds
 Write-Host ''
 if ($codigo -eq 0) {
-    # o veredito ("Tudo pronto." ou o que falta) é a última linha do fiatlux configurar, logo acima
-    Write-Host "Terminado em $tempo. Neste terminal o comando uv já funciona, e nos próximos também (no VS Code, feche e abra o VS Code antes)."
+    # o veredito está no painel final do fiatlux configurar, logo acima
+    Write-Cor "   Terminado em $tempo · o comando uv já funciona neste terminal e nos próximos (no VS Code, feche e abra o VS Code antes)" $Cinza 'DarkGray'
 } else {
-    Write-Host "A configuração parou com erro ($tempo). Corrija o que a mensagem indica e rode o script de novo: ele continua de onde parou." -ForegroundColor Red
+    Write-Erro "A configuração parou com erro ($tempo). Corrija o que a mensagem indica e rode o script de novo: ele continua de onde parou."
 }
+Write-Host ''
 exit $codigo

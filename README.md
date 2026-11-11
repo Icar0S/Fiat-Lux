@@ -62,8 +62,8 @@ O script faz só o que ainda falta, então pode ser repetido à vontade:
    conferido sem gerar texto (`GET /v1/models`): chave recusada, URL errada ou modelo que
    falta aparecem aqui, com o que fazer;
 4. monta a base bíblica e o índice de busca;
-5. gera a Palavra do Dia de hoje com `--dry-run` (nada é enviado) e mostra um resumo. A última
-   linha diz se está tudo pronto ou o que ainda falta.
+5. gera a Palavra do Dia de hoje com `--dry-run` (nada é enviado), com um indicador animado da
+   etapa e do tempo, e mostra um resumo; o painel final diz se está tudo pronto ou o que falta.
 
 O modo é escolhido sozinho: **completo** se os modelos neurais já estiverem instalados ou
 baixados, senão **leve**. Para escolher, use `.\configurar.ps1 -Modo completo` (ou `-Modo leve`);

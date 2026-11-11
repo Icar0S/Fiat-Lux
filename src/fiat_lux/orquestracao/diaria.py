@@ -11,6 +11,7 @@ import datetime as dt
 import json
 import time
 import traceback
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -53,6 +54,7 @@ class OpcoesDiaria:
     usar_gdelt: bool = True
     usar_rerank: bool | None = None
     destinatarios: list[str] | None = None
+    ao_mudar_etapa: Callable[[str], None] | None = None  # andamento (ex.: o do configurar)
 
 
 @dataclass(slots=True)
@@ -152,7 +154,7 @@ def executar(
     perfil = obter_perfil(op.perfil)
     llm = cliente_llm(s, op.provedor_llm, op.dry_run, res.avisos)
     res.llm = llm.nome
-    rast = Rastreio()
+    rast = Rastreio(ouvinte=op.ao_mudar_etapa)
     repo: Repositorio | None = None
     buscador: Buscador | None = None
     ctx: mod_contexto.ContextoDoDia | None = None

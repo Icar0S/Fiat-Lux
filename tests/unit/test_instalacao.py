@@ -269,11 +269,14 @@ def app_configurar(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     import typer
 
     from fiat_lux.cli.cmd_configurar import configurar
+    from fiat_lux.cli.comum import console
     from fiat_lux.config import obter_settings
     from fiat_lux.rag import indice
 
     app = typer.Typer()
     app.command()(configurar)
+    largura = console._width  # sem terminal, o Rich usaria a do console de quem roda os testes
+    console.width = 120
     (tmp_path / "config").mkdir()
     (tmp_path / "config" / "settings.toml").write_text("", encoding="utf-8")
     (tmp_path / ".env.example").write_bytes(EXEMPLO.encode())
@@ -304,6 +307,7 @@ def app_configurar(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(indice, "construir", nao_reconstruir)
     yield app
     obter_settings.cache_clear()
+    console._width = largura
 
 
 def _demonstracao_falsa(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, status: str) -> list[bool]:
@@ -336,11 +340,13 @@ def test_configurar_reaproveita_o_que_ja_existe(app_configurar, tmp_path: Path) 
     assert "LLM: sem servidor configurado por enquanto" in r.output
     assert "pronta: 28 checagens ok" in r.output
     assert "pronto: lexical:lsa256, 5 perícopes (construído em ontem)" in r.output
-    assert "Demonstração" not in r.output.split("==> Resumo")[0]
-    # sem servidor, a Palavra do Dia real sai incompleta: isso é dito, e o veredito não é
-    # "Tudo pronto"
-    assert "Falta para a Palavra do Dia sair completa" in r.output
-    assert r.output.rstrip().splitlines()[-1].startswith("Instalação pronta, mas falta 1 item")
+    assert "Demonstração" not in r.output.split("● Resumo")[0]
+    # sem servidor, a Palavra do Dia real sai incompleta: isso é dito, e o veredito (no título
+    # do painel final) não é "Tudo pronto"
+    final = r.output.split("● Resumo")[1]
+    assert "! Quase pronto: falta 1 item" in final and "Tudo pronto" not in final
+    assert "Para a Palavra do Dia sair completa" in final
+    assert "Servidor de LLM: rode o configurar de novo" in final
 
 
 def test_configurar_com_chave_recusada_explica_e_demonstra_offline(
@@ -360,7 +366,7 @@ def test_configurar_com_chave_recusada_explica_e_demonstra_offline(
     texto = " ".join(r.output.split())  # o Rich quebra linhas longas conforme a largura
     assert "LLM: o servidor de LLM recusou a chave" in texto
     assert "pô-la na FIATLUX_LLM_CHAVE" in texto
-    assert "sem chave válida" in r.output.split("==> Resumo")[1]
+    assert "sem chave válida" in r.output.split("● Resumo")[1]
     assert "Tudo pronto" not in r.output
 
 
@@ -383,7 +389,9 @@ def test_configurar_com_llm_ok_termina_com_tudo_pronto(
         "LLM: o servidor respondeu (classificação: qwen3:4b · seleção e redação: qwen3:8b)" in texto
     )
     assert "verificação 8/8" in r.output and "textos do LLM" in r.output
-    assert r.output.rstrip().splitlines()[-1] == "Tudo pronto."
+    final = r.output.split("● Resumo")[1]
+    assert "✦ Tudo pronto" in final and "Quase pronto" not in final
+    assert "uv run fiatlux palavra diaria --dry-run" in final  # próximos passos no painel
 
 
 def test_configurar_falha_quando_a_demonstracao_falha(
@@ -393,4 +401,12 @@ def test_configurar_falha_quando_a_demonstracao_falha(
     _demonstracao_falsa(monkeypatch, tmp_path, "falhou")
     r = CliRunner().invoke(app_configurar, [])
     assert r.exit_code == 1
-    assert "A demonstração falhou" in r.output
+    assert "✗ A demonstração falhou" in r.output.split("● Resumo")[1]
+
+
+def test_configurar_mostra_o_logo_e_o_script_pode_esconder(app_configurar) -> None:
+    com = CliRunner().invoke(app_configurar, ["--sem-demonstracao"])
+    sem = CliRunner().invoke(app_configurar, ["--sem-demonstracao", "--sem-cabecalho"])
+    assert com.exit_code == sem.exit_code == 0
+    assert "███████╗██╗ █████╗" in com.output and "✦ configuração" in com.output
+    assert "███████╗" not in sem.output and "● Arquivo .env" in sem.output

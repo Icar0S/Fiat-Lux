@@ -47,6 +47,14 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
   rerank (≈ 1 min em CPU) são pulados, porque o fallback sairia de qualquer jeito. Os avisos dizem
   o motivo uma vez, no topo ("LLM indisponível nesta execução: …"), e o alerta ao administrador
   traz o mesmo motivo.
+- **Visual do terminal:** o `configurar.ps1`, o `configurar.sh` e o `fiatlux configurar` abrem
+  com o logo FIAT LUX em degradê dourado e um quadro com a pasta; cada etapa tem `●` e linhas
+  com `✓ · ! ✗`; o que demora mostra um indicador animado com a etapa e o tempo (a
+  demonstração acompanha o pipeline: notícias, busca, redação…) ou uma barra de progresso
+  (índice); o resumo é uma tabela com ícones, e o veredito, um painel com os próximos passos.
+  A Palavra do Dia aparece formatada num painel (títulos, citações e listas; links pelo nome
+  da fonte, sem a URL inteira) e a verificação V1 a V8 numa linha. RGB onde o terminal
+  entende ANSI, 16 ou 256 cores nos outros; sem terminal ou com `NO_COLOR`, texto simples.
 - Guia e README: configuração automática como caminho recomendado, o contrato da API do LLM
   (guia, seção 8) e problemas novos na tabela (uv fora do PATH, política de execução, PATH no VS
   Code, `.venv` em uso, chave recusada, URL errada, servidor inalcançável, modelo que falta,

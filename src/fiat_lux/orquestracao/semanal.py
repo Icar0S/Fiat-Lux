@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime as dt
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
@@ -111,6 +112,7 @@ class OpcoesSemanal:
     sem_envio: bool = False
     provedor_llm: str | None = None
     usar_rerank: bool | None = None
+    ao_mudar_etapa: Callable[[str], None] | None = None  # andamento (ex.: o da CLI)
 
 
 def sabado_da_semana(semana_iso: str) -> dt.date:
@@ -139,7 +141,7 @@ def executar(
     perfil = obter_perfil(op.perfil)
     llm = cliente_llm(s, op.provedor_llm, op.dry_run, res.avisos)
     res.llm = llm.nome
-    rast = Rastreio()
+    rast = Rastreio(ouvinte=op.ao_mudar_etapa)
     repo = buscador = None
     ctx = None
     foto = None

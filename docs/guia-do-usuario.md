@@ -96,21 +96,47 @@ bloqueia por padrão) e não muda nada no sistema. O script faz só o que ainda 
 | Índice de busca | constrói o índice do modo escolhido (lexical ou neural) | só confere |
 | Demonstração | `palavra diaria --dry-run` de hoje, com a verificação V1 a V8; nada é enviado. Com o servidor respondendo, os textos são do LLM; sem servidor, ou se a conferência falhou (chave recusada, URL errada), saem do cliente offline, com textos de exemplo | gera de novo |
 
-No fim, um resumo mostra a situação de cada item. Exemplo de um clone novo, sem servidor de LLM:
+No fim, um resumo mostra a situação de cada item, e um painel traz o veredito no título: `✦ Tudo
+pronto` só aparece quando nada falta; senão, `! Quase pronto`, com o que falta e como resolver.
+Exemplo de um clone novo, sem servidor de LLM (no terminal, com cores):
 
 ```
-│ Modo            │ leve            │ busca lexical; para o completo, rode o script com -Modo completo (--completo)                    │
-│ .env            │ criado          │ a partir do .env.example                                                                         │
-│ LLM             │ sem servidor    │ sem ele, a Palavra do Dia de verdade sai só com o Evangelho do dia e uma oração fixa             │
-│ Telegram        │ não configurado │ a mensagem fica em saidas/ (guia, seção 9)                                                       │
-│ Base bíblica    │ montada         │ 28 checagens ok                                                                                  │
-│ Índice de busca │ construído      │ lexical:lsa256, 16703 perícopes                                                                  │
-│ Demonstração    │ ok              │ verificação 8/8 · textos de exemplo (offline) · data\cache\dry-run\2026-11-10-diaria-catolico.md │
+ ● Resumo
+   ╭───┬─────────────────┬─────────────────┬──────────────────────────────────────────────────────────╮
+   │   │ Item            │ Situação        │ Detalhe                                                  │
+   ├───┼─────────────────┼─────────────────┼──────────────────────────────────────────────────────────┤
+   │ · │ Modo            │ leve            │ busca lexical; para o completo, rode o script com -Modo  │
+   │   │                 │                 │ completo (--completo)                                    │
+   │ ✓ │ .env            │ criado          │ a partir do .env.example                                 │
+   │ ! │ LLM             │ sem servidor    │ sem ele, a Palavra do Dia de verdade sai só com o        │
+   │   │                 │                 │ Evangelho do dia e uma oração fixa                       │
+   │ · │ Telegram        │ não configurado │ a mensagem fica em saidas/ (guia, seção 9)               │
+   │ ✓ │ Base bíblica    │ montada         │ 28 checagens ok                                          │
+   │ ✓ │ Índice de busca │ construído      │ lexical:lsa256, 16703 perícopes                          │
+   │ ✓ │ Demonstração    │ ok              │ verificação 8/8 · textos de exemplo (offline) ·          │
+   │   │                 │                 │ data\cache\dry-run\2026-11-10-diaria-catolico.md         │
+   ╰───┴─────────────────┴─────────────────┴──────────────────────────────────────────────────────────╯
+
+ ╭─ ! Quase pronto: falta 1 item ────────────────────────────────────────────────────────────────────╮
+ │                                                                                                   │
+ │  A instalação está pronta. Para a Palavra do Dia sair completa:                                   │
+ │    • Servidor de LLM: rode o configurar de novo e informe a URL e a chave quando ele perguntar    │
+ │      (ou preencha FIATLUX_LLM_URL e FIATLUX_LLM_CHAVE no .env). Sem ele, a Palavra do Dia de      │
+ │      verdade sai só com o Evangelho do dia e uma oração fixa.                                     │
+ │                                                                                                   │
+ │  Próximos passos (na pasta do projeto)                                                            │
+ │  uv run fiatlux palavra diaria --dry-run   gera de novo, sem enviar nada                          │
+ │  uv run fiatlux palavra diaria             arquiva em saidas/ e envia pelo Telegram               │
+ │  …                                                                                                │
+ │                                                                                                   │
+ ╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-Depois da tabela vem o que ainda falta para a Palavra do Dia sair completa (no exemplo, o
-servidor de LLM; com a chave recusada, conferir a chave), com o que fazer. A última linha é o
-veredito: `Tudo pronto.` só aparece quando nada falta.
+Durante as etapas, cada linha começa com um ícone (`✓` feito, `·` informação, `!` aviso, `✗`
+erro). O que demora (baixar e montar a base, construir o índice, gerar a Palavra do Dia) mostra um
+indicador animado com a etapa e o tempo decorrido; com a saída redirecionada para um arquivo, as
+animações viram linhas simples e as cores somem. Para tirar as cores no terminal, defina
+`NO_COLOR=1`.
 
 **Modo.** Sem opção, o script usa o **completo** se os modelos neurais já estiverem instalados
 na `.venv` ou baixados em `.cache/huggingface`, e o **leve** nos outros casos. Para escolher:

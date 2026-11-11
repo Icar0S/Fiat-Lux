@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import pickle
+from collections.abc import Callable
 from pathlib import Path
+from typing import Any
 
 import typer
 
@@ -16,6 +18,18 @@ def _caminho_resultado() -> Path:
     from fiat_lux.config import obter_settings
 
     return obter_settings().caminhos.interim / "construcao.pkl"
+
+
+def baixar_todas(progresso: Callable[[str], None] | None = None) -> dict[str, int]:
+    """O núcleo de `baixar` (todas as fontes, sem aceitar hash novo) sem saída própria: o
+    `configurar` mostra o andamento do seu jeito. `FonteAlterada` sobe para quem chamou."""
+    from fiat_lux.biblia.fontes import baixar_fontes
+    from fiat_lux.config import obter_settings, raiz_projeto
+
+    s = obter_settings()
+    return baixar_fontes(
+        s.caminhos.raw, raiz_projeto() / "fontes.lock.json", None, False, progresso=progresso
+    )
 
 
 @app.command()
@@ -46,9 +60,9 @@ def baixar(
     console.print(f"[green]ok[/]: {r['baixados']} baixados, {r['conferidos']} conferidos")
 
 
-@app.command()
-def ingerir() -> None:
-    """Normaliza, limpa, alinha a versificação e grava data/processed/biblia.sqlite."""
+def ingerir_corpus() -> tuple[Any, list[Any]]:
+    """O núcleo de `ingerir` sem saída própria: monta o `biblia.sqlite`, grava o resultado e o
+    relatório e devolve (resultado, checagens). Fonte ausente ou alterada: `RuntimeError`."""
     from fiat_lux.biblia import banco
     from fiat_lux.biblia.construcao import construir_corpus
     from fiat_lux.biblia.fontes import verificar_fontes
@@ -58,18 +72,32 @@ def ingerir() -> None:
     s = obter_settings()
     problemas = verificar_fontes(s.caminhos.raw, raiz_projeto() / "fontes.lock.json")
     if problemas:
-        falhar(
+        raise RuntimeError(
             "fontes ausentes ou alteradas — rode `fiatlux biblia baixar`:\n  "
             + "\n  ".join(problemas[:10])
         )
-    with console.status("construindo o corpus…"):
-        res = construir_corpus(s.caminhos.raw, dir_config(), s.caminhos.biblia_db)
+    res = construir_corpus(s.caminhos.raw, dir_config(), s.caminhos.biblia_db)
     s.caminhos.interim.mkdir(parents=True, exist_ok=True)
     _caminho_resultado().write_bytes(pickle.dumps(res))
     con = banco.conectar(s.caminhos.biblia_db, somente_leitura=True)
     checagens = checar_contagens(res) + checar_banco(con)
     con.close()
     gerar_relatorio(res, checagens, s.caminhos.relatorio_corpus)
+    return res, checagens
+
+
+@app.command()
+def ingerir() -> None:
+    """Normaliza, limpa, alinha a versificação e grava data/processed/biblia.sqlite."""
+    from fiat_lux.config import obter_settings
+
+    s = obter_settings()
+    try:
+        with console.status("construindo o corpus…"):
+            res, checagens = ingerir_corpus()
+    except RuntimeError as e:
+        falhar(str(e))
+        return
     cob = res.cobertura
     console.print(
         f"[green]ok[/]: MS {res.contagens_finais['ms'][2]} versículos, BLIVRE {res.contagens_finais['blivre'][2]}; "

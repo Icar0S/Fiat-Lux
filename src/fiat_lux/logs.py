@@ -64,6 +64,11 @@ def configurar_logs(json: bool = False, nivel: str = "INFO") -> None:
     )
 
 
+def logs_detalhados() -> bool:
+    """Os logs foram pedidos no console (--verboso ou --json-logs)?"""
+    return bool(_atual["json"]) or _atual["nivel"] == "DEBUG"
+
+
 @contextlib.contextmanager
 def so_erros_no_console() -> Iterator[None]:
     """Para comandos que resumem os avisos no fim (`fiatlux configurar`): no console, só erros,
