@@ -6,6 +6,26 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
 
 ### Mudado
 
+- **Entrega por e-mail, com o Telegram provisoriamente desligado:** a Palavra do Dia sai da
+  conta de e-mail de quem envia, por SMTP (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USUARIO`,
+  `SMTP_SENHA`, `EMAIL_REMETENTE`, `EMAIL_DESTINATARIOS`, `EMAIL_ADMIN`), um e-mail por
+  destinatário, em HTML com o texto puro junto; a Palavra da Semana leva o gráfico em anexo.
+  STARTTLS na 587 ou SSL na 465, e sem TLS a senha não vai. Os alertas de falha e de
+  contingência vão ao `EMAIL_ADMIN` (sem ele, a quem envia). `[entrega] telegram = false` e
+  `email = true` são o novo padrão; `telegram = true` religa o Telegram, cujo código continua.
+  O `fiatlux configurar` pergunta o e-mail no lugar do token do bot: no Gmail, preenche
+  `smtp.gmail.com` e explica a senha de app; nos outros, pergunta servidor e porta. Ele entra na
+  conta e manda um e-mail de teste antes de gravar, e depois confere a conta a cada execução,
+  sem enviar nada. Os workflows recebem os secrets do e-mail. No banco de estado (que vai para a
+  branch `estado`), o destinatário de e-mail fica só como `email:` e 12 caracteres do SHA-256 do
+  endereço ([ADR-007](docs/adr/007-telegram-e-markdown.md), adendo).
+- **Redação pedida em estrutura, não em contagem de palavras:** o molde da resposta mostra a
+  descrição de cada campo (`"<um parágrafo de 3 a 4 frases sobre o momento>"`), e a reflexão é
+  pedida como a lista dos 4 parágrafos, cada um com o seu papel (a passagem principal com o
+  `{{P1}}`, o Evangelho, o momento, o convite), juntada depois num texto só. Uma revisão por
+  comprimento diz quanto falta, o que acrescentar a cada parágrafo e manda o texto anterior para
+  ampliar; os campos que já estavam certos voltam com o pedido de repeti-los iguais (reescritos
+  do zero, encolhiam).
 - **LLM local, sem APIs de terceiros ([ADR-012](docs/adr/012-llm-local-por-api-http.md)):** o
   Fiat Lux fala com um servidor de LLM pela API HTTP (`POST /v1/chat`, `GET /v1/models`,
   `Authorization: Bearer`). URL, chave e modelos ficam só no `.env` (`FIATLUX_LLM_URL`,
@@ -78,6 +98,21 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
 
 ### Corrigido
 
+- **Toda Palavra do Dia com o LLM local saía em contingência:** os modelos pequenos
+  (`qwen2.5-coder:7b`, `qwen3:8b`) escolhiam passagens válidas, mas respondiam com a referência
+  ("Lc 17,16") ou o texto do candidato no lugar do id, e nunca escreviam o `{{P1}}`. Agora a
+  referência ou o texto de um único candidato da lista valem como o id dele, e o `{{P1}}`
+  esquecido entra depois da frase da reflexão que cita a passagem principal (ou fala do livro
+  dela; sem nenhuma, depois da primeira frase); repetições viram a referência, e marcadores
+  desconhecidos saem ([ADR-004](docs/adr/004-conjunto-fechado-placeholders.md), adendo). O texto
+  bíblico continua vindo só da base, e V2/V3 continuam bloqueando o que estiver fora do conjunto.
+  Medido em 11/11/2026, com coleta de notícias: com o `qwen3:8b` sem raciocínio na seleção, na
+  redação e no juiz (e o `qwen2.5-coder:7b` na classificação), a Palavra do Dia passou na
+  verificação (8/8) em 7 min 29 s; com o `qwen2.5-coder:7b` em tudo, só em 1 de 3 execuções, porque
+  a reflexão fica abaixo do mínimo (guia, seção 8, "Qualidade com modelos pequenos"). Os workflows
+  passam também `FIATLUX_LLM_MODELO_JUIZ` e `FIATLUX_LLM_SEM_RACIOCINIO` (variables).
+- A reflexão que vem num bloco só é dividida em parágrafos de 3 frases na montagem (antes de o
+  `{{P1}}` virar a citação, que tem pontos dentro).
 - **Execução presa por mais de uma hora com o servidor de LLM atrás de um proxy:** com um
   modelo que raciocina (cerca de 3 min por pedido) e um proxy que desiste em 120 s (Cloudflare,
   524), cada pedido era cortado e repetido duas vezes, e o servidor, que continua gerando depois

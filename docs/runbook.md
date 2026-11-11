@@ -1,8 +1,9 @@
 # Runbook de operação (plano §12)
 
 Diagnóstico rápido: `fiatlux estado execucoes --ultimos 10` mostra status, etapa da falha,
-duração e custo de cada execução. Toda falha ou fallback também gera uma mensagem ao
-`TELEGRAM_ADMIN_CHAT_ID`.
+duração e custo de cada execução. Toda falha ou fallback também gera um e-mail `Fiat Lux: alerta`
+para o `EMAIL_ADMIN` (sem ele, para quem envia); com o Telegram ligado e sem e-mail, uma mensagem
+ao `TELEGRAM_ADMIN_CHAT_ID`.
 
 | Sintoma | O que o sistema já fez | O que fazer |
 |---|---|---|
@@ -11,6 +12,9 @@ duração e custo de cada execução. Toda falha ou fallback também gera uma me
 | Referência litúrgica não reconhecida | Aviso no log; a leitura aparece com a referência da API | Acrescentar o caso a `eval/golden/referencias.yaml` (`scripts/gerar_golden_referencias.py`) e ajustar `biblia/referencias.py` |
 | GDELT 429/5xx | Não insiste nos demais escopos; usa RSS; o medidor perde o tom | Normal em IPs compartilhados; ajustar `intervalo_s` e consultas em `config/fontes_noticias.yaml` |
 | RSS de um veículo falhou | Os demais feeds seguem; aviso no log | Validar a URL; trocar o feed na configuração |
+| E-mail: senha recusada (535), servidor inalcançável ou sem TLS | Mensagem arquivada, não enviada; status `falhou`; aviso com o destinatário mascarado (`ma…@exemplo.com`) | Conferir `SMTP_HOST`, `SMTP_PORT` e `SMTP_SENHA` (no Gmail, senha de app); `fiatlux configurar` entra na conta sem enviar nada |
+| Seleção do LLM com a referência no lugar do id | Aceitou a referência (ou o texto) do candidato como o id dele; o log tem `selecao_ids_pela_referencia` | Nada; se o modelo insistir em passagens fora da lista, cai na seleção pelo escore |
+| Redação sem o `{{P1}}` ou com marcador repetido | Pôs o `{{P1}}` depois da frase que cita a passagem principal (ou da primeira frase) e tirou as repetições; log `redacao_marcadores_ajustados` | Nada; o texto bíblico continua vindo da base |
 | Telegram 400 | Reenviou a parte sem formatação | Revisar o escape HTML em `entrega/telegram.py` |
 | Telegram 401/403 | Mensagem arquivada, não enviada; status `falhou` | Conferir `TELEGRAM_BOT_TOKEN` e se o bot foi iniciado no chat |
 | Índice bíblico ausente no CI | `fiatlux indice baixar-release` | Rodar o workflow `construir-indice.yml` |

@@ -18,7 +18,7 @@ Fiat Lux funcionando.
 6. [Perfis: católico, evangélico, ecumênico](#6-perfis-católico-evangélico-ecumênico)
 7. [Configuração](#7-configuração)
 8. [Ligando o LLM](#8-ligando-o-llm)
-9. [Recebendo no Telegram](#9-recebendo-no-telegram)
+9. [Recebendo por e-mail](#9-recebendo-por-e-mail)
 10. [Agendamento](#10-agendamento)
 11. [Acompanhamento e calibração](#11-acompanhamento-e-calibração)
 12. [Privacidade](#12-privacidade)
@@ -39,7 +39,8 @@ Todo dia, às 05:00 (fuso de Fortaleza), o Fiat Lux:
    que escolha, entre esses candidatos, a passagem principal e duas complementares, e que
    escreva a reflexão, o ensinamento, um gesto concreto e uma oração;
 5. **verifica** tudo (citações, neutralidade, sensibilidade, tamanho) antes de entregar;
-6. entrega no **Telegram** e arquiva em Markdown em `saidas/`.
+6. entrega por **e-mail** e arquiva em Markdown em `saidas/` (o Telegram, que era o canal
+   principal, está provisoriamente desligado; [seção 9](#9-recebendo-por-e-mail)).
 
 Aos sábados, às 17:00, sai a **Palavra da Semana**: tendência do medidor em 7 dias (com
 gráfico), temas que voltaram, Evangelho do domingo, uma passagem para a semana, um plano de
@@ -91,7 +92,7 @@ bloqueia por padrão) e não muda nada no sistema. O script faz só o que ainda 
 | uv | procura no PATH e onde os instaladores costumam deixá-lo (instalador oficial, winget, scoop, chocolatey, `pip`/`pipx` de qualquer Python, conda); se não achar, instala o oficial. Põe a pasta dele no PATH do usuário | só confere |
 | Dependências | `uv sync` (o uv instala o Python 3.12 se faltar); no modo completo, com o extra `ml` | só confere (menos de 1 s) |
 | `.env` | cria a partir do `.env.example` | mantém como está |
-| Servidor de LLM e Telegram (opcional) | pergunta a URL e a chave do servidor de LLM (a chave não aparece na tela) e **confere os dois** com `GET /v1/models`, sem gerar texto ([seção 8](#8-ligando-o-llm)); oferece configurar o Telegram ([seção 9](#9-recebendo-no-telegram)) | não pergunta de novo, mas confere o servidor outra vez |
+| Servidor de LLM e e-mail (opcional) | pergunta a URL e a chave do servidor de LLM (a chave não aparece na tela) e **confere os dois** com `GET /v1/models`, sem gerar texto ([seção 8](#8-ligando-o-llm)); oferece configurar o e-mail: a sua conta, a senha e quem recebe, e só grava depois de entrar na conta e mandar um e-mail de teste ([seção 9](#9-recebendo-por-e-mail)) | não pergunta de novo; confere o servidor de LLM e entra na conta de e-mail (sem enviar nada) |
 | Base bíblica | baixa as fontes, confere o SHA-256, ingere e valida (28 checagens) | só valida |
 | Índice de busca | constrói o índice do modo escolhido (lexical ou neural) | só confere |
 | Demonstração | `palavra diaria --dry-run` de hoje, com a verificação V1 a V8; nada é enviado. Com o servidor respondendo, os textos são do LLM; sem servidor, ou se a conferência falhou (chave recusada, URL errada), saem do cliente offline, com textos de exemplo | gera de novo |
@@ -110,7 +111,7 @@ Exemplo de um clone novo, sem servidor de LLM (no terminal, com cores):
    │ ✓ │ .env            │ criado          │ a partir do .env.example                                 │
    │ ! │ LLM             │ sem servidor    │ sem ele, a Palavra do Dia de verdade sai só com o        │
    │   │                 │                 │ Evangelho do dia e uma oração fixa                       │
-   │ · │ Telegram        │ não configurado │ a mensagem fica em saidas/ (guia, seção 9)               │
+   │ · │ E-mail          │ não configurado │ a mensagem fica em saidas/ (guia, seção 9)               │
    │ ✓ │ Base bíblica    │ montada         │ 28 checagens ok                                          │
    │ ✓ │ Índice de busca │ construído      │ lexical:lsa256, 16703 perícopes                          │
    │ ✓ │ Demonstração    │ ok              │ verificação 8/8 · textos de exemplo (offline) ·          │
@@ -126,7 +127,7 @@ Exemplo de um clone novo, sem servidor de LLM (no terminal, com cores):
  │                                                                                                   │
  │  Próximos passos (na pasta do projeto)                                                            │
  │  uv run fiatlux palavra diaria --dry-run   gera de novo, sem enviar nada                          │
- │  uv run fiatlux palavra diaria             arquiva em saidas/ e envia pelo Telegram               │
+ │  uv run fiatlux palavra diaria             arquiva em saidas/ e envia por e-mail                  │
  │  …                                                                                                │
  │                                                                                                   │
  ╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
@@ -145,7 +146,7 @@ na `.venv` ou baixados em `.cache/huggingface`, e o **leve** nos outros casos. P
 |---|---|---|
 | `-Modo leve` / `-Modo completo` | `--leve` / `--completo` | escolhe o modo (o leve numa `.venv` completa tira o torch e troca o índice neural pelo lexical) |
 | `-SemDemonstracao` | `--sem-demonstracao` | não gera a Palavra do Dia de teste |
-| `-SemPerguntas` | `--sem-perguntas` | não pergunta o servidor de LLM nem o Telegram (sem terminal interativo, já não pergunta) |
+| `-SemPerguntas` | `--sem-perguntas` | não pergunta o servidor de LLM nem o e-mail (sem terminal interativo, já não pergunta) |
 | `-ReconstruirIndice` | `--reconstruir-indice` | refaz o índice mesmo que o atual sirva |
 
 Tempos medidos em 09 e 10/11/2026 (Windows 11, CPU): clone novo no modo leve, **3 min**; máquina
@@ -289,11 +290,11 @@ uv run fiatlux palavra semanal --dry-run                       # Palavra da Sema
 
 Sem `--dry-run`, a mensagem é arquivada em `saidas/AAAA/MM/AAAA-MM-DD.md` (a semanal, em
 `saidas/AAAA/semanas/AAAA-Wnn.md`), registrada no banco de estado (`data/estado/estado.sqlite`)
-e, se o Telegram estiver configurado, enviada:
+e, se o e-mail estiver configurado ([seção 9](#9-recebendo-por-e-mail)), enviada:
 
 ```bash
 uv run fiatlux palavra diaria               # arquiva e envia
-uv run fiatlux palavra diaria --sem-envio   # arquiva, mas não envia pelo Telegram
+uv run fiatlux palavra diaria --sem-envio   # arquiva, mas não envia
 ```
 
 Cada dia é entregue **uma vez** por destinatário (idempotência). Se rodar de novo, aparece
@@ -348,7 +349,7 @@ Todos começam com `uv run fiatlux`. Use `--help` em qualquer nível. As opçõe
 | `noticias coletar` | coleta, agrupa, classifica e mede | `--data`, `--sem-gdelt`, `--sem-llm`, `--llm` |
 | `noticias medir` | recalcula com as notícias já coletadas (sem rede) | `--data`, `--com-llm` |
 | `estado execucoes` / `mensagens` | histórico de execuções e mensagens | `--ultimos N` |
-| `estado feedback` | lê as respostas 👍/👎 no Telegram | — |
+| `estado feedback` | lê as respostas 👍/👎 no Telegram (só com o Telegram ligado) | — |
 | `estado percepcao DATA NOTA` | registra o quanto o dia "pesou" (0 a 100) | `--comentario` |
 | `estado apagar-destinatario ID --sim` | remove mensagens e feedback de alguém (LGPD) | — |
 | `estado commitar` | no CI: commita o estado e `saidas/` | `--mensagem` |
@@ -379,14 +380,16 @@ Os perfis estão em `config/perfis.yaml`.
 | `FIATLUX_LLM_MODELO` | modelo de todas as tarefas (vazio: o padrão do servidor) |
 | `FIATLUX_LLM_MODELO_GERACAO`, `…_CLASSIFICACAO`, `…_JUIZ` | modelo de uma tarefa (seleção e redação; notícias, consultas e resumo; juiz de neutralidade) |
 | `FIATLUX_LLM_SEM_RACIOCINIO` | marca que desliga o raciocínio do modelo nas tarefas simples (no qwen3, `/no_think`; [seção 8](#velocidade-raciocínio-fila-e-proxy)) |
-| `TELEGRAM_BOT_TOKEN` | token do bot ([seção 9](#9-recebendo-no-telegram)) |
-| `TELEGRAM_CHAT_IDS` | quem recebe (lista separada por vírgula; também é a allowlist) |
-| `TELEGRAM_ADMIN_CHAT_ID` | quem recebe alertas de falha e fallback |
+| `SMTP_HOST`, `SMTP_PORT` | servidor de envio da sua conta de e-mail e porta: 587 (STARTTLS) ou 465 (SSL) ([seção 9](#9-recebendo-por-e-mail)) |
+| `SMTP_USUARIO`, `SMTP_SENHA` | login da conta (em geral, o próprio e-mail) e a senha; no Gmail, uma senha de app |
+| `EMAIL_REMETENTE` | quem envia (vazio: o `SMTP_USUARIO`) |
+| `EMAIL_DESTINATARIOS` | quem recebe (lista separada por vírgula); cada um recebe o seu e-mail |
+| `EMAIL_ADMIN` | quem recebe os alertas de falha e de contingência (vazio: quem envia) |
+| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_IDS`, `TELEGRAM_ADMIN_CHAT_ID` | o Telegram, provisoriamente desligado ([seção 9](#telegram-provisoriamente-desligado)) |
 | `FIATLUX_PERFIL` | perfil padrão (`catolico`, `evangelico`, `ecumenico`) |
 | `FIATLUX_TZ` | fuso (padrão `America/Fortaleza`) |
 | `FIATLUX_CUSTO_MAX_MENSAL_USD` | teto de gasto por mês (padrão 10), para um servidor que cobre por uso; num servidor local o custo é zero |
 | `FIATLUX_ESTADO` | caminho do banco de estado |
-| `SMTP_*`, `EMAIL_DESTINATARIOS` | entrega opcional por e-mail |
 
 `HF_HOME` (pasta dos modelos do Hugging Face) é lido pelo próprio Hugging Face: defina no
 ambiente ou use os atalhos do `just`, que carregam o `.env`.
@@ -493,6 +496,38 @@ redação e juiz). O que mais pesa:
 Enquanto a Palavra do Dia é gerada, o indicador mostra o pedido em curso e há quanto tempo
 (`LLM: classificando as notícias 0:38`), ou `servidor ocupado, aguardando a vez`.
 
+### Qualidade com modelos pequenos
+
+A verificação (V1 a V8) é a mesma para qualquer modelo: o que não passa vira contingência.
+Para um modelo local pequeno passar, o Fiat Lux:
+
+- aceita, na seleção, a referência ("Lc 17,16") ou o texto de um candidato no lugar do id dele
+  (só candidatos da lista);
+- põe o `{{P1}}` que o modelo esqueceu depois da frase que cita a passagem principal (o texto
+  bíblico continua vindo da base) e tira marcadores repetidos;
+- pede a reflexão como a lista dos 4 parágrafos, cada um com o seu papel, e, numa revisão por
+  tamanho, diz quanto falta e o que acrescentar, repetindo o que já estava certo.
+
+O que ainda depende do modelo é o **tamanho da reflexão** (180 a 380 palavras, com 15% de
+tolerância). Medido em 11/11/2026, no mesmo dia e com as mesmas notícias:
+
+| Seleção, redação e juiz | Resultado |
+|---|---|
+| `qwen2.5-coder:7b` | rápido (20 a 30 s por redação), mas a reflexão fica entre 90 e 170 palavras: passou em 1 de 3 execuções |
+| `qwen3:8b`, sem raciocínio (`/no_think`) | passou na 2ª redação, com a reflexão de 166 palavras em 4 parágrafos; 60 a 70 s por redação, cerca de 6 min no total |
+
+Uma combinação que funcionou: um modelo rápido na classificação e o `qwen3:8b` na seleção, na
+redação e no juiz, no `.env`:
+
+```dotenv
+FIATLUX_LLM_MODELO=qwen2.5-coder:7b          # classificação, consultas e resumo
+FIATLUX_LLM_MODELO_GERACAO=qwen3:8b          # seleção e redação
+FIATLUX_LLM_MODELO_JUIZ=qwen3:8b             # juiz (o mesmo da redação: sem trocar de modelo a cada tentativa)
+FIATLUX_LLM_SEM_RACIOCINIO=/no_think
+```
+
+Sem `/no_think`, o qwen3 raciocina antes de responder e pode passar do limite do proxy.
+
 Sem o servidor e sem `--dry-run`, as etapas de LLM usam as reservas (classificação por
 palavras-chave, consultas determinísticas, seleção pelo escore) e a mensagem sai como
 **fallback** (Evangelho + oração), com um aviso explicando o motivo.
@@ -501,36 +536,73 @@ O mesmo vale quando o servidor recusa de vez: chave recusada, URL errada, servid
 modelo inexistente ou ocupado por tempo demais. Na primeira recusa, o Fiat Lux para de chamar o
 servidor pelo resto da execução (as outras etapas vão direto às reservas) e o primeiro aviso diz
 o motivo, por exemplo `aviso: LLM indisponível nesta execução: o servidor de LLM recusou a chave
-(401: …)`. O alerta ao administrador no Telegram traz o mesmo motivo.
+(401: …)`. O alerta de falha, por e-mail, traz o mesmo motivo.
 
-## 9. Recebendo no Telegram
+## 9. Recebendo por e-mail
+
+A Palavra do Dia sai da **sua conta de e-mail**, por SMTP, para quem você indicar. Cada
+destinatário recebe o seu e-mail (ninguém vê o endereço dos outros), em HTML, com o texto puro
+junto para os programas que não mostram HTML. A Palavra da Semana leva o gráfico do medidor em
+anexo.
+
+O jeito mais fácil: rode `uv run fiatlux configurar` e responda `s` em *Configurar o e-mail
+agora?*. Ele pergunta o seu e-mail, a senha e quem recebe (Enter = você mesmo), entra na conta,
+manda um e-mail de teste e só então grava no `.env`. Se a conta recusar a senha, nada é gravado.
+Nas execuções seguintes do `configurar`, ele entra na conta de novo, sem enviar nada, para
+conferir que a senha ainda vale.
+
+**Gmail.** O Google não aceita a senha normal da conta em programas como este. Use uma **senha
+de app**:
+
+1. ligue a verificação em duas etapas da conta Google;
+2. em [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords), crie uma
+   senha de app (o nome pode ser "Fiat Lux") e copie as 16 letras;
+3. no `configurar`, cole essas 16 letras quando ele pedir a senha (com ou sem os espaços).
+
+Para o Gmail, o servidor (`smtp.gmail.com`, porta 587) é preenchido sozinho. Para outros
+provedores, o `configurar` pergunta o servidor de envio (SMTP) e a porta, que ficam na ajuda do
+provedor.
+
+À mão, no `.env`:
+
+```dotenv
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587                  # 587 (STARTTLS) ou 465 (SSL)
+SMTP_USUARIO=voce@gmail.com
+SMTP_SENHA=abcdefghijklmnop    # no Gmail, a senha de app
+EMAIL_REMETENTE=               # vazio: o SMTP_USUARIO
+EMAIL_DESTINATARIOS=voce@gmail.com,outra.pessoa@exemplo.com
+EMAIL_ADMIN=                   # alertas de falha; vazio: quem envia
+```
+
+Se a senha tiver espaços, `#` ou outros símbolos, ponha-a entre aspas simples
+(`SMTP_SENHA='…'`); o `configurar` já grava assim. Depois, rode `uv run fiatlux palavra
+diaria`. Sem TLS no servidor (nem STARTTLS na 587, nem SSL na 465), o Fiat Lux não envia a
+senha.
+
+Quando a mensagem sai em contingência ou a execução falha, quem cuida do Fiat Lux
+(`EMAIL_ADMIN` ou, sem ele, quem envia) recebe um e-mail curto, `Fiat Lux: alerta`, com o
+motivo.
+
+### Telegram (provisoriamente desligado)
+
+O Telegram era o canal principal e volta a ser quando for religado: em `config/settings.toml`,
+`[entrega] telegram = true`, com `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_IDS` e
+`TELEGRAM_ADMIN_CHAT_ID` no `.env`. Com ele ligado, o `configurar` volta a perguntar o token e
+acha o seu `chat_id` sozinho. À mão:
 
 1. No Telegram, fale com o [@BotFather](https://t.me/BotFather), envie `/newbot` e guarde o
    **token**.
-
-O jeito mais fácil, a partir daqui: rode `uv run fiatlux configurar` e responda `s` em
-*Configurar o Telegram agora?*. Ele confere o token, pede que você mande uma mensagem ao bot,
-acha o seu `chat_id` (e o de quem mais tiver escrito ao bot), grava tudo no `.env` e manda uma
-mensagem de teste. À mão, os passos são estes:
-
 2. Abra uma conversa com o seu bot e envie qualquer mensagem (o bot só pode escrever para quem
    já falou com ele).
 3. Descubra o seu `chat_id` abrindo no navegador
    `https://api.telegram.org/bot<TOKEN>/getUpdates`: é o número em `"chat":{"id":…}`.
-4. No `.env`:
+4. Preencha as três variáveis no `.env` e rode `uv run fiatlux palavra diaria`. A mensagem chega
+   em HTML, dividida em partes de até 4.096 caracteres, sem prévia de links.
 
-   ```dotenv
-   TELEGRAM_BOT_TOKEN=123456:ABC…
-   TELEGRAM_CHAT_IDS=123456789
-   TELEGRAM_ADMIN_CHAT_ID=123456789
-   ```
-
-5. Rode `uv run fiatlux palavra diaria`. A mensagem chega em HTML, dividida em partes de até
-   4.096 caracteres, sem prévia de links.
-
-Para dar retorno, **responda** a uma mensagem do bot com 👍 ou 👎 (e um comentário, se quiser).
-O `uv run fiatlux estado feedback` grava essas respostas. No GitHub Actions, ele roda depois
-de cada Palavra do Dia.
+Com o Telegram ligado, dá para dar retorno: **responda** a uma mensagem do bot com 👍 ou 👎 (e
+um comentário, se quiser). O `uv run fiatlux estado feedback` grava essas respostas; no GitHub
+Actions, ele roda depois de cada Palavra do Dia.
 
 ## 10. Agendamento
 
@@ -542,9 +614,10 @@ Os workflows já estão em `.github/workflows/`: `diaria.yml` (05:00 de Fortalez
 1. Mantenha o repositório **privado** enquanto o status de domínio público da Matos Soares não
    for confirmado ([LICENSES-DADOS.md](../LICENSES-DADOS.md)).
 2. Em *Settings → Secrets and variables → Actions*, crie os secrets `FIATLUX_LLM_URL`,
-   `FIATLUX_LLM_CHAVE`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_IDS` e `TELEGRAM_ADMIN_CHAT_ID`
-   e, se quiser escolher os modelos, as variables `FIATLUX_LLM_MODELO` e
-   `FIATLUX_LLM_MODELO_GERACAO`. O servidor de LLM precisa ser alcançável pela internet: os
+   `FIATLUX_LLM_CHAVE`, os do e-mail (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USUARIO`, `SMTP_SENHA`,
+   `EMAIL_DESTINATARIOS` e, se quiser, `EMAIL_REMETENTE` e `EMAIL_ADMIN`) e, se quiser
+   escolher os modelos, as variables `FIATLUX_LLM_MODELO`, `FIATLUX_LLM_MODELO_GERACAO`,
+   `FIATLUX_LLM_MODELO_JUIZ` e `FIATLUX_LLM_SEM_RACIOCINIO`. O servidor de LLM precisa ser alcançável pela internet: os
    runners do GitHub não enxergam a sua rede local.
 3. Crie a branch órfã `estado`, onde o banco de estado é guardado entre execuções:
 
@@ -596,8 +669,10 @@ O [runbook](runbook.md) lista o que o sistema faz sozinho em cada falha e o que 
 
 ## 12. Privacidade
 
-O Fiat Lux guarda só o `chat_id` de quem recebe e, das notícias, só título, link, data e
-veículo. Para atender a um pedido de remoção (LGPD):
+O Fiat Lux guarda, de quem recebe, só um código derivado do e-mail (`email:` e 12 caracteres
+do SHA-256 do endereço, que basta para não enviar duas vezes; o endereço em si fica só no
+`.env`) ou o `chat_id` do Telegram e, das notícias, só título, link, data e veículo. O banco
+de estado vai para a branch `estado` no GitHub Actions: por isso o endereço não entra nele. Para atender a um pedido de remoção (LGPD):
 
 ```bash
 uv run fiatlux estado apagar-destinatario <chat_id> --sim
@@ -620,11 +695,15 @@ uv run fiatlux estado apagar-destinatario <chat_id> --sim
 | `servidor de LLM ocupado (… s esperando a vez)` ou `o servidor de LLM ficou ocupado por tempo demais nesta execução` | outra execução (ou outro programa) usando o servidor | espere terminar e rode de novo; `GET /v1/status` mostra a fila |
 | `resposta fora do formato em …` | o modelo não devolveu o JSON pedido, nem depois da correção | de vez em quando é normal em modelos pequenos (a etapa usa a reserva); se for sempre, use um modelo maior em `FIATLUX_LLM_MODELO_GERACAO` ou aumente `tentativas_formato` em `[llm]` |
 | `aviso: GDELT recusou por limite de taxa (429); notícias só do RSS` | o GDELT limita requisições por IP | nada: o RSS cobre os três escopos; o medidor fica sem o componente de tom |
+| `e-mail: o servidor de e-mail recusou o usuário ou a senha (535)` | senha errada ou, no Gmail, a senha normal da conta no lugar de uma senha de app | crie uma senha de app ([seção 9](#9-recebendo-por-e-mail)) e rode o `configurar` de novo (ou troque `SMTP_SENHA` no `.env`) |
+| `não consegui falar com smtp…` ou `… não oferece conexão segura (STARTTLS)` | servidor ou porta errados, ou a rede bloqueia a porta | confira `SMTP_HOST` e `SMTP_PORT` na ajuda do provedor; se a 587 não funciona, tente a 465 (SSL) |
+| `e-mail sem SMTP_HOST ou remetente no .env: a mensagem ficou só em saidas/` | há `EMAIL_DESTINATARIOS`, mas falta o servidor ou quem envia | rode o `configurar` ou preencha `SMTP_HOST` e `SMTP_USUARIO` |
 | `já enviada para este destinatário; nada a fazer` | idempotência: o dia já foi entregue | use `--dry-run` para testar; para reenviar, apague a linha em `mensagens` (runbook) |
 | `uv sync` falha com `os error 3` ou caminho não encontrado em arquivos do torch (Windows) | caminho do projeto longo demais (modo completo) | clone num caminho curto ou habilite caminhos longos ([seção 2](#2-instalação)) |
 | `índice não construído: rode fiatlux indice construir` | falta o passo 3.2 | rode `uv run fiatlux indice construir` |
 | `biblia.sqlite ausente` | falta o passo 3.1 | rode `baixar`, `ingerir` e `validar` |
 | execução diária demorada (minutos) | o rerank neural em CPU custa ~0,4 s por par, e o servidor de LLM atende um pedido por vez | normal; para testar rápido, use `--sem-rerank` (ou `--llm offline`) |
+| `falha em redacao: verificação reprovou após as revisões: V4: reflexao: … palavras (esperado 180–380)` | o modelo de geração escreve curto demais, mesmo com as revisões | use um modelo maior na geração e no juiz (`FIATLUX_LLM_MODELO_GERACAO` e `FIATLUX_LLM_MODELO_JUIZ`; [seção 8](#qualidade-com-modelos-pequenos)) |
 | status `fallback` | alguma etapa falhou (liturgia, LLM, verificação) | leia os `aviso:` no fim da saída (se o LLM estava fora, o primeiro diz por quê) e `fiatlux estado execucoes`; para ver o traceback de um erro inesperado, `fiatlux --verboso palavra diaria --dry-run` |
 | textos genéricos, sempre parecidos | sem `FIATLUX_LLM_URL`, o dry-run usa o cliente offline (e a demonstração do `configurar` também, quando o servidor não passa na conferência) | configure o servidor ([seção 8](#8-ligando-o-llm)) |
 | a liturgia de uma data não aparece | a API não tem aquela data, ou está fora do ar | o Fiat Lux usa o cache e o calendário local; `fiatlux liturgia canario` testa a API |

@@ -8,7 +8,7 @@ Assistente diário e semanal da Palavra de Deus. Segue o calendário litúrgico 
 adequados ao momento, com **citação fiel e verificável**.
 
 **📖 [Guia do usuário](docs/guia-do-usuario.md)**: instalação, comandos, configuração,
-Telegram, agendamento e problemas comuns, passo a passo.
+e-mail, agendamento e problemas comuns, passo a passo.
 
 Outros documentos: [plano](plano.md) · [decisões de arquitetura (ADRs)](docs/adr/) ·
 [runbook de operação](docs/runbook.md) · [changelog](CHANGELOG.md) ·
@@ -26,11 +26,12 @@ Outros documentos: [plano](plano.md) · [decisões de arquitetura (ADRs)](docs/a
    digitado pelo modelo**, ele é inserido a partir da base.
 5. **Verificação** (V1 a V8) antes de qualquer entrega; se algo falhar, sai o *fallback* seguro
    (Evangelho do dia + oração fixa).
-6. **Entrega** por Telegram e arquivo Markdown em `saidas/`.
+6. **Entrega** por e-mail e arquivo Markdown em `saidas/` (o Telegram está provisoriamente
+   desligado).
 
 ## Rodando pela primeira vez
 
-Você vê o Fiat Lux funcionando em cerca de **5 minutos**, sem servidor de LLM e sem Telegram (no
+Você vê o Fiat Lux funcionando em cerca de **5 minutos**, sem servidor de LLM e sem e-mail (no
 "modo leve"). Os tempos abaixo foram medidos num clone limpo, em 09/11/2026.
 
 ### Jeito mais fácil: um comando
@@ -57,8 +58,8 @@ O script faz só o que ainda falta, então pode ser repetido à vontade:
 1. acha o `uv` (inclusive um instalado com `pip` numa pasta fora do PATH) ou instala o oficial, e
    o põe no PATH;
 2. instala o Python 3.12 e as dependências (`uv sync`);
-3. cria o `.env` e, se você quiser, pergunta o servidor de LLM (URL e chave) e configura o bot
-   do Telegram (acha o seu `chat_id` sozinho e manda uma mensagem de teste). O servidor é
+3. cria o `.env` e, se você quiser, pergunta o servidor de LLM (URL e chave) e o e-mail que
+   envia a mensagem (entra na sua conta e manda um e-mail de teste antes de gravar). O servidor é
    conferido sem gerar texto (`GET /v1/models`): chave recusada, URL errada ou modelo que
    falta aparecem aqui, com o que fazer;
 4. monta a base bíblica e o índice de busca;
@@ -184,13 +185,14 @@ pronto como Release). Neste modo, a busca é mais precisa (tabela em [Avaliaçã
 cada Palavra do Dia leva cerca de **3 minutos em CPU**, por causa do rerank neural. Use
 `--sem-rerank` para testar mais rápido.
 
-#### 7. Receber no Telegram e agendar
+#### 7. Receber por e-mail e agendar
 
-Crie um bot com o [@BotFather](https://t.me/BotFather), preencha `TELEGRAM_BOT_TOKEN` e
-`TELEGRAM_CHAT_IDS` no `.env` e rode **sem** `--dry-run`:
+Configure o e-mail no `configurar` (no Gmail, com uma senha de app; [guia, seção
+9](docs/guia-do-usuario.md#9-recebendo-por-e-mail)) ou preencha `SMTP_*` e `EMAIL_DESTINATARIOS` no
+`.env` e rode **sem** `--dry-run`:
 
 ```bash
-uv run fiatlux palavra diaria     # arquiva em saidas/AAAA/MM/ e envia pelo Telegram
+uv run fiatlux palavra diaria     # arquiva em saidas/AAAA/MM/ e envia por e-mail
 ```
 
 Cada dia é entregue uma vez por destinatário. Para agendar (GitHub Actions ou na sua máquina),
@@ -200,7 +202,7 @@ veja o [guia do usuário](docs/guia-do-usuario.md#10-agendamento).
 
 | Onde | O quê |
 |---|---|
-| `.env` (nunca versionado) | `FIATLUX_LLM_URL`, `FIATLUX_LLM_CHAVE`, `FIATLUX_LLM_MODELO…`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_IDS` (allowlist), `TELEGRAM_ADMIN_CHAT_ID`, `FIATLUX_PERFIL` |
+| `.env` (nunca versionado) | `FIATLUX_LLM_URL`, `FIATLUX_LLM_CHAVE`, `FIATLUX_LLM_MODELO…`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USUARIO`, `SMTP_SENHA`, `EMAIL_DESTINATARIOS`, `EMAIL_ADMIN`, `FIATLUX_PERFIL` (o Telegram, provisoriamente desligado: `TELEGRAM_*`) |
 | `config/settings.toml` | temperatura por tarefa e esperas do LLM, pesos da busca e do medidor, teto de custo |
 | `config/fontes_noticias.yaml` | consultas GDELT e feeds RSS por escopo (região inclusa) |
 | `config/taxonomia_pastoral.yaml` | categorias pastorais, palavras-chave e passagens-semente |
@@ -220,8 +222,9 @@ Detalhes de cada variável e arquivo no [guia](docs/guia-do-usuario.md#7-configu
 | `construir-indice.yml` | manual | reconstrói `biblia.sqlite` e publica como Release `indice-latest` |
 
 Para colocar no ar: mantenha o repositório **privado** (ver [Licenças](#licenças)), crie os
-segredos `FIATLUX_LLM_URL`, `FIATLUX_LLM_CHAVE`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_IDS` e
-`TELEGRAM_ADMIN_CHAT_ID` (o servidor de LLM precisa ser alcançável pela internet), crie a
+segredos `FIATLUX_LLM_URL`, `FIATLUX_LLM_CHAVE` e os do e-mail (`SMTP_HOST`, `SMTP_PORT`,
+`SMTP_USUARIO`, `SMTP_SENHA`, `EMAIL_DESTINATARIOS`; o servidor de LLM precisa ser alcançável
+pela internet), crie a
 branch órfã `estado`, rode `construir-indice.yml` uma vez e fixe as actions por SHA (hoje estão
 por tag). O passo a passo está no
 [guia](docs/guia-do-usuario.md#github-actions-padrão).
@@ -272,7 +275,7 @@ Resultado em 09/11/2026 (embeddings `multilingual-e5-base`, LLM offline):
 | `src/fiat_lux/rag` | perícopes, embeddings, índice FTS5 + vetores, busca híbrida, rerank, boosts, recorte |
 | `src/fiat_lux/llm` | `LLMClient` (Protocol), cliente do servidor de LLM (HTTP), cliente offline, cache, prompts versionados |
 | `src/fiat_lux/agente` | contexto do dia, consultas, seleção, redação, verificação, fallback, semanal |
-| `src/fiat_lux/entrega` | templates, Markdown, Telegram, e-mail |
+| `src/fiat_lux/entrega` | templates, Markdown, e-mail, Telegram |
 | `src/fiat_lux/orquestracao` | pipelines diário e semanal |
 | `src/fiat_lux/instalacao.py` | regras do `fiatlux configurar`: o que já existe, o que falta, edição do `.env` |
 | `configurar.ps1`, `configurar.sh` | configuração em um comando (Windows / Linux e macOS) |
