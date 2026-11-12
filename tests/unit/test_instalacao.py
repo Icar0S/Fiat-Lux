@@ -308,7 +308,53 @@ def test_perguntar_email_testa_a_conta_antes_de_gravar(
     assert valores["SMTP_USUARIO"] == valores["EMAIL_REMETENTE"] == "voce@gmail.com"
     assert valores["SMTP_SENHA"] == "abcdefghijklmnop"
     assert valores["EMAIL_DESTINATARIOS"] == "voce@gmail.com"
-    _perguntar_email(env)  # já configurado: não pergunta mais nada (a fila de respostas acabou)
+    # configurado: pergunta se quer trocar; Enter = não, e nada muda
+    _respostas(monkeypatch, "")
+    _perguntar_email(env)
+    assert len(EmailFalso.enviados) == 1 and inst.ler_env(env) == valores
+
+
+def test_perguntar_email_sempre_pergunta_e_enter_configura(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from fiat_lux.cli.cmd_configurar import _perguntar_email
+    from fiat_lux.entrega import email
+
+    monkeypatch.setattr(email, "ClienteEmail", EmailFalso)
+    EmailFalso.enviados, EmailFalso.erro = [], None
+    env = tmp_path / ".env"
+    env.write_bytes(EXEMPLO.encode())
+    # Enter em "Configurar o e-mail agora? [S/n]" é sim
+    _respostas(monkeypatch, "", "voce@gmail.com", "senhadeapp", "")
+    _perguntar_email(env)
+    assert EmailFalso.enviados == [("voce@gmail.com", "smtp.gmail.com", "senhadeapp")]
+
+
+def test_configurar_email_direto_troca_so_a_senha(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from fiat_lux.cli.cmd_configurar import _perguntar_email
+    from fiat_lux.entrega import email
+
+    monkeypatch.setattr(email, "ClienteEmail", EmailFalso)
+    EmailFalso.enviados, EmailFalso.erro = [], None
+    env = tmp_path / ".env"
+    env.write_bytes(
+        b"SMTP_HOST=smtp.gmail.com\nSMTP_PORT=587\nSMTP_USUARIO=voce@gmail.com\n"
+        b"SMTP_SENHA=antiga\nEMAIL_REMETENTE=voce@gmail.com\n"
+        b"EMAIL_DESTINATARIOS=voce@gmail.com,outra@exemplo.com\n"
+    )
+    # configurar --email: sem confirmar; Enter mantém o e-mail e os destinatários
+    _respostas(monkeypatch, "", "nova senha", "")
+    _perguntar_email(env, direto=True)
+    assert EmailFalso.enviados == [("voce@gmail.com", "smtp.gmail.com", "novasenha")]
+    valores = inst.ler_env(env)
+    assert valores["SMTP_SENHA"] == "novasenha"
+    assert valores["EMAIL_DESTINATARIOS"] == "voce@gmail.com,outra@exemplo.com"
+    # Enter na senha também a mantém (mesma conta)
+    _respostas(monkeypatch, "", "", "")
+    _perguntar_email(env, direto=True)
+    assert EmailFalso.enviados[-1] == ("voce@gmail.com", "smtp.gmail.com", "novasenha")
 
 
 def test_perguntar_email_com_senha_recusada_nao_grava_nada(
@@ -423,9 +469,10 @@ def test_configurar_reaproveita_o_que_ja_existe(app_configurar, tmp_path: Path) 
     # sem servidor, a Palavra do Dia real sai incompleta: isso é dito, e o veredito (no título
     # do painel final) não é "Tudo pronto"
     final = r.output.split("● Resumo")[1]
-    assert "! Quase pronto: falta 1 item" in final and "Tudo pronto" not in final
+    assert "! Quase pronto: faltam 2 itens" in final and "Tudo pronto" not in final
     assert "Para a Palavra do Dia sair completa" in final
     assert "Servidor de LLM: rode o configurar de novo" in final
+    assert "uv run fiatlux configurar --email" in " ".join(final.split())
 
 
 def test_configurar_com_chave_recusada_explica_e_demonstra_offline(
@@ -459,6 +506,16 @@ def test_configurar_com_llm_ok_termina_com_tudo_pronto(
             "ok", modelos=(("classificação", "qwen3:4b"), ("seleção e redação", "qwen3:8b"))
         ),
     )
+    from fiat_lux.entrega import email
+
+    for variavel, valor in (
+        ("SMTP_HOST", "smtp.exemplo.com"),
+        ("SMTP_USUARIO", "eu@exemplo.com"),
+        ("SMTP_SENHA", "certa"),
+        ("EMAIL_DESTINATARIOS", "eu@exemplo.com"),
+    ):
+        monkeypatch.setenv(variavel, valor)
+    monkeypatch.setattr(email.ClienteEmail, "testar", lambda self: None)  # entra na conta
     pedidos = _demonstracao_falsa(monkeypatch, tmp_path, "rascunho")
     r = CliRunner().invoke(app_configurar, [])
     assert r.exit_code == 0, r.output
@@ -470,8 +527,14 @@ def test_configurar_com_llm_ok_termina_com_tudo_pronto(
     assert "verificação 8/8" in r.output and "textos do LLM" in r.output
     final = r.output.split("● Resumo")[1]
     assert "✦ Tudo pronto" in final and "Quase pronto" not in final
-    assert "E-mail" in final and "não configurado" in final and "Telegram" not in final
+    assert "conta conferida" in final and "Telegram" not in final
     assert "uv run fiatlux palavra diaria --dry-run" in final  # próximos passos no painel
+
+
+def test_configurar_email_sem_terminal_explica_e_falha(app_configurar) -> None:
+    r = CliRunner().invoke(app_configurar, ["--email"])
+    assert r.exit_code == 1
+    assert "o e-mail é configurado por perguntas" in " ".join(r.output.split())
 
 
 def test_configurar_falha_quando_a_demonstracao_falha(

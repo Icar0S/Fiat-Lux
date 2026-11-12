@@ -2,9 +2,10 @@
 # Configura o Fiat Lux nesta máquina (Linux/macOS), do zero ou aproveitando o que já existe.
 #
 # Uso: bash configurar.sh [--leve | --completo] [--sem-demonstracao] [--sem-perguntas] [--reconstruir-indice]
+#        bash configurar.sh --email   (só configura ou troca o e-mail)
 #
 # Faz só o que falta: acha (ou instala) o uv, instala o Python 3.12 e as dependências e roda
-# `fiatlux configurar` (.env, servidor de LLM opcional, base bíblica, índice e uma Palavra do Dia de
+# `fiatlux configurar` (.env, servidor de LLM e e-mail, base bíblica, índice e uma Palavra do Dia de
 # teste com --dry-run). Sem --leve/--completo, o modo é completo se os modelos neurais já
 # estiverem instalados ou baixados; senão, leve. Pode ser repetido à vontade.
 set -euo pipefail
@@ -13,13 +14,13 @@ VERSAO_MINIMA_UV="0.9.0"
 modo="auto"
 opcoes=()
 
-uso() { sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; }
+uso() { sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; }
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --leve) modo="leve" ;;
     --completo) modo="completo" ;;
-    --sem-demonstracao | --sem-perguntas | --reconstruir-indice) opcoes+=("$1") ;;
+    --sem-demonstracao | --sem-perguntas | --reconstruir-indice | --email) opcoes+=("$1") ;;
     -h | --help)
       uso
       exit 0

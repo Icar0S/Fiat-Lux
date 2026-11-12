@@ -79,6 +79,7 @@ _PROXIMOS_PASSOS = (
     ("uv run fiatlux palavra diaria --dry-run", "gera de novo, sem enviar nada"),
     ("uv run fiatlux palavra diaria", "arquiva em saidas/ e envia por e-mail"),
     ("uv run fiatlux palavra semanal --dry-run", "Palavra da Semana, com gráfico"),
+    ("uv run fiatlux configurar --email", "configura ou troca o e-mail"),
     ("uv run fiatlux --help", "todos os comandos"),
 )
 
@@ -259,8 +260,14 @@ def _escolher_chats(chats: list[tuple[str, str]]) -> list[str]:
     return [cid for i, (cid, _) in enumerate(chats, 1) if i in numeros]
 
 
-def _dados_smtp(remetente: str) -> tuple[str, int] | None:
-    """Servidor e porta de envio: os do provedor, se conhecido; senão, perguntados."""
+def _com_atual(pedido: str, atual: str) -> str:
+    """O pedido com o valor atual entre parênteses: Enter o mantém."""
+    return f"{pedido} (Enter = {atual})" if atual else pedido
+
+
+def _dados_smtp(remetente: str, atual: dict[str, str]) -> tuple[str, int] | None:
+    """Servidor e porta de envio: os do provedor, se conhecido; senão, perguntados (Enter
+    mantém os atuais)."""
     dominio = remetente.rsplit("@", 1)[1].lower()
     if dominio in _SMTP_CONHECIDOS:
         host, porta = _SMTP_CONHECIDOS[dominio]
@@ -271,49 +278,86 @@ def _dados_smtp(remetente: str) -> tuple[str, int] | None:
                 "duas etapas e crie a senha em myaccount.google.com/apppasswords (16 letras)."
             )
         return host, porta
-    host = _perguntar("Servidor de envio (SMTP) do seu provedor, ex.: smtp.provedor.com.br")
+    host_atual = atual.get("SMTP_HOST", "")
+    host = (
+        _perguntar(
+            _com_atual(
+                "Servidor de envio (SMTP) do seu provedor, ex.: smtp.provedor.com.br", host_atual
+            )
+        )
+        or host_atual
+    )
     if not _FORMATO_HOST.fullmatch(host):
         v.aviso("isso não parece um servidor (ex.: smtp.provedor.com.br); não gravei")
         return None
-    resposta = _perguntar("Porta (Enter = 587; 465 se o provedor pede SSL)") or "587"
+    porta_atual = atual.get("SMTP_PORT") or "587"
+    resposta = (
+        _perguntar(f"Porta (Enter = {porta_atual}; 465 se o provedor pede SSL)") or porta_atual
+    )
     if not resposta.isdigit() or not 0 < int(resposta) < 65536:
         v.aviso("porta inválida; não gravei")
         return None
     return host, int(resposta)
 
 
-def _perguntar_email(env: Path) -> None:
+def _quer_configurar_email(valores: dict[str, str], direto: bool) -> bool:
+    """Sempre pergunta: sem e-mail, se configura agora (Enter = sim); com e-mail, se troca.
+    `direto` (configurar --email) vai às perguntas sem confirmar."""
+    remetente = valores.get("EMAIL_REMETENTE") or valores.get("SMTP_USUARIO") or ""
+    para = [x for x in valores.get("EMAIL_DESTINATARIOS", "").split(",") if x.strip()]
+    if valores.get("SMTP_HOST") and para:
+        v.ok(f"E-mail: configurado, enviando de {remetente} para {len(para)} destinatário(s).")
+        if direto:
+            v.info("Enter mantém o que está entre parênteses.")
+            return True
+        return _perguntar("Trocar a configuração do e-mail? [s/N]").lower() in _SIM
+    if direto:
+        return True
+    v.info(
+        "E-mail: é por ele que a Palavra do Dia chega, todo dia. O envio sai da sua conta de "
+        "e-mail (SMTP); no Gmail, com uma senha de app."
+    )
+    if _perguntar("Configurar o e-mail agora? [S/n]").lower() in _SIM | {""}:
+        return True
+    v.dica("Quando quiser: uv run fiatlux configurar --email")
+    return False
+
+
+def _perguntar_email(env: Path, direto: bool = False) -> None:
     """E-mail de quem envia, servidor, senha e quem recebe; grava no .env só depois de entrar na
-    conta e mandar um e-mail de teste."""
+    conta e mandar um e-mail de teste. Enter mantém o valor atual."""
     from fiat_lux.entrega.email import ClienteEmail, ErroEmail, mascarar
     from fiat_lux.instalacao import gravar_variavel_env, ler_env
 
     valores = ler_env(env)
-    if valores.get("SMTP_HOST") and valores.get("EMAIL_DESTINATARIOS"):
-        v.ok("E-mail: já configurado.")
+    if not _quer_configurar_email(valores, direto):
         return
-    v.info(
-        "E-mail (opcional): para receber a Palavra do Dia por e-mail, todo dia. O envio sai da "
-        "sua conta de e-mail (SMTP)."
+    remetente_atual = valores.get("EMAIL_REMETENTE") or valores.get("SMTP_USUARIO") or ""
+    remetente = (
+        _perguntar(_com_atual("Seu e-mail, que vai enviar (ex.: voce@gmail.com)", remetente_atual))
+        or remetente_atual
     )
-    if _perguntar("Configurar o e-mail agora? [s/N]").lower() not in _SIM:
-        return
-    remetente = _perguntar("Seu e-mail, que vai enviar (ex.: voce@gmail.com)")
     if not _FORMATO_EMAIL.fullmatch(remetente):
         v.aviso("isso não parece um e-mail; não gravei")
         return
-    smtp = _dados_smtp(remetente)
+    smtp = _dados_smtp(remetente, valores)
     if smtp is None:
         return
     host, porta = smtp
-    senha = _perguntar("Senha (não aparece na tela)", secreto=True)
+    senha_atual = valores.get("SMTP_SENHA", "") if remetente == remetente_atual else ""
+    pedido = "Senha (não aparece na tela" + ("; Enter = a atual)" if senha_atual else ")")
+    senha = _perguntar(pedido, secreto=True) or senha_atual
     if host == "smtp.gmail.com":
         senha = senha.replace(" ", "")  # a senha de app aparece em 4 grupos de 4 letras
     if not senha:
         v.aviso("sem senha; não gravei")
         return
-    resposta = _perguntar("Quem recebe (e-mails separados por vírgula; Enter = o seu)")
-    para = [x.strip() for x in (resposta or remetente).replace(";", ",").split(",") if x.strip()]
+    para_atual = valores.get("EMAIL_DESTINATARIOS", "")
+    resposta = _perguntar(
+        "Quem recebe (e-mails separados por vírgula; Enter = " + (para_atual or "o seu") + ")"
+    )
+    lista = (resposta or para_atual or remetente).replace(";", ",").split(",")
+    para = [x.strip() for x in lista if x.strip()]
     if not para or not all(_FORMATO_EMAIL.fullmatch(x) for x in para):
         v.aviso("algum destinatário não parece um e-mail; não gravei")
         return
@@ -328,6 +372,14 @@ def _perguntar_email(env: Path) -> None:
     except ErroEmail as e:
         v.aviso(f"e-mail: {e.motivo}. Não gravei nada; rode o configurar de novo para tentar.")
         return
+    try:  # a senha primeiro: se ela não cabe no .env, nada fica pela metade
+        gravar_variavel_env(env, "SMTP_SENHA", senha, aspas=True)
+    except ValueError:
+        v.aviso(
+            "a senha tem aspas simples, barra invertida ou ${, que o .env não guarda como estão; "
+            "não gravei nada (troque a senha, ou preencha SMTP_* à mão no .env)"
+        )
+        return
     for chave, valor in (
         ("SMTP_HOST", host),
         ("SMTP_PORT", str(porta)),
@@ -336,17 +388,9 @@ def _perguntar_email(env: Path) -> None:
         ("EMAIL_DESTINATARIOS", ",".join(para)),
     ):
         gravar_variavel_env(env, chave, valor)
-    try:
-        gravar_variavel_env(env, "SMTP_SENHA", senha, aspas=True)
-    except ValueError:
-        v.aviso(
-            "a senha tem aspas simples, barra invertida ou ${, que o .env não guarda como estão; "
-            "ponha-a à mão na SMTP_SENHA do .env"
-        )
-        return
     v.ok(
         f"e-mail configurado ({len(para)} destinatário(s)); mandei um e-mail de teste para "
-        f"{mascarar(para[0])}."
+        f"{mascarar(para[0])}: confira a caixa de entrada (e o spam)."
     )
 
 
@@ -499,6 +543,9 @@ def configurar(
     sem_cabecalho: bool = typer.Option(
         False, "--sem-cabecalho", hidden=True, help="O script de configuração já mostrou o logo."
     ),
+    so_email: bool = typer.Option(
+        False, "--email", help="Só configura (ou troca) o e-mail e manda um e-mail de teste."
+    ),
 ) -> None:
     """Prepara o que falta (.env, LLM, base bíblica, índice) e gera uma Palavra do Dia de teste.
 
@@ -508,7 +555,36 @@ def configurar(
 
     # as etapas e o resumo dizem o que importa; avisos de log só repetiriam os mesmos fatos
     with so_erros_no_console():
-        _configurar(sem_demonstracao, sem_perguntas, reconstruir_indice, sem_cabecalho)
+        if so_email:
+            _configurar_email(sem_cabecalho)
+        else:
+            _configurar(sem_demonstracao, sem_perguntas, reconstruir_indice, sem_cabecalho)
+
+
+def _configurar_email(sem_cabecalho: bool) -> None:
+    """`configurar --email`: só as perguntas do e-mail, o teste e a conferência da conta."""
+    from fiat_lux.config import raiz_projeto, recarregar_settings
+    from fiat_lux.instalacao import garantir_env
+
+    raiz = raiz_projeto()
+    os.chdir(raiz)  # o .env é lido da pasta atual
+    if not sem_cabecalho:
+        v.cabecalho("e-mail", [("pasta", str(raiz))])
+    if not _terminal_interativo():
+        falhar(
+            "o e-mail é configurado por perguntas: rode este comando num terminal (PowerShell, "
+            "Prompt de Comando ou bash), ou preencha SMTP_* e EMAIL_DESTINATARIOS no .env "
+            "(guia, seção 9)"
+        )
+    garantir_env(raiz)
+    v.etapa("E-mail")
+    _perguntar_email(raiz / ".env", direto=True)
+    linha, pendencia = _linha_email(recarregar_settings())
+    if pendencia:
+        v.aviso(pendencia)
+        raise typer.Exit(1)
+    v.ok(f"E-mail {linha.situacao}: {linha.detalhe}.")
+    v.dica("Para mandar a Palavra do Dia de hoje agora: uv run fiatlux palavra diaria")
 
 
 def _configurar(
@@ -612,9 +688,10 @@ def _linha_email(s: Settings) -> tuple[Linha, str | None]:
     if not s.entrega.email:
         return Linha("E-mail", "desligado", "[entrega] email = false", "neutro"), None
     if not (s.email_configurado and s.email_destinatarios):
-        return Linha(
-            "E-mail", "não configurado", "a mensagem fica em saidas/ (guia, seção 9)", "neutro"
-        ), None
+        return Linha("E-mail", "não configurado", "a mensagem fica só em saidas/", "aviso"), (
+            "E-mail: é por ele que a Palavra do Dia chega. Rode uv run fiatlux configurar --email "
+            "(no Gmail, com uma senha de app; guia, seção 9)."
+        )
     try:
         with v.andamento(f"conferindo a conta de e-mail em {s.smtp_host} (sem enviar nada)"):
             cliente_email(s).testar()

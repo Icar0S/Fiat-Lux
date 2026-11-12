@@ -7,7 +7,7 @@
       1. acha o uv (ou instala o oficial) e o põe no PATH do usuário;
       2. instala o Python 3.12 e as dependências do projeto (uv sync);
       3. roda "fiatlux configurar": cria o .env, pergunta (se você quiser) o servidor de LLM
-         (URL e chave) e o bot do Telegram, monta a base bíblica e o índice de busca e gera
+         (URL e chave) e o e-mail que envia a mensagem, monta a base bíblica e o índice de busca e gera
          uma Palavra do Dia de teste (--dry-run: nada é enviado).
     Pode ser repetido à vontade: cada etapa confere o que já existe.
 
@@ -21,7 +21,11 @@
     Não gera a Palavra do Dia de teste no final.
 
 .PARAMETER SemPerguntas
-    Não pergunta o servidor de LLM nem o Telegram (para rodar sem ninguém olhando).
+    Não pergunta o servidor de LLM nem o e-mail (para rodar sem ninguém olhando).
+
+.PARAMETER Email
+    Só configura (ou troca) o e-mail: pergunta a conta, a senha e quem recebe e manda um e-mail
+    de teste. Enter mantém o valor atual.
 
 .PARAMETER ReconstruirIndice
     Reconstrói o índice de busca mesmo que o atual sirva.
@@ -31,6 +35,9 @@
 
 .EXAMPLE
     .\configurar.ps1 -Modo completo
+
+.EXAMPLE
+    .\configurar.ps1 -Email
 #>
 [CmdletBinding()]
 param(
@@ -38,7 +45,8 @@ param(
     [string]$Modo = 'auto',
     [switch]$SemDemonstracao,
     [switch]$SemPerguntas,
-    [switch]$ReconstruirIndice
+    [switch]$ReconstruirIndice,
+    [switch]$Email
 )
 
 # Stop vale para os cmdlets. Em volta dos programas externos (uv, python) fica Continue: no
@@ -358,6 +366,7 @@ try {
     if ($SemDemonstracao) { $argsCfg += '--sem-demonstracao' }
     if ($SemPerguntas) { $argsCfg += '--sem-perguntas' }
     if ($ReconstruirIndice) { $argsCfg += '--reconstruir-indice' }
+    if ($Email) { $argsCfg += '--email' }
     $ErrorActionPreference = 'Continue'
     & $uv.Caminho @argsCfg
     $codigo = $LASTEXITCODE
