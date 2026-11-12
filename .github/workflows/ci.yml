@@ -16,7 +16,7 @@ jobs:
       PYTHONUTF8: "1"
     steps:
       # Fixe as actions por SHA em produção (plano §13.1); o Dependabot mantém as versões.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
