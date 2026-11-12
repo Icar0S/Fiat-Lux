@@ -48,7 +48,7 @@ def baixar_release(
     if shutil.which("gh") is None:
         falhar("GitHub CLI (gh) não encontrado")
     s.caminhos.biblia_db.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
+    r = subprocess.run(
         [
             "gh",
             "release",
@@ -64,8 +64,19 @@ def baixar_release(
             str(s.caminhos.biblia_db.parent),
             "--clobber",
         ],
-        check=True,
+        capture_output=True,
+        text=True,
+        check=False,
     )
+    if r.returncode != 0:
+        detalhe = (r.stderr or r.stdout).strip()
+        if "not found" in detalhe.lower():
+            falhar(
+                f"o Release '{tag}' ainda não existe em {repo}. Ele é criado pelo workflow "
+                "construir-indice: no GitHub, Actions → construir-indice → Run workflow "
+                "(uma vez só; leva de 40 a 90 min) e, quando ficar verde, rode este de novo."
+            )
+        falhar(f"não consegui baixar o Release '{tag}' de {repo}: {detalhe}")
     console.print(f"[green]ok[/]: {s.caminhos.biblia_db}")
 
 
