@@ -809,7 +809,7 @@ def _fechar(resumo: list[Linha], pendencias: list[str], falhou: bool) -> None:
         Text(),
         Text(
             "Servidor de LLM e e-mail: rode de novo o configurar ou edite o .env (guia, seções 8 "
-            "e 9). Agendar todo dia às 05:00: docs/guia-do-usuario.md, seção 10.",
+            "e 9). Agendar todo dia (o e-mail chega por volta das 7h): docs/guia-do-usuario.md, seção 10.",
             v.APAGADO,
         ),
     ]

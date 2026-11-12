@@ -8,7 +8,7 @@ Execução agendada sem servidor próprio.
 
 ## Decisão
 
-Cron diário (08:00 UTC = 05:00 Fortaleza) e semanal (sábado 20:00 UTC); `concurrency: fiat-lux`; `estado.sqlite` numa branch órfã `estado`; `biblia.sqlite` como asset de Release (`construir-indice.yml`); modelos do HF em `actions/cache`.
+Cron diário (09:40 UTC = 06:40 Fortaleza, para o e-mail chegar por volta das 7h; era 05:00 até 12/11/2026) e semanal (sábado 20:00 UTC); `concurrency: fiat-lux`; `estado.sqlite` numa branch órfã `estado`; `biblia.sqlite` como asset de Release (`construir-indice.yml`); modelos do HF em `actions/cache`.
 
 ## Consequências
 

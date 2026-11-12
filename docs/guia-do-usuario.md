@@ -28,7 +28,7 @@ Fiat Lux funcionando.
 
 ## 1. O que o Fiat Lux entrega
 
-Todo dia, às 05:00 (fuso de Fortaleza), o Fiat Lux:
+Todo dia, a partir das 06:40 (fuso de Fortaleza), o Fiat Lux:
 
 1. lê a **liturgia do dia** (celebração, tempo litúrgico, cor, ciclos e leituras);
 2. coleta as **manchetes** do mundo, do Brasil e do Ceará, agrupa por história, classifica cada
@@ -623,7 +623,7 @@ Actions, ele roda depois de cada Palavra do Dia.
 
 ### GitHub Actions (padrão)
 
-Os workflows já estão em `.github/workflows/`: `diaria.yml` (05:00 de Fortaleza), `semanal.yml`
+Os workflows já estão em `.github/workflows/`: `diaria.yml` (06:40 de Fortaleza; o e-mail chega por volta das 7h, porque o GitHub atrasa um pouco os agendamentos e a execução leva ~15 min), `semanal.yml`
 (sábado, 17:00), `ci.yml` (testes) e `construir-indice.yml` (manual). Para ativar:
 
 1. Mantenha o repositório **privado** enquanto o status de domínio público da Matos Soares não
@@ -651,16 +651,16 @@ alguns minutos em horários de pico.
 
 ### Na sua máquina
 
-Windows (Agendador de Tarefas), todo dia às 05:00:
+Windows (Agendador de Tarefas), todo dia às 06:40:
 
 ```powershell
-schtasks /Create /SC DAILY /ST 05:00 /TN "Fiat Lux" /TR "cmd /c cd /d C:\projetos\Fiat-Lux && uv run fiatlux palavra diaria"
+schtasks /Create /SC DAILY /ST 06:40 /TN "Fiat Lux" /TR "cmd /c cd /d C:\projetos\Fiat-Lux && uv run fiatlux palavra diaria"
 ```
 
 Linux/macOS (`crontab -e`):
 
 ```cron
-0 5 * * *  cd /caminho/Fiat-Lux && uv run fiatlux palavra diaria
+40 6 * * *  cd /caminho/Fiat-Lux && uv run fiatlux palavra diaria
 0 17 * * 6 cd /caminho/Fiat-Lux && uv run fiatlux palavra semanal
 ```
 

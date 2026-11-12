@@ -1,7 +1,10 @@
 name: palavra-diaria
 on:
   schedule:
-    - cron: "0 8 * * *"       # 05:00 America/Fortaleza (UTC-3, sem horário de verão)
+    # 06:40 America/Fortaleza (UTC-3, sem horário de verão): o GitHub atrasa os agendamentos
+    # (mais nas horas cheias), e preparar o ambiente e gerar a mensagem leva ~15 min; o
+    # e-mail chega por volta das 7h
+    - cron: "40 9 * * *"
   workflow_dispatch:
     inputs:
       data:
