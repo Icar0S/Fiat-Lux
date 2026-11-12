@@ -92,7 +92,7 @@ bloqueia por padrão) e não muda nada no sistema. O script faz só o que ainda 
 | uv | procura no PATH e onde os instaladores costumam deixá-lo (instalador oficial, winget, scoop, chocolatey, `pip`/`pipx` de qualquer Python, conda); se não achar, instala o oficial. Põe a pasta dele no PATH do usuário | só confere |
 | Dependências | `uv sync` (o uv instala o Python 3.12 se faltar); no modo completo, com o extra `ml` | só confere (menos de 1 s) |
 | `.env` | cria a partir do `.env.example` | mantém como está |
-| Servidor de LLM e e-mail (opcional) | pergunta a URL e a chave do servidor de LLM (a chave não aparece na tela) e **confere os dois** com `GET /v1/models`, sem gerar texto ([seção 8](#8-ligando-o-llm)); oferece configurar o e-mail: a sua conta, a senha e quem recebe, e só grava depois de entrar na conta e mandar um e-mail de teste ([seção 9](#9-recebendo-por-e-mail)) | não pergunta de novo; confere o servidor de LLM e entra na conta de e-mail (sem enviar nada) |
+| Servidor de LLM e e-mail (opcional) | pergunta a URL e a chave do servidor de LLM (a chave não aparece na tela) e **confere os dois** com `GET /v1/models`, sem gerar texto ([seção 8](#8-ligando-o-llm)); pergunta o e-mail (Enter = configurar agora): a sua conta, a senha e quem recebe, e só grava depois de entrar na conta e mandar um e-mail de teste ([seção 9](#9-recebendo-por-e-mail)) | confere o servidor de LLM; pergunta se quer trocar o e-mail e entra na conta (sem enviar nada) |
 | Base bíblica | baixa as fontes, confere o SHA-256, ingere e valida (28 checagens) | só valida |
 | Índice de busca | constrói o índice do modo escolhido (lexical ou neural) | só confere |
 | Demonstração | `palavra diaria --dry-run` de hoje, com a verificação V1 a V8; nada é enviado. Com o servidor respondendo, os textos são do LLM; sem servidor, ou se a conferência falhou (chave recusada, URL errada), saem do cliente offline, com textos de exemplo | gera de novo |
@@ -111,19 +111,21 @@ Exemplo de um clone novo, sem servidor de LLM (no terminal, com cores):
    │ ✓ │ .env            │ criado          │ a partir do .env.example                                 │
    │ ! │ LLM             │ sem servidor    │ sem ele, a Palavra do Dia de verdade sai só com o        │
    │   │                 │                 │ Evangelho do dia e uma oração fixa                       │
-   │ · │ E-mail          │ não configurado │ a mensagem fica em saidas/ (guia, seção 9)               │
+   │ ! │ E-mail          │ não configurado │ a mensagem fica só em saidas/                            │
    │ ✓ │ Base bíblica    │ montada         │ 28 checagens ok                                          │
    │ ✓ │ Índice de busca │ construído      │ lexical:lsa256, 16703 perícopes                          │
    │ ✓ │ Demonstração    │ ok              │ verificação 8/8 · textos de exemplo (offline) ·          │
    │   │                 │                 │ data\cache\dry-run\2026-11-10-diaria-catolico.md         │
    ╰───┴─────────────────┴─────────────────┴──────────────────────────────────────────────────────────╯
 
- ╭─ ! Quase pronto: falta 1 item ────────────────────────────────────────────────────────────────────╮
+ ╭─ ! Quase pronto: faltam 2 itens ──────────────────────────────────────────────────────────────────╮
  │                                                                                                   │
  │  A instalação está pronta. Para a Palavra do Dia sair completa:                                   │
  │    • Servidor de LLM: rode o configurar de novo e informe a URL e a chave quando ele perguntar    │
  │      (ou preencha FIATLUX_LLM_URL e FIATLUX_LLM_CHAVE no .env). Sem ele, a Palavra do Dia de      │
  │      verdade sai só com o Evangelho do dia e uma oração fixa.                                     │
+ │    • E-mail: é por ele que a Palavra do Dia chega. Rode uv run fiatlux configurar --email (no     │
+ │      Gmail, com uma senha de app; guia, seção 9).                                                 │
  │                                                                                                   │
  │  Próximos passos (na pasta do projeto)                                                            │
  │  uv run fiatlux palavra diaria --dry-run   gera de novo, sem enviar nada                          │
@@ -148,6 +150,7 @@ na `.venv` ou baixados em `.cache/huggingface`, e o **leve** nos outros casos. P
 | `-SemDemonstracao` | `--sem-demonstracao` | não gera a Palavra do Dia de teste |
 | `-SemPerguntas` | `--sem-perguntas` | não pergunta o servidor de LLM nem o e-mail (sem terminal interativo, já não pergunta) |
 | `-ReconstruirIndice` | `--reconstruir-indice` | refaz o índice mesmo que o atual sirva |
+| `-Email` | `--email` | só configura (ou troca) o e-mail e manda um e-mail de teste, sem as outras etapas; Enter mantém o valor atual |
 
 Tempos medidos em 09 e 10/11/2026 (Windows 11, CPU): clone novo no modo leve, **3 min**; máquina
 já configurada no modo completo, **2 a 3 min** (só confere e gera a demonstração, com rerank
@@ -545,11 +548,23 @@ destinatário recebe o seu e-mail (ninguém vê o endereço dos outros), em HTML
 junto para os programas que não mostram HTML. A Palavra da Semana leva o gráfico do medidor em
 anexo.
 
-O jeito mais fácil: rode `uv run fiatlux configurar` e responda `s` em *Configurar o e-mail
-agora?*. Ele pergunta o seu e-mail, a senha e quem recebe (Enter = você mesmo), entra na conta,
-manda um e-mail de teste e só então grava no `.env`. Se a conta recusar a senha, nada é gravado.
-Nas execuções seguintes do `configurar`, ele entra na conta de novo, sem enviar nada, para
-conferir que a senha ainda vale.
+O jeito mais fácil, na pasta do projeto, num terminal (PowerShell no Windows):
+
+```powershell
+.\configurar.ps1 -Email                # ou: uv run fiatlux configurar --email
+```
+
+```bash
+bash configurar.sh --email             # Linux/macOS
+```
+
+Ele pergunta o seu e-mail, a senha e quem recebe (Enter = você mesmo), entra na conta, manda um
+e-mail de teste e só então grava no `.env`. Se a conta recusar a senha, nada é gravado. Com o
+e-mail já configurado, o mesmo comando serve para trocar qualquer item: Enter mantém o valor
+atual (por exemplo, para trocar só a senha). O `configurar` completo também pergunta sempre: sem
+e-mail, *Configurar o e-mail agora? [S/n]* (Enter = sim); com e-mail, se você quer trocar. E,
+a cada execução, entra na conta sem enviar nada, para conferir que a senha ainda vale: sem o
+e-mail funcionando, o resumo não fecha em "Tudo pronto".
 
 **Gmail.** O Google não aceita a senha normal da conta em programas como este. Use uma **senha
 de app**:

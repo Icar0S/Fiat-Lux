@@ -187,9 +187,9 @@ cada Palavra do Dia leva cerca de **3 minutos em CPU**, por causa do rerank neur
 
 #### 7. Receber por e-mail e agendar
 
-Configure o e-mail no `configurar` (no Gmail, com uma senha de app; [guia, seção
-9](docs/guia-do-usuario.md#9-recebendo-por-e-mail)) ou preencha `SMTP_*` e `EMAIL_DESTINATARIOS` no
-`.env` e rode **sem** `--dry-run`:
+Configure o e-mail com `.\configurar.ps1 -Email` (ou `uv run fiatlux configurar --email`; no Gmail,
+com uma senha de app: [guia, seção 9](docs/guia-do-usuario.md#9-recebendo-por-e-mail)) e rode
+**sem** `--dry-run`:
 
 ```bash
 uv run fiatlux palavra diaria     # arquiva em saidas/AAAA/MM/ e envia por e-mail

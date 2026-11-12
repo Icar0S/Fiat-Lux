@@ -16,7 +16,10 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
   O `fiatlux configurar` pergunta o e-mail no lugar do token do bot: no Gmail, preenche
   `smtp.gmail.com` e explica a senha de app; nos outros, pergunta servidor e porta. Ele entra na
   conta e manda um e-mail de teste antes de gravar, e depois confere a conta a cada execução,
-  sem enviar nada. Os workflows recebem os secrets do e-mail. No banco de estado (que vai para a
+  sem enviar nada. O `configurar` pergunta o e-mail sempre (sem e-mail, Enter = configurar; com
+  e-mail, se quer trocar), e sem ele o resumo não fecha em "Tudo pronto". `configurar --email`
+  (`configurar.ps1 -Email`, `configurar.sh --email`) faz só a etapa do e-mail, com Enter
+  mantendo o valor atual. Os workflows recebem os secrets do e-mail. No banco de estado (que vai para a
   branch `estado`), o destinatário de e-mail fica só como `email:` e 12 caracteres do SHA-256 do
   endereço ([ADR-007](docs/adr/007-telegram-e-markdown.md), adendo).
 - **Redação pedida em estrutura, não em contagem de palavras:** o molde da resposta mostra a
